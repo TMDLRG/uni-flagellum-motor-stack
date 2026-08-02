@@ -1,0 +1,50 @@
+{
+  "schema": "uni.flagellum.audit-artifact/1.0.0",
+  "purpose": "Decisions taken about the audit's own evidence bytes, recorded so that any change to an evidence digest is explained rather than silent.",
+  "auditedCommit": "9c3a644e4b57e8ac27f925dcec84222463063aa1",
+  "auditPhase": "A-addendum",
+  "auditorModel": "claude-fable-5",
+  "appendOnly": true,
+  "note": "Timestamps are deliberately omitted: this package must be byte-reproducible. Ordering is established by git history.",
+
+  "trailingWhitespaceLine": {
+    "location": "docs/audit/evidence/git-state-at-audit.txt line 27",
+    "content": "the GPG-signature survey line, ending '... aa7d4db N 0bea3fa N ' with one trailing space",
+    "surveyMethod": "A precise byte-level scan of every committed file under docs/audit, audits/phase-a and tests/red found EXACTLY ONE genuine trailing-whitespace line in the whole audit tree. An earlier grep-based scan reported additional matches in several Markdown files; those were false positives and are not reproduced by the byte-level check.",
+    "wasItAccidental": true,
+    "cause": "Mechanical artifact of the command that produced the line: `git log --format='%h %G?' | tr '\\n' ' '`. The tr conversion turns the final newline into a space, leaving one trailing space at end of line.",
+    "decision": "PRESERVED. The bytes are unchanged and the file's digest is unchanged.",
+    "reasoning": "The directive permits correcting an accidental line provided any resulting hash change is documented. The audit chose preservation for three reasons. (1) The file is committed evidence of what a command actually emitted; editing evidence after the fact, even cosmetically, is the class of action the truth contract discourages. (2) The file is NOT covered by audits/phase-a/package-manifest.json, so the whitespace creates no verification failure anywhere. (3) Correction would require documenting a digest change for zero analytical benefit. Documenting the cause achieves the same clarity at no cost to evidence integrity.",
+    "reversible": "If Codex/Michael prefer correction, the change is one byte and this note records precisely what would change and why.",
+    "hashChanged": false
+  },
+
+  "unusedImportsRemoved": {
+    "change": "Two unused `import crypto from \"node:crypto\";` statements were removed.",
+    "locations": [
+      "tests/red/c1-cross-runtime-artifact-identity.test.mjs - the OUTER import. All crypto usages in that file occur inside the HARNESS template literal, which carries its own import, or use require() inside the probe template.",
+      "tests/red/c2-source-byte-gate.test.mjs - zero usages in executable code."
+    ],
+    "verification": "ESLint (the repository's own configured linter) reports exit 0 with no findings on tests/red after removal. Both red tests were re-executed after the change and fail with identical assertion messages and identical pass/fail/skip counts: C1 2 fail, C2 5 fail + 4 skip.",
+    "behaviouralChange": "None. Removing an unused binding cannot alter execution.",
+    "affectsPackageManifest": false,
+    "reasonNotInManifest": "tests/red/ is not part of audits/phase-a/ and is therefore not covered by the package manifest."
+  },
+
+  "packageManifestRegeneration": {
+    "event": "package-manifest.json was regenerated to cover the addendum artifacts added in this pass.",
+    "invariantAsserted": "The SHA-256 of every pre-existing EVIDENCE artifact is UNCHANGED. Only new entries are added. This is verified mechanically and the verification output is recorded in the commit that introduces this file.",
+    "manifestExcludesItself": "package-manifest.json cannot contain its own digest and is excluded from its own artifact list.",
+    "deliberateExceptionREADME": {
+      "file": "audits/phase-a/README.md",
+      "digestChanged": true,
+      "reason": "README.md is the package's own table of contents. Leaving it unchanged while adding five artifacts would make it inaccurate, which is a worse failure than a documented digest change. Its Contents table and the superseded-claims section were updated to list the addendum artifacts.",
+      "classification": "DOCUMENTATION, not evidence. No measurement, digest, command output or observation recorded in README.md was altered.",
+      "everyOtherManifestedFile": "unchanged, verified mechanically"
+    }
+  },
+
+  "uncertainty": "The byte-level whitespace scan covers only files tracked under docs/audit, audits/phase-a and tests/red at this commit. It does not cover the repository's pre-existing files, which are out of scope for this audit's own evidence hygiene.",
+  "alternativeExplanation": "n/a",
+  "independentlyReproduced": "The trailing-whitespace survey was performed once, by a byte-level reader independent of the grep that produced the earlier false positives."
+}

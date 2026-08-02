@@ -1,0 +1,350 @@
+{
+ "aggregation": "MOTOR_EQUAL; experimental unit is the MOTOR",
+ "anyAdversaryResolvedBelow": [],
+ "bootstrap": {
+  "intervalType": "percentile",
+  "nRep": 2000,
+  "note": "same seed and convention as the F-side scoring run",
+  "resamplingUnit": "MOTOR",
+  "seed": 20260717
+ },
+ "candidateRank": 5,
+ "channel": "DURATION_ONLY - nextStateN/direction/jump never requested (D5)",
+ "claimBoundary": "POST_HOC_EXPLORATORY. Establishes no mechanism, no biological parity, and no active-inference claim. Duration-only, one cohort, 19 holdout motors, motor-equal NLPD. A point-estimate ranking is never a verdict. An interval containing 0 is NOT_ESTABLISHED - not equivalence, not 'no difference'. These contrasts were NOT pre-registered and do not carry the standing of the six that were. No P-level moves on this artifact.",
+ "closesGap": "reports/F-SIDE-MOTOR-STACK-SCORING-REPORT.md section 8: M4 and M6 out-score the candidate on point estimate and were never contrasted.",
+ "cohort": "derived_eligible_1_to_8",
+ "combinedLeaderboardMotorEqual": [
+  {
+   "model": "M2_LOGNORMAL",
+   "motorEqual": 3.4093141582527933
+  },
+  {
+   "model": "M8_EMPIRICAL_KDE",
+   "motorEqual": 3.4225236184063643
+  },
+  {
+   "model": "M4_MIXTURE_K3",
+   "motorEqual": 3.4241154309421407
+  },
+  {
+   "model": "M6_SEMI_MARKOV_STATE_DEPENDENT",
+   "motorEqual": 3.429888970968321
+  },
+  {
+   "model": "F_MOTOR_STACK",
+   "motorEqual": 3.4326923382675303
+  },
+  {
+   "model": "M7_HIERARCHICAL_MOTOR",
+   "motorEqual": 3.4326925889658892
+  },
+  {
+   "model": "M1_WEIBULL",
+   "motorEqual": 3.433306848365214
+  },
+  {
+   "model": "M3_TWO_TIMESCALE",
+   "motorEqual": 3.434333333075359
+  },
+  {
+   "model": "M5_GAMMA",
+   "motorEqual": 3.463728649672752
+  },
+  {
+   "model": "M0_EXPONENTIAL",
+   "motorEqual": 3.54798328106296
+  }
+ ],
+ "consumesB3ResultSha256": "5d7a0589e94de6b10f425f2d483e1e2a8f899d336aa59c335990209795e6b2bd",
+ "consumesFSideResultSha256": "b3b12720f32c0aee3bfa456f52ae0901976e59e3b43c0f2690fa7a17386ab297",
+ "contrasts": {
+  "M4_MIXTURE_K3": {
+   "bonferroniCompanion": {
+    "familySize": 9,
+    "interval": [
+     -0.09945425063911636,
+     0.0800758786666829
+    ],
+    "level": 0.9944444444444445,
+    "note": "SENSITIVITY ONLY. The frozen convention decides on the nominal 95% interval. This companion exists because the comparison family grew post-hoc from 6 to 9.",
+    "verdict": "NOT_ESTABLISHED"
+   },
+   "challenger": "F_MOTOR_STACK",
+   "contrastDefinition": "S(M4_MIXTURE_K3) - S(F_MOTOR_STACK), SECONDS scale",
+   "halfWidth": 0.06327572613382954,
+   "halfWidthBelongsTo": "the PERCENTILE interval in `interval` (D7: the frozen B3 `width` field was the percentile companion while verdicts used BCa)",
+   "interval": [
+    -0.07114908864712916,
+    0.05540236362052991
+   ],
+   "intervalType": "percentile",
+   "nRep": 2000,
+   "note": "Width reported here is the PERCENTILE width and is labelled as such - see D7, where the frozen artifact's `width` field silently reported the companion interval while verdicts used BCa.",
+   "pointEstimate": -0.008576907325389767,
+   "reference": "M4_MIXTURE_K3",
+   "reportableAsAWin": false,
+   "resamplingUnit": "MOTOR",
+   "role": "ADVERSARY_POST_HOC",
+   "scientificReading": {
+    "classification": "SUB_FLOOR_EFFECT",
+    "effectNats": 0.008576907325389767,
+    "floorToEffectRatio": 4.896869979656842,
+    "frozenVerdictUnaltered": "NOT_ESTABLISHED",
+    "resolutionFloorNats": 0.042,
+    "why": "the point estimate -8.577e-03 nats is below the 0.042-nat resolution floor; any CI-bound resolution here rests on CONSISTENCY of sign across motors, not on effect magnitude"
+   },
+   "seed": 20260717,
+   "survivesBonferroni": false,
+   "verdict": "NOT_ESTABLISHED",
+   "width": 0.12655145226765907
+  },
+  "M6_SEMI_MARKOV_STATE_DEPENDENT": {
+   "bonferroniCompanion": {
+    "familySize": 9,
+    "interval": [
+     -0.024712873074494063,
+     0.02331913811261
+    ],
+    "level": 0.9944444444444445,
+    "note": "SENSITIVITY ONLY. The frozen convention decides on the nominal 95% interval. This companion exists because the comparison family grew post-hoc from 6 to 9.",
+    "verdict": "NOT_ESTABLISHED"
+   },
+   "challenger": "F_MOTOR_STACK",
+   "contrastDefinition": "S(M6_SEMI_MARKOV_STATE_DEPENDENT) - S(F_MOTOR_STACK), SECONDS scale",
+   "halfWidth": 0.016451886755366935,
+   "halfWidthBelongsTo": "the PERCENTILE interval in `interval` (D7: the frozen B3 `width` field was the percentile companion while verdicts used BCa)",
+   "interval": [
+    -0.018990342801875563,
+    0.013913430708858303
+   ],
+   "intervalType": "percentile",
+   "nRep": 2000,
+   "note": "Width reported here is the PERCENTILE width and is labelled as such - see D7, where the frozen artifact's `width` field silently reported the companion interval while verdicts used BCa.",
+   "pointEstimate": -0.002803367299209661,
+   "reference": "M6_SEMI_MARKOV_STATE_DEPENDENT",
+   "reportableAsAWin": false,
+   "resamplingUnit": "MOTOR",
+   "role": "ADVERSARY_POST_HOC",
+   "scientificReading": {
+    "classification": "SCIENTIFICALLY_NULL",
+    "effectNats": 0.002803367299209661,
+    "floorToEffectRatio": 14.981982564982065,
+    "frozenVerdictUnaltered": "NOT_ESTABLISHED",
+    "resolutionFloorNats": 0.042,
+    "why": "the ENTIRE interval lies inside +/-0.042 nats, the corrected motor-equal resolution floor, so no scientifically material difference exists in either direction"
+   },
+   "seed": 20260717,
+   "survivesBonferroni": false,
+   "verdict": "NOT_ESTABLISHED",
+   "width": 0.03290377351073387
+  },
+  "M7_HIERARCHICAL_MOTOR": {
+   "WARNING": "STATISTICALLY RESOLVED BUT SCIENTIFICALLY NULL. The frozen CI rule excluded 0, but the effect is 2.507e-07 nats against a 0.042-nat floor. This MUST NOT be reported as one model beating another. See D10.",
+   "bonferroniCompanion": {
+    "familySize": 9,
+    "interval": [
+     1.1873903576230534e-07,
+     3.7713537338431065e-07
+    ],
+    "level": 0.9944444444444445,
+    "note": "SENSITIVITY ONLY. The frozen convention decides on the nominal 95% interval. This companion exists because the comparison family grew post-hoc from 6 to 9.",
+    "verdict": "RESOLVED_ABOVE"
+   },
+   "challenger": "F_MOTOR_STACK",
+   "contrastDefinition": "S(M7_HIERARCHICAL_MOTOR) - S(F_MOTOR_STACK), SECONDS scale",
+   "halfWidth": 8.851185705804313e-08,
+   "halfWidthBelongsTo": "the PERCENTILE interval in `interval` (D7: the frozen B3 `width` field was the percentile companion while verdicts used BCa)",
+   "interval": [
+    1.6044512352276248e-07,
+    3.3746883763884875e-07
+   ],
+   "intervalType": "percentile",
+   "nRep": 2000,
+   "note": "Width reported here is the PERCENTILE width and is labelled as such - see D7, where the frozen artifact's `width` field silently reported the companion interval while verdicts used BCa.",
+   "pointEstimate": 2.5069835851709854e-07,
+   "reference": "M7_HIERARCHICAL_MOTOR",
+   "reportableAsAWin": false,
+   "resamplingUnit": "MOTOR",
+   "role": "ADVERSARY_POST_HOC",
+   "scientificReading": {
+    "classification": "SCIENTIFICALLY_NULL",
+    "effectNats": 2.5069835851709854e-07,
+    "floorToEffectRatio": 167532.01037467283,
+    "frozenVerdictUnaltered": "RESOLVED_ABOVE",
+    "resolutionFloorNats": 0.042,
+    "why": "the ENTIRE interval lies inside +/-0.042 nats, the corrected motor-equal resolution floor, so no scientifically material difference exists in either direction"
+   },
+   "seed": 20260717,
+   "survivesBonferroni": true,
+   "verdict": "RESOLVED_ABOVE",
+   "width": 1.7702371411608627e-07
+  }
+ },
+ "d10Note": "D10_NO_MINIMUM_EFFECT_SIZE_GUARD: the frozen CI-bound rule resolves a difference of any magnitude provided its sign is consistent across the 19 motors. M7 exposed this: the F-side candidate 'RESOLVED_ABOVE' M7 by 2.5e-07 nats, ~168000x below the 0.042-nat resolution floor, because the two are the SAME model to numerical precision. The frozen verdict is reported verbatim and unaltered; `scientificReading` carries the mandatory accompanying interpretation.",
+ "environment": {
+  "numpy": "2.3.5",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "python": "3.12.10"
+ },
+ "familySize": 9,
+ "floorPolicy": "NO_FLOOR - a non-finite log density HALTS (frozen B3 policy)",
+ "materialWins": [],
+ "motorEqualNLPD": {
+  "F_MOTOR_STACK": 3.4326923382675303,
+  "M4_MIXTURE_K3": 3.4241154309421407,
+  "M6_SEMI_MARKOV_STATE_DEPENDENT": 3.429888970968321,
+  "M7_HIERARCHICAL_MOTOR": 3.4326925889658892
+ },
+ "motorOrder": [
+  "18-02-06-1505",
+  "18-02-07-1612",
+  "18-02-16-1628",
+  "18-02-16-1755",
+  "18-06-01-1649",
+  "18-06-01-1729",
+  "18-06-07-1516",
+  "18-06-20-1737",
+  "18-06-24-1557",
+  "18-06-24-1750",
+  "18-11-06-1712",
+  "19-01-10-1410",
+  "19-01-14-1756",
+  "19-01-31-1329",
+  "19-01-31-1416",
+  "19-02-01-1517",
+  "19-02-07-1454",
+  "19-02-07-1507",
+  "19-02-07-1857"
+ ],
+ "nHoldoutMotors": 19,
+ "nModelsRanked": 10,
+ "oracleGate": {
+  "checks": [
+   {
+    "absResidual": 0.0,
+    "model": "M4_MIXTURE_K3",
+    "pass": true,
+    "publishedEventPooled": 3.036916292433578,
+    "publishedMotorEqual": 3.4241154309421407,
+    "recomputedEventPooled": 3.036916292433578,
+    "recomputedMotorEqual": 3.4241154309421407,
+    "residual": 0.0
+   },
+   {
+    "absResidual": 0.0,
+    "model": "M6_SEMI_MARKOV_STATE_DEPENDENT",
+    "pass": true,
+    "publishedEventPooled": 3.0930915905248315,
+    "publishedMotorEqual": 3.429888970968321,
+    "recomputedEventPooled": 3.0930915905248315,
+    "recomputedMotorEqual": 3.429888970968321,
+    "residual": 0.0
+   },
+   {
+    "absResidual": 0.0,
+    "model": "M7_HIERARCHICAL_MOTOR",
+    "pass": true,
+    "publishedEventPooled": 3.10316347298831,
+    "publishedMotorEqual": 3.4326925889658892,
+    "recomputedEventPooled": 3.10316347298831,
+    "recomputedMotorEqual": 3.4326925889658892,
+    "residual": 0.0
+   }
+  ],
+  "status": "PASS",
+  "tolerance": 1e-12
+ },
+ "perMotorNLPD": {
+  "F_MOTOR_STACK": [
+   2.8994263482354223,
+   2.8341841328982404,
+   5.080307324299746,
+   2.5603369756146104,
+   2.9673235478489977,
+   2.4200745667979477,
+   4.758629476188171,
+   3.1536119085445935,
+   2.7671988505568517,
+   4.83450549862918,
+   3.020065097852599,
+   3.6438102749412877,
+   4.939224915437434,
+   2.6809181311272634,
+   3.3352317439783,
+   4.540517173450103,
+   3.176888857562319,
+   2.340369002737545,
+   3.2685306003824706
+  ],
+  "M4_MIXTURE_K3": [
+   2.7314308188047027,
+   2.8628447959710908,
+   5.32623326374369,
+   2.686826980813006,
+   2.7916354472703824,
+   2.340185267730508,
+   4.770156994506247,
+   2.858145643557449,
+   2.6426823259702465,
+   4.965902555443919,
+   3.091072532195733,
+   3.7073784943470955,
+   5.180197857411251,
+   2.520828605241499,
+   3.3367998514855146,
+   4.640247900577506,
+   3.2319120865727435,
+   2.12493054826894,
+   3.2487812179891504
+  ],
+  "M6_SEMI_MARKOV_STATE_DEPENDENT": [
+   2.891367300556078,
+   2.8190068134584436,
+   5.153486639510556,
+   2.5150494584333325,
+   2.927744611138181,
+   2.400223684003822,
+   4.824811256862879,
+   3.1053747017893008,
+   2.7724213995722833,
+   4.820983804288156,
+   3.0747818667415103,
+   3.5729669280685386,
+   4.990620553613658,
+   2.678557098666541,
+   3.296621005915287,
+   4.536551913242935,
+   3.1717451891673667,
+   2.3225219688969525,
+   3.2930542544722767
+  ],
+  "M7_HIERARCHICAL_MOTOR": [
+   2.89942658451446,
+   2.834184503735912,
+   5.080307900206043,
+   2.5603374628502573,
+   2.9673234823617167,
+   2.420074816085278,
+   4.758629491778124,
+   3.1536117802023074,
+   2.767198788713314,
+   4.834505678601022,
+   3.020065509447328,
+   3.6438105475089673,
+   4.939225461176671,
+   2.6809182563438516,
+   3.335231934344494,
+   4.540517547344534,
+   3.1768891750173482,
+   2.3403692805737997,
+   3.268530989546465
+  ]
+ },
+ "postHocDeclaration": "M4, M6 and M7 were NOT in the pre-registered F-side competitor set (protocols/F-SIDE-MOTOR-STACK-SCORING-PREDICTION.md section 4). The decision to add them was taken AFTER seeing the candidate rank 3rd of 7 there. The numbers carry no researcher degree of freedom - models, fits, split, rule, seed and interval type are all frozen - but the SELECTION of comparisons is post-hoc and the family grew from 6 to 9 contrasts. Verdicts here are POST_HOC_EXPLORATORY and do not carry pre-registered standing.",
+ "scale": "SECONDS (normalised-y NLPD + log scale_N[state]), matching frozen B3",
+ "schema": "M4-M6-M7-PER-MOTOR-CONTRASTS/1",
+ "statisticallyResolvedButNull": [
+  "M7_HIERARCHICAL_MOTOR"
+ ],
+ "status": "POST_HOC_COVERAGE_EXTENSION"
+}

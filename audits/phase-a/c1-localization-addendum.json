@@ -1,0 +1,69 @@
+{
+  "schema": "uni.flagellum.audit-artifact/1.0.0",
+  "purpose": "C1 addendum: localization of the cross-runtime artifact-identity divergence to a specific operation, and retraction of an earlier conclusion of this audit.",
+  "auditedCommit": "9c3a644e4b57e8ac27f925dcec84222463063aa1",
+  "auditPhase": "A-addendum",
+  "auditorModel": "claude-fable-5",
+  "operatingSystem": "Microsoft Windows 11 Pro 10.0.26200 build 26200 (x64)",
+  "appendOnly": true,
+  "supersedes": "Nothing. This ADDS to node-runtime-divergence.json, whose openQuestion field stated the divergence was not localized. That field is now answered here; the original artifact is unmodified.",
+  "note": "Timestamps are deliberately omitted: this package must be byte-reproducible. Ordering is established by git history.",
+
+  "runtimes": {
+    "a": { "node": "v22.13.1", "v8": "12.4.254.21-node.22" },
+    "b": { "node": "v25.0.0", "v8": "14.1.146.11-node.10" }
+  },
+
+  "fieldLevelLocalization": {
+    "method": "The full report was flattened to path -> value with every number rendered via Number.prototype.toExponential(20), under each runtime, and the two flattenings diffed in traversal order.",
+    "totalFields": 644,
+    "divergentFields": 7,
+    "divergentFieldPaths": [
+      "runId",
+      "heldoutResults.pairedMixtureAdvantageNatsPerEvent.mixtureVsWeibull",
+      "heldoutResults.pairedMixtureAdvantageInterval95.mixtureVsWeibull.lower",
+      "heldoutResults.pairedMixtureAdvantageInterval95.mixtureVsWeibull.upper",
+      "curves.survival[28].weibull",
+      "curves.survival[36].weibull",
+      "curves.survival[58].weibull"
+    ],
+    "observation": "runId is a SHA-256 over the report payload and is therefore a consequence, not a cause. Every remaining divergent field is a Weibull evaluation.",
+    "fittedParametersIdentical": true,
+    "fittedParameterCount": 33,
+    "inference": "Because all 33 fitted parameters are bit-identical, the divergence enters AFTER the fit. It is not an optimizer-convergence difference."
+  },
+
+  "operationLevelLocalization": {
+    "suspectOperation": "lib/observed-experiment.js:178 - survival('weibull', y, models) evaluates Math.exp(-((y / models.weibull.scale) ** models.weibull.shape))",
+    "fittedWeibull": { "shape": 0.625088844276203, "scale": 0.6996038164387606 },
+    "probe": "For i in 1..4000, y = i * 0.001, evaluate (y / scale) ** shape and Math.pow(y / scale, shape), rendered via toExponential(20), under both runtimes.",
+    "results": {
+      "operatorVersusMathPowWithinEachRuntime": { "divergentPoints": 0, "totalPoints": 4000, "conclusion": "The ** operator and Math.pow agree exactly within a runtime. The operator choice is irrelevant to this defect." },
+      "acrossRuntimes": { "divergentPoints": 418, "totalPoints": 4000, "fraction": 0.1045, "magnitude": "1 ULP", "conclusion": "V8's Math.pow is not bit-reproducible across V8 12.4 and V8 14.1." },
+      "exampleAtIndex4": { "v8_12_4": "3.96328797063106447185e-2", "v8_14_1": "3.96328797063106516574e-2" }
+    },
+    "propagationChain": "Math.pow (V8-dependent) -> Weibull survival and Weibull log-density -> per-event log-scores -> paired mixture-vs-Weibull advantage mean -> motor-cluster bootstrap interval -> report payload -> report SHA-256 -> runId.",
+    "whyOnlyThreeSurvivalPoints": "Math.exp() absorbs a 1-ULP change in its argument at many grid points, so only a subset of survival evaluations retain a visible difference. This is consistent with 418/4000 divergence upstream and 3 visible survival divergences downstream."
+  },
+
+  "retraction": {
+    "earlierClaim": "node-runtime-divergence.json records: 'REFUTED. A direct probe across V8 12.4 and 14.1 produced BIT-IDENTICAL results for Math.exp, Math.log, Math.pow, Math.sin and the full Lanczos logGamma across eight shape values.'",
+    "status": "PARTIALLY WRONG. RETRACTED with respect to Math.pow.",
+    "cause": "A SAMPLE-SIZE FAILURE IN THE AUDIT'S OWN PROBE. The earlier probe evaluated Math.pow at a single argument pair, Math.pow(1.4523, 2.7182), which happens to agree across both engines. Extending the probe to 4000 argument pairs at the actually-used parameters reveals 418 disagreements.",
+    "whatStands": "The earlier finding remains correct for Math.exp, Math.log, Math.sin and the Lanczos logGamma composite AT THE EIGHT SHAPE VALUES TESTED. Those were not re-probed at scale and their cross-runtime equality is therefore ASSERTED ONLY OVER THAT SMALL SAMPLE, not established in general.",
+    "lesson": "A negative result from a small probe is weak evidence. This retraction is recorded rather than silently corrected, and the original artifact is left unmodified."
+  },
+
+  "remediationBearing": {
+    "modelA": "Artifact identity includes Node, V8, architecture and numerical-runtime identity; exact replay is promised only inside a declared runtime.",
+    "modelB": "Numerical output is canonicalized to a scientifically justified precision before hashing, with unrounded internal values retained for audit.",
+    "assessment": "ECMA-262 permits Math.pow to be implementation-approximated; bit-identical cross-engine results are NOT guaranteed by the language. Raising the engines floor would therefore hold only by accident until the next V8 change and cannot make the audit-manifest determinism claim true. Model A is the scientifically correct contract on this evidence.",
+    "modelBPrerequisiteNotMet": "Model B remains viable but requires first proving that the chosen precision cannot move any gate, ranking, interval crossing or conclusion. That proof has NOT been performed. The mixtureVsWeibull interval currently straddles zero, so any rounding argument must demonstrate it cannot flip that crossing.",
+    "doNotSimplyRaiseTheFloor": "Explicitly not recommended, per the reasoning above."
+  },
+
+  "scientificImpact": "NONE observed. The divergence is 1-2 ULP. The lognormal baseline still out-scores the two-timescale mixture and the mixtureVsWeibull interval still straddles zero under both runtimes. This is a reproducibility and evidence-chain-identity defect, not a scientific-invalidity finding.",
+  "uncertainty": "Only two V8 majors were sampled. The boundary version at which behaviour changes is UNKNOWN and lies in 22.13.1 < v <= 25.0.0. Whether other Math.* functions diverge at scale was NOT tested.",
+  "alternativeExplanation": "JIT tier-up, inlining differences and accumulation-order effects were candidate mechanisms. They are not excluded in general, but they are not required to explain this defect: a direct probe of the operation itself reproduces the divergence outside any hot loop.",
+  "independentlyReproduced": "The 418/4000 result was reproduced by the standalone red test C1a, which recomputes the digest of 4000 evaluations under each runtime and compares. The oracle for this measurement is the JavaScript engine itself and does not import repository model code."
+}

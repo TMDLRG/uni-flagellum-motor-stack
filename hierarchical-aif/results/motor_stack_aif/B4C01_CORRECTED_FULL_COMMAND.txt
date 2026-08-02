@@ -1,0 +1,1 @@
+python /c/Users/mpolz/Documents/UNI-Flagellum/UNI-FLAGELLUM/hierarchical-aif/scripts/run_c01_corrected_full.py 200 /c/Users/mpolz/Documents/UNI-Flagellum/UNI-FLAGELLUM/hierarchical-aif/results/motor_stack_aif/B4C01_CORRECTED_FULL_RESULT.json

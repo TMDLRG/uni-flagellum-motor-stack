@@ -1,0 +1,136 @@
+{
+  "schema": "uni.flagellum.audit-artifact/1.0.0",
+  "purpose": "Append-only correction to the C3 fix record and both B1 ledgers. Six corrections, all raised by Codex, all verified mechanically before acceptance. One of them is this audit committing the exact defect it found in the repository.",
+  "auditedCommit": "9c3a644e4b57e8ac27f925dcec84222463063aa1",
+  "executedAgainst": "b675978 fix/c3-crlf-canonical-write",
+  "auditPhase": "B",
+  "auditorModel": "claude-opus-4-8",
+  "appendOnly": true,
+  "correctsButDoesNotReplace": "audits/phase-b/b1-mutation-ledger.json, b1-mutation-ledger-rerun.json, c3-fix-prediction-committed-before-change.txt and b1-rerun-prediction-committed-before-execution.txt, all PRESERVED unmodified.",
+  "note": "Timestamps are deliberately omitted: this package must be byte-reproducible. Ordering is established by git history.",
+
+  "corrections": [
+    {
+      "id": "C5-1",
+      "severity": "P1",
+      "title": "THIS AUDIT COMMITTED THE DEFECT IT FOUND. Predictions were not committed prospectively.",
+      "reportedBy": "Codex",
+      "verifiedMechanically": {
+        "method": "git log --diff-filter=A for each prediction file, compared against the commit introducing its result",
+        "c3Prediction": { "predictionAddedIn": "1630a68", "resultLandedIn": "1630a68", "sameCommit": true, "verdict": "VIOLATION" },
+        "b1RerunPrediction": { "predictionAddedIn": "b675978", "resultLandedIn": "b675978", "sameCommit": true, "verdict": "VIOLATION" },
+        "b1OriginalPatchSet": { "predictionAddedIn": "4aef241", "resultLandedIn": "1fc6758", "sameCommit": false, "verdict": "GENUINELY PROSPECTIVE" }
+      },
+      "whyThisIsSerious": "Mutation M11 falsified the protocol freeze date so the preregistration claimed to postdate the results it governs, and the audit reported that NOTHING detected the ordering violation. The audit then committed the same class of violation twice. Git cannot corroborate prediction-before-change for the C3 fix, nor prediction-before-execution for the B1 re-run. The predictions were genuinely written first, to scratchpad, but that is precisely the unverifiable claim the audit refused to accept from the repository.",
+      "aggravatingDetail": "The filenames themselves assert the property git refutes: c3-fix-prediction-committed-before-change.txt and b1-rerun-prediction-committed-before-execution.txt. A filename is not evidence. Both files are PRESERVED with their misleading names rather than renamed, because renaming would erase the record of the error.",
+      "reclassification": {
+        "c3Predictions_P-C3-1_through_P-C3-6": "TIMING_UNVERIFIED. Retrospective corroboration, not prospective test.",
+        "b1RerunPredictions_P-R1_through_P-R7": "TIMING_UNVERIFIED. Retrospective corroboration, not prospective test.",
+        "b1OriginalPredictions_in_4aef241": "PROSPECTIVE. Verifiably committed one commit before the ledger. This classification stands."
+      },
+      "consequenceForTheReportedResults": "The observations themselves are unaffected: the measurements were made and are reproducible. What is withdrawn is the CLAIM that they were predicted in advance in a way a third party can verify. A reader must treat P-C3 and P-R outcomes as corroboration, not as risky prediction.",
+      "structuralRemedy": "A prospectivity gate is being added in Phase C that FAILS when a prediction and its result appear in the same commit. It would have caught this. It is the correct response: make the violation mechanically impossible rather than promise to be more careful."
+    },
+    {
+      "id": "C5-2",
+      "severity": "P1",
+      "title": "P-R1 was REFUTED and was recorded as confirmed",
+      "reportedBy": "Codex",
+      "frozenPredictionText": "P-R1 The WADHWA_2022_EVENTS hash failure disappears from EVERY row. If it appears anywhere, the C3 fix is incomplete.",
+      "whatWasRecorded": "CONFIRMED with one correct exception.",
+      "whatIsCorrect": "REFUTED. The prediction named its own falsifier - 'if it appears anywhere' - and the failure appeared in M07b. A prediction that specifies a falsifier and then meets it is refuted, full stop.",
+      "adoptedWording": "P-R1 REFUTED. The prediction omitted the deliberate M07b exception, in which the mutation itself edits the source data file and the hash failure is therefore a legitimate detection rather than the CRLF confound. The explanation is sound but it is an explanation of a MISS, not a confirmation.",
+      "whyThisMatters": "Softening a refutation into a confirmation-with-caveat is exactly the manufactured harmony CLAUDE.md prohibits. The explanation was correct and the classification was not. Both facts belong in the record.",
+      "unaffected": "The substantive finding is unchanged: the CRLF confound was removed from 14 of 15 rows and M07b's remaining hash failure is semantic."
+    },
+    {
+      "id": "C5-3",
+      "severity": "P2",
+      "title": "M07b crlfConfoundPresent is mislabelled true",
+      "reportedBy": "Codex",
+      "problem": "The re-run ledger records crlfConfoundPresent: true for M07b. The flag was computed by a naive substring match on 'WADHWA_2022_EVENTS hash'. In M07b that failure is caused by the mutation DELIBERATELY editing experiments/data/wadhwa-2022-events.json, so the source digest legitimately changes. The CRLF confound is absent.",
+      "correctValue": { "M07b": { "crlfConfoundPresent": false, "reason": "the source data file was intentionally modified by the mutation; the digest failure is a semantic detection, not the CRLF defect" } },
+      "generalLesson": "A flag computed by substring match on an error message will mislabel any case where the same message has a different cause. The flag should have been derived from whether the mutation touched the data file, not from the text of the failure."
+    },
+    {
+      "id": "C5-4",
+      "severity": "P2",
+      "title": "P-C3-5 is refuted on its second clause",
+      "reportedBy": "Codex",
+      "frozenPredictionText": "P-C3-5 npm test remains exit 0, and no committed artifact changes bytes.",
+      "observed": "npm test did remain exit 0. TEN committed artifacts changed bytes, via the identity cascade.",
+      "adoptedWording": "P-C3-5 PARTIALLY REFUTED. First clause confirmed. Second clause refuted: ten artifacts changed. The changes are identity-only - 7 of 1524 fields, every one a runId or sha256 - which makes them scientifically harmless, but harmless is not the same as absent, and the prediction said absent.",
+      "relationToC5_1": "This is the second instance of the same underlying blind spot recorded in the C3 commit: the runner embeds its own hash in its output. It is now recorded three times across P-C3-1, M07a and here."
+    },
+    {
+      "id": "C5-5",
+      "severity": "P2",
+      "title": "C3 is a PARTIAL fix and must not be described as closed",
+      "reportedBy": "Codex",
+      "status": "C3_CANONICAL_WRITE_FIXED",
+      "whatIsFixed": "The generator-stability defect. scripts/run-observed-experiments.mjs now writes canonical LF, regeneration no longer corrupts the served mirror, and red test C3e genuinely passes.",
+      "whatRemainsOpen": [
+        "C3a: the source and the served mirror still carry DIFFERENT eol attributes",
+        "C3b: one logical artifact still has TWO raw on-disk identities, 32ec7ebf for the CRLF source and d119ca60 for the LF mirror",
+        "C3c: hash-pinned evidence is still subject to eol filtering rather than marked -text",
+        "the public audit still pins the CRLF source rather than the served LF mirror, so an external verifier downloading both cannot reconcile them"
+      ],
+      "whyItWasLeftOpen": "Closing it requires changing .gitattributes, which changes the on-disk bytes of experiments/data/wadhwa-2022-events.json from 508103 to 487890 and breaks the pin at experiments/results/audit-manifest.json:18, cascading further. That is a larger change than the defect being fixed and was deliberately deferred."
+    },
+    {
+      "id": "C5-6",
+      "severity": "P2",
+      "title": "6 of 15 is not a defensible mutation score and must not be quoted as one",
+      "reportedBy": "Codex",
+      "problem": "The denominator is not fifteen comparable mutations of production behaviour.",
+      "denominatorAudit": {
+        "M04": "ALGEBRAICALLY EQUIVALENT. A uniform positive scaling cancels inside normalize(). Surviving is the mathematically correct outcome, not a gap in the suite.",
+        "M03b": "NOT A MUTATION. It is an observation of an already-live condition in the unmutated tree.",
+        "M10b": "MUTATES THE TEST SUITE, not production behaviour. It measures whether a protection is defended, which is a different question from whether behaviour is detected.",
+        "M08": "NOT RUN. Regeneration was blocked by the undocumented extraction requirement.",
+        "genuineProductionBehaviourMutations": ["M01", "M02", "M03a", "M05", "M06", "M07a", "M07b", "M09", "M10a", "M11", "M12"],
+        "countOfGenuine": 11,
+        "semanticAmongGenuine": 6,
+        "hashOnlyAmongGenuine": 5
+      },
+      "adoptedPosition": "No single scalar detector rate is quoted. The defensible statements are the specific ones: FIVE named production-behaviour corruptions produce ONE byte-identical failure line, and SIX are detected by an assertion that names the property. Even 6 of 11 would imply the mutations are a representative sample, which they are not - they were chosen to probe suspected weaknesses.",
+      "whatSurvivesUnchanged": "The five hash-only findings remain valid and are the substantive result."
+    }
+  ],
+
+  "correctedPredictionLedger": {
+    "P-C3-1": { "outcome": "REFUTED", "timing": "TIMING_UNVERIFIED" },
+    "P-C3-2": { "outcome": "REFUTED then remedied", "timing": "TIMING_UNVERIFIED", "note": "the miss was caused by a defect in the audit's own red test, which pinned the audited commit and could never turn green" },
+    "P-C3-3": { "outcome": "CONFIRMED", "timing": "TIMING_UNVERIFIED" },
+    "P-C3-4": { "outcome": "CONFIRMED", "timing": "TIMING_UNVERIFIED" },
+    "P-C3-5": { "outcome": "PARTIALLY REFUTED", "timing": "TIMING_UNVERIFIED" },
+    "P-C3-6": { "outcome": "CONFIRMED", "timing": "TIMING_UNVERIFIED" },
+    "P-R1": { "outcome": "REFUTED", "timing": "TIMING_UNVERIFIED" },
+    "P-R2": { "outcome": "CONFIRMED", "timing": "TIMING_UNVERIFIED" },
+    "P-R3": { "outcome": "CONFIRMED", "timing": "TIMING_UNVERIFIED" },
+    "P-R4": { "outcome": "CONFIRMED", "timing": "TIMING_UNVERIFIED" },
+    "P-R5": { "outcome": "CONFIRMED", "timing": "TIMING_UNVERIFIED" },
+    "P-R6": { "outcome": "CONFIRMED", "timing": "TIMING_UNVERIFIED" },
+    "P-R7": { "outcome": "CONFIRMED", "timing": "TIMING_UNVERIFIED" },
+    "B1-original-predictions": { "outcome": "as recorded in b1-mutation-ledger.json", "timing": "PROSPECTIVE", "note": "added in 4aef241, ledger in 1fc6758" }
+  },
+
+  "whatSurvivesReviewUnchanged": {
+    "centralFinding": "The hash chain detects change but cannot distinguish five materially different meanings. Inverting CW/CCW semantics, inverting a paired score sign, admitting right-censored dwells to the uncensored likelihood, removing the motor-leakage guard, and falsifying the protocol freeze date all produce exactly one byte-identical failure line.",
+    "independentlyReproducedByCodex": [
+      "npm test green including the rendered-HTML test",
+      "C3 red suite 2 pass / 3 fail",
+      "B3 preflight 46/46",
+      "phase-b manifest 26/26",
+      "all three generators replay with zero tracked changes",
+      "served mirror 487890 bytes, sha256 d119ca60",
+      "the 7 of 1524 identity-cascade claim is exact, with no scientific value moved",
+      "the five hash-only mutations produce the same sole failure"
+    ],
+    "productionFixVerdict": "Codex approves the one-line production fix."
+  },
+
+  "uncertainty": "This addendum corrects the record for the errors that were FOUND. Six corrections in one review, three of which concern the audit's own honesty machinery rather than the repository, suggests the audit's self-checks are weaker than its checks on the repository. That asymmetry is itself a finding and is the reason the Phase C prospectivity gate is being built rather than promised.",
+  "alternativeExplanation": "n/a - these are record corrections, not empirical claims.",
+  "independentlyReproduced": "All six corrections were raised by Codex and each was verified mechanically here before acceptance, rather than accepted on assertion."
+}

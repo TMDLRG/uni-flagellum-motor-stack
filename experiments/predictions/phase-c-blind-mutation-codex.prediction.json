@@ -1,0 +1,13 @@
+{
+  "schema": "uni.flagellum.prediction-record/1.0.0",
+  "recordId": "PHASE-C-BLIND-MUTATION-CODEX",
+  "claim": "Under the prospectively frozen protocol, all ten independently authored fresh corruptions are predicted to propagate successfully and be classified SURVIVED by the declared Phase-C semantic command. The predicted gap is specific to the ten named biological, statistical, and scientific-boundary properties and is not a scalar estimate of general test quality.",
+  "falsifier": "The exact all-ten claim is falsified if any successfully propagated mutation receives DETECTED_SEMANTIC or DETECTED_BY_HASH_ONLY, or if any mutation is NOT_RUN or INCONCLUSIVE so that the all-ten outcome cannot be established. Per-mutation concrete falsifiers are frozen in audits/phase-c/blind-mutation-predictions.codex.v1.json.",
+  "madeAgainstCommit": "e5b4969bd1af85cedc9d8b5b9d1d728bda7e906a",
+  "predictionPath": "audits/phase-c/blind-mutation-predictions.codex.v1.json",
+  "resultPaths": [
+    "audits/phase-c/blind-mutation-result.codex.v1.json"
+  ],
+  "prospectivity": "PROSPECTIVE",
+  "note": "This record, the exact patches, commands, classifications, runner, and diagnostic patterns are committed before any mutation is executed. Execution requires a later coordinator GO message. B3 remains PENDING and is not part of this battery."
+}

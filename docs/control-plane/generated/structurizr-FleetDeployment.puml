@@ -1,0 +1,70 @@
+@startuml
+title <size:24>Deployment View: UNI Platform - Fleet</size>\n<size:24>Which body runs on which machine.</size>
+
+set separator none
+left to right direction
+
+<style>
+  root {
+    BackgroundColor: #ffffff
+    FontColor: #444444
+  }
+</style>
+
+!include <C4/C4>
+!include <C4/C4_Context>
+!include <C4/C4_Container>
+!include <C4/C4_Deployment>
+
+Deployment_Node(Fleet.node2unilab79740c, "node2 - uni-lab-79740c", $type="UNI-OS", $descr="Mesh 10.13.13.3. Fan-out only.", $tags="", $link="") {
+  Container(Fleet.node2unilab79740c.Fanoutrelay_1, "Fan-out relay", $techn="Podman / uni-bcast-relay", $descr="Tees one incoming stream to many endpoints. No encode, no colony.", $tags="", $link="")
+}
+
+Deployment_Node(Fleet.Thechipunilab, "The chip - uni-lab", $type="UNI-OS", $descr="10.190.245.122, rootless. The colony, always. Zero broadcast.", $tags="", $link="") {
+  Container(Fleet.Thechipunilab.Colonyworld_1, "Colony world", $techn="Elixir / lib/sp + paper.jar :25565", $descr="Minecraft world plus the Phoenix FEP brain and body.js bots. The subject of the science.", $tags="", $link="")
+  Container(Fleet.Thechipunilab.Overlooker_1, "Overlooker", $techn="Phoenix LiveView + world.js THREE", $descr="The colony's own omniscient per-tick god-view with a Markov-blanket monitor that re-derives per tick that the agent received only the opaque observation.", $tags="", $link="")
+  Container(Fleet.Thechipunilab.Approvalqueue_1, "Approval queue", $techn="systemd / uni-approvald", $descr="One human approve or deny per mutating call.", $tags="", $link="")
+  Container(Fleet.Thechipunilab.Flagellumproject_1, "Flagellum project", $techn="Next.js on Cloudflare Worker :8790 :8791", $descr="Bacterial flagellar-motor science. Separate repo, CPU-only build, no WebGL or network.", $tags="", $link="")
+  ContainerDb(Fleet.Thechipunilab.Gateledger_1, "Gate ledger", $techn="NDJSON / evidence/gates.ndjson", $descr="Append-only record of every registered gate and its verdict. 206 rows, 109 unique, 1 FAIL.", $tags="", $link="")
+  ContainerDb(Fleet.Thechipunilab.Receiptstore_1, "Receipt store", $techn="Filesystem + sha256", $descr="Content-addressed artifacts, commit ids and logs that reproduce each claim.", $tags="", $link="")
+}
+
+Deployment_Node(Fleet.THINKER, "THINKER", $type="Windows 11", $descr="10.190.245.196, NVIDIA T1000. Portable studio. Captures the colony; hosts none of it.", $tags="", $link="") {
+  Container(Fleet.THINKER.TheControlPlane_1, "The Control Plane", $techn="Elixir / SP.ControlPlane, root zero-dep app", $descr="Runs the science and authors every verdict, across every project. THIS IS THE LAB. Phase 2 landed Ledger, GateRow, Command and Drift; Registry, Verdict, Run, Pair, Room and Scene are not built.", $tags="", $link="")
+  Container(Fleet.THINKER.TheLabView_1, "The Lab View", $techn="Phoenix LiveView + THREE.js on T1000", $descr="The immersive rendered room the operator works inside. Proposes commands; never writes. Rooms, airlocks, world portals, Gaia overhead.", $tags="", $link="")
+  Container(Fleet.THINKER.Camerasandcompositor_1, "Cameras and compositor", $techn="Node.js + Chrome :3020 :8099", $descr="Director follow-cam, prismarine colony cam, overlay server and the single-page broadcast composite.", $tags="", $link="")
+  Container(Fleet.THINKER.Colonycontrolcenter_1, "Colony control center", $techn="Node.js / command_center.cjs :8098", $descr="Live-television vision mixer for the colony: preview, take, cut, cue, projector, overlay, fanout, golive, offair.", $tags="", $link="")
+  Container(Fleet.THINKER.Encoder_1, "Encoder", $techn="OBS + MediaMTX :1935", $descr="One render and one encode on the T1000, out as a single RTMP stream.", $tags="", $link="")
+  Container(Fleet.THINKER.TheDoor_1, "The Door", $techn="Node.js / launcher.cjs :8090", $descr="Admission, release, key custody and the journey. LAW: a polled read never spawns anything; every actuation is a deliberate click or an explicit verb.", $tags="", $link="")
+  Container(Fleet.THINKER.Gaia_1, "Gaia", $techn="Node.js / gaia_server.cjs :8096 + read-only MCP", $descr="World-visibility organ. 308 live signals, 0 provenance-incomplete, 5 drift signals. LAW: never summarizes, scores, ranks, narrates, authors a verdict, or acts outward.", $tags="", $link="")
+  Container(Fleet.THINKER.TheHUD_1, "The HUD", $techn="WPF widget + JSON service :8100", $descr="What the operator sees and carries. LAW: never fabricates a state; unknown renders SYNCING.", $tags="", $link="")
+}
+
+Rel(Fleet.THINKER.TheHUD_1, Fleet.THINKER.Gaia_1, "Reads signals", $techn="", $tags="", $link="")
+Rel(Fleet.THINKER.TheControlPlane_1, Fleet.Thechipunilab.Colonyworld_1, "Starts and stops paired runs", $techn="", $tags="", $link="")
+Rel(Fleet.THINKER.TheControlPlane_1, Fleet.Thechipunilab.Approvalqueue_1, "Requests the human co-sign", $techn="", $tags="", $link="")
+Rel(Fleet.THINKER.TheControlPlane_1, Fleet.Thechipunilab.Flagellumproject_1, "Runs gates and guards", $techn="", $tags="", $link="")
+Rel(Fleet.THINKER.TheControlPlane_1, Fleet.Thechipunilab.Gateledger_1, "Appends a gate row. Never edits.", $techn="", $tags="", $link="")
+Rel(Fleet.THINKER.TheControlPlane_1, Fleet.Thechipunilab.Receiptstore_1, "Writes a receipt per decision", $techn="", $tags="", $link="")
+Rel(Fleet.THINKER.TheDoor_1, Fleet.THINKER.TheControlPlane_1, "Admits and releases", $techn="", $tags="", $link="")
+Rel(Fleet.THINKER.Gaia_1, Fleet.THINKER.TheControlPlane_1, "Projects the Control Plane ledger VERBATIM (seat control-plane)", $techn="", $tags="", $link="")
+Rel(Fleet.THINKER.Gaia_1, Fleet.THINKER.TheControlPlane_1, "Projects the ledger. Read-only.", $techn="", $tags="", $link="")
+Rel(Fleet.THINKER.TheHUD_1, Fleet.THINKER.TheControlPlane_1, "Reads run state", $techn="", $tags="", $link="")
+Rel(Fleet.THINKER.TheLabView_1, Fleet.Thechipunilab.Overlooker_1, "Looks through the colony portal. Never reimplements it.", $techn="", $tags="", $link="")
+Rel(Fleet.THINKER.TheLabView_1, Fleet.THINKER.Gaia_1, "Renders signals overhead. Cannot act on them.", $techn="", $tags="", $link="")
+Rel(Fleet.THINKER.TheLabView_1, Fleet.THINKER.TheControlPlane_1, "Explicit verbs only. No hover or poll actuates.", $techn="", $tags="", $link="")
+Rel(Fleet.THINKER.TheControlPlane_1, Fleet.THINKER.TheLabView_1, "Pushes a compact scene per tick", $techn="", $tags="", $link="")
+Rel(Fleet.Thechipunilab.Colonyworld_1, Fleet.THINKER.Camerasandcompositor_1, "Is captured over the LAN", $techn="", $tags="", $link="")
+Rel(Fleet.THINKER.Camerasandcompositor_1, Fleet.THINKER.Encoder_1, "Feeds one composite", $techn="", $tags="", $link="")
+Rel(Fleet.THINKER.Colonycontrolcenter_1, Fleet.THINKER.Encoder_1, "Switches scenes, cuts, takes", $techn="", $tags="", $link="")
+Rel(Fleet.THINKER.Encoder_1, Fleet.node2unilab79740c.Fanoutrelay_1, "One RTMP stream", $techn="", $tags="", $link="")
+Rel(Fleet.Thechipunilab.Colonyworld_1, Fleet.Thechipunilab.Overlooker_1, "Emits an observer frame each tick", $techn="", $tags="", $link="")
+Rel(Fleet.THINKER.Gaia_1, Fleet.Thechipunilab.Colonyworld_1, "Probes and projects. Never actuates.", $techn="", $tags="", $link="")
+Rel(Fleet.THINKER.Gaia_1, Fleet.Thechipunilab.Gateledger_1, "Projects rows verbatim", $techn="", $tags="", $link="")
+Rel(Fleet.THINKER.Gaia_1, Fleet.Thechipunilab.Receiptstore_1, "Projects artifacts with sha256", $techn="", $tags="", $link="")
+Rel(Fleet.THINKER.Gaia_1, Fleet.THINKER.TheDoor_1, "Projects register and journey", $techn="", $tags="", $link="")
+Rel(Fleet.THINKER.TheHUD_1, Fleet.THINKER.TheDoor_1, "Reads state", $techn="", $tags="", $link="")
+
+SHOW_LEGEND(true)
+hide stereotypes
+@enduml

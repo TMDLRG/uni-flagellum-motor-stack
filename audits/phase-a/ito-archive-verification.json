@@ -1,0 +1,52 @@
+{
+  "schema": "uni.flagellum.audit-artifact/1.0.0",
+  "purpose": "Verification of the 4.09 GB Ito 2021 raw archive and of the committed verification ledger that described it.",
+  "auditedCommit": "9c3a644e4b57e8ac27f925dcec84222463063aa1",
+  "auditPhase": "A",
+  "auditorModel": "claude-opus-4-8 (Phase A execution), claude-fable-5 (packaging)",
+  "operatingSystem": "Microsoft Windows 11 Pro 10.0.26200 build 26200 (x64)",
+  "cpu": "Intel Core i7-10700T @ 2.00GHz, 8 cores / 16 threads",
+  "ramGB": 63.71,
+  "appendOnly": true,
+  "note": "Timestamps are deliberately omitted: this package must be byte-reproducible. Ordering is established by git history.",
+  "finding": "POSITIVE",
+  "artifact": {
+    "doi": "10.6084/m9.figshare.14371232.v2",
+    "downloadUrl": "https://ndownloader.figshare.com/files/27453833",
+    "declaredBytes": 4085227742,
+    "observedBytes": 4085227742,
+    "bytesMatch": true,
+    "declaredMd5": "d42879e66142ff7190f256f4276db111",
+    "observedMd5": "d42879e66142ff7190f256f4276db111",
+    "md5Match": true
+  },
+  "structuralVerification": {
+    "zipEntryCount": 505,
+    "zipCompressedMemberBytes": 4085099290,
+    "zipUncompressedMemberBytes": 10160270466,
+    "zipCrcFailure": null,
+    "everyMemberCrcVerified": true,
+    "durationSeconds": 64
+  },
+  "ledgerReproduction": {
+    "command": "python scripts/verify-ito-raw-archive.py",
+    "exitStatus": 0,
+    "committedLedgerRawBlob": "bd9c386f09fc92af1cff5a59c1300dace28bbc34",
+    "regeneratedLedgerRawBlob": "bd9c386f09fc92af1cff5a59c1300dace28bbc34",
+    "byteIdentical": true,
+    "conclusion": "The committed PASS was a TRUTHFUL record of an archive the repository could not prove it possessed. Gate status moves from BLOCKED / NOT RUN to genuinely earned PASS."
+  },
+  "limitationRetained": {
+    "algorithm": "MD5 only",
+    "issue": "No SHA-256 for this tier exists anywhere in the repository. MD5 establishes accidental-corruption integrity, NOT adversarial provenance.",
+    "contributedByThisAudit": {
+      "sha256": "4b266cdedc0242ad3cb6bd2022fde761b06ec275a46ccf8bead56b60f5b5efac",
+      "note": "Computed by an oracle independent of the repository's scripts so a stronger pin is available. NOT yet adopted by any gate."
+    }
+  },
+  "honestContrast": "scripts/verify-ito-raw-archive.py:33-34 hard-exits on a missing cache and never fabricates a pass. This script is honest; the X01 report gate is not.",
+  "writeBeforeFailHazard": "Lines 77-78 write both tracked ledger copies BEFORE the raise SystemExit(1) at line 81. A failing archive would therefore overwrite a committed PASS ledger with a FAIL. Not triggered here because the archive passed, but the hazard is real and unfixed.",
+  "uncertainty": "Downloaded once from one mirror. Not independently re-downloaded to exclude a stable upstream substitution.",
+  "alternativeExplanation": "An adversarially substituted archive colliding on MD5 while preserving byte count and 505 member CRCs is not excluded by MD5 alone; the SHA-256 above closes this going forward.",
+  "independentlyReproduced": "Hashing was performed both by PowerShell Get-FileHash and by the repository's own streaming implementation, in agreement."
+}

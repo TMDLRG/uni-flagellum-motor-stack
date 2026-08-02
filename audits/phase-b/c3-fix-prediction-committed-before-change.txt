@@ -1,0 +1,54 @@
+C3 FIX — PREDICTIONS COMMITTED BEFORE THE CHANGE
+=================================================
+Base: 1fc6758 (audit/phase-a-findings tip), audited commit 9c3a644e
+
+CLAIM
+scripts/run-observed-experiments.mjs:35 performs fs.copyFileSync(datasetPath,
+publicEventsPath), copying eol=crlf source bytes over an eol=lf mirror. This
+corrupts a hash-pinned evidence artifact on every regeneration.
+
+ACCEPTANCE CRITERION
+Running the generators changes ZERO tracked files. Currently it changes exactly
+one: public/wadhwa-2022-derived-events.json, 487890 -> 508103 bytes,
+sha256 d119ca60... -> 32ec7ebf...
+
+FAILING TEST — ALREADY EXISTS, NOT WRITTEN FOR THIS FIX
+tests/walkthrough.test.mjs:58 and :63 hash the served mirror against its pins
+and fail correctly after regeneration. tests/red/c3-raw-byte-identity.test.mjs
+C3e encodes the same defect explicitly.
+
+MINIMAL CORRECTION
+Replace the raw byte copy at line 35 with a canonical-LF write, mirroring the
+pattern already used correctly in-repo at scripts/run-science-gates.py:590
+(write_text(..., newline="\n")). Line 34's protocol copy is NOT changed: both
+sides are eol=lf, 7383 bytes, zero carriage returns, so it crosses no boundary.
+
+WHY NOT THE OTHER CANDIDATE CORRECTION
+Unifying the .gitattributes eol attribute would change the on-disk bytes of
+experiments/data/wadhwa-2022-events.json from 508103 to 487890, changing its
+sha256 from 32ec7ebf to d119ca60 and breaking the pin at
+experiments/results/audit-manifest.json:18, which would cascade into runId and
+every downstream artifact. That is not the smallest correction. It is deferred.
+
+PREDICTIONS
+P-C3-1  After the fix, running all three generators changes ZERO tracked files.
+P-C3-2  tests/red C3e flips FAIL -> PASS.
+P-C3-3  tests/red C3a, C3b and C3c REMAIN FAIL. They assert the deeper eol
+        unification and the single on-disk identity, which this minimal fix
+        deliberately does not attempt. A fix that turned them green would have
+        exceeded its scope.
+P-C3-4  tests/red C3d REMAINS PASS (autocrlf invariance was never broken).
+P-C3-5  npm test remains exit 0, and no committed artifact changes bytes.
+P-C3-6  THE POINT OF DOING THIS: the B1 CRLF confound disappears. Re-running
+        mutation M07a should now produce ONLY the source-hash-chain failure,
+        with the WADHWA_2022_EVENTS hash failure gone. If P-C3-6 fails, fixing
+        C3 did not improve B1's discriminating power and the stated reason for
+        this change was wrong.
+
+FALSIFIER
+Any tracked file other than scripts/run-observed-experiments.mjs changing bytes,
+or npm test ceasing to exit 0, or C3e remaining red.
+
+ROLLBACK
+git checkout audit/phase-a-findings; git branch -D fix/c3-crlf-canonical-write
+No published artifact is modified, so rollback is branch deletion alone.

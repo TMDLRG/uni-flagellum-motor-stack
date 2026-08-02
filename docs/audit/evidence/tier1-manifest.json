@@ -1,0 +1,74 @@
+[
+  {
+    "name": "ito-2021-source-data.xlsx",
+    "bytes": 11896413,
+    "sha256": "33687c50a5636817889612d59d7e902b876391997bf7f6013574f8fa2bce944a",
+    "url": "https://static-content.springer.com/esm/art%3A10.1038%2Fs41467-021-23516-y/MediaObjects/41467_2021_23516_MOESM2_ESM.xlsx"
+  },
+  {
+    "name": "antani-2021-source-data.xlsx",
+    "bytes": 45271,
+    "sha256": "bee5497182be4e7b6c2f1a3bd75a24407ab965512e8652bfe9a6337ffb297abd",
+    "url": "https://static-content.springer.com/esm/art%3A10.1038%2Fs41467-021-25774-2/MediaObjects/41467_2021_25774_MOESM5_ESM.xlsx"
+  },
+  {
+    "name": "lisevich-2025-source-data.zip",
+    "bytes": 45274919,
+    "sha256": "7e30c791be8136cc4520e7f897d2ca10d7f88cd2558447dfbe36b393eb641afd",
+    "url": "https://static-content.springer.com/esm/art%3A10.1038%2Fs41467-025-56980-x/MediaObjects/41467_2025_56980_MOESM7_ESM.zip"
+  },
+  {
+    "name": "lisevich-2025-supp-data-1.xlsx",
+    "bytes": 13690,
+    "sha256": "87186cdc9221ed4249231b82306250f1abe7ab66c7de905d7a88682cc9a03ce8",
+    "url": "https://static-content.springer.com/esm/art%3A10.1038%2Fs41467-025-56980-x/MediaObjects/41467_2025_56980_MOESM2_ESM.xlsx"
+  },
+  {
+    "name": "lisevich-2025-supp-data-2.xlsx",
+    "bytes": 14102,
+    "sha256": "3d62f6a53876d1fc5c17dfdc05c42c263b7984d1f130cfc05df7ae819cbf1d78",
+    "url": "https://static-content.springer.com/esm/art%3A10.1038%2Fs41467-025-56980-x/MediaObjects/41467_2025_56980_MOESM3_ESM.xlsx"
+  },
+  {
+    "name": "mattingly-2026-fig2-source-data.zip",
+    "bytes": 15731056,
+    "sha256": "6c9c7145ef8aa9485365d863ecd573e0fd4a664d61a2c46929a7a772ce8522cf",
+    "url": "https://static-content.springer.com/esm/art%3A10.1038%2Fs41567-025-03105-2/MediaObjects/41567_2025_3105_MOESM7_ESM.zip"
+  },
+  {
+    "name": "mattingly-2026-supp-code-2.zip",
+    "bytes": 402957,
+    "sha256": "ccb4ce3c3052110e1ebc345dbb7e4078da04f172efd7191918053f7d1bbaa653",
+    "url": "https://static-content.springer.com/esm/art%3A10.1038%2Fs41567-025-03105-2/MediaObjects/41567_2025_3105_MOESM2_ESM.zip"
+  },
+  {
+    "name": "mattingly-2026-supp-code-3.zip",
+    "bytes": 439682,
+    "sha256": "16f9ea44aa6ac79e59ae89225b6645c1fe23117bfeb24d1ea6749bf9ba63418a",
+    "url": "https://static-content.springer.com/esm/art%3A10.1038%2Fs41567-025-03105-2/MediaObjects/41567_2025_3105_MOESM3_ESM.zip"
+  },
+  {
+    "name": "mattingly-2026-supp-code-4.zip",
+    "bytes": 372370,
+    "sha256": "a3ddbaec26b9b5767fdd438f79d7dcea81d5c2f59a83bac804446a8d1cc76dc2",
+    "url": "https://static-content.springer.com/esm/art%3A10.1038%2Fs41567-025-03105-2/MediaObjects/41567_2025_3105_MOESM4_ESM.zip"
+  },
+  {
+    "name": "mattingly-2026-supp-code-5.zip",
+    "bytes": 409379,
+    "sha256": "b01ea374aec04dd77849181cc56a2c2663fcbe100e5f0f2b16e78e4ec4c7d53a",
+    "url": "https://static-content.springer.com/esm/art%3A10.1038%2Fs41567-025-03105-2/MediaObjects/41567_2025_3105_MOESM5_ESM.zip"
+  },
+  {
+    "name": "mattingly-2026-supp-code-6.zip",
+    "bytes": 376804,
+    "sha256": "127a3e7688ae33fdf8be1b85d47dd50faf958db5b871e860eeba6913d034fd63",
+    "url": "https://static-content.springer.com/esm/art%3A10.1038%2Fs41567-025-03105-2/MediaObjects/41567_2025_3105_MOESM6_ESM.zip"
+  },
+  {
+    "name": "perez-carrasco-2022-code.zip",
+    "bytes": 25093,
+    "sha256": "23bded7d444f8c684a7aca95dae7fc9bd06bc07a9c95b42ccb58e213f0543561",
+    "url": "https://zenodo.org/records/5784548/files/2piruben/BFM_multistate-v1.0.0.zip?download=1"
+  }
+]

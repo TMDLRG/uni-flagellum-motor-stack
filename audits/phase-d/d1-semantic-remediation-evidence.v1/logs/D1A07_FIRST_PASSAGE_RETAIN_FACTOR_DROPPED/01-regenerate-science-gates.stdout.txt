@@ -1,0 +1,34 @@
+
+> uni-flagellum-laboratory@0.3.0 science:run
+> python scripts/run-science-gates.py
+
+{
+  "runId": "8fa611094ca6501248b05d2018ebd457ae9c3bf64e0a7741d037b3416f1a4e36",
+  "reportSha256": "e977eda379e5350b5551698d83849f22802614cca138acf9c221574e3af764a3",
+  "auditSha256": "00ccc7da8472cc9eaeb655e5fda1078ac8f7c9401342dad0eb594d4afc32f8e2",
+  "summary": {
+    "overall": "PARTIAL_PARITY_ONLY",
+    "gateCount": 14,
+    "statusCounts": {
+      "PASS": 4,
+      "FAIL": 3,
+      "SOURCE_ONLY": 1,
+      "BLOCKED_EXTERNAL": 5,
+      "NOT_ESTABLISHED": 1
+    },
+    "computationalGatesPassed": 4,
+    "computationalGatesEvaluated": 7,
+    "fullBiologicalParityAchieved": false,
+    "proofClaim": "No universal, causal, or biological Active-Inference identity was proved."
+  },
+  "heldoutAdvantage": 0.05825837136315377,
+  "heldoutAdvantageInterval95": {
+    "lower": -0.015801079856724822,
+    "upper": 0.13264344169039152
+  },
+  "recovery": {
+    "status": "FAIL",
+    "passed": 2,
+    "total": 3
+  }
+}

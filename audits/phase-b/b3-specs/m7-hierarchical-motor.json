@@ -1,0 +1,274 @@
+{
+  "schema": "uni.flagellum.audit-artifact/1.0.0",
+  "purpose": "Frozen B3 component specification, written before execution. Derived independently from the frozen protocol prose by a specialist with no access to sibling specifications.",
+  "auditedCommit": "9c3a644e4b57e8ac27f925dcec84222463063aa1",
+  "auditPhase": "B",
+  "component": "M7_HIERARCHICAL_MOTOR",
+  "appendOnly": true,
+  "frozenBeforeExecution": true,
+  "summary": "M7 is a mean-one Weibull whose shape carries a motor-level lognormal random effect: log k_m = log(k) + tau*z_m, z_m ~ N(0,1) i.i.d. across motors, with each motor's conditional density a Weibull of shape k_m and scale exactly 1/Gamma(1+1/k_m). The hardest decision was preserving mean-one for the MARGINAL predictive density rather than only conditionally. I solved it exactly rather than by numerical correction: because mean-one is imposed CONDITIONALLY on each realized k_m, the tower property gives E[y] = E_z[E[y|z]] = E_z[1] = 1 exactly, and the Gauss-Hermite discretization inherits this exactly provided weights are renormalized to sum to one in floating point, since every quadrature component is itself a mean-one density and any convex combination of mean-one densities has mean exactly one, independent of node count and of the node-shape clipping guard. This is precisely why the effect must sit on the SHAPE and not the rate or scale: an effect on the rate gives conditional mean 1/rate_m, so the marginal mean becomes E[1/rate_m], a nontrivial and sometimes divergent function of tau, which would couple the mean-one constraint to the very dispersion parameter under test. M7 exactly nests M1 at tau -> 0, which supplies the identifiability machinery: boundary collapse, profile log-span, boundary-corrected LRT against M1, and bootstrap collapse frequency, all evaluable without human judgement.",
+  "specification": {
+    "modelId": "M7_HIERARCHICAL_MOTOR",
+    "frozenSource": "audits/phase-b/b3-competition-protocol.v1.json models[id=M7_HIERARCHICAL_MOTOR]",
+    "conformance": {
+      "boundsVerbatim": "k in [0.05,5.0], tau in [1e-4,5.0] taken verbatim from the frozen protocol, not revisited",
+      "familyVerbatim": "mean-one Weibull with motor-level random effect on the shape, integrated numerically",
+      "freeParameterCount": 2
+    },
+    "1_randomEffect": {
+      "choice": "lognormal on the Weibull shape",
+      "definition": "k_m = k * exp(tau * z_m), z_m ~ N(0,1) i.i.d. across MOTORS",
+      "parameterMeaning": {
+        "k": "population MEDIAN shape (median of k_m), since median(exp(tau*z))=1",
+        "tau": "between-motor SD of log shape (dimensionless)",
+        "meanShape": "E[k_m] = k*exp(tau^2/2), MUST also be reported so k is never misread as a mean"
+      },
+      "supportJustification": "The effect modifies a strictly positive shape parameter. A lognormal effect has support (0,inf) and is closed under the exponential map from the unconstrained real line, so no draw and no quadrature node can produce a non-positive shape and no rejection or truncation is ever required. A normal effect placed directly on k would place mass on k<=0; a gamma effect on k would not admit the exact Gauss-Hermite transformation specified in section 2 and would introduce a second shape parameter that is not in the frozen two-parameter budget.",
+      "whyShapeAndNotRate": "If the effect were placed on the rate or scale, the conditional mean would be 1/rate_m and the marginal mean would be E[1/rate_m], a function of tau. Mean-one would then have to be restored by a tau-dependent renormalizing constant, coupling the normalization directly to the dispersion parameter under test, and for a lognormal effect on an exponential rate that expectation is exp(tau^2/2)-inflated rather than one. Placing the effect on the shape makes the mean-one constraint tau-free.",
+      "conditionalDensity": {
+        "scaleSolvedInClosedForm": "s(a) = 1/Gamma(1+1/a); equivalently log s(a) = -gammaln(1+1/a)",
+        "density": "f(y | a) = (a/s)*(y/s)^(a-1)*exp(-(y/s)^a), y>0",
+        "conditionalMean": "s(a)*Gamma(1+1/a) = 1 EXACTLY, for every a>0"
+      },
+      "marginalMeanOneProof": {
+        "statement": "The marginal predictive density has mean exactly one for every (k,tau) in the feasible region.",
+        "continuousProof": "E[y] = E_z[ E[y | k_m=k*exp(tau*z)] ] = E_z[1] = 1 by the tower property, because the inner expectation equals one identically in z.",
+        "discreteProof": "The implemented marginal is f_marg(y) = sum_j W_j * f(y | a_j) with sum_j W_j = 1 exactly (section 2 renormalization). Then integral of y*f_marg(y) dy = sum_j W_j * 1 = 1 exactly. This holds for ANY node count and ANY node shapes, hence the clipping guard of section 6 cannot break it: a clipped node is still a valid mean-one Weibull.",
+        "machineCheck": "assert abs(sum(W)-1.0) <= 1e-15; and independently assert abs(trapezoid(y*f_marg(y), y-grid) - 1.0) <= 1e-6 on y-grid = 200001 points linspace(1e-9, 400.0) evaluated at the selected optimum. Both assertions are hard failures, not warnings."
+      }
+    },
+    "2_quadrature": {
+      "rule": "Gauss-Hermite (physicists' weight exp(-x^2)) via numpy.polynomial.hermite.hermgauss",
+      "primaryNodeCount": 129,
+      "nodeCountIsFixed": "129 is fixed in advance and is NEVER changed as a function of any observed result.",
+      "oddNodeCountRationale": "129 is odd, so a node lies at exactly x=0, giving z=0 and a_j=k. This makes the tau -> 0 limit reproduce M1 exactly rather than approximately.",
+      "transformation": "x_j, v_j = hermgauss(129); z_j = sqrt(2)*x_j; W_j_raw = v_j/sqrt(pi); W_j = W_j_raw / sum(W_j_raw)",
+      "renormalizationIsMandatory": "Dividing by sum(W_raw) is required, not cosmetic: it is what makes the discrete mixture a probability mixture and therefore makes marginal mean-one exact in floating point.",
+      "nodeShapes": "a_j = clip(k*exp(tau*z_j), 1.0e-3, 1.0e3)",
+      "adaptiveQuadratureForbidden": "Adaptive / mode-centred Gauss-Hermite is FORBIDDEN for every partition. Recentring on a motor-specific posterior mode would, for a holdout motor, use that motor's own held-out events to choose the integration grid, which is leakage. Non-adaptive quadrature is used on training as well, so training and holdout use an identical integrator.",
+      "convergenceDiagnostic": {
+        "secondaryNodeCount": 257,
+        "statistic": "delta_quad = abs(totalTrainNLL(129 nodes) - totalTrainNLL(257 nodes)) at the selected optimum, in nats over the whole training partition",
+        "tolerance": 0.000001,
+        "verdict": "QUADRATURE_CONVERGED if delta_quad <= 1e-6, else QUADRATURE_NOT_CONVERGED",
+        "noPostHocSwitching": "The 129-node value is the reported value in BOTH cases. If the verdict is QUADRATURE_NOT_CONVERGED it is recorded as an adverse result and reported on the leaderboard row; the 257-node number is never substituted."
+      }
+    },
+    "3_likelihoodAndScoring": {
+      "trainingObjective": {
+        "grouping": "by motorId within the TRAINING partition only; the random effect is shared by all of a motor's events ACROSS ALL eligible states, because the effect is a property of the motor, not of the state",
+        "perMotor": "logL_m = logsumexp_j ( log(W_j) + sum_{e in motor m} logf(y_e | a_j) )",
+        "total": "trainNLL = -sum_m logL_m, summed over training motors",
+        "note": "This objective deliberately uses within-motor dependence; that dependence IS the hypothesis M7 encodes. No motor-count minimum and no per-motor event-count filter is applied, since either would silently alter the frozen cohort.",
+        "perStateScale": "y_e = durationS_e / scale_{N(e)}, scale_N computed from UNCENSORED TRAINING events only, exactly as the frozen normalization states"
+      },
+      "heldOutPrediction": {
+        "RULE": "The held-out predictive density for every holdout event MARGINALIZES over the population distribution of the random effect. It is the per-event population-marginal density f_marg(y) = sum_j W_j * f(y | a_j), evaluated with the training-fitted (k, tau), and it does NOT condition on any event of the motor being scored.",
+        "rationale": "A holdout motor's random effect is unobserved. A genuinely new motor draws z from N(0,1), so the correct predictive is the population marginal.",
+        "LEAKAGE_STATEMENT": "Conditioning on a motor-specific estimate of z (empirical-Bayes shrinkage, posterior mode, posterior mean, or any adaptive recentring) using that motor's HOLDOUT events would use held-out data to form the predictive density for held-out data. That is LEAKAGE and is FORBIDDEN. It would inflate M7's held-out log score relative to every other competitor and would invalidate M7's entry, which must then be withdrawn rather than adjusted.",
+        "leaveOneEventOutAlsoForbidden": "Scoring a holdout event conditionally on the other events of the SAME holdout motor (prequential / leave-one-event-out within motor) is also forbidden. Although defensible in isolation, it is not the quantity any other competitor reports, so it would break comparability of the leaderboard.",
+        "score": "logDensitySeconds(t_e) = log(f_marg(t_e / scale_{N(e)})) - log(scale_{N(e)}); primary metric is the mean of this over the 233 uncensored holdout events",
+        "jointDiagnosticIsNotTheScore": "The motor-joint held-out log predictive, sum_m logL_m over holdout motors divided by 233, MAY be reported as a labelled DIAGNOSTIC. It is not the leaderboard score, it is not compared against other models, and it is not permitted to change any ranking."
+      },
+      "crps": {
+        "survivalFunction": "S_norm(y) = sum_j W_j * exp(-exp(a_j*(log(y) - log_s_j))), analytic and untruncated",
+        "secondsScale": "S_sec(t) = S_norm(t / scale_N)",
+        "integrator": "M7 supplies only the vectorized S_sec callable; the shared frozen competition CRPS integrator consumes it. M7 introduces NO CRPS-specific grid, tail cut, or tolerance of its own, so no CRPS choice can be made for M7 after seeing a result."
+      },
+      "censoring": "Right-censored events are excluded from every likelihood term and every score, identically to all other competitors. No censoring-aware term is added.",
+      "dualCohort": "M7 is fitted and scored INDEPENDENTLY on both mandated cohorts, [1..8] (793 train / 233 holdout) and [0..8] (818 train / 251 holdout), with scale_N recomputed within each cohort. No parameter is carried across cohorts."
+    },
+    "4_identifiability": {
+      "invarianceAndLabelSwitching": {
+        "noDiscreteComponents": "The effect is a single continuous scalar with a unimodal N(0,1) mixing law, so there are no exchangeable components and therefore NO label-switching in the mixture sense.",
+        "theRealInvariance": "The model IS invariant under (tau, z) -> (-tau, -z): the mixing law is symmetric and the Gauss-Hermite node set is symmetric about zero, so the marginal density is exactly identical for tau and -tau. tau is therefore identified only up to sign.",
+        "resolution": "The sign is resolved by the frozen positivity bound tau in [1e-4, 5.0]. tau is a dispersion, reported as a positive quantity, and negative tau is never entered, never reported, and never searched.",
+        "secondInvarianceNoted": "k and tau are not orthogonal: the same marginal is closely mimicked by trading median shape against dispersion. This is a weak-identification risk, not an exact invariance, and it is what criterion U2 measures."
+      },
+      "honestStatement": "With 19 holdout motors and a training partition of 793 events distributed over a modest number of training motors, tau is plausibly weakly identified. The number of MOTORS, not the number of events, is the effective sample size for tau, because tau is only informed by between-motor contrasts. This specification therefore fixes the unidentified verdict in advance, so no implementer decides it after seeing the fit.",
+      "criteria": {
+        "U1_boundaryCollapse": {
+          "lower": "UNIDENTIFIED_AT_LOWER_BOUND if tau_hat < 1.0e-3",
+          "upper": "UNIDENTIFIED_AT_UPPER_BOUND if tau_hat > 4.95",
+          "rationale": "tau = 1e-3 is a between-motor shape SD of 0.1 percent, numerically indistinguishable from the nested M1; 4.95 is within 1 percent of the frozen upper bound."
+        },
+        "U2_profileFlatness": {
+          "grid": "61 values of tau, exp(linspace(log(1e-4), log(5.0), 61)), inclusive of both endpoints",
+          "procedure": "At each fixed tau, minimize trainNLL over log k with L-BFGS-B from exactly 11 starts: k = linspace(0.05, 5.0, 10) plus k_hat from the global fit. Tolerances as in section 5.",
+          "threshold": "flat set = { tau_grid : profileNLL(tau) - min_grid profileNLL <= 1.9207 } (0.5 * chi2_{1,0.95})",
+          "statistic": "logspan = (log(max(flat set)) - log(min(flat set))) / (log(5.0) - log(1e-4))",
+          "verdict": "UNIDENTIFIED_FLAT_PROFILE if logspan >= 0.50"
+        },
+        "U3_nestedLRTvsM1": {
+          "statistic": "D = 2*(trainNLL_M1 - trainNLL_M7), computed on the identical cohort, identical scale_N and identical uncensored training events",
+          "nonNegativity": "D >= -1e-6 is asserted; a materially negative D means M7's optimizer failed to reach the nested M1 solution and is a hard failure, not a result",
+          "referenceDistribution": "tau=0 is on the boundary of the parameter space, so the reference law is 0.5*chi2_0 + 0.5*chi2_1, critical value 2.7055 at alpha=0.05",
+          "verdict": "NOT_SUPPORTED_OVER_M1 if D < 2.7055",
+          "scope": "This is a statement about TRAINING fit only. It is never presented as held-out evidence and never substitutes for the held-out log score or CRPS."
+        },
+        "U4_bootstrapCollapseFrequency": {
+          "statistic": "c = fraction of the 2000 motor-cluster bootstrap replicates in which tau_hat < 1.0e-3",
+          "verdict": "UNSTABLE_DISPERSION if c >= 0.25"
+        },
+        "combinedRule": "M7_STATUS = UNIDENTIFIED if (U1 lower fires) OR (U1 upper fires) OR (U2 fires). M7_STATUS carries the additional flags NOT_SUPPORTED_OVER_M1 and UNSTABLE_DISPERSION independently whenever U3 or U4 fire. All four verdicts are reported whatever they are.",
+        "consequencesOfUnidentified": {
+          "scoreStillReported": "The held-out log score and CRPS are computed and reported regardless, per the frozen mandatory adverse-result retention rule. M7 is never dropped from the leaderboard.",
+          "interpretationFence": "If M7_STATUS = UNIDENTIFIED, M7 may be described ONLY as unidentified on this cohort. It may not be cited as evidence FOR motor heterogeneity and it may not be cited as evidence AGAINST motor heterogeneity. An unidentified dispersion is an absence of evidence, not evidence of absence.",
+          "informationGainNote": "If M7 is unidentified, the recorded next-best observation is an increase in the number of MOTORS, not the number of events per motor."
+        }
+      }
+    },
+    "5_fittingProcedure": {
+      "optimizationSpace": "theta = (log k, log tau), with box bounds [log(0.05), log(5.0)] x [log(1e-4), log(5.0)]",
+      "feasibleRegion": "The full box is feasible. The mean-one constraint induces NO additional inequality, because it is solved in closed form conditionally at every quadrature node via s(a)=1/Gamma(1+1/a), which is defined and finite for every a>0. This is a structural advantage over M3, whose mean-one constraint induces lf > w.",
+      "optimizers": [
+        "scipy.optimize.minimize method Nelder-Mead",
+        "scipy.optimize.minimize method L-BFGS-B",
+        "scipy.optimize.differential_evolution"
+      ],
+      "allThreeAreMandatory": "The frozen protocol requires at least two of three; this specification fixes exactly three so that no subset can be chosen after the fact.",
+      "starts": {
+        "gridStarts": {
+          "count": 100,
+          "k": "numpy.linspace(0.05, 5.0, 10) (linear, shape-like, per frozen protocol)",
+          "tau": "numpy.exp(numpy.linspace(log(1e-4), log(5.0), 10)) (log-spaced, dispersion-like, per frozen protocol)",
+          "construction": "full 10x10 Cartesian product"
+        },
+        "randomStarts": {
+          "count": 200,
+          "rng": "numpy.random.default_rng(20260717)",
+          "draw": "log k ~ Uniform(log 0.05, log 5.0); log tau ~ Uniform(log 1e-4, log 5.0)",
+          "drawOrder": "all 200 (log k, log tau) pairs drawn in a single rng.uniform call of shape (200,2), so the stream is reproducible byte-for-byte"
+        },
+        "mandatoryExtraStart": {
+          "count": 1,
+          "value": "(k = k_hat from the M1 fit on the same cohort, tau = 1.0e-3)",
+          "rationale": "M7 nests M1 at tau -> 0; starting at the nested solution guarantees the optimizer can never report a worse training NLL than M1 by search failure alone, which is what makes U3 meaningful"
+        },
+        "totalStarts": 301,
+        "localRuns": "301 starts x 2 local optimizers = 602 runs, plus exactly 1 differential_evolution run = 603 terminal results"
+      },
+      "tolerances": {
+        "NelderMead": {
+          "xatol": 1e-10,
+          "fatol": 1e-10,
+          "maxiter": 20000,
+          "maxfev": 20000,
+          "adaptive": false
+        },
+        "L-BFGS-B": {
+          "ftol": 1e-12,
+          "gtol": 1e-10,
+          "maxiter": 20000,
+          "maxfun": 20000,
+          "maxls": 100,
+          "jac": "2-point finite differences with finite_diff_rel_step = 1e-6"
+        },
+        "differential_evolution": {
+          "strategy": "best1bin",
+          "popsize": 60,
+          "tol": 1e-10,
+          "atol": 0,
+          "mutation": [
+            0.5,
+            1
+          ],
+          "recombination": 0.7,
+          "maxiter": 5000,
+          "init": "sobol",
+          "polish": true,
+          "seed": 20260717,
+          "workers": 1,
+          "updating": "deferred"
+        }
+      },
+      "selection": {
+        "rule": "Among all 603 terminal results, take the minimum trainNLL.",
+        "tieBreak": "Sort candidates lexicographically ascending by (trainNLL, log k, log tau) and take the first. Two trainNLL values are treated as tied iff they differ by <= 1e-12.",
+        "claimStrength": "Reported as 'no better solution found over the declared search domain'. Never 'global optimum'."
+      },
+      "outOfDomainPenalty": {
+        "value": 1000000000000,
+        "rule": "PENALTY = 1.0e12. Returned when theta lies outside the box, when any y <= 0 is encountered, or when the computed NLL is not finite. Never numpy.inf, never numpy.nan.",
+        "boxViolationGradient": "If theta is outside the box, return 1.0e12 + 1.0e6 * sum over coordinates of (violation distance in log space)^2, so gradient-based methods are pushed back into the domain rather than seeing a flat plateau.",
+        "noSilentAbsorption": "No degenerate parameter may be absorbed by inf semantics; every rejection increments a counted telemetry field."
+      },
+      "numericalGuards": {
+        "logDensityKernel": "ls_j = -scipy.special.gammaln(1 + 1/a_j); u = a_j*(log(y) - ls_j); logf = log(a_j) - ls_j + ((a_j-1)/a_j)*u - exp(min(u, 700.0))",
+        "whyLogSpace": "For a_j near the lower clip 1e-3, s_j = exp(-gammaln(1001)) underflows and 1/s_j overflows if formed directly. The scale is therefore NEVER materialized; only log s_j is used.",
+        "exponentClip": "The 700.0 clip is applied ONLY inside the exponential. The linear term uses the unclipped u, which is always finite. This guarantees every per-node log density is finite, so the logsumexp across nodes is finite, so no floor on the marginal log density is needed or applied.",
+        "nodeShapeClip": "a_j = clip(k*exp(tau*z_j), 1.0e-3, 1.0e3). Extreme Gauss-Hermite nodes carry weights below 1e-100, so clipping is numerically inert, and by the section 1 discrete proof it cannot break mean-one.",
+        "clipTelemetry": "Report clippedNodeFraction at the selected optimum. If any node is clipped with W_j > 1e-12, raise flag CLIPPING_ACTIVE as an adverse note on the leaderboard row.",
+        "positivityAssertion": "assert min(y) > 0 over every partition. A non-positive duration is a hard failure; it is never imputed, floored, or dropped."
+      },
+      "convergenceReporting": [
+        "startsDeclared = 301",
+        "methodStartPairsConsidered = 603",
+        "domainFeasibleOptimizerCalls",
+        "successfulOptimizerCalls",
+        "finiteTerminalResults",
+        "machine-checked invariant: finite <= feasible <= pairs",
+        "successful convergence reported separately from merely-finite termination"
+      ]
+    },
+    "6_uncertainty": {
+      "method": "motor-cluster nonparametric bootstrap, resampling MOTORS with replacement and carrying all events of each drawn motor; event-level resampling is forbidden",
+      "replicates": 2000,
+      "stabilityCheck": "one run at 50000 replicates",
+      "seed": 20260717,
+      "interval": "percentile 95 percent",
+      "refitPerReplicate": {
+        "declaredReduction": "Each bootstrap replicate refits M7 with L-BFGS-B ONLY, from exactly 26 starts: the 5x5 product of k = linspace(0.05,5.0,5) and tau = exp(linspace(log(1e-4),log(5.0),5)), plus the full-data optimum as the 26th start. Tolerances identical to section 5.",
+        "declaredInAdvance": "This reduction is declared here, before execution, precisely so it cannot be chosen after seeing bootstrap behaviour.",
+        "risk": "A reduced start set can understate multimodality; U4 is the observable that detects the resulting instability."
+      },
+      "reporting": "The pairwise comparison against M3 reports the interval and states explicitly whether it crosses zero, under BOTH scoring rules and BOTH cohorts."
+    },
+    "7_prohibitions": [
+      "No quantity of any kind may be selected after seeing a result: not node count, not optimizer subset, not start count, not tolerance, not threshold, not cohort.",
+      "Holdout events may not inform k, tau, scale_N, node count, or any identifiability threshold.",
+      "No motor may appear in both partitions; the sha256(motorId) mod 5 == 0 split is recomputed and verified rather than trusted from the partition field.",
+      "M7 may not be dropped from the leaderboard for any reason, including being declared UNIDENTIFIED."
+    ]
+  },
+  "ambiguitiesEliminated": [
+    "'Random effect on the shape' was undetermined as to distribution: fixed to lognormal, k_m = k*exp(tau*z_m) with z_m ~ N(0,1), so the effect has support (0,inf) and no draw or node can produce a non-positive shape.",
+    "Whether mean-one is imposed conditionally or marginally: fixed to CONDITIONALLY on each realized k_m via s(a)=1/Gamma(1+1/a), which then yields exact marginal mean-one by the tower property with no tau-dependent renormalizer.",
+    "Whether the effect sits on shape, rate or scale: fixed to shape, because a rate/scale effect makes the marginal mean E[1/rate_m], a function of tau, coupling the normalization to the parameter under test.",
+    "'Integrated numerically' was undetermined: fixed to Gauss-Hermite, physicists' weight, exactly 129 nodes, z_j = sqrt(2)*x_j, W_j = (v_j/sqrt(pi)) renormalized to sum exactly to one.",
+    "Node count parity: fixed to odd (129) so a node sits at exactly z=0 and the tau -> 0 limit reproduces M1 exactly rather than approximately.",
+    "Whether the quadrature weights are renormalized: fixed to mandatory renormalization, because it is what makes discrete marginal mean-one exact in floating point.",
+    "Adaptive vs non-adaptive quadrature: fixed to non-adaptive on every partition, because mode-centring on a holdout motor's own events is leakage.",
+    "Quadrature convergence: fixed to delta_quad = |NLL(129) - NLL(257)| <= 1e-6 nats total, with the 129-node value reported in BOTH cases so no post-hoc substitution is possible.",
+    "Held-out predictive for a new motor: fixed to the population-marginal per-event density; empirical-Bayes conditioning, posterior-mode conditioning, adaptive recentring, and leave-one-event-out within a holdout motor are all explicitly named as leakage and forbidden.",
+    "Whether the motor-joint held-out likelihood is the score: fixed to NO; it is a labelled diagnostic that may not change any ranking.",
+    "Whether the random effect spans states: fixed to YES, one effect per motor shared across all its events in all eligible states, since it is a property of the motor.",
+    "Sign invariance (tau,z) -> (-tau,-z): named explicitly and resolved by the frozen positivity bound; negative tau is never searched or reported.",
+    "Label-switching: resolved by stating there is none, because the mixing law is a single continuous unimodal scalar with no exchangeable components.",
+    "Meaning of k: fixed to the population MEDIAN shape, with E[k_m] = k*exp(tau^2/2) additionally required to be reported so k is never misread as a mean.",
+    "'Unidentified' was left to human judgement by the frozen protocol: replaced by four exact observables (tau_hat < 1.0e-3; tau_hat > 4.95; profile log-span >= 0.50 at the 1.9207 threshold on a 61-point log grid; bootstrap collapse fraction >= 0.25).",
+    "Profile-likelihood procedure: fixed to 61 log-spaced tau, 11 k starts each (linspace(0.05,5.0,10) plus k_hat), L-BFGS-B, training data only.",
+    "LRT reference law against nested M1: fixed to the boundary-corrected 0.5*chi2_0 + 0.5*chi2_1 with critical value 2.7055, not the naive chi2_1 value of 3.8415.",
+    "Optimizer subset: the frozen protocol allowed 'at least two of three'; fixed to exactly all three so no subset can be chosen post hoc.",
+    "Start counts: the frozen protocol said 'at least 10 per free parameter' and 'at least 200 random'; fixed to exactly 100 grid + 200 random + 1 nested-M1 start = 301, giving exactly 603 terminal results.",
+    "Mandatory extra start: fixed to (k_hat_M1, tau=1e-3), which is what makes the U3 statistic non-negative by construction rather than by luck.",
+    "All tolerances and iteration limits fixed to exact values (Nelder-Mead xatol/fatol 1e-10, maxiter/maxfev 20000; L-BFGS-B ftol 1e-12, gtol 1e-10, maxiter/maxfun 20000, maxls 100, finite_diff_rel_step 1e-6; differential_evolution best1bin, popsize 60, tol 1e-10, mutation (0.5,1.0), recombination 0.7, maxiter 5000, init sobol, seed 20260717, workers 1, updating deferred).",
+    "Optimization space: fixed to (log k, log tau) rather than (k, tau).",
+    "Out-of-domain penalty: fixed to exactly 1.0e12, plus 1.0e6 * squared log-space violation for box breaches, never inf and never nan.",
+    "Numerical overflow handling: fixed to log-space scale (never materializing s), exponent clip at exactly 700.0 applied only inside the exponential, and node-shape clip to exactly [1.0e-3, 1.0e3], with a proof that clipping cannot break mean-one.",
+    "Tie-breaking among optimizer results: fixed to lexicographic (trainNLL, log k, log tau) with a 1e-12 tie tolerance.",
+    "Bootstrap refit cost: fixed in advance to L-BFGS-B with exactly 26 declared starts per replicate, rather than left to the implementer's budget.",
+    "Machine-checkable mean-one verification: fixed to |sum(W)-1| <= 1e-15 and |integral of y*f_marg - 1| <= 1e-6 on a 200001-point grid over (1e-9, 400.0), both hard failures."
+  ],
+  "residualRisks": [
+    "tau is informed only by BETWEEN-motor contrasts, so the effective sample size for the dispersion parameter is the motor count, not the 793 training events. M7 is genuinely at risk of being declared UNIDENTIFIED, and that is the honest expected outcome rather than a defect in this specification. The criteria in section 4 exist so that this verdict is reached mechanically rather than argued after the fact.",
+    "The frozen lower bound tau >= 1e-4 means M1 is nested only in the limit, not attained exactly. D = 2*(NLL_M1 - NLL_M7) should therefore be non-negative up to roughly 1e-8 nats. I assert D >= -1e-6 and treat a materially negative value as optimizer failure, but the assertion tolerance is a judgement call a reviewer should check against the observed magnitude of NLL.",
+    "Non-adaptive Gauss-Hermite is less accurate than adaptive GH for peaked integrands, and at large tau the integrand in log-shape space can be wide relative to the standard nodes. I chose non-adaptive because adaptive centring on a holdout motor's own data is leakage, accepting an accuracy cost to protect the split. The 129-vs-257 diagnostic is the observable that would expose an accuracy failure, but if it fires the reported number is still the 129-node one, so a real convergence failure would be recorded rather than corrected.",
+    "The node-shape clip [1e-3, 1e3] is inert only if extreme-node weights really are negligible. At tau near the upper bound 5.0 the clip becomes active at moderately-weighted nodes. Mean-one survives exactly, but the effective mixing law is then truncated, so the fitted tau near the upper bound does not mean what its label says. CLIPPING_ACTIVE plus the U1 upper-bound criterion are the two flags that should catch this; a reviewer should check they are both actually reported.",
+    "The bootstrap refit uses a reduced 26-start L-BFGS-B-only protocol for cost reasons. If the M7 surface is genuinely multimodal in (k, tau), some replicates will land on inferior optima and the percentile interval will be too wide or misplaced. U4 detects collapse frequency but does not detect general multimodality.",
+    "The per-event marginal score is the right comparability choice, but it deliberately discards exactly the information M7 is built to represent: within-motor dependence. M7 can therefore lose the leaderboard while the heterogeneity hypothesis it encodes is true. The joint diagnostic is reported precisely so this asymmetry is visible, and the write-up must state that a poor M7 per-event score is NOT evidence against motor heterogeneity.",
+    "k and tau are not orthogonal and can trade off, so a fitted k from M7 is not directly comparable to the M1 shape even though both are labelled 'shape'. Reporting both median and mean shape mitigates but does not remove this.",
+    "M0 through M3, M5 and M8 are event-exchangeable models fitted by event-level likelihoods, whereas M7's training objective is motor-grouped. The training NLLs are therefore on the same scale but arise from different dependence assumptions, so training-NLL comparisons across models other than the M1/M7 nested pair are not licensed. Only the held-out per-event scores are cross-model comparable.",
+    "CRPS for M7 depends on the shared frozen competition integrator, which I did not specify and did not inspect. If that integrator truncates its upper limit, M7's heavy-tailed mixture (possible at large tau with small node shapes) could be penalized by truncation rather than by fit. A reviewer should confirm the shared integrator's tail handling is adequate for a mixture with components of shape as low as 1e-3."
+  ]
+}

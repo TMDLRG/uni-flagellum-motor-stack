@@ -1,0 +1,265 @@
+{
+  "schema": "uni.flagellum.d1-coverage-provenance-posthoc/1.0.0",
+  "status": "POST_HOC_ANALYSIS",
+  "disclosure": "This analysis was authored AFTER the governed D1 replay was executed. It does NOT override the frozen coverageProvenance field in the result. It refines it by asking whether a baseline detection was SEMANTIC or merely an artifact-identity (hash) mismatch, applying the protocol's own frozen hash-only patterns. The frozen binary field remains the primary measurement of record.",
+  "refinedSummary": {
+    "SUITE_MEMBERSHIP_MIGRATION": 10,
+    "NEW_SEMANTIC_COVERAGE_IN_D1_BASELINE_ONLY_NOTICED_ARTIFACT_CHANGE": 5,
+    "NEW_SEMANTIC_COVERAGE_IN_D1": 8
+  },
+  "rows": [
+    {
+      "id": "D1X01_SECONDS_DENSITY_JACOBIAN_OMITTED",
+      "class": "EXACT_PHASE_C_REPLAY",
+      "propertyId": "D1P01_SECONDS_DENSITY_JACOBIAN",
+      "d1Classification": "DETECTED_SEMANTIC",
+      "attributionSatisfied": true,
+      "frozenCoverageProvenance": "SUITE_MEMBERSHIP_MIGRATION",
+      "postHocBaselineKind": "BASELINE_DETECTED_SEMANTICALLY",
+      "postHocEvidence": "matched frozen pattern /jacobian/",
+      "refinedVerdict": "SUITE_MEMBERSHIP_MIGRATION"
+    },
+    {
+      "id": "D1A01_SECONDS_DENSITY_JACOBIAN_SIGN_INVERTED",
+      "class": "ALTERNATE_FORM",
+      "propertyId": "D1P01_SECONDS_DENSITY_JACOBIAN",
+      "d1Classification": "DETECTED_SEMANTIC",
+      "attributionSatisfied": true,
+      "frozenCoverageProvenance": "SUITE_MEMBERSHIP_MIGRATION",
+      "postHocBaselineKind": "BASELINE_DETECTED_SEMANTICALLY",
+      "postHocEvidence": "matched frozen pattern /jacobian/",
+      "refinedVerdict": "SUITE_MEMBERSHIP_MIGRATION"
+    },
+    {
+      "id": "D1X02_SURVIVAL_POSTERIOR_USES_EVENT_DENSITY",
+      "class": "EXACT_PHASE_C_REPLAY",
+      "propertyId": "D1P02_SURVIVAL_CONDITIONED_POSTERIOR",
+      "d1Classification": "DETECTED_SEMANTIC",
+      "attributionSatisfied": true,
+      "frozenCoverageProvenance": "SUITE_MEMBERSHIP_MIGRATION",
+      "postHocBaselineKind": "BASELINE_DETECTED_NONSEMANTICALLY",
+      "postHocEvidence": "AssertionError [ERR_ASSERTION]: SHA-256 mismatch for experiments/results/observed-experiment-report.json | + actual - expected",
+      "refinedVerdict": "NEW_SEMANTIC_COVERAGE_IN_D1_BASELINE_ONLY_NOTICED_ARTIFACT_CHANGE"
+    },
+    {
+      "id": "D1A02_SURVIVAL_POSTERIOR_SLOW_USES_FAST_RATE",
+      "class": "ALTERNATE_FORM",
+      "propertyId": "D1P02_SURVIVAL_CONDITIONED_POSTERIOR",
+      "d1Classification": "DETECTED_SEMANTIC",
+      "attributionSatisfied": false,
+      "frozenCoverageProvenance": "SUITE_MEMBERSHIP_MIGRATION",
+      "postHocBaselineKind": "BASELINE_DETECTED_SEMANTICALLY",
+      "postHocEvidence": "matched frozen pattern /posterior.*slow/",
+      "refinedVerdict": "SUITE_MEMBERSHIP_MIGRATION"
+    },
+    {
+      "id": "D1X03_SAMPLE_VARIANCE_BESSEL_CORRECTION_DROPPED",
+      "class": "EXACT_PHASE_C_REPLAY",
+      "propertyId": "D1P03_SAMPLE_VARIANCE_BESSEL",
+      "d1Classification": "DETECTED_SEMANTIC",
+      "attributionSatisfied": true,
+      "frozenCoverageProvenance": "SUITE_MEMBERSHIP_MIGRATION",
+      "postHocBaselineKind": "BASELINE_DETECTED_SEMANTICALLY",
+      "postHocEvidence": "matched frozen pattern /bessel/",
+      "refinedVerdict": "SUITE_MEMBERSHIP_MIGRATION"
+    },
+    {
+      "id": "D1A03_SAMPLE_VARIANCE_DENOMINATOR_N_PLUS_ONE",
+      "class": "ALTERNATE_FORM",
+      "propertyId": "D1P03_SAMPLE_VARIANCE_BESSEL",
+      "d1Classification": "DETECTED_SEMANTIC",
+      "attributionSatisfied": true,
+      "frozenCoverageProvenance": "SUITE_MEMBERSHIP_MIGRATION",
+      "postHocBaselineKind": "BASELINE_DETECTED_NONSEMANTICALLY",
+      "postHocEvidence": "AssertionError [ERR_ASSERTION]: SHA-256 mismatch for experiments/results/observed-experiment-report.json | + actual - expected",
+      "refinedVerdict": "NEW_SEMANTIC_COVERAGE_IN_D1_BASELINE_ONLY_NOTICED_ARTIFACT_CHANGE"
+    },
+    {
+      "id": "D1X04_HIDDEN_TRUE_GRADIENT_CROSSES_BOUNDARY",
+      "class": "EXACT_PHASE_C_REPLAY",
+      "propertyId": "D1P04_HIDDEN_WORLD_OBSERVATION_BOUNDARY",
+      "d1Classification": "DETECTED_SEMANTIC",
+      "attributionSatisfied": true,
+      "frozenCoverageProvenance": "SUITE_MEMBERSHIP_MIGRATION",
+      "postHocBaselineKind": "BASELINE_DETECTED_SEMANTICALLY",
+      "postHocEvidence": "matched frozen pattern /hidden world/",
+      "refinedVerdict": "SUITE_MEMBERSHIP_MIGRATION"
+    },
+    {
+      "id": "D1A04_HIDDEN_METHYLATION_LEAKS_UNDER_DIFFERENT_NAME",
+      "class": "ALTERNATE_FORM",
+      "propertyId": "D1P04_HIDDEN_WORLD_OBSERVATION_BOUNDARY",
+      "d1Classification": "DETECTED_SEMANTIC",
+      "attributionSatisfied": true,
+      "frozenCoverageProvenance": "NEW_COVERAGE_IN_D1",
+      "postHocBaselineKind": "NOT_DETECTED_BY_BASELINE",
+      "postHocEvidence": "",
+      "refinedVerdict": "NEW_SEMANTIC_COVERAGE_IN_D1"
+    },
+    {
+      "id": "D1X05_INSTRUMENT_STATOR_COUNT_UNBOUNDED",
+      "class": "EXACT_PHASE_C_REPLAY",
+      "propertyId": "D1P05_INSTRUMENT_STATOR_RANGE",
+      "d1Classification": "DETECTED_SEMANTIC",
+      "attributionSatisfied": true,
+      "frozenCoverageProvenance": "NEW_COVERAGE_IN_D1",
+      "postHocBaselineKind": "NOT_DETECTED_BY_BASELINE",
+      "postHocEvidence": "",
+      "refinedVerdict": "NEW_SEMANTIC_COVERAGE_IN_D1"
+    },
+    {
+      "id": "D1A05_INSTRUMENT_STATOR_RANGE_WIDENED_TO_TWENTY",
+      "class": "ALTERNATE_FORM",
+      "propertyId": "D1P05_INSTRUMENT_STATOR_RANGE",
+      "d1Classification": "DETECTED_SEMANTIC",
+      "attributionSatisfied": true,
+      "frozenCoverageProvenance": "NEW_COVERAGE_IN_D1",
+      "postHocBaselineKind": "NOT_DETECTED_BY_BASELINE",
+      "postHocEvidence": "",
+      "refinedVerdict": "NEW_SEMANTIC_COVERAGE_IN_D1"
+    },
+    {
+      "id": "D1X06_STATOR_RECRUITMENT_ERASES_LOAD_RESPONSE",
+      "class": "EXACT_PHASE_C_REPLAY",
+      "propertyId": "D1P06_LOAD_DEPENDENT_STATOR_RECRUITMENT",
+      "d1Classification": "DETECTED_SEMANTIC",
+      "attributionSatisfied": true,
+      "frozenCoverageProvenance": "NEW_COVERAGE_IN_D1",
+      "postHocBaselineKind": "NOT_DETECTED_BY_BASELINE",
+      "postHocEvidence": "",
+      "refinedVerdict": "NEW_SEMANTIC_COVERAGE_IN_D1"
+    },
+    {
+      "id": "D1A06_STATOR_RECRUITMENT_LOAD_RESPONSE_INVERTED",
+      "class": "ALTERNATE_FORM",
+      "propertyId": "D1P06_LOAD_DEPENDENT_STATOR_RECRUITMENT",
+      "d1Classification": "DETECTED_SEMANTIC",
+      "attributionSatisfied": true,
+      "frozenCoverageProvenance": "NEW_COVERAGE_IN_D1",
+      "postHocBaselineKind": "NOT_DETECTED_BY_BASELINE",
+      "postHocEvidence": "",
+      "refinedVerdict": "NEW_SEMANTIC_COVERAGE_IN_D1"
+    },
+    {
+      "id": "D1X07_FIRST_PASSAGE_WEIGHTS_NOT_NORMALIZED",
+      "class": "EXACT_PHASE_C_REPLAY",
+      "propertyId": "D1P07_FIRST_PASSAGE_WEIGHT_NORMALIZATION",
+      "d1Classification": "DETECTED_SEMANTIC",
+      "attributionSatisfied": true,
+      "frozenCoverageProvenance": "SUITE_MEMBERSHIP_MIGRATION",
+      "postHocBaselineKind": "BASELINE_DETECTED_SEMANTICALLY",
+      "postHocEvidence": "matched frozen pattern /first[- ]passage coefficient/",
+      "refinedVerdict": "SUITE_MEMBERSHIP_MIGRATION"
+    },
+    {
+      "id": "D1A07_FIRST_PASSAGE_RETAIN_FACTOR_DROPPED",
+      "class": "ALTERNATE_FORM",
+      "propertyId": "D1P07_FIRST_PASSAGE_WEIGHT_NORMALIZATION",
+      "d1Classification": "DETECTED_SEMANTIC",
+      "attributionSatisfied": true,
+      "frozenCoverageProvenance": "SUITE_MEMBERSHIP_MIGRATION",
+      "postHocBaselineKind": "BASELINE_DETECTED_SEMANTICALLY",
+      "postHocEvidence": "matched frozen pattern /first[- ]passage coefficient/",
+      "refinedVerdict": "SUITE_MEMBERSHIP_MIGRATION"
+    },
+    {
+      "id": "D1X08_OFF_HAZARD_OMITS_STATOR_MULTIPLICITY",
+      "class": "EXACT_PHASE_C_REPLAY",
+      "propertyId": "D1P08_OFF_HAZARD_STATOR_MULTIPLICITY",
+      "d1Classification": "DETECTED_SEMANTIC",
+      "attributionSatisfied": true,
+      "frozenCoverageProvenance": "SUITE_MEMBERSHIP_MIGRATION",
+      "postHocBaselineKind": "BASELINE_DETECTED_SEMANTICALLY",
+      "postHocEvidence": "matched frozen pattern /off.*hazard/",
+      "refinedVerdict": "SUITE_MEMBERSHIP_MIGRATION"
+    },
+    {
+      "id": "D1A08_OFF_HAZARD_DROPS_COMPONENT_TERM",
+      "class": "ALTERNATE_FORM",
+      "propertyId": "D1P08_OFF_HAZARD_STATOR_MULTIPLICITY",
+      "d1Classification": "DETECTED_SEMANTIC",
+      "attributionSatisfied": true,
+      "frozenCoverageProvenance": "SUITE_MEMBERSHIP_MIGRATION",
+      "postHocBaselineKind": "BASELINE_DETECTED_SEMANTICALLY",
+      "postHocEvidence": "matched frozen pattern /off.*hazard/",
+      "refinedVerdict": "SUITE_MEMBERSHIP_MIGRATION"
+    },
+    {
+      "id": "D1X09_EXPONENTIAL_SECOND_MOMENT_FACTOR_DROPPED",
+      "class": "EXACT_PHASE_C_REPLAY",
+      "propertyId": "D1P09_EXPONENTIAL_SECOND_MOMENT",
+      "d1Classification": "DETECTED_SEMANTIC",
+      "attributionSatisfied": true,
+      "frozenCoverageProvenance": "SUITE_MEMBERSHIP_MIGRATION",
+      "postHocBaselineKind": "BASELINE_DETECTED_NONSEMANTICALLY",
+      "postHocEvidence": "AssertionError [ERR_ASSERTION]: experiments/results/science-gates-report.json | + actual - expected",
+      "refinedVerdict": "NEW_SEMANTIC_COVERAGE_IN_D1_BASELINE_ONLY_NOTICED_ARTIFACT_CHANGE"
+    },
+    {
+      "id": "D1A09_EXPONENTIAL_SECOND_MOMENT_FACTOR_THREE",
+      "class": "ALTERNATE_FORM",
+      "propertyId": "D1P09_EXPONENTIAL_SECOND_MOMENT",
+      "d1Classification": "DETECTED_SEMANTIC",
+      "attributionSatisfied": true,
+      "frozenCoverageProvenance": "SUITE_MEMBERSHIP_MIGRATION",
+      "postHocBaselineKind": "BASELINE_DETECTED_NONSEMANTICALLY",
+      "postHocEvidence": "AssertionError [ERR_ASSERTION]: experiments/results/science-gates-report.json | + actual - expected",
+      "refinedVerdict": "NEW_SEMANTIC_COVERAGE_IN_D1_BASELINE_ONLY_NOTICED_ARTIFACT_CHANGE"
+    },
+    {
+      "id": "D1X10_PERIODIC_LATTICE_OPENED",
+      "class": "EXACT_PHASE_C_REPLAY",
+      "propertyId": "D1P10_PERIODIC_LATTICE_TOPOLOGY",
+      "d1Classification": "DETECTED_SEMANTIC",
+      "attributionSatisfied": true,
+      "frozenCoverageProvenance": "SUITE_MEMBERSHIP_MIGRATION",
+      "postHocBaselineKind": "BASELINE_DETECTED_SEMANTICALLY",
+      "postHocEvidence": "matched frozen pattern /periodic/",
+      "refinedVerdict": "SUITE_MEMBERSHIP_MIGRATION"
+    },
+    {
+      "id": "D1A10_LATTICE_NEXT_NEAREST_NEIGHBOUR_RING",
+      "class": "ALTERNATE_FORM",
+      "propertyId": "D1P10_PERIODIC_LATTICE_TOPOLOGY",
+      "d1Classification": "SURVIVED",
+      "attributionSatisfied": false,
+      "frozenCoverageProvenance": "NEW_COVERAGE_IN_D1",
+      "postHocBaselineKind": "NOT_DETECTED_BY_BASELINE",
+      "postHocEvidence": "",
+      "refinedVerdict": "NEW_SEMANTIC_COVERAGE_IN_D1"
+    },
+    {
+      "id": "D1P01_ADVERSE_COUNTS_LAUNDERED",
+      "class": "ADVERSE_RECORD_ATTACK",
+      "propertyId": "D1P11_ADVERSE_RECORD_PRESERVATION",
+      "d1Classification": "DETECTED_SEMANTIC",
+      "attributionSatisfied": true,
+      "frozenCoverageProvenance": "NEW_COVERAGE_IN_D1",
+      "postHocBaselineKind": "NOT_DETECTED_BY_BASELINE",
+      "postHocEvidence": "",
+      "refinedVerdict": "NEW_SEMANTIC_COVERAGE_IN_D1"
+    },
+    {
+      "id": "D1P02_ADVERSE_EVIDENCE_COPY_DIVERGED",
+      "class": "ADVERSE_RECORD_ATTACK",
+      "propertyId": "D1P11_ADVERSE_RECORD_PRESERVATION",
+      "d1Classification": "DETECTED_SEMANTIC",
+      "attributionSatisfied": false,
+      "frozenCoverageProvenance": "NEW_COVERAGE_IN_D1",
+      "postHocBaselineKind": "NOT_DETECTED_BY_BASELINE",
+      "postHocEvidence": "",
+      "refinedVerdict": "NEW_SEMANTIC_COVERAGE_IN_D1"
+    },
+    {
+      "id": "D1A10B_LATTICE_SINGLE_BOND_DOUBLE_COUNTED",
+      "class": "ALTERNATE_FORM",
+      "propertyId": "D1P10_PERIODIC_LATTICE_TOPOLOGY",
+      "d1Classification": "DETECTED_SEMANTIC",
+      "attributionSatisfied": true,
+      "frozenCoverageProvenance": "SUITE_MEMBERSHIP_MIGRATION",
+      "postHocBaselineKind": "BASELINE_DETECTED_NONSEMANTICALLY",
+      "postHocEvidence": "",
+      "refinedVerdict": "NEW_SEMANTIC_COVERAGE_IN_D1_BASELINE_ONLY_NOTICED_ARTIFACT_CHANGE"
+    }
+  ]
+}

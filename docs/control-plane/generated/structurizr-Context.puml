@@ -1,0 +1,28 @@
+@startuml
+title <size:24>System Context View: UNI Platform</size>\n<size:24>Who uses the platform and what it talks to.</size>
+
+set separator none
+left to right direction
+
+<style>
+  root {
+    BackgroundColor: #ffffff
+    FontColor: #444444
+  }
+</style>
+
+!include <C4/C4>
+!include <C4/C4_Context>
+
+Person(Michael, "Michael", $descr="Regenerative architect and organic operator. Present inside every body, not a dashboard recipient. Types go-live personally.", $tags="", $link="")
+Person(Externalreviewer, "External reviewer", $descr="Independent scientific or release reviewer. Receives evidence packages; never has write access.", $tags="", $link="")
+System(Streamingplatforms, "Streaming platforms", $descr="YouTube, Twitch and up to twenty endpoints.", $tags="", $link="")
+System(UNIPlatform, "UNI Platform", $descr="The four bodies, the colony, the studio and the evidence spine.", $tags="", $link="")
+
+Rel(Michael, UNIPlatform, "Crosses once, on the way in", $techn="", $tags="", $link="")
+Rel(Externalreviewer, UNIPlatform, "Receives evidence packages", $techn="", $tags="", $link="")
+Rel(UNIPlatform, Streamingplatforms, "Fans out", $techn="", $tags="", $link="")
+
+SHOW_LEGEND(true)
+hide stereotypes
+@enduml

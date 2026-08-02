@@ -1,0 +1,6 @@
+* text=auto eol=lf
+# This released derived-data artifact is already pinned by SHA-256 with CRLF.
+experiments/data/wadhwa-2022-events.json text eol=crlf
+
+# Audit packages are hash-pinned evidence: preserve exact bytes on every platform.
+audits/** -text

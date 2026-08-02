@@ -1,0 +1,80 @@
+{
+  "schema": "uni.flagellum.audit-artifact/1.0.0",
+  "purpose": "Third append-only correction to the B2 evidence package. Repairs two oracle defects Codex identified at 52aedca, and records a new observation about parameter identifiability that the repair exposed.",
+  "auditedCommit": "9c3a644e4b57e8ac27f925dcec84222463063aa1",
+  "auditPhase": "B",
+  "auditorModel": "claude-opus-4-8",
+  "appendOnly": true,
+  "correctsButDoesNotReplace": "All prior phase-b artifacts are PRESERVED BYTE-IDENTICAL at de5c2fb, 6ad64ec and 52aedca. b2-portable-oracle-v2.py is amended in place because it is executable tooling rather than recorded evidence; its prior emitted result is superseded by a regenerated one and the numerical difference is quantified below.",
+  "note": "Timestamps are deliberately omitted: this package must be byte-reproducible. Ordering is established by git history.",
+
+  "corrections": [
+    {
+      "id": "C3-B2-1",
+      "severity": "P1",
+      "defect": "Eligibility thresholds were hard-coded as (20, 5) and merely substring-checked against the frozen rule text. A rule containing '120' and '50', or one transposing the two quantities, would have satisfied the check while the wrong thresholds were applied.",
+      "reportedBy": "Codex",
+      "status": "CORRECTED",
+      "correction": "Thresholds are now PARSED with a labelled regular expression that binds each number to its role: 'at least (?P<events>\\\\d+) uncensored holdout events from at least (?P<motors>\\\\d+) holdout motors', case-insensitive. If the rule does not match this labelled form the oracle EXITS rather than guessing, and echoes the frozen text it could not parse. Non-positive parsed thresholds are also a hard exit.",
+      "whyThisIsStrongerThanASubstringTest": "The pattern cannot match a transposed rule, because the role labels 'uncensored holdout events' and 'holdout motors' are part of the pattern. It cannot match '120' as '20', because the digit group is anchored between 'at least' and the role label. And an unparseable rule now fails loudly instead of silently falling back to a constant.",
+      "verified": "Parsed thresholds are events=20, motors=5, and the derivation still yields exactly [1,2,3,4,5,6,7,8], matching the committed cohort. Self-check derivedEligibilityMatchesCommittedCohort PASSES."
+    },
+    {
+      "id": "C3-B2-2",
+      "severity": "P1",
+      "defect": "The M3 objective enforced only the mean-one feasibility condition (lf > w), not the DECLARED upper bounds. L-BFGS-B is bounded but Nelder-Mead is not, so a simplex could have terminated at lf > 1e4 while the emitted conclusion asserted that only the declared search domain had been searched.",
+      "reportedBy": "Codex",
+      "status": "CORRECTED",
+      "correction": "A single predicate in_declared_mixture_domain(w, lf) now gates three places at once: (a) the objective returns an explicit 1e12 penalty outside the declared box, mirroring the scalar guard; (b) the feasibility counter uses the same predicate, so telemetry counts calls against the declared domain rather than against feasibility alone; and (c) the acceptance test for the running best requires the TERMINAL point to lie inside the declared domain, so an out-of-domain terminus can never be accepted even if some path reached it.",
+      "priorAcceptanceTestWasWeaker": "The previous acceptance test was 0 < w < 1 and lf > w, which is the feasibility region, not the declared box. It admitted arbitrarily large lf."
+    }
+  ],
+
+  "newObservationExposedByTheRepair": {
+    "id": "F-B2-REV-2",
+    "title": "The M3 likelihood ridge is flat enough that the fitted parameters carry far fewer meaningful digits than they display",
+    "severity": "INFORMATIONAL",
+    "howItSurfaced": "The two repairs were expected to leave results bit-identical, because the recovered solution was already inside the declared domain. They did not. Measuring the difference precisely, rather than asserting the expectation, revealed the following.",
+    "measured": {
+      "scenario": "derived_eligible_H1_rule_applied",
+      "mixtureTrainingNll": { "before": 537.0211284007614, "after": 537.0211284007614, "delta": 0.0, "note": "BIT-IDENTICAL to all 16 digits" },
+      "mixtureWeightFast": { "before": 0.6066439960698439, "after": 0.6066439989171127, "absDelta": 2.847e-9 },
+      "mixtureRateFast": { "before": 5.2398794860915565, "after": 5.239879335282435, "absDelta": 1.508e-7 },
+      "mixtureRateSlow": { "before": 0.444859334295334, "after": 0.4448593330250469, "absDelta": 1.270e-9 },
+      "weibullShape": { "delta": 0.0, "note": "identical" },
+      "lognormalSigma": { "delta": 0.0, "note": "identical" },
+      "lognormalMinusMixture": { "before": 0.036866518050048036, "after": 0.03686651565917698, "absDelta": 2.391e-9 },
+      "otherScenario": "primary_states_H1_rule_not_applied is identical in every field, including all parameters."
+    },
+    "interpretation": "Two parameter vectors differing by 1.5e-7 in rateFast produce a training NLL that agrees to sixteen significant figures. The objective is therefore essentially FLAT along that direction near the optimum. This corroborates, from a completely different route, the numerical Hessian reported by an earlier blind implementer: eigenvalues [3.827, 2561.4], condition number 669, described then as 'mildly ill-conditioned along the lf direction but not degenerate'.",
+    "consequence": "The published mixture parameters should not be read as identified to their full printed precision. The OPTIMUM VALUE is robust; the ARGMIN is identified only to roughly seven significant figures in rateFast. Any downstream claim that depends on the precise value of rateFast, as opposed to the fitted density it induces, would be over-reading the fit.",
+    "consequenceForTheConclusion": "None. The held-out lognormal-minus-mixture gap moved by 2.391e-9, which is roughly eight orders of magnitude smaller than the 0.0369 nat effect being reported. The ranking, the survival of the adverse result, and the refutation of P-B2 are all unchanged.",
+    "whyItIsRecordedRatherThanRoundedAway": "An audit that predicts 'this change will be bit-identical' and then reports 'bit-identical' without measuring has not verified anything. The prediction was wrong in a small and benign way, and the honest record of that is more useful than the tidy claim."
+  },
+
+  "regressionEvidence": {
+    "selfChecks": "All ten pass, exit 0.",
+    "unchanged": [
+      "mixtureTrainingNllAtBestFound 537.0211284007614 in scenario 1 and 567.7912635401843 in scenario 2",
+      "absDeltaNats 5.313722795108333e-10 and 0.19893845316971692",
+      "telemetry 421 starts / 842 pairs / 730 feasible / 730 successful / 730 finite, coherent in both scenarios",
+      "committed scores reproduced to 1.776e-15",
+      "derived eligible states [1..8] matching the committed cohort",
+      "ranking lognormal > mixture > weibull > exponential in both scenarios",
+      "adverse lognormal result survives in both scenarios",
+      "canonical LF output, 0 carriage returns"
+    ],
+    "changed": ["scenario 1 mixture argmin at the 1e-7 level and its held-out score at the 2.4e-9 level, as quantified above"]
+  },
+
+  "preservedConclusion": {
+    "P_B2": "REFUTED. No strictly better mixture solution was found over the declared search domain.",
+    "mixtureFit": "Numerically indistinguishable from the best located optimum, |delta| 5.313722795108333e-10 nats.",
+    "adverseLognormalResult": "SURVIVES under both cohorts.",
+    "statement": "Two P1 tooling defects are repaired and one informational identifiability observation is added. The result is unchanged."
+  },
+
+  "uncertainty": "The flatness observation is characterised only near the located optimum and only along the direction the repair happened to perturb. A full profile-likelihood analysis of the M3 ridge has NOT been performed and would be the correct way to state a confidence region for rateFast.",
+  "alternativeExplanation": "The parameter shift could in principle reflect a genuine second optimum rather than a flat ridge. This is excluded by the training NLL being identical to sixteen significant figures at both points, which is the signature of one flat basin rather than two distinct minima.",
+  "independentlyReproduced": "Both defects were identified by Codex. The identifiability observation is corroborated by an independently computed numerical Hessian from an earlier blind implementer cell."
+}

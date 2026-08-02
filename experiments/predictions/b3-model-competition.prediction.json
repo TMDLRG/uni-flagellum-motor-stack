@@ -1,0 +1,21 @@
+{
+  "schema": "uni.flagellum.prediction-record/1.0.0",
+  "recordId": "B3-MODEL-COMPETITION-V1",
+  "claim": "The B3 model competition, executed under the frozen protocol and its integration addendum, will produce the 36 outcomes recorded in audits/phase-b/b3-predictions.v1.json: the adverse lognormal advantage over M3 holds under NLPD in both cohorts; M4 and M6 win on point estimate with intervals containing zero; M7 is declared UNIDENTIFIED; M8 the non-mechanistic ceiling wins under NLPD; and the two scoring rules may disagree.",
+  "falsifier": "Any of the 36 per-cell falsifiers being met refutes the corresponding cell. In particular: a paired interval for M2 versus M3 lying entirely below zero would refute the headline prediction that the adverse lognormal result holds, and a CRPS ranking agreeing with NLPD for every model would refute the expectation that the two rules can disagree.",
+  "madeAgainstCommit": "df83c9e0380ebd551020437d5e5b15d2da6a5a55",
+  "predictionPath": "audits/phase-b/b3-predictions.v1.json",
+  "resultPaths": [
+    "audits/phase-b/b3-model-competition-result.json"
+  ],
+  "prospectivity": "PROSPECTIVE",
+  "note": "Committed in a PREDICTION-ONLY commit (e5b4969), before any competitor was fitted and before the result artifact existed. The competition has now been executed and its result committed as a descendant of e5b4969, so the commit graph witnesses strict prediction-before-result ancestry by construction. This PENDING->PROSPECTIVE flip is the single change authorized by the coordinator plan section 2.3 and the Phase-2 dispatch, made only in the result commit. The 36-cell prediction file audits/phase-b/b3-predictions.v1.json remains byte-identical.",
+  "outcome": {
+    "resultPath": "audits/phase-b/b3-model-competition-result.json",
+    "resultSha256": "5d7a0589e94de6b10f425f2d483e1e2a8f899d336aa59c335990209795e6b2bd",
+    "determinismGate": "PASS: two independent full-pipeline runs produced byte-identical artifacts (5d7a0589...).",
+    "independentOracle": "44/44 no-shared-code checks agree.",
+    "headline": "The adverse lognormal result HELD: M2 leads the NLPD motor-equal leaderboard in both cohorts and its event-pooled advantage over M3 reproduces B2 (0.0369 nats on [1..8], 0.0387 on [0..8]). Every motor-equal M3-contrast interval contains zero (19 holdout motors); no contrast is conclusively resolved on the primary aggregation. The two scoring rules disagree (M2 leads NLPD but is near-last on CRPS-seconds). M4 is DISTINCT (not collapsed). M7's tau is interior and its LRT is supported over M1, so the U1 boundary and U3 criteria do not declare it UNIDENTIFIED; the full U2/U4 identifiability assessment is a B4 deliverable, so the prediction's UNIDENTIFIED expectation is not established in B3.",
+    "notEstablished": "A leaderboard position does not establish molecular mechanism, that the organism performs the inference, or any parity level. Motor-equal primary numbers are not directly comparable to the published event-pooled 0.0369 figure."
+  }
+}

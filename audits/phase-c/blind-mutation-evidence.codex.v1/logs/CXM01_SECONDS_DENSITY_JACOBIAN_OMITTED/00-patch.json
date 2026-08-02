@@ -1,0 +1,7 @@
+{
+  "id": "CXM01_SECONDS_DENSITY_JACOBIAN_OMITTED",
+  "targetPath": "lib/observed-experiment.js",
+  "preMutationSha256": "b757971e1f207899ddac0b262241822552a06abc5272407b14b21fd98ddbe623",
+  "postMutationSha256": "3a7457422eabb1dc13c195f41e142b10e68c9109f0bffd3429e9b8dc5866875d",
+  "diff": "diff --git a/lib/observed-experiment.js b/lib/observed-experiment.js\nindex 2218c86..f71aff6 100644\n--- a/lib/observed-experiment.js\n+++ b/lib/observed-experiment.js\n@@ -241,7 +241,7 @@ function scoreEvents(events, stateMeans, models) {\n   return events.map((event) => {\n     const scale = stateMeans[event.stateN];\n     const y = event.durationS / scale;\n-    const jacobian = -Math.log(scale);\n+    const jacobian = 0;\n     return {\n       ...event,\n       normalizedDuration: y,\n"
+}

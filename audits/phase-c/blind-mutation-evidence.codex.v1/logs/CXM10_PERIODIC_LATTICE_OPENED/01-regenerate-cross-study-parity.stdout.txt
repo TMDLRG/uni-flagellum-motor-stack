@@ -1,0 +1,5 @@
+
+> uni-flagellum-laboratory@0.3.0 cross-study:run
+> python scripts/run-cross-study-parity.py
+
+{"runId": "b940efc435c96fb0ae2026f8e212a813b944fd890069e24300e151e3ce1b357b", "reportSha256": "a9944197a4b029cbd562070084e806d473a56bdf35425a19de43cc113a33575d", "auditSha256": "8d5500ecc6b254fb4512dc9ad09a1684820a223fb3366a9240d38b5371be44cc", "statusCounts": {"BLOCKED_EXTERNAL": 3, "FAIL": 3, "NOT_ESTABLISHED": 2, "PASS": 8}, "fullParity": false}

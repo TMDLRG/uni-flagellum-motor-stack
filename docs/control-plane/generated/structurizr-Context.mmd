@@ -1,0 +1,20 @@
+graph LR
+  linkStyle default fill:#ffffff
+
+  subgraph diagram ["System Context View: UNI Platform"]
+    style diagram fill:#ffffff,stroke:#ffffff
+
+    1["<div style='font-weight: bold'>Michael</div><div style='font-size: 70%; margin-top: 0px'>[Person]</div><div style='font-size: 80%; margin-top:10px'>Regenerative architect and<br />organic operator. Present<br />inside every body, not a<br />dashboard recipient. Types<br />go-live personally.</div>"]
+    style 1 fill:#3c3489,stroke:#2a245f,color:#ffffff
+    2["<div style='font-weight: bold'>External reviewer</div><div style='font-size: 70%; margin-top: 0px'>[Person]</div><div style='font-size: 80%; margin-top:10px'>Independent scientific or<br />release reviewer. Receives<br />evidence packages; never has<br />write access.</div>"]
+    style 2 fill:#8a6a1a,stroke:#604a12,color:#ffffff
+    33["<div style='font-weight: bold'>Streaming platforms</div><div style='font-size: 70%; margin-top: 0px'>[Software System]</div><div style='font-size: 80%; margin-top:10px'>YouTube, Twitch and up to<br />twenty endpoints.</div>"]
+    style 33 fill:#8a6a1a,stroke:#604a12,color:#ffffff
+    4["<div style='font-weight: bold'>UNI Platform</div><div style='font-size: 70%; margin-top: 0px'>[Software System]</div><div style='font-size: 80%; margin-top:10px'>The four bodies, the colony,<br />the studio and the evidence<br />spine.</div>"]
+    style 4 fill:#1d2026,stroke:#14161a,color:#ffffff
+
+    1-. "<div>Crosses once, on the way in</div><div style='font-size: 70%'></div>" .->4
+    2-. "<div>Receives evidence packages</div><div style='font-size: 70%'></div>" .->4
+    4-. "<div>Fans out</div><div style='font-size: 70%'></div>" .->33
+
+  end

@@ -1,0 +1,45 @@
+graph LR
+  linkStyle default fill:#ffffff
+
+  subgraph diagram ["Container View: UNI Platform"]
+    style diagram fill:#ffffff,stroke:#ffffff
+
+    1["<div style='font-weight: bold'>Michael</div><div style='font-size: 70%; margin-top: 0px'>[Person]</div><div style='font-size: 80%; margin-top:10px'>Regenerative architect and<br />organic operator. Present<br />inside every body, not a<br />dashboard recipient. Types<br />go-live personally.</div>"]
+    style 1 fill:#3c3489,stroke:#2a245f,color:#ffffff
+
+    subgraph 4 ["UNI Platform"]
+      style 4 fill:#ffffff,stroke:#14161a,color:#14161a
+
+      20("<div style='font-weight: bold'>The Lab View</div><div style='font-size: 70%; margin-top: 0px'>[Container: Phoenix LiveView + THREE.js on T1000]</div><div style='font-size: 80%; margin-top:10px'>The immersive rendered room<br />the operator works inside.<br />Proposes commands; never<br />writes. Rooms, airlocks,<br />world portals, Gaia overhead.</div>")
+      style 20 fill:#fdf1ee,stroke:#b4442f,color:#16181d
+      21("<div style='font-weight: bold'>Gaia</div><div style='font-size: 70%; margin-top: 0px'>[Container: Node.js / gaia_server.cjs :8096 + read-only MCP]</div><div style='font-size: 80%; margin-top:10px'>World-visibility organ. 308<br />live signals, 0<br />provenance-incomplete, 5<br />drift signals. LAW: never<br />summarizes, scores, ranks,<br />narrates, authors a verdict,<br />or acts outward.</div>")
+      style 21 fill:#e8f4ef,stroke:#0f6e56,color:#16181d
+      22("<div style='font-weight: bold'>The HUD</div><div style='font-size: 70%; margin-top: 0px'>[Container: WPF widget + JSON service :8100]</div><div style='font-size: 80%; margin-top:10px'>What the operator sees and<br />carries. LAW: never<br />fabricates a state; unknown<br />renders SYNCING.</div>")
+      style 22 fill:#e8f4ef,stroke:#0f6e56,color:#16181d
+      29[("<div style='font-weight: bold'>Gate ledger</div><div style='font-size: 70%; margin-top: 0px'>[Container: NDJSON / evidence/gates.ndjson]</div><div style='font-size: 80%; margin-top:10px'>Append-only record of every<br />registered gate and its<br />verdict. 206 rows, 109<br />unique, 1 FAIL.</div>")]
+      style 29 fill:#eef0fb,stroke:#534ab7,color:#16181d
+      30[("<div style='font-weight: bold'>Receipt store</div><div style='font-size: 70%; margin-top: 0px'>[Container: Filesystem + sha256]</div><div style='font-size: 80%; margin-top:10px'>Content-addressed artifacts,<br />commit ids and logs that<br />reproduce each claim.</div>")]
+      style 30 fill:#eef0fb,stroke:#534ab7,color:#16181d
+      31("<div style='font-weight: bold'>Approval queue</div><div style='font-size: 70%; margin-top: 0px'>[Container: systemd / uni-approvald]</div><div style='font-size: 80%; margin-top:10px'>One human approve or deny per<br />mutating call.</div>")
+      style 31 fill:#e8f4ef,stroke:#0f6e56,color:#16181d
+      6("<div style='font-weight: bold'>The Control Plane</div><div style='font-size: 70%; margin-top: 0px'>[Container: Elixir / SP.ControlPlane, root zero-dep app]</div><div style='font-size: 80%; margin-top:10px'>Runs the science and authors<br />every verdict, across every<br />project. THIS IS THE LAB.<br />Phase 2 landed Ledger,<br />GateRow, Command and Drift;<br />Registry, Verdict, Run, Pair,<br />Room and Scene are not built.</div>")
+      style 6 fill:#fdf8e8,stroke:#9a7b12,color:#16181d
+    end
+
+    1-. "<div>Works inside. Authors<br />verdicts. Stops runs.</div><div style='font-size: 70%'></div>" .->20
+    1-. "<div>Carries</div><div style='font-size: 70%'></div>" .->22
+    1-. "<div>Co-signs each mutating call</div><div style='font-size: 70%'></div>" .->31
+    21-. "<div>Projects the Control Plane<br />ledger VERBATIM (seat<br />control-plane)</div><div style='font-size: 70%'></div>" .->6
+    6-. "<div>Pushes a compact scene per<br />tick</div><div style='font-size: 70%'></div>" .->20
+    20-. "<div>Explicit verbs only. No hover<br />or poll actuates.</div><div style='font-size: 70%'></div>" .->6
+    6-. "<div>Appends a gate row. Never<br />edits.</div><div style='font-size: 70%'></div>" .->29
+    6-. "<div>Writes a receipt per decision</div><div style='font-size: 70%'></div>" .->30
+    6-. "<div>Requests the human co-sign</div><div style='font-size: 70%'></div>" .->31
+    21-. "<div>Projects rows verbatim</div><div style='font-size: 70%'></div>" .->29
+    21-. "<div>Projects artifacts with<br />sha256</div><div style='font-size: 70%'></div>" .->30
+    21-. "<div>Projects the ledger.<br />Read-only.</div><div style='font-size: 70%'></div>" .->6
+    22-. "<div>Reads signals</div><div style='font-size: 70%'></div>" .->21
+    22-. "<div>Reads run state</div><div style='font-size: 70%'></div>" .->6
+    20-. "<div>Renders signals overhead.<br />Cannot act on them.</div><div style='font-size: 70%'></div>" .->21
+
+  end

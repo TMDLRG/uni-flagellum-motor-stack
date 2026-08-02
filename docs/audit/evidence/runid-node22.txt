@@ -1,0 +1,13 @@
+node         = v22.13.1  v8 = 12.4.254.21-node.22
+runId        = 308d09d83fe556ef9d4ea03948ae34acbebcb5f8493a73cec773bb41d6dd1884
+reportSha256 = d1753d25f71c19a96e80001a782758a36448359bac52d5c9842430efb237dfb8
+weibull values (62 total, first 8):
+   "weibull":-3.0962841768378104
+   "weibull":1
+   "weibull":0.6969965501705048
+   "weibull":0.5730779371949187
+   "weibull":0.48805274610527954
+   "weibull":0.4237322995152383
+   "weibull":0.3726269394327567
+   "weibull":0.33076570798083726
+mixtureVsWeibull = "mixtureVsWeibull":{"lower":-0.017969164982541544,"upper":0.08496201877523105}

@@ -1,0 +1,92 @@
+{
+  "schema": "uni.flagellum.audit-artifact-addendum/1.0.0",
+  "addendumTo": "audits/phase-d/package-manifest.json",
+  "addendumToSha256": "ee53bd2c57a7d7e4ee912f382b48a970f96f401c83e7ac4b65c96ac3e7a2c10e",
+  "purpose": "Covers the files added or changed by PHASE-D1-CORRECTION-PACKAGE-01. The base manifest is deliberately NOT regenerated: it is the historical manifest of the D1 result commit fb9aa336 and is preserved byte-identically. Where a file appears in both, THIS addendum carries the post-correction digest.",
+  "auditPhase": "D1",
+  "correctionPackageId": "PHASE-D1-CORRECTION-PACKAGE-01",
+  "reviewedCommit": "fb9aa3369fded56a9be7ac4998d01933599a2d73",
+  "appendOnly": true,
+  "addedCount": 2,
+  "changedCount": 4,
+  "added": [
+    {
+      "name": "audits/phase-d/d1-correction-package.v1.json",
+      "sha256": "c7cf1e7d541e9095fafc0d8c006449fb60402a490847ff519f3e8fae8b7d038f",
+      "bytes": 26404
+    },
+    {
+      "name": "tests/semantic/d1-correction-integrity.semantic.test.mjs",
+      "sha256": "f2a6970d5dd4379ffaa0043880beafce15df77a3f0dc2fb1933aeba3ba726971",
+      "bytes": 16684
+    }
+  ],
+  "changed": [
+    {
+      "name": "audits/phase-d/tools/run-d1-semantic-replay.mjs",
+      "sha256": "9b4a0371e8821036170da8fa2cb96fd01f51c496d7592660467d0f2ef5b1d1da",
+      "bytes": 32553
+    },
+    {
+      "name": "tests/semantic/world-agent-observation-boundary.semantic.test.mjs",
+      "sha256": "bf308c2802dfe9f0f673fa00681695ef0c63e6ce959813659dd335d1bf3e81b2",
+      "bytes": 10436
+    },
+    {
+      "name": "docs/audit/SEMANTIC-COVERAGE-LEDGER.md",
+      "sha256": "6123b3d3ed53a1f9a3502a63f3825bf088169c518d3557fafe4cee7de7accae0",
+      "bytes": 14543
+    },
+    {
+      "name": "package.json",
+      "sha256": "fb81205e76ba48b66f8c7cf79bc0cc814a15cc16e8df3689e2c000f80f8eb4ba",
+      "bytes": 2619
+    }
+  ],
+  "unchangedHistoricalArtifacts": [
+    {
+      "name": "audits/phase-d/d1-semantic-remediation-result.v1.json",
+      "status": "BYTE_IDENTICAL"
+    },
+    {
+      "name": "audits/phase-d/d1-semantic-remediation-protocol.v1.json",
+      "status": "BYTE_IDENTICAL"
+    },
+    {
+      "name": "audits/phase-d/d1-semantic-remediation-protocol-addendum-v2.json",
+      "status": "BYTE_IDENTICAL"
+    },
+    {
+      "name": "audits/phase-d/d1-semantic-remediation-predictions.v1.json",
+      "status": "BYTE_IDENTICAL"
+    },
+    {
+      "name": "audits/phase-d/d1-semantic-remediation-evidence.v1/**",
+      "status": "BYTE_IDENTICAL"
+    },
+    {
+      "name": "audits/phase-d/phase-c-preservation-baseline.v1.json",
+      "status": "BYTE_IDENTICAL"
+    },
+    {
+      "name": "audits/phase-d/d1-coverage-provenance-posthoc.v1.json",
+      "status": "BYTE_IDENTICAL"
+    },
+    {
+      "name": "audits/phase-c/**",
+      "status": "BYTE_IDENTICAL"
+    },
+    {
+      "name": "experiments/predictions/d1-semantic-remediation.prediction.json",
+      "status": "BYTE_IDENTICAL"
+    },
+    {
+      "name": "lib/**",
+      "status": "BYTE_IDENTICAL"
+    },
+    {
+      "name": "scripts/**",
+      "status": "BYTE_IDENTICAL"
+    }
+  ]
+}

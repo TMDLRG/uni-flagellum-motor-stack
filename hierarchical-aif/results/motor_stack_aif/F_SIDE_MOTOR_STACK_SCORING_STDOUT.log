@@ -1,0 +1,31 @@
+=== F-SIDE MOTOR-STACK HELD-OUT SCORING (H-AIF-G7) ===
+protocol: hierarchical-aif/protocols/F-SIDE-MOTOR-STACK-SCORING-PREDICTION.md
+determinismCheck: two full pipeline executions, canonical bytes compared
+  run1 26.9s  run2 27.3s  BYTE_IDENTICAL=True
+wrote hierarchical-aif\results\motor_stack_aif\F_SIDE_MOTOR_STACK_SCORING_RESULT.json (22789 bytes)
+sha256=b3b12720f32c0aee3bfa456f52ae0901976e59e3b43c0f2690fa7a17386ab297
+
+oracleConsistencyCheck: PASS (tolerance 1e-12)
+  M3_TWO_TIMESCALE                 published=3.4343333330753589 recomputed=3.4343333330753589 residual=0.0
+  M0_EXPONENTIAL                   published=3.5479832810629599 recomputed=3.5479832810629599 residual=0.0
+  M8_EMPIRICAL_KDE                 published=3.4225236184063643 recomputed=3.4225236184063643 residual=0.0
+
+motor-equal NLPD (SECONDS scale, 19 holdout motors):
+  M2_LOGNORMAL                     3.4093141583
+  M8_EMPIRICAL_KDE                 3.4225236184
+  F_MOTOR_STACK                    3.4326923383
+  M1_WEIBULL                       3.4333068484
+  M3_TWO_TIMESCALE                 3.4343333331
+  M5_GAMMA                         3.4637286497
+  M0_EXPONENTIAL                   3.5479832811
+
+contrasts  S(reference) - S(F_MOTOR_STACK); above 0 => F-side better:
+  M0_EXPONENTIAL                   point=+0.115291  interval=[+0.013040, +0.227497]  RESOLVED_ABOVE   (ADVERSARY)
+  M1_WEIBULL                       point=+0.000615  interval=[-0.010881, +0.011304]  NOT_ESTABLISHED  (ADVERSARY)
+  M2_LOGNORMAL                     point=-0.023378  interval=[-0.104886, +0.067038]  NOT_ESTABLISHED  (ADVERSARY)
+  M3_TWO_TIMESCALE                 point=+0.001641  interval=[-0.077147, +0.080849]  NOT_ESTABLISHED  (CONTROL_CURRENT)
+  M5_GAMMA                         point=+0.031036  interval=[+0.004459, +0.054473]  RESOLVED_ABOVE   (ADVERSARY)
+  M8_EMPIRICAL_KDE                 point=-0.010169  interval=[-0.084506, +0.064475]  NOT_ESTABLISHED  (ADVERSARY)
+
+strongest adversary (point estimate only, never a verdict): M2_LOGNORMAL
+runtimeS_total=54.2

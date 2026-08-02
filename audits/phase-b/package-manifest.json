@@ -1,0 +1,225 @@
+{
+  "schema": "uni.flagellum.audit-artifact/1.0.0",
+  "purpose": "Self-manifest. package-manifest.json and b3-preflight-result.json excluded by construction.",
+  "auditedCommit": "9c3a644e4b57e8ac27f925dcec84222463063aa1",
+  "auditPhase": "B",
+  "appendOnly": true,
+  "artifactCount": 43,
+  "artifacts": [
+    {
+      "name": "b1-c3-correction-addendum.json",
+      "sha256": "295a7ae1d9c3bfade1eb3539080e5b81d17ba09f937d905c486146071ff9e336",
+      "bytes": 12489
+    },
+    {
+      "name": "b1-mutation-ledger-rerun.json",
+      "sha256": "70f5821be79517e2c288a7e7c3fd897f1009166b9372a8125ce4af09735fc95c",
+      "bytes": 12109
+    },
+    {
+      "name": "b1-mutation-ledger.json",
+      "sha256": "1a4abe6507586bfb66a5385a2c88ee8725f8867b8c525ed75563083fadb98f07",
+      "bytes": 20363
+    },
+    {
+      "name": "b1-mutation-patch-set.v1.json",
+      "sha256": "abd37165f7ba1519eb158ab73797212aacde917a881ba6b007c5c97422e2a03a",
+      "bytes": 21169
+    },
+    {
+      "name": "b1-rerun-prediction-committed-before-execution.txt",
+      "sha256": "bdf2bfe3b15e79b59297387f31d99caedcd09bd2b1f42fd5860c0b9a49ac2d1d",
+      "bytes": 2895
+    },
+    {
+      "name": "b2-correction-addendum-2.json",
+      "sha256": "5dd9f40d8b483ee89874eba440217a87ebb1e990b62a887750993ca9b05f774b",
+      "bytes": 14695
+    },
+    {
+      "name": "b2-correction-addendum-3.json",
+      "sha256": "830fa43ee8041a4022b1072a74261d4c478301c6dd96e56ff0925542abde8957",
+      "bytes": 8453
+    },
+    {
+      "name": "b2-correction-addendum-4.json",
+      "sha256": "1d529184ec3b96697d6812a8bfec4068a1c2db20c2784dc35497ef5fe807dc19",
+      "bytes": 6708
+    },
+    {
+      "name": "b2-correction-addendum.json",
+      "sha256": "5adafd0cc97f0a66e60cb316fa8bd735a3f7824149bee0c84196bb1af3ff5a80",
+      "bytes": 12654
+    },
+    {
+      "name": "b2-decisive-oracle.py",
+      "sha256": "408bf4ec6cbd0315d42fd3bed48fd6b84c4b85d69db7713cec361c08af282c4f",
+      "bytes": 6975
+    },
+    {
+      "name": "b2-independent-duration-model-rederivation.json",
+      "sha256": "ba0b914d406575b21dc33dffd0980ceeca527f3792c3f18468ea5c4daa3c509f",
+      "bytes": 12487
+    },
+    {
+      "name": "b2-portable-oracle-result.json",
+      "sha256": "26e6b38267b88eed8501a30f4ee577a0ac2784af15f00a156c6b90f850422670",
+      "bytes": 7326
+    },
+    {
+      "name": "b2-portable-oracle-v2-result.json",
+      "sha256": "7fb3888968a824ee0d572c5c7be896a875a89a4ed7273942d70c3b156fabe749",
+      "bytes": 12358
+    },
+    {
+      "name": "b2-portable-oracle-v2.py",
+      "sha256": "16bd40793ca0b66c9eac5ccf7dcbbceb54ae97906584522e569dca5bc07cf2a8",
+      "bytes": 22930
+    },
+    {
+      "name": "b2-portable-oracle.py",
+      "sha256": "e38acc6c1c729ec363a86077052443dcd7094c63582fc26c5ab0889bdac9ba56",
+      "bytes": 15938
+    },
+    {
+      "name": "b2-prediction-committed-before-execution.txt",
+      "sha256": "3a3c3f47cf86f15fcc56f050081dc5afec18825bfdb1edaf00ba69a1ed8cff04",
+      "bytes": 3274
+    },
+    {
+      "name": "b3-competition-protocol-addendum-v2.json",
+      "sha256": "37452e8f90dd49602493284240bd841b952db6e90dc949ab9fbe0adc76402061",
+      "bytes": 20535
+    },
+    {
+      "name": "b3-competition-protocol.v1.json",
+      "sha256": "dec6a2053d04509c724b1ce2504f14646a763547138cffffa0e76f3286779141",
+      "bytes": 11183
+    },
+    {
+      "name": "b3-independent-oracle.py",
+      "sha256": "487946d6e52d856bda4146d6c7b9c6e82a3940f3a4cead89663da08fe1ca3e19",
+      "bytes": 13030
+    },
+    {
+      "name": "b3-integration-addendum-v3.json",
+      "sha256": "ef4f35c50521bd089ce2abf7248b6539c8d4c8bb9b95e786a745f9288c13c41b",
+      "bytes": 16514
+    },
+    {
+      "name": "b3-model-competition-result.json",
+      "sha256": "5d7a0589e94de6b10f425f2d483e1e2a8f899d336aa59c335990209795e6b2bd",
+      "bytes": 79992
+    },
+    {
+      "name": "b3-model-competition-runner.py",
+      "sha256": "368d74a9d6cee6e003eb6ecac1309653637ed63fb563cab91eb6b9fa5002aa1c",
+      "bytes": 73247
+    },
+    {
+      "name": "b3-predictions.v1.json",
+      "sha256": "65a77ad23a8241a95d3f021d64bfb3b45bd9cda34107a17a9874a1bfca78a889",
+      "bytes": 28286
+    },
+    {
+      "name": "b3-preflight.py",
+      "sha256": "b40a4abd87a8b2fba4c4a5f161c84292b5fd1e121ab79e523cee47eddb578f58",
+      "bytes": 12618
+    },
+    {
+      "name": "b3-specs/m4-three-component-mixture.json",
+      "sha256": "f9be08eee0c8b6a8ea784726e8d8855709a9339ad9000288be20142c1b2a23d1",
+      "bytes": 34504
+    },
+    {
+      "name": "b3-specs/m7-hierarchical-motor.json",
+      "sha256": "66fadcc899a06d96f6849176f62bb820a8eb85960d933e321026c5c30d53148d",
+      "bytes": 30958
+    },
+    {
+      "name": "b3-specs/m8-kde-ceiling.json",
+      "sha256": "5d5806d77c8cb7aa13ba62c021ccf8428962f93f1a2ff46dd7cada674eac55e6",
+      "bytes": 42316
+    },
+    {
+      "name": "b3-specs/scoring-and-uncertainty.json",
+      "sha256": "eccb83bc55b028617af4e50a8f2ae5a1384f9e53a6852fa7628b7d3811a438bb",
+      "bytes": 42234
+    },
+    {
+      "name": "b4-assemble.py",
+      "sha256": "d2560370ca13b02c1a014ca6f9e57e565b292d2b91954abbc42781c0440680ea",
+      "bytes": 20172
+    },
+    {
+      "name": "b4-evidence.v1/c03-c04-c07-c08.evidence.json",
+      "sha256": "506f14bbc3d42c9d182b537965645b763312e6dfd53c4572bf50014771e429bf",
+      "bytes": 17295
+    },
+    {
+      "name": "b4-evidence.v1/c05.evidence.json",
+      "sha256": "22308de9d7fcdc27034d666c53e84ecfcb640cee5daa0ecfb231ce49af322a7d",
+      "bytes": 5506
+    },
+    {
+      "name": "b4-evidence.v1/c06.evidence.json",
+      "sha256": "30e517dbbe25fa2613c7108b4b809c2cb9a24e7a9564e33331f295930ef51b9c",
+      "bytes": 4900
+    },
+    {
+      "name": "b4-evidence.v1/c10.evidence.json",
+      "sha256": "3cbcc6c497ae100ca41978409fc1c7b361eacdbe22f9bbe45ed5d55e82055a1c",
+      "bytes": 1580
+    },
+    {
+      "name": "b4-evidence.v1/c11.evidence.json",
+      "sha256": "bf3ec019fdd91e398ceaacec7e1c37dc576ac5a9d6263e12538b2a181ac007eb",
+      "bytes": 3948
+    },
+    {
+      "name": "b4-evidence.v1/oracle-result.json",
+      "sha256": "629f50f96f01aa43a6ee5c8a0961c4645fbb4a753d248745abcffcaadc3e7d40",
+      "bytes": 6729
+    },
+    {
+      "name": "b4-identifiability-robustness-predictions.v1.json",
+      "sha256": "f391edd81ecd531ea8c2cc089825a60966b60ed630402f4979f9ffab3a501921",
+      "bytes": 7004
+    },
+    {
+      "name": "b4-identifiability-robustness-protocol.v1.json",
+      "sha256": "913f58b7dad2ad900882d9cde882cba6763b1e104448078869c37712dfa026c6",
+      "bytes": 22427
+    },
+    {
+      "name": "b4-identifiability-robustness-result.v1.json",
+      "sha256": "f361e4dcf5fb8e1bf1724844b0581ebd1392027bfb694220944f3d048f1807f3",
+      "bytes": 39363
+    },
+    {
+      "name": "b4-identifiability-robustness-runner.py",
+      "sha256": "3e21edac97a2b68faec087e73de307439348e89e778b6e97d84809bbf1e135a7",
+      "bytes": 74496
+    },
+    {
+      "name": "b4-independent-oracle.py",
+      "sha256": "2352229a570f708973b38f2a464414f7ba9ac90bfed3808b7a1ec1540110eec1",
+      "bytes": 17754
+    },
+    {
+      "name": "c3-fix-prediction-committed-before-change.txt",
+      "sha256": "bdde446d200accaf644ae31726996f08b15fe352244490e2eee1cb4a01e5a1d4",
+      "bytes": 2788
+    },
+    {
+      "name": "phase-b-roadmap.v1.json",
+      "sha256": "c7c2ab90c3f04a77de620f6cd5ac316ccdaaa3c3f1a134d0f80fadb89aa5af9d",
+      "bytes": 10998
+    },
+    {
+      "name": "phase-b-roadmap.v2.json",
+      "sha256": "ae5af2b800354112dc2e3038c29982daafd8cb5ef1d1d161bd2fe92a52997171",
+      "bytes": 12739
+    }
+  ]
+}

@@ -1,0 +1,235 @@
+{
+  "artifacts": {
+    "corpus": {
+      "bytes": 135848,
+      "path": "experiments/data/cross-study-motor-evidence.json",
+      "sha256": "2761c10f740c18dbe7eb4bf2e5e03db1a0a93c533b143562b850e1233b3f94e7"
+    },
+    "crossStudyReport": {
+      "bytes": 31084,
+      "path": "experiments/results/cross-study-parity-report.json",
+      "sha256": "bd3838c40b8d256342427e59c615679e0b004d757f21093ef640079a591ee384"
+    },
+    "evidenceIngestor": {
+      "bytes": 31160,
+      "path": "scripts/ingest-cross-study-evidence.py",
+      "sha256": "b4a38cf0c13fe1ee42ce2c59fd7a7ba02e4d9dabc61341abffb8242a3a9581f5"
+    },
+    "independentCrossStudyVerifier": {
+      "bytes": 9281,
+      "path": "scripts/independent-cross-study-check.mjs",
+      "sha256": "c481fb40150ee224f4ec9e14e78f4236a6a1b3d91813a21e167a68346699f02b"
+    },
+    "itoRawArchiveVerification": {
+      "bytes": 1073,
+      "path": "experiments/results/ito-raw-archive-verification.json",
+      "sha256": "f8644dad8b7084d44672879972558f2f68d6191e18124d23b770dd4ab418b899"
+    },
+    "previousScienceReport": {
+      "bytes": 22835,
+      "path": "experiments/results/science-gates-report.json",
+      "sha256": "d7a35acab4cfb2b4055be5095466057c8fada7c1de3edc41fd6719207426d667"
+    },
+    "protocol": {
+      "bytes": 9257,
+      "path": "experiments/cross-study-preregistration.v1.json",
+      "sha256": "f0c2803eb824e1f737dceea18cfb5c87785ba088cc70db834b397e27d0a1896b"
+    },
+    "pythonRunner": {
+      "bytes": 30897,
+      "path": "scripts/run-cross-study-parity.py",
+      "sha256": "89e0c0ae11cb01fb7a829f34308d63c6ce19da79f12496f24f78a4876c55d777"
+    },
+    "rawArchiveVerifier": {
+      "bytes": 3196,
+      "path": "scripts/verify-ito-raw-archive.py",
+      "sha256": "f9a2bd5c0cce9c57470681797eb8d1f6504045120ddabdc896bf6762f583af11"
+    },
+    "structuralStateMap": {
+      "bytes": 3184,
+      "path": "experiments/structural-state-map.v1.json",
+      "sha256": "52c4d4cb67097e47777c621730e334d6b72f0fbb4ac77a98301edf29757ce65a"
+    }
+  },
+  "determinism": {
+    "bootstrapReplicates": 5000,
+    "jsonNaNForbidden": true,
+    "lineEndings": "LF",
+    "seed": 20260717
+  },
+  "externalBlocks": [
+    "X13_LIVE_SIGNAL_CHAIN",
+    "X14_INDEPENDENT_WET_LAB_REPLICATION",
+    "X15_PRINTED_MODEL_VALIDATION"
+  ],
+  "failedGates": [
+    "X06_FINITE_LATTICE_COOPERATIVITY",
+    "X11_STRUCTURAL_CONSISTENCY",
+    "X16_FULL_BIOLOGICAL_PARITY"
+  ],
+  "largeExternalArtifactLedger": {
+    "artifact": {
+      "cachePath": "experiments/upstream-cache/ito-2021-raw-data.zip",
+      "declaredContents": "All manuscript rotation-rate traces",
+      "doi": "10.6084/m9.figshare.14371232.v2",
+      "downloadUrl": "https://ndownloader.figshare.com/files/27453833",
+      "license": "CC BY 4.0"
+    },
+    "claimFence": "This establishes archive identity and integrity, not correctness of every measurement or biological parity.",
+    "expected": {
+      "bytes": 4085227742,
+      "md5": "d42879e66142ff7190f256f4276db111"
+    },
+    "method": {
+      "byteCount": true,
+      "everyMemberCrc": true,
+      "normalTestSuiteRehashesArchive": false,
+      "streamingMd5": true,
+      "zipCentralDirectory": true
+    },
+    "observed": {
+      "bytes": 4085227742,
+      "md5": "d42879e66142ff7190f256f4276db111",
+      "zipCompressedMemberBytes": 4085099290,
+      "zipCrcFailure": null,
+      "zipEntryCount": 505,
+      "zipUncompressedMemberBytes": 10160270466
+    },
+    "schema": "uni.flagellum.large-source-verification/1.0.0",
+    "status": "PASS",
+    "studyId": "ITO_2021",
+    "verifiedAt": "2026-07-17T21:00:00Z"
+  },
+  "notEstablishedGates": [
+    "X10_CROSS_STUDY_PARAMETER_TRANSFER",
+    "X12_ACTIVE_INFERENCE_CAUSAL_IDENTITY"
+  ],
+  "repositorySources": {
+    "mattinglyGmc": "c3bb92455804fe26e7b99b22c18c2d786be0db71",
+    "wadhwa": "c83119131c3ce3742460a2e3b6bd6c6e44bef4d5"
+  },
+  "runId": "454bfc6cfcd78e77781792dd3e3c3da051da72240670bd05ffb8cfdbba6ab09c",
+  "schema": "uni.flagellum.cross-study-parity-audit/1.0.0",
+  "upstreamArtifacts": [
+    {
+      "bytes": 11896413,
+      "cachePath": "experiments/upstream-cache/ito-2021-source-data.xlsx",
+      "file": "ito-2021-source-data.xlsx",
+      "id": "ITO_2021_SOURCE_WORKBOOK",
+      "sha256": "33687c50a5636817889612d59d7e902b876391997bf7f6013574f8fa2bce944a",
+      "tier": "A",
+      "url": "https://static-content.springer.com/esm/art%3A10.1038%2Fs41467-021-23516-y/MediaObjects/41467_2021_23516_MOESM2_ESM.xlsx",
+      "verified": true
+    },
+    {
+      "bytes": 45271,
+      "cachePath": "experiments/upstream-cache/antani-2021-source-data.xlsx",
+      "file": "antani-2021-source-data.xlsx",
+      "id": "ANTANI_2021_SOURCE_WORKBOOK",
+      "sha256": "bee5497182be4e7b6c2f1a3bd75a24407ab965512e8652bfe9a6337ffb297abd",
+      "tier": "A",
+      "url": "https://static-content.springer.com/esm/art%3A10.1038%2Fs41467-021-25774-2/MediaObjects/41467_2021_25774_MOESM5_ESM.xlsx",
+      "verified": true
+    },
+    {
+      "bytes": 45274919,
+      "cachePath": "experiments/upstream-cache/lisevich-2025-source-data.zip",
+      "file": "lisevich-2025-source-data.zip",
+      "id": "LISEVICH_2025_SOURCE_ARCHIVE",
+      "sha256": "7e30c791be8136cc4520e7f897d2ca10d7f88cd2558447dfbe36b393eb641afd",
+      "tier": "A",
+      "url": "https://static-content.springer.com/esm/art%3A10.1038%2Fs41467-025-56980-x/MediaObjects/41467_2025_56980_MOESM7_ESM.zip",
+      "verified": true
+    },
+    {
+      "bytes": 13690,
+      "cachePath": "experiments/upstream-cache/lisevich-2025-supp-data-1.xlsx",
+      "file": "lisevich-2025-supp-data-1.xlsx",
+      "id": "LISEVICH_2025_SUPPLEMENTARY_DATA_1",
+      "sha256": "87186cdc9221ed4249231b82306250f1abe7ab66c7de905d7a88682cc9a03ce8",
+      "tier": "B",
+      "url": "https://static-content.springer.com/esm/art%3A10.1038%2Fs41467-025-56980-x/MediaObjects/41467_2025_56980_MOESM2_ESM.xlsx",
+      "verified": true
+    },
+    {
+      "bytes": 14102,
+      "cachePath": "experiments/upstream-cache/lisevich-2025-supp-data-2.xlsx",
+      "file": "lisevich-2025-supp-data-2.xlsx",
+      "id": "LISEVICH_2025_SUPPLEMENTARY_DATA_2",
+      "sha256": "3d62f6a53876d1fc5c17dfdc05c42c263b7984d1f130cfc05df7ae819cbf1d78",
+      "tier": "B",
+      "url": "https://static-content.springer.com/esm/art%3A10.1038%2Fs41467-025-56980-x/MediaObjects/41467_2025_56980_MOESM3_ESM.xlsx",
+      "verified": true
+    },
+    {
+      "bytes": 15731056,
+      "cachePath": "experiments/upstream-cache/mattingly-2026-fig2-source-data.zip",
+      "file": "mattingly-2026-fig2-source-data.zip",
+      "id": "MATTINGLY_2026_SOURCE_DATA",
+      "sha256": "6c9c7145ef8aa9485365d863ecd573e0fd4a664d61a2c46929a7a772ce8522cf",
+      "tier": "B",
+      "url": "https://static-content.springer.com/esm/art%3A10.1038%2Fs41567-025-03105-2/MediaObjects/41567_2025_3105_MOESM7_ESM.zip",
+      "verified": true
+    },
+    {
+      "bytes": 402957,
+      "cachePath": "experiments/upstream-cache/mattingly-2026-supp-code-2.zip",
+      "file": "mattingly-2026-supp-code-2.zip",
+      "id": "MATTINGLY_2026_CODE_FIG2",
+      "sha256": "ccb4ce3c3052110e1ebc345dbb7e4078da04f172efd7191918053f7d1bbaa653",
+      "tier": "B",
+      "url": "https://static-content.springer.com/esm/art%3A10.1038%2Fs41567-025-03105-2/MediaObjects/41567_2025_3105_MOESM2_ESM.zip",
+      "verified": true
+    },
+    {
+      "bytes": 439682,
+      "cachePath": "experiments/upstream-cache/mattingly-2026-supp-code-3.zip",
+      "file": "mattingly-2026-supp-code-3.zip",
+      "id": "MATTINGLY_2026_CODE_FIG3",
+      "sha256": "16f9ea44aa6ac79e59ae89225b6645c1fe23117bfeb24d1ea6749bf9ba63418a",
+      "tier": "B",
+      "url": "https://static-content.springer.com/esm/art%3A10.1038%2Fs41567-025-03105-2/MediaObjects/41567_2025_3105_MOESM3_ESM.zip",
+      "verified": true
+    },
+    {
+      "bytes": 372370,
+      "cachePath": "experiments/upstream-cache/mattingly-2026-supp-code-4.zip",
+      "file": "mattingly-2026-supp-code-4.zip",
+      "id": "MATTINGLY_2026_CODE_FIG4",
+      "sha256": "a3ddbaec26b9b5767fdd438f79d7dcea81d5c2f59a83bac804446a8d1cc76dc2",
+      "tier": "B",
+      "url": "https://static-content.springer.com/esm/art%3A10.1038%2Fs41567-025-03105-2/MediaObjects/41567_2025_3105_MOESM4_ESM.zip",
+      "verified": true
+    },
+    {
+      "bytes": 409379,
+      "cachePath": "experiments/upstream-cache/mattingly-2026-supp-code-5.zip",
+      "file": "mattingly-2026-supp-code-5.zip",
+      "id": "MATTINGLY_2026_CODE_FIG5",
+      "sha256": "b01ea374aec04dd77849181cc56a2c2663fcbe100e5f0f2b16e78e4ec4c7d53a",
+      "tier": "B",
+      "url": "https://static-content.springer.com/esm/art%3A10.1038%2Fs41567-025-03105-2/MediaObjects/41567_2025_3105_MOESM5_ESM.zip",
+      "verified": true
+    },
+    {
+      "bytes": 376804,
+      "cachePath": "experiments/upstream-cache/mattingly-2026-supp-code-6.zip",
+      "file": "mattingly-2026-supp-code-6.zip",
+      "id": "MATTINGLY_2026_CODE_FIG6",
+      "sha256": "127a3e7688ae33fdf8be1b85d47dd50faf958db5b871e860eeba6913d034fd63",
+      "tier": "B",
+      "url": "https://static-content.springer.com/esm/art%3A10.1038%2Fs41567-025-03105-2/MediaObjects/41567_2025_3105_MOESM6_ESM.zip",
+      "verified": true
+    },
+    {
+      "bytes": 25093,
+      "cachePath": "experiments/upstream-cache/perez-carrasco-2022-code.zip",
+      "file": "perez-carrasco-2022-code.zip",
+      "id": "PEREZ_CARRASCO_2022_MODEL_CODE",
+      "sha256": "23bded7d444f8c684a7aca95dae7fc9bd06bc07a9c95b42ccb58e213f0543561",
+      "tier": "B",
+      "url": "https://zenodo.org/records/5784548/files/2piruben/BFM_multistate-v1.0.0.zip?download=1",
+      "verified": true
+    }
+  ]
+}

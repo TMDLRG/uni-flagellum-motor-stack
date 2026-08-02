@@ -1,0 +1,130 @@
+{
+  "schema": "uni.flagellum.audit-artifact/1.0.0",
+  "purpose": "Consolidated B3 integration addendum. Resolves the six cross-specification conflicts Codex identified by fixing exactly ONE policy for each. Where a component specification disagrees with this document, THIS DOCUMENT GOVERNS.",
+  "auditedCommit": "9c3a644e4b57e8ac27f925dcec84222463063aa1",
+  "auditPhase": "B",
+  "auditorModel": "claude-opus-4-8",
+  "appendOnly": true,
+  "governs": "b3-competition-protocol.v1.json, b3-competition-protocol-addendum-v2.json, and all four files under b3-specs/. All are PRESERVED unmodified; this addendum supersedes them where they conflict.",
+  "rootCauseOfTheConflicts": "The four component specifications were derived independently and were never cross-checked against one another. Independence at the derivation level was the design goal and it worked, but it guaranteed interface drift. This document is the integration pass that independence made necessary.",
+  "note": "Timestamps are deliberately omitted: this package must be byte-reproducible. Ordering is established by git history.",
+
+  "resolutions": [
+    {
+      "id": "R1",
+      "conflict": "Log-score floor policy is self-contradictory. Addendum v2 and M8 mandate a shared 1e-300 floor; the shared scorer and M4 prohibit flooring; addendum v2's own next sentence prohibits it.",
+      "GOVERNING_POLICY": "NO FLOOR ANYWHERE. Log densities are evaluated in the log domain via scipy.special.logsumexp. A non-finite held-out log density is a HALTING condition.",
+      "reason": "A floor converts the log score into a clipped score, which is no longer strictly proper. M8's own specification concedes the floor can bind for it at small bandwidth. A scoring rule that is strictly proper for eight models and clipped for the ninth cannot rank them.",
+      "supersedes": [
+        "b3-competition-protocol-addendum-v2.json additionalHardening item mandating a shared 1e-300 floor",
+        "b3-specs/m8-kde-ceiling.json DENSITY_FLOOR = 1e-300 and LOG_DENSITY_FLOOR"
+      ],
+      "consequenceForM8_resolvedWithoutPostHocChoice": "M8's bandwidth is selected by cross-validation on TRAINING folds. A candidate h that yields a non-finite out-of-fold log density on any fold is ELIMINATED as infeasible during CV. This is a training-only decision and introduces no leakage. h* is therefore guaranteed finite on training by construction. If the selected h* still yields a non-finite log density on a HOLDOUT event, the run HALTS and that is recorded as a genuine finding about M8, not repaired by a floor.",
+      "flooredEventCountRetained": "The telemetry field is retained but is now necessarily zero on any completed run. A non-zero value is impossible, because a floor is never applied; the field exists so its absence is auditable."
+    },
+    {
+      "id": "R2",
+      "conflict": "The shared scorer implements a FOUR-model competition: four competitors, 208 CRPS checkpoints, three primary contrasts, six total pairs, four-model rankings. B3 has NINE models and therefore 36 unordered pairs. M4's frozen closed-form CRPS check also contradicts the scorer's claim that exactly M0 and M2 may have closed forms.",
+      "GOVERNING_POLICY": {
+        "modelList": ["M0_EXPONENTIAL", "M1_WEIBULL", "M2_LOGNORMAL", "M3_TWO_TIMESCALE", "M4_MIXTURE_K3", "M5_GAMMA", "M6_SEMI_MARKOV_STATE_DEPENDENT", "M7_HIERARCHICAL_MOTOR", "M8_EMPIRICAL_KDE"],
+        "modelCount": 9,
+        "totalUnorderedPairs": 36,
+        "primaryContrasts": "The EIGHT pairwise contrasts of M3 against each other model. B3 exists to test M3 against serious alternatives, so M3 is the reference. Bonferroni companion at level 1 - 0.05/8 = 0.99375, reported alongside the unadjusted 95 percent interval.",
+        "secondaryContrasts": "All 36 pairs are computed and reported, unadjusted, labelled SECONDARY. Declared in advance so no pair can be promoted to primary after the fact.",
+        "crpsCheckpoints": "The 208-point checkpoint set was sized for four models. It is replaced by a per-model checkpoint set of 52 deterministic points per model over the declared y-range, giving 9 x 52 = 468 checkpoints. The U-invariance test at U = 20.0 and U = 200.0 runs over the full 468.",
+        "closedFormCrps": "EXACTLY M0 and M2. The shared scorer governs. M4's frozen closed-form CRPS check is SUPERSEDED: M4 is quadrature-only, as are M1, M3, M5, M6, M7 and M8. Introducing a closed form for any of the seven later is forbidden."
+      },
+      "supersedes": ["b3-specs/scoring-and-uncertainty.json four-model scaffolding, its 208-checkpoint set, its three-primary-contrast rule and its six-pair enumeration", "b3-specs/m4-three-component-mixture.json closed-form CRPS cross-check"]
+    },
+    {
+      "id": "R3",
+      "conflict": "The scoring estimand is unresolved across three artifacts. Protocol v1 and M4 score events equally; the shared scorer weights motors equally; M8's CV uses event weighting explicitly to match what it believed the primary rule to be.",
+      "GOVERNING_POLICY": {
+        "primary": "MOTOR-EQUAL. The primary statistic is the unweighted mean over the 19 holdout motors of each motor's within-motor mean score.",
+        "reason": "CLAUDE.md states that frames, time points and repeated events are not independent biological replicates when the experimental unit is a motor. The experimental unit here is the motor. Event-pooling weights a motor with 40 events four times as heavily as one with 10, which is the pseudoreplication the truth contract forbids.",
+        "mandatorySecondary": "EVENT-POOLED mean, reported for every model and every contrast, labelled explicitly as the CONTINUITY BRIDGE to the repository's existing published figures.",
+        "continuityObligation": "The repository's published held-out scores and the 0.0369 nat lognormal-minus-mixture gap are EVENT-POOLED quantities. B3's primary motor-equal numbers are therefore NOT directly comparable to them. The event-pooled secondary exists precisely so the comparison remains auditable, and any B3 deliverable citing the 0.0369 figure must cite it against the event-pooled column, never the motor-equal one.",
+        "disagreementRule": "If the motor-equal and event-pooled rankings differ, that difference is a first-class reported result and is NOT resolved by preferring either."
+      },
+      "supersedes": [
+        "b3-competition-protocol.v1.json event-equal scoring, EXPLICITLY SUPERSEDED",
+        "b3-specs/m4-three-component-mixture.json event-equal assumption",
+        "b3-specs/m8-kde-ceiling.json CV objective, which must now be MOTOR-EQUAL to match the primary rule it was written to match"
+      ],
+      "consequentialChangeToM8": "M8's cross-validation objective becomes MOTOR-EQUAL, to match the primary rule it was written to match. Concretely it changes from mean out-of-fold log density per EVENT to the unweighted mean over out-of-fold MOTORS of each motor's within-motor mean. M8's own residual risk 3 flagged the event-weighting choice as a deliberate deviation from the experimental unit; that deviation is now removed."
+    },
+    {
+      "id": "R4",
+      "conflict": "Optimizer contracts conflict. Addendum v2 declares global differential_evolution settings (maxiter 5000, init sobol, tol 1e-10); M4 freezes maxiter 2000, init latinhypercube and different tolerances. M5 and M6 have equations and bounds but no fitting or restart contract at all.",
+      "GOVERNING_POLICY": {
+        "differentialEvolution": { "strategy": "best1bin", "popsize": 60, "tol": 1e-10, "mutation": [0.5, 1.0], "recombination": 0.7, "maxiter": 5000, "init": "sobol", "seed": 20260717, "workers": 1, "updating": "deferred", "polish": true },
+        "nelderMead": { "xatol": 1e-10, "fatol": 1e-10, "maxiter": 20000, "maxfev": 20000 },
+        "lbfgsb": { "ftol": 1e-12, "gtol": 1e-10, "maxiter": 20000, "maxfun": 20000, "maxls": 100, "finite_diff_rel_step": 1e-6 },
+        "appliesTo": "Every likelihood-fitted model without exception: M1, M2, M3, M4, M5, M6, M7. M0 has no parameters. M8 has no likelihood-optimized parameter and uses an exhaustive 61-point grid instead.",
+        "restartContract": "Exactly 100 grid starts plus 200 seeded random starts plus one mandatory start at any parameters this repository already publishes, for every model with free parameters. Grid starts are log-spaced for rate-like parameters and linear for shape-like parameters. Per-model start counts are therefore 301 where a published parameter exists and 300 where none does.",
+        "M5_GAMMA": { "freeParameters": ["shape"], "bounds": { "shape": [0.05, 20.0] }, "meanOne": "rate = shape, closed form", "starts": "100 linear grid over [0.05, 20.0] plus 200 seeded random plus 0 published = 300", "optimizers": "all three" },
+        "M6_SEMI_MARKOV_STATE_DEPENDENT": { "freeParameters": ["k_N for each eligible N"], "parameterCount": "8 under the [1..8] cohort, 9 under [0..8]", "bounds": { "k_N": [0.05, 5.0] }, "meanOne": "per-state Weibull, each with scale 1/Gamma(1+1/k_N), closed form, imposed independently per state", "separability": "The likelihood separates across states because each state has its own shape and its own scale. Each k_N is therefore fitted by an independent one-dimensional optimization, and the per-state contract is identical to M1's.", "starts": "100 grid plus 200 random per state, all three optimizers", "note": "Separability is stated so that an implementer does not attempt a joint 8-dimensional search and report a worse optimum." }
+      },
+      "supersedes": ["b3-specs/m4-three-component-mixture.json differential_evolution settings (maxiter 2000, latinhypercube)"]
+    },
+    {
+      "id": "R5",
+      "conflict": "M8's cross-validation leaks fold-validation information. scale_N is computed from ALL training events and never recomputed per fold. M8's claim that this is necessarily h-independent is FALSE for a pooled KDE: state-specific scale shifts change cross-state log distances relative to the bandwidth.",
+      "GOVERNING_POLICY": "Within M8's cross-validation, ALL preprocessing is recomputed from the FOLD COMPLEMENT ONLY. This includes scale_N per state, the normalized y values, ybar, and the location shift. No quantity derived from a validation fold may enter the model that scores it.",
+      "conflictWithTheSharedNormalizationResolved": "scale_N remains the frozen shared normalization for the FINAL fit and for all held-out scoring, identically for all nine models. Fold-complement recomputation applies ONLY inside M8's hyperparameter-selection loop, which is a training-internal procedure. There is no inconsistency: the CV estimates which h generalizes, and must therefore not see the validation fold; the final model uses the shared normalization like every other competitor.",
+      "codexIsCorrectOnTheMechanism": "For a POOLED KDE the density is estimated over all states jointly on log y. Changing a state's scale translates that state's points along the log axis. Their distance to points from other states, measured in bandwidth units, therefore changes. The optimism is consequently h-dependent, and the original h-independence argument does not hold.",
+      "supersedes": "b3-specs/m8-kde-ceiling.json section stating scale_N is deliberately not recomputed inside CV folds, and its associated h-independence argument"
+    },
+    {
+      "id": "R6a",
+      "conflict": "M4 clips its training log-likelihood at -745 per event, solely to guarantee that the infeasibility penalty dominates. That means M4 is not fitting the declared likelihood, and it treats M4 differently from every other competitor.",
+      "GOVERNING_POLICY": "NO CLIPPING of any likelihood, for any model. M4 fits the declared likelihood exactly, consistent with R1's no-floor policy.",
+      "penaltyDominanceAchievedWithoutClipping": "Infeasible proposals are rejected by the feasibility predicate BEFORE the likelihood is evaluated, so no comparison between a penalty and an unbounded objective ever occurs. The penalty is the finite constant 1e12. A guard asserts that no ACCEPTED terminal point has objective >= 1e11; if that assertion fires the run HALTS, because it would mean a feasible point produced an implausible objective and the penalty ordering could no longer be trusted.",
+      "supersedes": "b3-specs/m4-three-component-mixture.json LOG_DENSITY_FLOOR = -745.0 in the training objective, and the penalty formula 1e7 + 1e3*V that depended on it"
+    },
+    {
+      "id": "R6b",
+      "conflict": "The UNDERPOWERED-CONTRAST criterion divides the bootstrap interval width by |S(M0)|. Absolute NLPD shifts when seconds are replaced by milliseconds, because the log-Jacobian shifts, whereas the width of a PAIRED-difference interval does not. The classification could therefore change from a change of time unit alone.",
+      "GOVERNING_POLICY": {
+        "NLPD": "UNDERPOWERED-CONTRAST is declared when the paired-difference interval WIDTH exceeds 0.1476 nats per unit, in absolute terms. No denominator. This is unit-invariant because paired NLPD differences are unit-invariant: the log-Jacobian is model-independent and cancels exactly in the difference.",
+        "thresholdProvenance": "0.1476 is four times the 0.0369 nat reference effect, the published lognormal-minus-mixture gap. It is a convention, frozen before execution, chosen so the criterion is anchored to the effect size the competition is powered to detect rather than to an arbitrary round number.",
+        "CRPS": "CRPS in seconds IS unit-dependent, so an absolute nat-style threshold is not available. For CRPS, UNDERPOWERED-CONTRAST is declared when interval width divided by the ABSOLUTE VALUE OF THE CONTRAST POINT ESTIMATE exceeds 4.0. This ratio is scale-free because numerator and denominator carry the same units.",
+        "reportingRule": "The relevant quantity is printed for every contrast under both rules, so the criterion cannot be applied selectively."
+      },
+      "supersedes": "b3-specs/scoring-and-uncertainty.json UNDERPOWERED-CONTRAST criterion based on the ratio to |S(M0)| at the 0.50 constant"
+    }
+  ],
+
+  "unresolvedInterfaceRiskAcknowledged": {
+    "item": "M7 and M8 both flagged a dependence on the shared CRPS integrator's tail handling that their authors could not inspect. R2 replaces the checkpoint set but does not by itself prove the shared integrator is adequate for M7's possibly heavy-tailed mixture with node shapes as low as 1e-3, nor for M8's lognormal mixture.",
+    "status": "OPEN. The preflight tests the integrator against the most adverse declared parameter settings of M7 and M8 and FAILS if the U-invariance tolerance is not met. Passing the preflight is the evidence; until it passes, this remains a live risk."
+  },
+
+  "preflight": {
+    "file": "audits/phase-b/b3-preflight.py",
+    "mustPassBefore": "any B3 prediction is committed, and therefore before any competitor is fitted",
+    "validates": [
+      "the nine-model list is exactly as declared here and matches every referencing artifact",
+      "exactly one aggregation policy is in force and it is motor-equal",
+      "exactly one floor policy is in force and it is no-floor",
+      "every likelihood-fitted model has a complete optimizer and restart contract",
+      "the pair-comparison policy is 8 primary and 36 total",
+      "CRPS checkpoint counts and the U-invariance requirement are consistent",
+      "exactly one bootstrap contract is in force, frozen-fit, 2000 primary as a strict prefix of 50000",
+      "no artifact references a retracted finding id",
+      "the package manifest is complete and every digest verifies"
+    ]
+  },
+
+  "statusOfB3": {
+    "protocolIntegrated": true,
+    "preflightPassed": "PENDING - see the preflight result artifact",
+    "predictionsCommitted": false,
+    "executionCleared": false,
+    "gateOrder": "preflight passes -> predictions and falsifiers committed for 9 models x 2 rules x 2 cohorts -> execution cleared"
+  },
+
+  "uncertainty": "This integration pass resolves the conflicts that were FOUND. Four independently derived specifications may contain further interface disagreements that neither Codex's review nor this pass has surfaced. The preflight is the mechanism for catching the mechanically checkable subset; it cannot catch a semantic disagreement that both sides state consistently but wrongly.",
+  "alternativeExplanation": "n/a - this is a protocol integration, not an empirical claim.",
+  "independentlyReproduced": "All six conflicts were identified by Codex."
+}

@@ -1,0 +1,424 @@
+{
+  "schema": "uni.flagellum.blind-mutation-protocol/1.0.0",
+  "protocolId": "PHASE-C-BLIND-MUTATION-CODEX-V1",
+  "purpose": "Prospectively frozen, independently authored mutation battery measuring whether the Phase-C semantic suite detects fresh biological, statistical, and scientific-boundary corruptions outside its known targets.",
+  "baseCommit": "e5b4969bd1af85cedc9d8b5b9d1d728bda7e906a",
+  "branch": "audit/phase-c-blind-mutations-codex",
+  "frozenBeforeExecution": true,
+  "appendOnlyAfterExecution": true,
+  "networkAllowed": false,
+  "batterySize": 10,
+  "baseline": {
+    "npmTest": {
+      "command": "npm test",
+      "primaryInvocationPassed": 67,
+      "renderedHtmlInvocationPassed": 1,
+      "exitCode": 0
+    },
+    "phaseCSemantic": {
+      "command": "node --test tests/semantic/*.mjs",
+      "passed": 33,
+      "failed": 0,
+      "exitCode": 0
+    },
+    "b3Preflight": {
+      "command": "python audits/phase-b/b3-preflight.py",
+      "passed": 46,
+      "failed": 0,
+      "exitCode": 0
+    }
+  },
+  "blindnessFirewall": {
+    "semanticTestSourcesInspected": false,
+    "semanticGateDeclarationsInspected": false,
+    "priorMutationLedgersInspected": false,
+    "earlierMutationExecutionLogsInspected": false,
+    "designInputs": [
+      "CLAUDE.md and the scientific truth contract",
+      "public repository scientific documentation",
+      "frozen protocols and preregistrations",
+      "production source code",
+      "data schemas and public biological claims",
+      "mathematical and biological reasoning",
+      "black-box baseline command outcomes"
+    ],
+    "forbiddenKnownThemesUsed": false
+  },
+  "measurementBoundary": {
+    "measuredGate": "The frozen Phase-C semantic test suite only.",
+    "gateCommand": "node --test tests/semantic/*.mjs",
+    "regenerationMeaning": "A regeneration command propagates a production-code corruption into its generated scientific artifacts; regeneration failure is NOT_RUN and is not treated as gate detection.",
+    "ordinaryTestsExcludedFromPerMutationClassification": "npm test is a clean-tree baseline and Stage-B integration check, not a per-mutation classifier, because this battery measures incremental coverage of the Phase-C semantic gates.",
+    "noGeneralizedCoverageClaim": "These ten probes are purposefully selected failure modes, not a representative sample of all possible future defects."
+  },
+  "classificationRules": {
+    "DETECTED_SEMANTIC": "A declared gate command exits nonzero and at least one failure diagnostic matches a prospectively frozen semanticFailurePatterns expression naming the corrupted biological, statistical, or provenance property.",
+    "DETECTED_BY_HASH_ONLY": "A declared gate command exits nonzero, no frozen semantic pattern matches, and every nonempty failure diagnostic is limited to hashes, bytes, snapshots, run IDs, or generic artifact identity.",
+    "SURVIVED": "Every declared gate command exits zero after the exact patch is applied and every required regeneration command exits zero.",
+    "NOT_RUN": "The clone, base verification, raw digest verification, exact patch, or required regeneration cannot complete, so the mutation does not reach the intended behavior.",
+    "INCONCLUSIVE": "A declared gate command exits nonzero without a frozen semantic match and with diagnostics not limited to hash-only failures.",
+    "frozenDiagnosticMethod": "Passing TAP lines beginning with a check mark or info mark are removed before semantic and hash-only pattern matching. All other stdout and stderr remain available in full logs."
+  },
+  "executionProtocol": {
+    "runner": "audits/phase-c/tools/run-blind-mutation-battery.mjs",
+    "preflightCommand": "node audits/phase-c/tools/run-blind-mutation-battery.mjs --preflight",
+    "executionCommandTemplate": "node audits/phase-c/tools/run-blind-mutation-battery.mjs --execute --scratch-root <absolute-empty-path>",
+    "cloneStrategy": "One git clone --no-local --no-checkout per mutation, configured core.autocrlf=false and detached at baseCommit before patching.",
+    "primaryCheckoutPolicy": "The runner records primary HEAD and porcelain status before and after execution, writes only beneath the explicit scratch root, and fails its final status if the primary checkout changes.",
+    "scratchSafety": "Execution requires an absolute, absent-or-empty scratch root outside the primary checkout. Recursive cleanup, when explicitly requested, is restricted to a verified child of scratchRoot/clones.",
+    "targetVerification": "SHA-256 is computed over raw target bytes before UTF-8 patching. The exact before text must occur once and the exact after text must not already exist.",
+    "logging": "Every command receives separate lossless UTF-8 stdout and stderr files with exit code, signal, byte count, and SHA-256. Clone status, patch diff, runner errors, and cleanup status are retained.",
+    "preflightNonExecution": "Preflight reads base blobs, verifies hashes, exact patches, command allowlisting, mutation count, and result absence. It creates no clone, applies no patch, runs no regeneration, and runs no gate."
+  },
+  "mutations": [
+    {
+      "id": "CXM01_SECONDS_DENSITY_JACOBIAN_OMITTED",
+      "title": "Omit the normalized-to-seconds density Jacobian",
+      "domain": "statistical density and units",
+      "targetPath": "lib/observed-experiment.js",
+      "preMutationSha256": "b757971e1f207899ddac0b262241822552a06abc5272407b14b21fd98ddbe623",
+      "patch": {
+        "encoding": "utf8",
+        "expectedOccurrences": 1,
+        "before": "    const jacobian = -Math.log(scale);",
+        "after": "    const jacobian = 0;"
+      },
+      "scientificHarm": "The reported log predictive densities would be densities on normalized duration while still being labeled nats per event on the seconds scale. Absolute scores and any comparison across states with different duration scales would be statistically false.",
+      "nonEquivalenceWitness": "For every eligible state with scale different from one second, each absolute log score changes by log(scale); the seconds-scale density no longer integrates to one under the t-to-y change of variables.",
+      "regenerationCommands": [
+        {
+          "id": "regenerate-observed-experiment",
+          "command": "npm run experiment:run"
+        }
+      ],
+      "gateCommands": [
+        {
+          "id": "phase-c-semantic",
+          "command": "node --test tests/semantic/*.mjs"
+        }
+      ],
+      "predictedClassification": "SURVIVED",
+      "predictionRationale": "The black-box semantic inventory names censoring membership, direction/score orientation, split leakage, and prospectivity, but no absolute seconds-density or Jacobian invariant; paired same-event model differences cancel this common omitted term.",
+      "concreteFalsifier": "A nonzero Phase-C semantic command whose failing diagnostic names the missing seconds-scale Jacobian, change-of-variables density, or absolute predictive-density units falsifies SURVIVED.",
+      "semanticFailurePatterns": [
+        "jacobian",
+        "seconds[- ]scale",
+        "change[- ]of[- ]variables",
+        "absolute predictive densit"
+      ]
+    },
+    {
+      "id": "CXM02_SURVIVAL_POSTERIOR_USES_EVENT_DENSITY",
+      "title": "Condition the slow-state posterior on an event density instead of survival",
+      "domain": "Bayesian survival inference",
+      "targetPath": "lib/observed-experiment.js",
+      "preMutationSha256": "b757971e1f207899ddac0b262241822552a06abc5272407b14b21fd98ddbe623",
+      "patch": {
+        "encoding": "utf8",
+        "expectedOccurrences": 1,
+        "before": "  const slowMass = (1 - mixture.weightFast) * Math.exp(-mixture.rateSlow * normalizedTime);\n  const fastMass = mixture.weightFast * Math.exp(-mixture.rateFast * normalizedTime);",
+        "after": "  const slowMass = (1 - mixture.weightFast) * mixture.rateSlow * Math.exp(-mixture.rateSlow * normalizedTime);\n  const fastMass = mixture.weightFast * mixture.rateFast * Math.exp(-mixture.rateFast * normalizedTime);"
+      },
+      "scientificHarm": "The UI would claim a posterior conditioned on having survived without a transition, while calculating component membership conditional on a transition at that instant. The two are different observations and yield different latent-state probabilities.",
+      "nonEquivalenceWitness": "At normalized time zero the correct posterior equals the mixture weights, whereas the mutation rate-weights both components and changes the posterior whenever rateFast differs from rateSlow.",
+      "regenerationCommands": [
+        {
+          "id": "regenerate-observed-experiment",
+          "command": "npm run experiment:run"
+        }
+      ],
+      "gateCommands": [
+        {
+          "id": "phase-c-semantic",
+          "command": "node --test tests/semantic/*.mjs"
+        }
+      ],
+      "predictedClassification": "SURVIVED",
+      "predictionRationale": "The black-box censoring checks concern which events enter an uncensored duration likelihood, not the separate posterior curve for the observation T greater than t.",
+      "concreteFalsifier": "A nonzero Phase-C semantic command whose failing diagnostic distinguishes survival conditioning from instantaneous event-density conditioning or names the slow-posterior calculation falsifies SURVIVED.",
+      "semanticFailurePatterns": [
+        "posterior.*slow",
+        "slow.*posterior",
+        "survival condition",
+        "surviving longer",
+        "event density"
+      ]
+    },
+    {
+      "id": "CXM03_SAMPLE_VARIANCE_BESSEL_CORRECTION_DROPPED",
+      "title": "Replace sample variance with the population denominator",
+      "domain": "finite-sample dispersion estimation",
+      "targetPath": "lib/observed-experiment.js",
+      "preMutationSha256": "b757971e1f207899ddac0b262241822552a06abc5272407b14b21fd98ddbe623",
+      "patch": {
+        "encoding": "utf8",
+        "expectedOccurrences": 1,
+        "before": "  return values.reduce((sum, value) => sum + (value - center) ** 2, 0) / (values.length - 1);",
+        "after": "  return values.reduce((sum, value) => sum + (value - center) ** 2, 0) / values.length;"
+      },
+      "scientificHarm": "Finite held-out samples would have their CV-squared and PIT variance systematically reduced while still being reported as sample estimates, weakening an overdispersion assessment and misreporting calibration.",
+      "nonEquivalenceWitness": "For every nonconstant sample of n greater than one, the mutated variance is exactly (n-1)/n of the declared sample variance.",
+      "regenerationCommands": [
+        {
+          "id": "regenerate-observed-experiment",
+          "command": "npm run experiment:run"
+        }
+      ],
+      "gateCommands": [
+        {
+          "id": "phase-c-semantic",
+          "command": "node --test tests/semantic/*.mjs"
+        }
+      ],
+      "predictedClassification": "SURVIVED",
+      "predictionRationale": "The black-box suite names cohort eligibility and direction summaries but does not expose a hand-calculated sample-variance or Bessel-correction oracle.",
+      "concreteFalsifier": "A nonzero Phase-C semantic command whose failing diagnostic names sample variance, the n-minus-one denominator, CV-squared, or PIT variance falsifies SURVIVED.",
+      "semanticFailurePatterns": [
+        "sample variance",
+        "bessel",
+        "n[- ]?1 denominator",
+        "cv.?squared",
+        "pit variance"
+      ]
+    },
+    {
+      "id": "CXM04_HIDDEN_TRUE_GRADIENT_CROSSES_BOUNDARY",
+      "title": "Expose hidden world truth in the observation record",
+      "domain": "scientific system boundary",
+      "targetPath": "lib/uni-motor.js",
+      "preMutationSha256": "852b38d14e1de9e1baae9bda7c37fb2426911fb1b04b4f594d026373d4b50313",
+      "patch": {
+        "encoding": "utf8",
+        "expectedOccurrences": 1,
+        "before": "    pmfMv: controls.pmfMv,\n  };",
+        "after": "    pmfMv: controls.pmfMv,\n    trueGradient: world.trueGradient,\n  };"
+      },
+      "scientificHarm": "A latent world variable would cross the declared sensory boundary, making an observation record contain oracle truth that a physical instrument does not measure and invalidating the claimed world/agent separation.",
+      "nonEquivalenceWitness": "Every synthetic observation gains a trueGradient field copied directly from hidden world state.",
+      "regenerationCommands": [],
+      "gateCommands": [
+        {
+          "id": "phase-c-semantic",
+          "command": "node --test tests/semantic/*.mjs"
+        }
+      ],
+      "predictedClassification": "SURVIVED",
+      "predictionRationale": "The black-box Phase-C semantic inventory reports motor partition leakage but no Markov-boundary or hidden-world-field gate.",
+      "concreteFalsifier": "A nonzero Phase-C semantic command whose failing diagnostic names trueGradient, a hidden world field, or the Markov observation boundary falsifies SURVIVED.",
+      "semanticFailurePatterns": [
+        "truegradient",
+        "hidden world",
+        "markov boundary",
+        "observation.*hidden",
+        "world.*agent separation"
+      ]
+    },
+    {
+      "id": "CXM05_INSTRUMENT_STATOR_COUNT_UNBOUNDED",
+      "title": "Accept impossible live-instrument stator counts",
+      "domain": "instrument validation and biological range",
+      "targetPath": "lib/uni-motor.js",
+      "preMutationSha256": "852b38d14e1de9e1baae9bda7c37fb2426911fb1b04b4f594d026373d4b50313",
+      "patch": {
+        "encoding": "utf8",
+        "expectedOccurrences": 1,
+        "before": "    stators: Number.isFinite(Number(frame.stators)) ? clamp(Number(frame.stators), 0, 11) : null,",
+        "after": "    stators: Number.isFinite(Number(frame.stators)) ? Number(frame.stators) : null,"
+      },
+      "scientificHarm": "The live aperture would accept negative or greater-than-eleven stator occupancy as if biologically valid, allowing impossible measurements to enter model state and downstream interpretation.",
+      "nonEquivalenceWitness": "A finite frame value such as stators=20 is returned as 20 instead of the declared maximum 11, and stators=-1 is returned instead of zero.",
+      "regenerationCommands": [],
+      "gateCommands": [
+        {
+          "id": "phase-c-semantic",
+          "command": "node --test tests/semantic/*.mjs"
+        }
+      ],
+      "predictedClassification": "SURVIVED",
+      "predictionRationale": "The black-box suite does not report boundary tests for live instrument ranges or physical stator-count validity.",
+      "concreteFalsifier": "A nonzero Phase-C semantic command whose failing diagnostic names an out-of-range instrument stator count or the zero-to-eleven stator bound falsifies SURVIVED.",
+      "semanticFailurePatterns": [
+        "instrument.*stator",
+        "stator.*instrument",
+        "stator.*(?:bound|range|zero|eleven)",
+        "impossible stator"
+      ]
+    },
+    {
+      "id": "CXM06_STATOR_RECRUITMENT_ERASES_LOAD_RESPONSE",
+      "title": "Make target stator occupancy independent of load",
+      "domain": "mechanosensitive stator recruitment",
+      "targetPath": "lib/uni-motor.js",
+      "preMutationSha256": "852b38d14e1de9e1baae9bda7c37fb2426911fb1b04b4f594d026373d4b50313",
+      "patch": {
+        "encoding": "utf8",
+        "expectedOccurrences": 1,
+        "before": "  const statorTarget = 1 + 10 * loadFraction;",
+        "after": "  const statorTarget = 6;"
+      },
+      "scientificHarm": "The synthetic biological world would erase the declared mechanosensitive recruitment relation and predict the same target occupancy at low and high external load.",
+      "nonEquivalenceWitness": "At zero load the intended target is one stator and at increasing load it approaches eleven; the mutation fixes both and every intermediate condition at six.",
+      "regenerationCommands": [],
+      "gateCommands": [
+        {
+          "id": "phase-c-semantic",
+          "command": "node --test tests/semantic/*.mjs"
+        }
+      ],
+      "predictedClassification": "SURVIVED",
+      "predictionRationale": "The black-box suite names direction, censoring, provenance, and split semantics but no perturbation test comparing stator recruitment across loads.",
+      "concreteFalsifier": "A nonzero Phase-C semantic command whose failing diagnostic names load-dependent stator recruitment or mechanosensitive occupancy falsifies SURVIVED.",
+      "semanticFailurePatterns": [
+        "load.*stator",
+        "stator.*load",
+        "mechanosensitive",
+        "stator recruitment"
+      ]
+    },
+    {
+      "id": "CXM07_FIRST_PASSAGE_WEIGHTS_NOT_NORMALIZED",
+      "title": "Break normalization of first-passage mixture coefficients",
+      "domain": "first-passage probability model",
+      "targetPath": "lib/source-first-passage.js",
+      "preMutationSha256": "c66cf5ff048f5eb1e85c7b3148a002002636df14c5e96dda7eb840366a2ff6d8",
+      "patch": {
+        "encoding": "utf8",
+        "expectedOccurrences": 1,
+        "before": "      next[index + 1] += value * c;",
+        "after": "      next[index + 1] += value * (1 - c);"
+      },
+      "scientificHarm": "The D-L-T survival mixture would no longer be a probability distribution: its component weights generally would not sum to one, so survival at time zero and integrated event probabilities would be false.",
+      "nonEquivalenceWitness": "For one coefficient c, the intended weights sum to (1-c)+c=1; the mutation sums to 2(1-c), which differs from one for the production coefficients.",
+      "regenerationCommands": [
+        {
+          "id": "regenerate-science-gates",
+          "command": "npm run science:run"
+        }
+      ],
+      "gateCommands": [
+        {
+          "id": "phase-c-semantic",
+          "command": "node --test tests/semantic/*.mjs"
+        }
+      ],
+      "predictedClassification": "SURVIVED",
+      "predictionRationale": "The black-box censoring suite checks inclusion/exclusion behavior, while the explicit first-passage coefficient and normalization checks appear only in the ordinary baseline inventory, not among the 33 Phase-C semantic tests.",
+      "concreteFalsifier": "A nonzero Phase-C semantic command whose failing diagnostic names non-normalized first-passage coefficients, survival at zero, or mixture-weight sums falsifies SURVIVED.",
+      "semanticFailurePatterns": [
+        "first[- ]passage coefficient",
+        "mixture weight",
+        "survival.*(?:zero|normal)",
+        "coefficient.*(?:sum|normal)"
+      ]
+    },
+    {
+      "id": "CXM08_OFF_HAZARD_OMITS_STATOR_MULTIPLICITY",
+      "title": "Treat N occupied stators as one detachment opportunity",
+      "domain": "competing-risk hazard biology",
+      "targetPath": "lib/source-first-passage.js",
+      "preMutationSha256": "c66cf5ff048f5eb1e85c7b3148a002002636df14c5e96dda7eb840366a2ff6d8",
+      "patch": {
+        "encoding": "utf8",
+        "expectedOccurrences": 1,
+        "before": "    offRate: stateN * sigmaMinus + component * deltaSigma,",
+        "after": "    offRate: sigmaMinus + component * deltaSigma,"
+      },
+      "scientificHarm": "For occupancy N greater than one, the model would omit the multiplicity of independent baseline detachment opportunities, understate the off-transition hazard, and make the off density inconsistent with the declared survival rate.",
+      "nonEquivalenceWitness": "For N=2 and positive sigmaMinus, the off hazard is smaller by exactly sigmaMinus; the discrepancy grows to (N-1)*sigmaMinus at occupancy N.",
+      "regenerationCommands": [
+        {
+          "id": "regenerate-science-gates",
+          "command": "npm run science:run"
+        }
+      ],
+      "gateCommands": [
+        {
+          "id": "phase-c-semantic",
+          "command": "node --test tests/semantic/*.mjs"
+        }
+      ],
+      "predictedClassification": "SURVIVED",
+      "predictionRationale": "The black-box censoring checks distinguish censored from uncensored records but do not name the biological N-fold detachment hazard or density-survival conservation.",
+      "concreteFalsifier": "A nonzero Phase-C semantic command whose failing diagnostic names stator multiplicity in the off hazard, competing-risk conservation, or the negative survival derivative falsifies SURVIVED.",
+      "semanticFailurePatterns": [
+        "off.*hazard",
+        "detachment.*multiplicit",
+        "competing[- ]risk.*(?:conservation|density)",
+        "negative survival derivative"
+      ]
+    },
+    {
+      "id": "CXM09_EXPONENTIAL_SECOND_MOMENT_FACTOR_DROPPED",
+      "title": "Omit the factor of two in the exponential-mixture second moment",
+      "domain": "first-passage moment calculation",
+      "targetPath": "lib/source-first-passage.js",
+      "preMutationSha256": "c66cf5ff048f5eb1e85c7b3148a002002636df14c5e96dda7eb840366a2ff6d8",
+      "patch": {
+        "encoding": "utf8",
+        "expectedOccurrences": 1,
+        "before": "  const secondMoment = 2 * terms.reduce((sum, term) => sum + term.weight / (term.totalRate ** 2), 0);",
+        "after": "  const secondMoment = terms.reduce((sum, term) => sum + term.weight / (term.totalRate ** 2), 0);"
+      },
+      "scientificHarm": "The reported normalized dwell variance would use half of the correct exponential second moment, reporting a memoryless exponential as if it had zero normalized variance and corrupting comparison to source moments.",
+      "nonEquivalenceWitness": "A single exponential has E[T^2]=2/rate^2 and normalized variance one; the mutation uses 1/rate^2 and therefore reports normalized variance zero for the simplest branch.",
+      "regenerationCommands": [
+        {
+          "id": "regenerate-science-gates",
+          "command": "npm run science:run"
+        }
+      ],
+      "gateCommands": [
+        {
+          "id": "phase-c-semantic",
+          "command": "node --test tests/semantic/*.mjs"
+        }
+      ],
+      "predictedClassification": "SURVIVED",
+      "predictionRationale": "The black-box Phase-C semantic list contains likelihood cohort and score-orientation checks but no first-passage second-moment or normalized-variance identity.",
+      "concreteFalsifier": "A nonzero Phase-C semantic command whose failing diagnostic names the exponential second moment, factor two, or normalized first-passage variance falsifies SURVIVED.",
+      "semanticFailurePatterns": [
+        "second moment",
+        "factor of two",
+        "normalized variance",
+        "first[- ]passage variance"
+      ]
+    },
+    {
+      "id": "CXM10_PERIODIC_LATTICE_OPENED",
+      "title": "Replace the periodic 13-site ring with an open chain",
+      "domain": "finite-lattice structural model",
+      "targetPath": "scripts/run-cross-study-parity.py",
+      "preMutationSha256": "89e0c0ae11cb01fb7a829f34308d63c6ce19da79f12496f24f78a4876c55d777",
+      "patch": {
+        "encoding": "utf8",
+        "expectedOccurrences": 1,
+        "before": "        adjacent[encoded] = np.sum(state * np.roll(state, -1))",
+        "after": "        adjacent[encoded] = np.sum(state[:-1] * state[1:])"
+      },
+      "scientificHarm": "The exact occupancy model would silently drop the interaction between sites 13 and 1 while continuing to be described as a periodic motor ring, changing the partition function, fitted coupling, and structural interpretation.",
+      "nonEquivalenceWitness": "A state with only the first and last sites occupied has one adjacent occupied pair on the periodic ring and zero on the mutated open chain.",
+      "regenerationCommands": [
+        {
+          "id": "regenerate-cross-study-parity",
+          "command": "npm run cross-study:run"
+        }
+      ],
+      "gateCommands": [
+        {
+          "id": "phase-c-semantic",
+          "command": "node --test tests/semantic/*.mjs"
+        }
+      ],
+      "predictedClassification": "SURVIVED",
+      "predictionRationale": "The black-box Phase-C semantic inventory is confined to observed-duration censoring, direction/score orientation, prediction provenance, and train/holdout separation; it does not announce a periodic finite-lattice oracle.",
+      "concreteFalsifier": "A nonzero Phase-C semantic command whose failing diagnostic names periodic wraparound adjacency, a ring/open-chain distinction, or the finite-lattice partition function falsifies SURVIVED.",
+      "semanticFailurePatterns": [
+        "periodic",
+        "wraparound",
+        "open chain",
+        "finite[- ]lattice",
+        "lattice.*partition"
+      ]
+    }
+  ]
+}

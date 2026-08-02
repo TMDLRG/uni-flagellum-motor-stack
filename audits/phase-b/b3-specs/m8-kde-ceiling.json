@@ -1,0 +1,303 @@
+{
+  "schema": "uni.flagellum.audit-artifact/1.0.0",
+  "purpose": "Frozen B3 component specification, written before execution. Derived independently from the frozen protocol prose by a specialist with no access to sibling specifications.",
+  "auditedCommit": "9c3a644e4b57e8ac27f925dcec84222463063aa1",
+  "auditPhase": "B",
+  "component": "M8_EMPIRICAL_KDE",
+  "appendOnly": true,
+  "frozenBeforeExecution": true,
+  "summary": "M8 is a pooled kernel density estimate on z = log y with a Gaussian kernel, back-transformed to y with the 1/y Jacobian and rescaled to mean exactly one. The hardest specification decision was the mean-one transformation: a raw KDE has no mean-one property and the obvious fixes (truncate-and-renormalize, or numerically solve for a constant) are both shape-distorting and quadrature-dependent. I instead exploited the fact that a Gaussian KDE on log y is *identically* an equal-weight n-component lognormal mixture, whose mean is available in closed form as m(h) = exp(h^2/2) * ybar. Mean-one is then achieved by a pure scale change of the variable, which is exactly the degree of freedom the competition intends to strip out and therefore does not distort shape at all, and it reduces to shifting every component location by a single constant. Because ybar over the uncensored training set is analytically exactly 1 (the per-state scales are the per-state training means), |ybar - 1| becomes a machine-checkable invariant that detects any inconsistency in the frozen normalization. The result is a competitor with one hyperparameter, no optimizer, no label-switching ambiguity, exact normalization, exact mean, exact CDF, and a fully deterministic motor-level CV selection rule.",
+  "specification": {
+    "modelId": "M8_EMPIRICAL_KDE",
+    "modelClass": "non-mechanistic flexible ceiling",
+    "freeParameters": {
+      "count": 1,
+      "names": [
+        "h"
+      ],
+      "role": "h is a HYPERPARAMETER selected by motor-level cross-validation within the training partition only. There is no likelihood-maximizing free parameter and no optimizer call. Once h is fixed the density is a closed-form function of the training events."
+    },
+    "pooling": {
+      "rule": "M8 is a SINGLE density on y pooled over all eligible states N, exactly as M0, M1, M2, M3 and M5 are. Per-state or per-motor KDE variants are DIFFERENT models and are forbidden substitutions; introducing one after seeing a result violates the frozen protocol.",
+      "rationale": "State-specific flexibility is already represented in the competition by M6; motor-specific flexibility by M7. M8 must isolate non-mechanistic flexibility in the shared duration shape."
+    },
+    "section1_kernelAndSpace": {
+      "kernel": "Gaussian (standard normal) kernel, phi(u) = exp(-u^2/2)/sqrt(2*pi).",
+      "estimationSpace": "z = log(y), the natural logarithm of the normalized duration. Estimation is on the LOG scale with an explicit Jacobian back-transform. No boundary-corrected kernel is used and none is needed: the map y -> log y sends the half-line (0, inf) onto the whole real line R, so the estimation domain has NO boundary and the classical boundary bias of a KDE on a positive variable is structurally absent rather than merely corrected.",
+      "boundaryBiasStatement": "A Gaussian KDE placed directly on y would leak mass onto y < 0 and be biased downward near y = 0, where dwell data are dense. The log transform eliminates this by construction. The cost is that the induced kernel in y-space is multiplicative (lognormal) rather than additive, i.e. the effective smoothing width in seconds grows proportionally to y. This is accepted and declared: it is the appropriate smoothing geometry for a strictly positive duration with a heavy right tail.",
+      "fullTransformationChain": {
+        "step0_definitions": {
+          "t": "durationS, seconds, uncensored event",
+          "N": "stateN of that event",
+          "scale_N": "mean(durationS) over UNCENSORED TRAINING events with that stateN (frozen normalization, computed from the training partition only, never recomputed inside cross-validation)",
+          "n": "number of uncensored training events in the cohort (793 for cohort [1..8]; the unfiltered cohort [0..8] value is 818 and M8 is run independently for each cohort)"
+        },
+        "step1_secondsToNormalized": {
+          "map": "y = t / scale_N",
+          "jacobian": "dy/dt = 1 / scale_N",
+          "logJacobianTerm": "- log(scale_N)"
+        },
+        "step2_normalizedToLog": {
+          "map": "z = log(y)",
+          "jacobian": "dz/dy = 1 / y",
+          "logJacobianTerm": "- log(y)"
+        },
+        "step3_kdeOnZ": {
+          "trainingSample": "z_i = log(y_i) = log(t_i) - log(scale_{N_i}) for i = 1..n over uncensored TRAINING events only",
+          "estimator": "g_h(z) = (1 / (n * h)) * sum_{i=1..n} phi((z - z_i) / h)",
+          "properties": "g_h integrates to exactly 1 over R for every h > 0."
+        },
+        "step4_backTransformToY": {
+          "map": "f_raw(y) = g_h(log y) * (1 / y), for y > 0",
+          "jacobianUsed": "dz/dy = 1/y (step 2)",
+          "closedFormIdentity": "f_raw(y) = (1/n) * sum_{i=1..n} LogNormal(y; mu = z_i, sigma = h). The KDE on log y IS an equal-weight n-component lognormal mixture with tied sigma = h and locations pinned to the training data.",
+          "integratesToOne": "exactly, analytically, for every h > 0"
+        },
+        "step5_meanOneRescale": {
+          "map": "see section2",
+          "jacobianTerm": "+ log(m(h)) absorbed into the shifted locations s_i"
+        },
+        "step6_backToSeconds": {
+          "map": "f_t(t) = f(t / scale_N) * (1 / scale_N)",
+          "logForm": "logDensitySeconds(t) = logDensityNormalized(y) - log(scale_N), identical to the protocol's mandated change of variables. The Jacobian is never omitted."
+        }
+      },
+      "finalClosedFormDensity": {
+        "shiftedLocations": "s_i = z_i - h^2/2 - log(ybar)  (see section2 for ybar)",
+        "normalizedDensity": "f(y) = (1 / (n * h * y)) * sum_{i=1..n} phi((log y - s_i) / h)",
+        "normalizedLogDensity": "log f(y) = logsumexp_{i=1..n} ( -0.5 * ((log y - s_i) / h)^2 ) - log(n) - log(h) - 0.5*log(2*pi) - log(y)",
+        "secondsLogDensity": "log f_t(t) = log f(y) - log(scale_N), with y = t / scale_N",
+        "algebraicCheck": "The terms - log(y) - log(scale_N) sum identically to - log(t). An implementation MUST keep them written separately for auditability, and MAY assert agreement with -log(t) to within 1e-12 absolute as a self-check.",
+        "evaluationRule": "logsumexp MUST be computed with scipy.special.logsumexp (scipy 1.16.3) applied to the vector of -0.5*((log y - s_i)/h)^2 values. Direct summation of exponentials is FORBIDDEN because it underflows to zero in the tail and would spuriously trigger the density floor.",
+        "exactCdf": "F(y) = (1/n) * sum_{i=1..n} Phi((log y - s_i) / h), Phi = scipy.stats.norm.cdf. Survival S(y) = 1 - F(y). In seconds F_t(t) = F(t / scale_N). This is exact and requires no quadrature, so M8 introduces no additional approximation into the CRPS secondary score beyond whatever the shared scorer applies identically to all models.",
+        "exactQuantileForSharedScorer": "If the shared CRPS harness requires quantiles, solve F(y) = p by scipy.optimize.brentq on the bracket [1e-12, 1e12] with xtol=1e-12, rtol=8.881784197001252e-16, maxiter=200, full_output=True, and hard-fail if converged is False.",
+        "labelSwitching": "VACUOUS for M8, and this is a structural fact, not a convention. The n mixture components are indexed by training events; their locations s_i are not estimated but are deterministic functions of the data and of h. The component order is fixed as the ascending sort of the training events by (motorId UTF-8 bytes, stateN, durationS, original row index), and permuting components leaves both the density and the parameter vector (h) unchanged. No identifiability constraint, ordering constraint, relabelling step or post-processing is required or permitted."
+      }
+    },
+    "section2_meanOneTransformation": {
+      "problemStatement": "f_raw has mean E[Y_raw] = (1/n) * sum_i exp(z_i + h^2/2) = exp(h^2/2) * ybar, which is strictly greater than ybar for every h > 0. A raw KDE therefore does NOT satisfy the mean-one constraint and would be disqualified without correction.",
+      "ybar": {
+        "definition": "ybar = (1/n) * sum_{i=1..n} y_i over UNCENSORED TRAINING events in the cohort",
+        "computation": "ybar = math.fsum(y_list) / n, using math.fsum (correctly-rounded summation), NOT numpy.sum and NOT a Python loop with +=.",
+        "analyticValue": "EXACTLY 1. Proof: sum_i y_i = sum_N sum_{i in N} t_i / scale_N = sum_N (n_N * scale_N) / scale_N = sum_N n_N = n, because scale_N is by definition the arithmetic mean of durationS over exactly those uncensored training events. ybar = n/n = 1.",
+        "implementationRule": "ybar MUST still be computed numerically and carried through the formulae. Hard-coding ybar = 1 is FORBIDDEN.",
+        "invariantCheck": "Assert abs(ybar - 1.0) <= 1e-9. This is a genuine bug detector: any violation means the per-state scales, the censoring filter, or the state-eligibility filter were not applied consistently with the frozen normalization. On violation, raise and abort the M8 entry. Do not adjust, do not renormalize around it. Report the observed value as telemetry field ybarDeviation."
+      },
+      "meanOfRawEstimate": "m(h) = exp(h^2 / 2) * ybar. Closed form. No quadrature.",
+      "transformation": {
+        "rule": "Define the mean-one variable by a pure SCALE change: Y = Y_raw / m(h). The corresponding density is f(y) = m(h) * f_raw(m(h) * y).",
+        "equivalentImplementation": "Equivalently and exactly, shift every component location by the single constant log(m(h)): s_i = z_i - log(m(h)) = z_i - h^2/2 - log(ybar). This is the form to implement.",
+        "proofOfMeanOne": "E[Y] = (1/n) * sum_i exp(s_i + h^2/2) = (1/n) * sum_i exp(z_i - h^2/2 - log(ybar) + h^2/2) = (1/n) * sum_i y_i / ybar = ybar / ybar = 1, exactly.",
+        "normalizingConstant": "None is required. f integrates to exactly 1 analytically for every h > 0, because a scale change of a normalized density is normalized. There is no numerically-solved normalizing constant anywhere in M8."
+      },
+      "doesRenormalizingChangeShape": {
+        "answer": "NO. The correction is a rescaling of the variable, not a truncation, a tilting, or a division by a partial integral. The shape of the density in log space is translated by the constant log(m(h)) and is otherwise identical; all shape functionals invariant to scale (coefficient of variation, skewness of log y, the entire distribution of y / E[y]) are unchanged.",
+        "whyThisMatters": "This is precisely the degree of freedom the mean-one constraint exists to remove. The alternatives considered and REJECTED are: (a) truncate y to a finite interval and renormalize, which distorts the tail and makes the result depend on the truncation point; (b) exponentially tilt the density to hit mean one, which changes the shape and is a different model; (c) numerically solve for a multiplicative constant, which is not a valid operation because f_raw is already normalized. Only the scale change is both exact and shape-preserving, and it is available in closed form. This is a genuine structural advantage of estimating on log y and is declared as such.",
+        "fairnessNote": "M8 therefore satisfies the mean-one constraint EXACTLY, at the same standard as M0 (automatic), M1, M2, M3 and M5 (closed-form). It receives no exemption and none is requested."
+      },
+      "mandatoryNumericalVerification": {
+        "purpose": "The mean-one property is analytic, but the implementation must PROVE it numerically before any score is emitted. This verification is a gate, not a tuning step.",
+        "quadratureRule": "Composite Gauss-Legendre in z-space. Partition [zlo, zhi] into exactly 4096 equal-width subintervals; on each apply the exact 20-node Gauss-Legendre rule from numpy.polynomial.legendre.leggauss(20). Fixed, non-adaptive, fully deterministic. Adaptive quadrature (scipy.integrate.quad) is FORBIDDEN here because its subdivision path is not byte-reproducible across builds.",
+        "bounds": {
+          "zlo": "min_i(s_i) - 12.0 * h",
+          "zhi": "max_i(s_i) + h*h + 12.0 * h",
+          "justification": "The shifted-density integrand decays as a Gaussian of sd h beyond the extreme locations; the mean integrand exp(z)*g(z) peaks at most at max_i(s_i) + h^2. A 12-sd margin bounds the truncated tail mass below 2e-33, which is 24 orders of magnitude below the stated tolerance."
+        },
+        "integrands": {
+          "I0": "integral over [zlo, zhi] of g_shift(z) dz, where g_shift(z) = (1/(n*h)) * sum_i phi((z - s_i)/h)",
+          "I1": "integral over [zlo, zhi] of exp(z) * g_shift(z) dz"
+        },
+        "tolerance": "Assert abs(I0 - 1.0) <= 1e-9 AND abs(I1 - 1.0) <= 1e-9.",
+        "onFailure": "Raise and abort the M8 entry. Do not widen the tolerance, do not widen the bounds, do not increase the node count, and do not substitute a different quadrature. Any of those would be selection after seeing a result.",
+        "reportedTelemetry": [
+          "integralOfDensity (I0)",
+          "integralOfYTimesDensity (I1)",
+          "ybarDeviation"
+        ]
+      }
+    },
+    "section3_bandwidthSelection": {
+      "partitionDiscipline": "h is selected by cross-validation WITHIN THE TRAINING PARTITION ONLY. Holdout data may NEVER touch this selection, in any form: not as events, not through scale_N (which is training-only by the frozen normalization), not through the motor list, not through the fold assignment, and not through any diagnostic inspected before h is fixed.",
+      "enforcementMechanism": "The selection function MUST be called with a data structure from which every holdout row has been physically removed before the call, and it MUST NOT be given access to the full dataset object. If the implementation cannot make this structurally impossible, it must at minimum assert that the set of motorIds visible to the selection function is disjoint from the holdout motor set, and record assertion HOLDOUT_DISJOINT_FROM_CV = True in telemetry. Per the frozen protocol, a bandwidth tuned on holdout invalidates the M8 entry and the entry is WITHDRAWN, not adjusted.",
+      "bandwidthGrid": {
+        "formula": "h_j = 10.0 ** (-2.0 + 0.05 * j)  for integer j = 0, 1, ..., 60",
+        "count": 61,
+        "lowerEndpoint": 0.01,
+        "upperEndpoint": 10,
+        "spacing": "exactly 0.05 in log10 units (uniform in log10)",
+        "ordering": "strictly ascending in h; the grid MUST be iterated in ascending j",
+        "construction": "h_grid = 10.0 ** (-2.0 + 0.05 * numpy.arange(61, dtype=numpy.float64))",
+        "noExtension": "The grid is frozen. If the selected h lands on either endpoint the grid MUST NOT be extended, refined, or shifted. Report telemetry bandwidthAtGridBoundary = True and treat it under section5."
+      },
+      "folds": {
+        "count": 5,
+        "unit": "MOTOR. Every event inherits its motor's fold. No motor spans a fold boundary.",
+        "assignmentRule": [
+          "Let M = the sorted list of distinct motorId values appearing in the uncensored TRAINING events of the cohort. Sort ascending by the UTF-8 byte encoding of motorId (Python: sorted(set_of_ids), which is lexicographic over code points; for the ASCII motorIds in this cohort this is identical to UTF-8 byte order). This sort makes the input to the RNG deterministic and independent of dict/file ordering.",
+          "rng = numpy.random.Generator(numpy.random.PCG64(20260717))",
+          "perm = rng.permutation(len(M))   # a single call, made exactly once, before any other RNG use",
+          "ordered = [ M[perm[r]] for r in range(len(M)) ]",
+          "fold(ordered[r]) = r % 5   for r = 0 .. len(M)-1"
+        ],
+        "determinism": "PCG64 with seed 20260717 and Generator.permutation are bit-stable in numpy 2.3.5. The RNG instance used here MUST be freshly constructed and used for nothing else, so that no other stochastic step can shift its stream.",
+        "seed": 20260717,
+        "preconditionAsserts": [
+          "len(M) >= 5, else raise and abort the M8 entry",
+          "every fold contains at least one motor AND at least one uncensored event, else raise and abort"
+        ],
+        "perCohortIndependence": "The fold assignment is recomputed independently for the [1..8] cohort and the [0..8] cohort. The motor sets may differ, so the fold maps may differ. They MUST NOT be forced to agree."
+      },
+      "cvObjective": {
+        "definition": "CV(h) = ( sum over folds F=0..4 of sum over uncensored training events e with fold(motor(e)) = F of  log f_h^{(-F)}( y_e ) ) / n",
+        "meaning": "mean out-of-fold log predictive density per EVENT, in nats, in NORMALIZED y-space",
+        "perEventWeighting": "Deliberately per-event, not per-motor, so that the selection objective matches the competition's PRIMARY scoring rule (mean held-out log predictive density per event). This choice is made before execution and is not revisited.",
+        "foldModelConstruction": "f_h^{(-F)} is built by the section-1/section-2 construction using ONLY the uncensored training events whose motor is NOT in fold F. Specifically: n^{(-F)} = count of those events; z_i over those events; ybar^{(-F)} = math.fsum of their y over n^{(-F)}; s_i^{(-F)} = z_i - h^2/2 - log(ybar^{(-F)}).",
+        "criticalNote_ybarInFolds": "ybar^{(-F)} is NOT exactly 1, because scale_N was computed on the full training partition, not on the fold-complement. This is correct and intended: it means each fold model is genuinely mean-one with respect to its own fitting sample. The abs(ybar - 1) <= 1e-9 invariant of section 2 applies ONLY to the full-training fit, not to fold models.",
+        "scale_N_isNotRefit": "scale_N is the frozen cohort-level normalization shared by every competing model. It is NOT recomputed per fold. This makes the CV objective slightly optimistic in absolute terms, but the optimism is (a) identical across all 61 bandwidths, so it cannot bias the argmax in any direction that depends on h, and (b) a property of the frozen normalization rather than of M8. It is declared as a limitation, not corrected mid-competition.",
+        "jacobianOmission": "The CV objective is computed in normalized y-space WITHOUT the - log(scale_N) term. That term is a constant independent of h, so it shifts every CV(h_j) by the identical amount and cannot change the argmax. Omitting it is therefore provably selection-neutral. Reported SCORES, by contrast, always carry the Jacobian.",
+        "floorInCv": "The density floor of section 5 is applied inside the CV objective exactly as it is applied in scoring, using the identical code path.",
+        "exclusions": "Right-censored events are excluded from the CV objective and from every fold model, exactly as they are excluded from every likelihood and every score for every model.",
+        "noOtherObjective": "Likelihood-based leave-one-out at the event level is FORBIDDEN: it treats events within a motor as independent replicates, which the truth contract prohibits, and it leaks within-motor structure into the bandwidth."
+      },
+      "selectedBandwidth": "h* = the h_j maximizing CV(h_j), resolved by the tie rule of section 4.",
+      "finalFit": "The scored M8 is built once, from ALL n uncensored training events of the cohort, at h = h*. There is no refit, no optimizer, no restart, and no further selection.",
+      "telemetryForProtocolCoherence": {
+        "optimizerUsed": "none (closed-form estimator; single hyperparameter selected by 5-fold motor-level grid cross-validation)",
+        "startsDeclared": 61,
+        "methodStartPairsConsidered": 61,
+        "domainFeasibleOptimizerCalls": 61,
+        "successfulOptimizerCalls": 61,
+        "finiteTerminalResults": "count of j in 0..60 with finite CV(h_j); MUST equal 61, else raise",
+        "coherenceInvariant": "finite <= feasible <= pairs, machine-checked, as the frozen protocol requires",
+        "note": "The protocol's two-optimizer and 200-random-start requirements are structurally vacuous for M8 because M8 has no likelihood-optimized parameter. The full 61-point grid is exhaustive over the declared domain, which is strictly stronger than a restart search. This must be stated in the deliverable rather than silently reported as a pass."
+      }
+    },
+    "section4_tieBreaking": {
+      "rule": "Iterate j = 0, 1, ..., 60 in strictly ascending order of h. Maintain best_value = -inf and best_j = None. Replace them only when CV(h_j) > best_value under strict float64 greater-than. The surviving best_j is the answer.",
+      "consequence": "If two or more bandwidths attain bitwise-identical float64 CV values equal to the maximum, the SMALLEST such h is selected.",
+      "implementationNote": "numpy.argmax over the ascending grid returns the first maximal index and is therefore equivalent; either form is permitted, but the strict-greater-than loop is the normative definition.",
+      "justification": "M8's purpose is to be a genuinely strong flexible ceiling. Among exactly-tied bandwidths the smallest h is the least-smoothed and most flexible, so this tie rule cannot be accused of hobbling the ceiling model by over-smoothing it. The rule is fixed before execution and does not depend on which value wins.",
+      "nearTies": "No near-tie rule exists and none may be introduced. argmax over float64 is single-valued given the tie rule above; a tolerance-based near-tie rule would reopen post-hoc choice. Near-flatness of the CV curve is handled instead as an OBSERVABLE IDENTIFIABILITY VERDICT in section 5, not as a selection rule.",
+      "telemetry": [
+        "tiedBandwidthCount = number of j with CV(h_j) bitwise equal to the maximum",
+        "selectedBandwidth = h*",
+        "selectedGridIndex = best_j"
+      ]
+    },
+    "section5_numericalFloorsAndIdentifiability": {
+      "densityFloor": {
+        "constant": "DENSITY_FLOOR = 1e-300",
+        "logConstant": "LOG_DENSITY_FLOOR = math.log(1e-300), computed at runtime, NOT written as a decimal literal, so that the value is bit-identical to the repository's existing convention. Its value is approximately -690.7755278982137.",
+        "applicationPoint": "To the NORMALIZED log density, before the Jacobian: logDensityNormalized(y) = max( log f(y), LOG_DENSITY_FLOOR ), then logDensitySeconds(t) = logDensityNormalized(y) - log(scale_N).",
+        "equivalentForm": "Identical to log(max(f(y), 1e-300)) up to float rounding; the max-in-log-space form is normative for M8 because M8's density is computed by logsumexp and never materializes f(y) as a float.",
+        "provenance": "This matches the repository's existing floor convention at scripts/run-science-gates.py line 116: result[global_index] = math.log(max(float(density), 1e-300)).",
+        "justificationOfValue": [
+          "1e-300 lies strictly above the smallest normal float64, 2.2250738585072014e-308, so the floored value is a normal (not subnormal) number and log() of it is computed at full precision.",
+          "It corresponds to a per-event log score of about -690.78 nats, which is catastrophically bad relative to any plausible model score. The floor therefore does not rescue a model from a bad prediction; it only prevents a single event from making a mean score -inf and thereby destroying the entire leaderboard and every bootstrap replicate.",
+          "It is the value already in use in this repository, so no new convention is introduced by M8."
+        ],
+        "identicalApplicationToAllModels": "The floor MUST be applied by the SHARED scoring function, at the SAME point in the pipeline (normalized density, pre-Jacobian), to EVERY model M0 through M8 without exception. M8 must not carry its own floor implementation. This is what prevents the floor from advantaging M8: a floor is an advantage only if it is applied to the model whose density vanishes and not to its competitors, and here it is applied uniformly.",
+        "whenItBinds": "For M8 the floor binds on a held-out event whose log y lies farther than approximately h * sqrt(2 * (690.78 - log(n*h*y*sqrt(2*pi)))) from EVERY shifted training location s_i. At the small end of the grid (h = 0.01) this distance is on the order of 0.37 nats, so the floor can genuinely bind; at h = 0.5 it is on the order of 18 nats and effectively never binds. This is an honest and expected failure mode of a narrow KDE in the tail, and it is not concealed.",
+        "mandatoryAdverseTelemetry": "flooredEventCount MUST be reported for EVERY model, M0 through M8, on both cohorts. If M8's flooredEventCount is nonzero, the deliverable MUST state this immediately adjacent to M8's score, because a floored event means M8 assigned effectively zero probability to an observed held-out dwell. A nonzero floored count is an adverse result about M8 and may not be omitted, footnoted away, or fixed by changing the floor."
+      },
+      "identifiabilityStatement": {
+        "honestAssessment": "M8's single hyperparameter h is well determined IN-SAMPLE: it is selected from 793 uncensored training events across roughly 76 training motors, which is ample for a one-dimensional grid search. The genuine weak-identification risk for M8 is NOT in fitting but in SCORING and RANKING: the holdout comprises 233 uncensored events on only 19 motors, and the experimental unit is the motor. Nineteen clusters is a small number for resolving score differences on the order of 0.0369 nats per event. It is entirely possible that M8's holdout score is not distinguishable from M2's or M3's at the resolution this cohort supports. That possibility is declared here, in advance, rather than discovered and narrated afterwards.",
+        "secondRisk": "A KDE's effective complexity grows with the training sample. M8 is therefore expected to be flattered in-sample and is NOT expected to be a fair-complexity competitor. Its role is an upper bound on achievable predictive performance without mechanism, and it should be read as such whether it wins or loses.",
+        "observableCriteria": [
+          {
+            "verdict": "UNIDENTIFIED_BANDWIDTH_BOUNDARY",
+            "criterion": "h* equals 0.01 or h* equals 10.0 (that is, selectedGridIndex is 0 or 60).",
+            "meaning": "The cross-validation objective is still improving at the edge of the frozen search domain, so h* is a domain artifact rather than an interior optimum. Report M8 as UNIDENTIFIED-BANDWIDTH. The score is still reported, labelled as conditional on the frozen grid. The grid is NOT extended."
+          },
+          {
+            "verdict": "UNIDENTIFIED_BANDWIDTH_FLAT",
+            "criterion": "Let S = { h_j : CV(h_j) >= CV(h*) - 0.01 }. If max(S) / min(S) > 10.0, declare UNIDENTIFIED-BANDWIDTH-FLAT.",
+            "thresholdJustification": "0.01 nats per event is fixed before execution as the resolution floor of this competition: it is below 0.0369 nats per event, the effect size the frozen protocol requires to remain visible. Bandwidths whose CV objectives differ by less than 0.01 nats per event are not distinguishable at the resolution the competition cares about. The span threshold of one full decade (factor 10.0) is chosen because the grid spans three decades, so a one-decade indifference region means a third of the search domain is statistically equivalent.",
+            "meaning": "The data do not determine the smoothing scale. Report M8's score with the explicit statement that the bandwidth is weakly determined over a stated range of h."
+          },
+          {
+            "verdict": "BANDWIDTH_SENSITIVE_SCORE",
+            "criterion": "After h* is irrevocably fixed, recompute M8's PRIMARY holdout score at the two neighbouring grid bandwidths h_{j*-1} and h_{j*+1} (omitting a neighbour that falls outside the grid). If max minus min of the primary holdout score over that set of at most three bandwidths exceeds 0.0369 nats per event, declare BANDWIDTH-SENSITIVE and report the full range alongside the point score.",
+            "thresholdJustification": "0.0369 nats per event is the exact magnitude of the adverse finding the frozen protocol requires to remain visible. If a one-grid-step change in a hyperparameter moves M8's score by more than the effect size under adjudication, M8's number cannot adjudicate that effect.",
+            "hardConstraint": "This diagnostic uses holdout data for REPORTING ONLY, strictly after selection. h* MUST NOT be revised in light of it under any circumstance, and the reported M8 score remains the score at h*. The diagnostic is specified here, before execution, precisely so that it cannot be selectively run or selectively omitted after a result is seen."
+          },
+          {
+            "verdict": "UNRESOLVED_VS_M3 / UNRESOLVED_VS_M2",
+            "criterion": "Per the frozen protocol, the motor-cluster nonparametric bootstrap (resampling the 19 holdout MOTORS with replacement, 2000 replicates, percentile 95 percent, seed from experiments/preregistration.v1.json uncertainty.seed = 20260717) is applied to the PAIRED per-event score difference. If the interval contains zero, the comparison is reported as UNRESOLVED. It is not reported as a win, a tie, a trend, or a near-miss.",
+            "meaning": "With 19 holdout motors this outcome is a live possibility for M8 and is not a failure of the analysis."
+          }
+        ],
+        "verdictBinding": "All four criteria are evaluated and reported unconditionally for both cohorts. They are declared here in full before execution, so no verdict is selectable after seeing a fit. A model may carry more than one verdict simultaneously."
+      }
+    },
+    "section6_preconditionsAndHardFailures": {
+      "assertsBeforeAnyComputation": [
+        "Every uncensored event used, in training and in holdout, has durationS > 0.0 strictly. A zero or negative duration makes log y undefined. On violation: raise and abort the M8 entry; do not drop the event, since dropping it would silently change the cohort.",
+        "Every eligible state N appearing in the holdout has at least one uncensored TRAINING event, so scale_N is defined. On violation: raise and abort; scale_N must never be imputed, borrowed from a neighbouring state, or back-filled from holdout.",
+        "scale_N > 0.0 for every eligible N.",
+        "n equals 793 for the [1..8] cohort and 818 for the [0..8] cohort; holdout uncensored counts equal 233 and 251 respectively; holdout motor count equals 19 for the [1..8] cohort. A mismatch means the cohort was not the frozen one; raise and abort.",
+        "The recomputed split (partition = holdout iff sha256(motorId) mod 5 == 0) agrees with the partition field for every event; the data field is never trusted alone.",
+        "h* > 0.0 and h_grid is strictly increasing."
+      ],
+      "tiesInDurations": "Duplicate durationS values are permitted and require no special handling: h > 0 for every grid point, so no component is degenerate and the density is finite everywhere on (0, inf).",
+      "noStochasticStepsBeyondFolds": "The only stochastic procedure in M8 is the fold permutation (seed 20260717) and, downstream, the shared motor-cluster bootstrap. M8 involves no random restarts, no random initialization, and no Monte Carlo integration.",
+      "dualCohortRule": "M8 is executed twice and independently, once per mandated cohort ([1..8] and [0..8]). scale_N, y, ybar, the motor set, the fold map, the CV curve and h* are ALL recomputed per cohort. h* may differ between cohorts; both values and both CV curves are reported. If M8's rank differs between cohorts, that difference is a headline result per the frozen protocol.",
+      "reproducibility": "All floating-point work in float64. Report h*, tiedBandwidthCount, the full 61-value CV curve, ybarDeviation, I0, I1, flooredEventCount, all four identifiability verdicts, and the sha256 of the sorted training (motorId, stateN, durationS) tuple list, so the fitted object is reconstructible from the record alone."
+    },
+    "section7_environment": {
+      "python": "3.12",
+      "numpy": "2.3.5",
+      "scipy": "1.16.3",
+      "functionsUsed": [
+        "scipy.special.logsumexp",
+        "scipy.stats.norm.cdf",
+        "scipy.optimize.brentq (only if the shared CRPS harness requires quantiles)",
+        "numpy.polynomial.legendre.leggauss",
+        "numpy.random.Generator / numpy.random.PCG64",
+        "math.fsum",
+        "math.log"
+      ],
+      "functionsForbidden": [
+        "scipy.stats.gaussian_kde — its bandwidth rules (Scott, Silverman) are automatic and would bypass the mandated cross-validation, and its covariance-factor convention would make the reported h ambiguous. M8 MUST implement the estimator explicitly from the formulae above.",
+        "scipy.integrate.quad for the section-2 verification — adaptive subdivision is not byte-reproducible.",
+        "Any GPU, LLM, or network call. M8 is CPU-only and self-contained, consistent with the released-product constraint."
+      ]
+    }
+  },
+  "ambiguitiesEliminated": [
+    "'Kernel density estimate on log y' left the kernel unnamed: fixed to the standard normal (Gaussian) kernel phi(u) = exp(-u^2/2)/sqrt(2*pi).",
+    "Boundary-correction ambiguity resolved by construction, not by choice: estimation on z = log y has no boundary, so no boundary kernel is used, and the reason is stated rather than assumed.",
+    "'Transformed back and renormalized to mean one' did not say how. Fixed to a pure scale change Y = Y_raw / m(h) with m(h) = exp(h^2/2) * ybar in closed form, implemented as the single location shift s_i = z_i - h^2/2 - log(ybar). Truncate-and-renormalize and exponential tilting are explicitly rejected.",
+    "Whether the normalizing constant needs quadrature: eliminated. f integrates to exactly 1 analytically; there is NO numerically-solved normalizing constant anywhere in M8.",
+    "ybar left implicit: proved analytically equal to exactly 1, but mandated to be computed numerically with math.fsum and hard-checked at |ybar - 1| <= 1e-9 as a bug detector. Hard-coding 1 is forbidden.",
+    "Verification quadrature unspecified: fixed to composite Gauss-Legendre, exactly 4096 equal subintervals, exactly 20 nodes per subinterval, bounds [min(s_i) - 12h, max(s_i) + h^2 + 12h], tolerance 1e-9 absolute on both the mass and mean integrals, adaptive quad forbidden.",
+    "'Selected by training-only cross-validation' gave no grid: fixed to h_j = 10^(-2 + 0.05j), j = 0..60, exactly 61 points, endpoints exactly 0.01 and 10.0, exactly 0.05 decade spacing, ascending, non-extensible.",
+    "Fold count unspecified: fixed to exactly 5.",
+    "Fold assignment left open: fixed to motorIds sorted by UTF-8 bytes, one numpy.random.Generator(PCG64(20260717)).permutation call, fold = rank mod 5, every event inheriting its motor's fold.",
+    "CV objective unspecified: fixed to mean out-of-fold log predictive density per EVENT in normalized y-space, with fold models rebuilt from fold-complement events only, and with the -log(scale_N) Jacobian provably omissible because it is constant in h.",
+    "Whether scale_N is refit inside CV folds: fixed to NO (it is the frozen shared normalization), with the resulting optimism declared and shown to be h-independent.",
+    "Event-level leave-one-out CV explicitly forbidden as pseudoreplication.",
+    "Tie-breaking unspecified: fixed to strict-greater-than ascending scan, which selects the smallest h among bitwise-exact ties; no tolerance-based near-tie rule is permitted.",
+    "'At least two optimizers' and 'at least 200 restarts' were inapplicable but would have been silently reported as passes: replaced by an explicit declaration that M8 has no likelihood-optimized parameter, with a 61-point exhaustive grid mapped onto the protocol's telemetry fields and the vacuity stated in the deliverable.",
+    "Density floor unspecified: fixed to DENSITY_FLOOR = 1e-300 with LOG_DENSITY_FLOOR = math.log(1e-300) computed at runtime, applied to the normalized log density pre-Jacobian, by the SHARED scorer, identically to M0 through M8.",
+    "Underflow handling unspecified: direct exponential summation forbidden; scipy.special.logsumexp mandated, so the floor reflects genuine tail behaviour and not an avoidable numerical artifact.",
+    "Label switching left open: shown to be structurally vacuous because component locations are data-pinned, not estimated; component order fixed to the ascending sort by (motorId bytes, stateN, durationS, row index); no relabelling step permitted.",
+    "Feasible region for h: all h > 0, with no inequality induced by the mean-one constraint, because a lognormal mixture has a finite mean for every finite h. This is a genuine structural difference from M3's lf > w and is stated rather than left to inference.",
+    "'May be weakly identified' left to post-hoc judgement: replaced by four verdicts with numeric criteria fixed in advance (boundary at h = 0.01 or 10.0; flat CV region spanning more than a factor 10.0 within 0.01 nats/event; holdout score range across the h* neighbour triple exceeding 0.0369 nats/event; bootstrap interval on the paired difference containing zero).",
+    "Pooled versus per-state KDE left open: fixed to a single pooled density, with per-state and per-motor variants named as forbidden substitutions.",
+    "Dual-cohort handling unspecified: every quantity including h* is recomputed independently per cohort, and the two h* values may differ.",
+    "scipy.stats.gaussian_kde forbidden, because its automatic bandwidth rules would bypass the mandated CV and its covariance-factor convention makes a reported h ambiguous.",
+    "CDF/quantile left unspecified although CRPS is a mandated secondary score: exact closed-form CDF given, plus a fully specified brentq quantile fallback with exact bracket, tolerances and iteration limit."
+  ],
+  "residualRisks": [
+    "The density floor CAN bind for M8 at small bandwidths (at h = 0.01 a held-out y roughly 0.37 nats in log space from every shifted training point is floored). This is a real limitation of a narrow KDE, not a numerical artifact. It is mitigated by mandating flooredEventCount as adverse telemetry for every model and requiring it to be reported adjacent to M8's score, but a reviewer should check that the shared scorer really does apply the identical floor at the identical pipeline point to M0 through M7, since a floor applied only where a density vanishes would silently advantage whichever model vanishes.",
+    "scale_N is computed on the FULL training partition and is deliberately not recomputed inside CV folds. This makes the CV objective slightly optimistic in absolute level. I argue the optimism is h-independent and therefore argmax-neutral, but that argument is an analytic judgement, not a proof for finite samples; a reviewer may wish to confirm it. Recomputing scale_N per fold was rejected because scale_N is the frozen normalization shared by all nine models and changing it inside one model's selection loop would break comparability.",
+    "The CV objective is weighted per EVENT to match the primary scoring rule, while the experimental unit is the MOTOR. A motor with many events therefore has more influence on h* than a motor with few. This is a deliberate alignment with the primary rule rather than with the experimental unit, and it is a defensible choice in the opposite direction from the truth contract's usual emphasis. It is flagged for reviewer attention.",
+    "M8 is pooled across states. If the true duration shape differs strongly by N, M8 is a weaker ceiling than a per-state KDE would be, and 'no mechanistic model approaches M8' would then be a weaker statement than it appears. Pooling was chosen for comparability with M0-M3 and M5 and because M6 already carries the per-state relaxation, but the ceiling is a ceiling only within the pooled model class.",
+    "With 19 holdout motors and 233 uncensored events, the bootstrap interval on any paired score difference involving M8 may well contain zero. The specification handles this by declaring UNRESOLVED in advance, but it means the competition may simply not have the resolution to place M8 relative to M2 and M3, and the deliverable must say so plainly rather than reporting a rank order.",
+    "The 0.01 nats/event flatness threshold and the factor-10.0 span threshold are principled (tied to the 0.0369-nat effect size and to the three-decade grid) but they are still chosen numbers. They are frozen before execution, so they cannot be gamed, but a different pre-registered pair would give a different flatness verdict on a borderline CV curve.",
+    "The grid upper endpoint of 10.0 is far broader than any plausible smoothing scale for log-dwell data and the lower endpoint of 0.01 is far narrower. This makes an interior optimum overwhelmingly likely and the boundary verdict correspondingly unlikely to fire, which is intended, but it also means the 61-point grid resolves h only to 0.05 decades. If the CV curve is sharply peaked, h* is quantized at roughly 12 percent relative resolution; the BANDWIDTH_SENSITIVE_SCORE diagnostic exists precisely to expose whether that quantization matters.",
+    "CRPS for M8 depends on the shared scorer's integration rule, which is outside this component's scope. M8 supplies an exact closed-form CDF so it contributes no additional approximation, but if the shared rule integrates on a grid that is coarse in the tail, M8's heavy-tailed lognormal mixture could be treated less accurately than the lighter-tailed competitors. A reviewer should confirm the shared CRPS grid is defined on a scale (for example log-spaced in seconds) that is adequate for all nine models.",
+    "numpy.random.Generator.permutation with PCG64 is documented as stream-stable, and numpy 2.3.5 is pinned, so the fold map is reproducible under the declared environment. It is not guaranteed reproducible across a future numpy major version. The mitigation is that the full fold map should be recorded verbatim in the deliverable, not merely the seed."
+  ]
+}

@@ -1,0 +1,7 @@
+{
+  "id": "CXM09_EXPONENTIAL_SECOND_MOMENT_FACTOR_DROPPED",
+  "targetPath": "lib/source-first-passage.js",
+  "preMutationSha256": "c66cf5ff048f5eb1e85c7b3148a002002636df14c5e96dda7eb840366a2ff6d8",
+  "postMutationSha256": "047a87ba5b05aa75a86afb7f662d3f89da289210cebcbeb0d0e06fe23706ada5",
+  "diff": "diff --git a/lib/source-first-passage.js b/lib/source-first-passage.js\nindex 36e624d..eed8085 100644\n--- a/lib/source-first-passage.js\n+++ b/lib/source-first-passage.js\n@@ -67,7 +67,7 @@ export function sourceLogLikelihood(event, parameters) {\n export function sourceMoments(stateN, parameters, codeN0Branch = false) {\n   const terms = sourceTerms(stateN, parameters, codeN0Branch);\n   const mean = terms.reduce((sum, term) => sum + term.weight / term.totalRate, 0);\n-  const secondMoment = 2 * terms.reduce((sum, term) => sum + term.weight / (term.totalRate ** 2), 0);\n+  const secondMoment = terms.reduce((sum, term) => sum + term.weight / (term.totalRate ** 2), 0);\n   const fractionPlus = stateN === 0 && codeN0Branch ? 1 : parameters.kPlusByN[stateN] * mean;\n   return {\n     meanDwellSeconds: mean,\n"
+}

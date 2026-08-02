@@ -1,0 +1,88 @@
+{
+  "schema": "uni.flagellum.audit-artifact/1.0.0",
+  "purpose": "Runtime identities for every execution cell used in Phase A, and the provenance of the provisioned Node 22 runtime.",
+  "auditedCommit": "9c3a644e4b57e8ac27f925dcec84222463063aa1",
+  "auditPhase": "A",
+  "auditorModel": "claude-opus-4-8 (Phase A execution), claude-fable-5 (packaging)",
+  "operatingSystem": "Microsoft Windows 11 Pro 10.0.26200 build 26200 (x64)",
+  "cpu": "Intel Core i7-10700T @ 2.00GHz, 8 cores / 16 threads",
+  "ramGB": 63.71,
+  "appendOnly": true,
+  "note": "Timestamps are deliberately omitted: this package must be byte-reproducible. Ordering is established by git history.",
+  "hostToolchain": {
+    "node": "v25.0.0",
+    "npm": "11.6.2",
+    "v8": "14.1.146.11-node.10",
+    "python": "3.12.10",
+    "numpy": "2.3.5",
+    "scipy": "1.16.3",
+    "git": "2.51.1.windows.1",
+    "numpyScipyMatchRequirementsPins": true,
+    "requirementsPins": {
+      "numpy": "2.3.5",
+      "scipy": "1.16.3"
+    }
+  },
+  "provisionedRuntime": {
+    "version": "v22.13.1",
+    "bundledNpm": "10.9.2",
+    "v8": "12.4.254.21-node.22",
+    "source": "https://nodejs.org/dist/v22.13.1/node-v22.13.1-win-x64.zip",
+    "declaredSha256": "398a61e250a5584a62a5959e2f69f5d597fc83f1a5ebe3ed8fff29ba39d55f14",
+    "observedSha256": "398a61e250a5584a62a5959e2f69f5d597fc83f1a5ebe3ed8fff29ba39d55f14",
+    "checksumSource": "https://nodejs.org/dist/v22.13.1/SHASUMS256.txt",
+    "verifiedBeforeExtraction": true,
+    "globalMutation": "none; extracted to a scratch path and invoked by absolute path. Global node remained v25.0.0 and global npm remained 11.6.2, verified before and after.",
+    "limitation": "Windows MAX_PATH forced relocation to a short root. This is an environment constraint of the audit host, not a repository defect."
+  },
+  "matrix": [
+    {
+      "cell": "A",
+      "node": "v25.0.0",
+      "npm": "11.6.2",
+      "npmCiExit": 0,
+      "npmTestExit": 0,
+      "buildProduced": true,
+      "testsPassed": true
+    },
+    {
+      "cell": "B",
+      "node": "v25.0.0",
+      "npm": "10.9.8",
+      "npmCiExit": 0,
+      "npmTestExit": 0,
+      "buildProduced": true,
+      "testsPassed": true
+    },
+    {
+      "cell": "C",
+      "node": "v22.13.1",
+      "npm": "10.9.2",
+      "npmCiExit": 0,
+      "npmTestExit": 1,
+      "buildProduced": false,
+      "testsPassed": false
+    },
+    {
+      "cell": "D",
+      "node": "v22.13.1",
+      "npm": "11.6.2",
+      "npmCiExit": 0,
+      "npmTestExit": 1,
+      "buildProduced": false,
+      "testsPassed": false
+    }
+  ],
+  "prediction": "npm ci would FAIL under npm 10 because package.json:50-52 declares overrides.postcss while package-lock.json contains no overrides key.",
+  "observed": "npm ci succeeded (exit 0) in all four cells. The prediction was REFUTED.",
+  "conclusion": "CLAUDE.md:105 npm-10 compatibility is CONFIRMED for installation. The design is fully crossed: npm test outcome depends solely on the Node axis; the npm axis has no effect.",
+  "lockfileTamperCheck": {
+    "baselineBlob": "984bc7f4d989d4872ea00354c529ae22a13de1e1",
+    "checkedAfterEveryNpmInvocation": true,
+    "everMutated": false,
+    "rationale": "Any lockfile rewrite under npm 11 would silently revert commit 0c73d94. README.md:23 instructs `npm install`, which would do exactly that."
+  },
+  "uncertainty": "Only Node 22.13.1 and 25.0.0 were tested. The boundary version at which artifact identity changes is UNKNOWN and lies somewhere in 22.13.1 < v <= 25.0.0.",
+  "alternativeExplanation": "npm-version effects were excluded by testing both npm majors against both Node majors; no npm-attributable difference was observed.",
+  "independentlyReproduced": "Within this audit only: three consecutive runs per Node version produced identical results. Not reproduced on a second machine."
+}

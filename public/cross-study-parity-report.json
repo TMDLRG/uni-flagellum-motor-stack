@@ -1,0 +1,790 @@
+{
+  "claim": "The expanded model reproduces several published observational layers, but full and complete parity with real biology is not achieved.",
+  "compute": "CPU_ONLY_NO_LLM_NO_GPU",
+  "executedAt": "2026-07-17T20:30:00Z",
+  "gates": [
+    {
+      "criterion": "Every cached artifact matches its frozen SHA-256 and byte size; each ZIP passes CRC testing; every selected workbook sheet and MAT variable parses without non-finite values in required fields.",
+      "evidence": {
+        "corpusSha256": "2761c10f740c18dbe7eb4bf2e5e03db1a0a93c533b143562b850e1233b3f94e7",
+        "declaredLocalArtifacts": 12,
+        "itoRawArchive": {
+          "bytes": 4085227742,
+          "cachePath": "experiments/upstream-cache/ito-2021-raw-data.zip",
+          "cacheVerification": {
+            "artifact": {
+              "cachePath": "experiments/upstream-cache/ito-2021-raw-data.zip",
+              "declaredContents": "All manuscript rotation-rate traces",
+              "doi": "10.6084/m9.figshare.14371232.v2",
+              "downloadUrl": "https://ndownloader.figshare.com/files/27453833",
+              "license": "CC BY 4.0"
+            },
+            "claimFence": "This establishes archive identity and integrity, not correctness of every measurement or biological parity.",
+            "expected": {
+              "bytes": 4085227742,
+              "md5": "d42879e66142ff7190f256f4276db111"
+            },
+            "method": {
+              "byteCount": true,
+              "everyMemberCrc": true,
+              "normalTestSuiteRehashesArchive": false,
+              "streamingMd5": true,
+              "zipCentralDirectory": true
+            },
+            "observed": {
+              "bytes": 4085227742,
+              "md5": "d42879e66142ff7190f256f4276db111",
+              "zipCompressedMemberBytes": 4085099290,
+              "zipCrcFailure": null,
+              "zipEntryCount": 505,
+              "zipUncompressedMemberBytes": 10160270466
+            },
+            "schema": "uni.flagellum.large-source-verification/1.0.0",
+            "status": "PASS",
+            "studyId": "ITO_2021",
+            "verifiedAt": "2026-07-17T21:00:00Z"
+          },
+          "contents": "All manuscript rotation-rate traces",
+          "doi": "10.6084/m9.figshare.14371232.v2",
+          "license": "CC BY 4.0",
+          "md5": "d42879e66142ff7190f256f4276db111",
+          "url": "https://ndownloader.figshare.com/files/27453833",
+          "verificationReportPath": "experiments/results/ito-raw-archive-verification.json"
+        },
+        "verifiedLocalArtifacts": 12
+      },
+      "id": "X01_SOURCE_INTEGRITY",
+      "limitation": "The 4.09 GB Ito archive is a separately cached evidence tier whose byte count, MD5, ZIP directory, and every member CRC passed. The hashed 11.9 MB source workbook remains the artifact parsed into the current numerical gates.",
+      "status": "PASS",
+      "title": "Immutable source bytes and parsers"
+    },
+    {
+      "criterion": "At least four direct primary-study artifact families, at least eight attributed experimental/model studies in total, at least four observation scales, and a conservative direct-artifact lower bound of 400 independent motors/cells.",
+      "evidence": {
+        "attributedStudies": [
+          "WADHWA_2022",
+          "ITO_2021",
+          "ANTANI_2021",
+          "LISEVICH_2025",
+          "NORD_2017",
+          "PEREZ_CARRASCO_2022",
+          "YUAN_2009",
+          "BAI_2010",
+          "ZHU_2024",
+          "MATTINGLY_TU_2026",
+          "FRANCO_ONATE_2025"
+        ],
+        "directIndependentMotorCellLowerBound": 409,
+        "directPrimaryArtifactFamilies": [
+          "WADHWA_2022",
+          "ITO_2021",
+          "ANTANI_2021",
+          "LISEVICH_2025"
+        ],
+        "lowerBoundDerivation": {
+          "Antani2021": 154,
+          "Ito2021": 40,
+          "Lisevich2025": 106,
+          "Wadhwa2022": 109
+        },
+        "observationScales": [
+          "event/dwell",
+          "single motor",
+          "motor ensemble",
+          "cell propulsion",
+          "population/strain"
+        ],
+        "warning": "A lower bound is used to avoid double-counting motors/cells across multiple assays within a study. Time points and transition events are never counted as independent biological units."
+      },
+      "id": "X02_CORPUS_BREADTH",
+      "limitation": "Breadth is not parity. Several older datasets are available only as digitized or aggregate evidence and are labeled accordingly.",
+      "status": "PASS",
+      "title": "Cross-study breadth without pseudoreplication"
+    },
+    {
+      "criterion": "On Ito 2021 20-Hz bins, leave-one-bin-out RMSE of M_ROTATION_GATE is at least 20% lower than a constant-rate baseline, both directional slopes are positive, and the fitted stall intercept is finite and nonnegative.",
+      "evidence": {
+        "aic": {
+          "directional": -3.1193250855469277,
+          "symmetric": -2.823683041651752
+        },
+        "binWidthRobustness": {
+          "10Hz": {
+            "aic": {
+              "directional": -7.349048460379787,
+              "symmetric": -3.855673664948747
+            },
+            "constantLeaveOneBinOutRmse": 1.5749702584425256,
+            "leaveOneBinOutRmse": 0.8177074389837072,
+            "nBins": 21,
+            "parameters": {
+              "negativeSpeedMagnitudeSlopePerHz": 0.03072278533028169,
+              "positiveSpeedSlopePerHz": 0.01744790647917107,
+              "stallInterceptPerSecond": 0.1546236479866703
+            },
+            "pass": true,
+            "relativeRmseImprovement": 0.4808108695383676
+          },
+          "20Hz": {
+            "aic": {
+              "directional": -3.1193250855469277,
+              "symmetric": -2.823683041651752
+            },
+            "constantLeaveOneBinOutRmse": 1.4544734802269663,
+            "leaveOneBinOutRmse": 0.8293641328245381,
+            "nBins": 11,
+            "parameters": {
+              "negativeSpeedMagnitudeSlopePerHz": 0.03195666925811998,
+              "positiveSpeedSlopePerHz": 0.017684108160842014,
+              "stallInterceptPerSecond": 0.15449976460881604
+            },
+            "pass": true,
+            "relativeRmseImprovement": 0.4297839430560685
+          },
+          "5Hz": {
+            "aic": {
+              "directional": -7.269110786498329,
+              "symmetric": -0.5357486114122327
+            },
+            "constantLeaveOneBinOutRmse": 1.568754508042681,
+            "leaveOneBinOutRmse": 0.8944654002004996,
+            "nBins": 39,
+            "parameters": {
+              "negativeSpeedMagnitudeSlopePerHz": 0.02916263658233017,
+              "positiveSpeedSlopePerHz": 0.015588149755500488,
+              "stallInterceptPerSecond": 0.15495933891359495
+            },
+            "pass": true,
+            "relativeRmseImprovement": 0.42982449094822683
+          }
+        },
+        "constantLeaveOneBinOutRmse": 1.4544734802269663,
+        "leaveOneBinOutRmse": 0.8293641328245381,
+        "nBins": 11,
+        "parameters": {
+          "negativeSpeedMagnitudeSlopePerHz": 0.03195666925811998,
+          "positiveSpeedSlopePerHz": 0.017684108160842014,
+          "stallInterceptPerSecond": 0.15449976460881604
+        },
+        "pass": true,
+        "relativeRmseImprovement": 0.4297839430560685
+      },
+      "id": "X03_ROTATION_GATED_ASSEMBLY",
+      "limitation": "This reproduces an aggregate source-workbook relationship. Speed-bin points are not independent motors, and the zero-speed intervention dominates part of the contrast.",
+      "status": "PASS",
+      "title": "Rotation gates stator assembly in both directions"
+    },
+    {
+      "criterion": "In Antani 2021 motor-level fluorescence, MotAB expression increases CheY signal with Welch p<0.001 and a 95% motor bootstrap interval for the mean difference entirely above zero; FliM and rotating-versus-stalled controls are reported and cannot be omitted.",
+      "evidence": {
+        "fliMControl": {
+          "bootstrap95": {
+            "lower": -0.39815532684877514,
+            "upper": 0.676929209612863
+          },
+          "hedgesG": 0.07429361055608642,
+          "meanA": 3.847784629266667,
+          "meanB": 3.9891970051486956,
+          "meanDifference": 0.14141237588202848,
+          "nA": 75,
+          "nB": 115,
+          "welchP": 0.6087420329261879,
+          "welchT": 0.5128284439826093
+        },
+        "primaryCheYContrast": {
+          "bootstrap95": {
+            "lower": 0.5664130757363002,
+            "upper": 1.8291521590393092
+          },
+          "hedgesG": 0.7773984176468738,
+          "meanA": 2.3640508452430558,
+          "meanB": 3.4972947291304353,
+          "meanDifference": 1.1332438838873795,
+          "nA": 108,
+          "nB": 46,
+          "welchP": 0.0008172743495038796,
+          "welchT": 3.5368555666131765
+        },
+        "rotatingVsStalledControl": {
+          "bootstrap95": {
+            "lower": -0.15691451447128896,
+            "upper": 0.27823624928387897
+          },
+          "hedgesG": 0.11739056912541043,
+          "meanA": 1.4475853861395347,
+          "meanB": 1.512381132088889,
+          "meanDifference": 0.06479574594935422,
+          "nA": 86,
+          "nB": 36,
+          "welchP": 0.5677578382131563,
+          "welchT": 0.5744801742919623
+        }
+      },
+      "id": "X04_STATOR_CHEY_COUPLING",
+      "limitation": "The assay supports coupling/association; it does not by itself resolve the molecular path or establish causal direction for every downstream variable.",
+      "status": "PASS",
+      "title": "Stator presence changes CheY-associated fluorescence"
+    },
+    {
+      "criterion": "Across Antani 2021 torque conditions, Spearman rho is at least 0.8 for both directional transition rates versus torque while the coefficient of variation of CW bias remains below 0.15.",
+      "evidence": {
+        "ccwToCw": {
+          "p": 0.00023589981215941676,
+          "spearmanRho": 0.9333333333333332
+        },
+        "cwBias": {
+          "coefficientOfVariation": 0.1000423405859971,
+          "mean": 0.15776351427910054,
+          "sd": 0.015783031227553593
+        },
+        "cwToCcw": {
+          "p": 0.0,
+          "spearmanRho": 1.0
+        },
+        "nConditions": 9,
+        "pass": true
+      },
+      "id": "X05_TORQUE_SWITCHING_RESPONSE",
+      "limitation": "Nine plotted torque conditions are aggregate observations; a shared-cell covariance matrix is not available.",
+      "status": "PASS",
+      "title": "Torque changes both switch rates while bias stays stable"
+    },
+    {
+      "criterion": "The exact L=13 model jointly fitted to published 300/500/1300-nm occupancy distributions estimates 0.5<J<2.0, improves AIC by at least 10 over J=0, and has probability RMSE below 0.05. This can pass only as aggregate-source reproduction because motor heterogeneity is unavailable.",
+      "evidence": {
+        "J": 0.2106346292248681,
+        "aic": -274.9984427406665,
+        "baselineJ0Aic": -276.4572485837258,
+        "baselineJ0Sse": 0.05041316301641298,
+        "crossStatisticJDisagreement": {
+          "absoluteDifference": 0.9769286644273946,
+          "fullDistributionJ": 0.2106346292248681,
+          "momentJ": 1.1875632936522627
+        },
+        "deltaAicInFavorOfCooperativity": -1.458805843059281,
+        "momentFits": {
+          "reportedSeWeighted": {
+            "J": 1.070575679243715,
+            "objective": 28.327771196910366,
+            "predictions": [
+              {
+                "condition": "300nm-1",
+                "mu": -1.606090538474454,
+                "observedSd": 0.17,
+                "predictedSd": 0.15948310180512595
+              },
+              {
+                "condition": "300nm-2",
+                "mu": -1.4235790406238413,
+                "observedSd": 0.153,
+                "predictedSd": 0.17099586584998522
+              },
+              {
+                "condition": "300nm-3",
+                "mu": -1.2844480245721739,
+                "observedSd": 0.15,
+                "predictedSd": 0.17731509655011213
+              },
+              {
+                "condition": "300nm-glycerol",
+                "mu": -1.1621609116816656,
+                "observedSd": 0.175,
+                "predictedSd": 0.1804988554180152
+              },
+              {
+                "condition": "500nm-1",
+                "mu": -0.9291505808933009,
+                "observedSd": 0.18,
+                "predictedSd": 0.17949508591638116
+              },
+              {
+                "condition": "500nm-2",
+                "mu": -0.8518052434148203,
+                "observedSd": 0.21,
+                "predictedSd": 0.1771383157850671
+              },
+              {
+                "condition": "500nm-3",
+                "mu": -0.6503131827165651,
+                "observedSd": 0.18,
+                "predictedSd": 0.1671015091049654
+              },
+              {
+                "condition": "500nm-glycerol",
+                "mu": -0.5500832238955655,
+                "observedSd": 0.158,
+                "predictedSd": 0.1605313659454835
+              },
+              {
+                "condition": "1300nm-1",
+                "mu": -0.44034099992916387,
+                "observedSd": 0.13,
+                "predictedSd": 0.15259517744326326
+              },
+              {
+                "condition": "1300nm-2",
+                "mu": -0.21834981853991497,
+                "observedSd": 0.153,
+                "predictedSd": 0.13552341616815966
+              },
+              {
+                "condition": "1300nm-3",
+                "mu": -0.09228167325780848,
+                "observedSd": 0.18,
+                "predictedSd": 0.12587869799917847
+              },
+              {
+                "condition": "1300nm-4",
+                "mu": -0.10193493379468305,
+                "observedSd": 0.161,
+                "predictedSd": 0.1266067290270842
+              }
+            ],
+            "weightedByReportedSdSe": true
+          },
+          "unweighted": {
+            "J": 1.1875632936522627,
+            "objective": 0.007151646123424048,
+            "predictions": [
+              {
+                "condition": "300nm-1",
+                "mu": -1.6933023854256868,
+                "observedSd": 0.17,
+                "predictedSd": 0.1639054588386783
+              },
+              {
+                "condition": "300nm-2",
+                "mu": -1.520699266084435,
+                "observedSd": 0.153,
+                "predictedSd": 0.1759223252961652
+              },
+              {
+                "condition": "300nm-3",
+                "mu": -1.3893265842280698,
+                "observedSd": 0.15,
+                "predictedSd": 0.18252037201185936
+              },
+              {
+                "condition": "300nm-glycerol",
+                "mu": -1.2739483691079398,
+                "observedSd": 0.175,
+                "predictedSd": 0.18584508949409903
+              },
+              {
+                "condition": "500nm-1",
+                "mu": -1.0541611238373074,
+                "observedSd": 0.18,
+                "predictedSd": 0.18479684591479092
+              },
+              {
+                "condition": "500nm-2",
+                "mu": -0.9811772384943066,
+                "observedSd": 0.21,
+                "predictedSd": 0.18233577350131933
+              },
+              {
+                "condition": "500nm-3",
+                "mu": -0.7908612244947629,
+                "observedSd": 0.18,
+                "predictedSd": 0.171856847688497
+              },
+              {
+                "condition": "500nm-glycerol",
+                "mu": -0.6960454620696465,
+                "observedSd": 0.158,
+                "predictedSd": 0.16499938926389174
+              },
+              {
+                "condition": "1300nm-1",
+                "mu": -0.5920864040718918,
+                "observedSd": 0.13,
+                "predictedSd": 0.15671880392355544
+              },
+              {
+                "condition": "1300nm-2",
+                "mu": -0.38123282966784494,
+                "observedSd": 0.153,
+                "predictedSd": 0.13891873663464221
+              },
+              {
+                "condition": "1300nm-3",
+                "mu": -0.2611046404561303,
+                "observedSd": 0.18,
+                "predictedSd": 0.12887239492598074
+              },
+              {
+                "condition": "1300nm-4",
+                "mu": -0.2703137178732278,
+                "observedSd": 0.161,
+                "predictedSd": 0.1296304425798223
+              }
+            ],
+            "weightedByReportedSdSe": false
+          }
+        },
+        "muByBead": {
+          "1300nm": 0.9861270254641183,
+          "300nm": -0.8760770520050566,
+          "500nm": -0.017993724300642135
+        },
+        "observations": 42,
+        "pass": false,
+        "probabilityRmse": 0.03442304313624915,
+        "profile": [
+          {
+            "J": 0.0,
+            "sse": 0.0504131630208208
+          },
+          {
+            "J": 0.1,
+            "sse": 0.04994707675290581
+          },
+          {
+            "J": 0.2,
+            "sse": 0.049769396140492
+          },
+          {
+            "J": 0.30000000000000004,
+            "sse": 0.04988629736994937
+          },
+          {
+            "J": 0.4,
+            "sse": 0.05030334648113151
+          },
+          {
+            "J": 0.5,
+            "sse": 0.051025591560101974
+          },
+          {
+            "J": 0.6000000000000001,
+            "sse": 0.05205770053294879
+          },
+          {
+            "J": 0.7000000000000001,
+            "sse": 0.053404149368462744
+          },
+          {
+            "J": 0.8,
+            "sse": 0.05506946574464167
+          },
+          {
+            "J": 0.9,
+            "sse": 0.057058531610401746
+          },
+          {
+            "J": 1.0,
+            "sse": 0.05937694674572352
+          },
+          {
+            "J": 1.1,
+            "sse": 0.0620314511031644
+          },
+          {
+            "J": 1.2000000000000002,
+            "sse": 0.06503040009852347
+          },
+          {
+            "J": 1.3,
+            "sse": 0.06838427646696452
+          },
+          {
+            "J": 1.4000000000000001,
+            "sse": 0.07210621449976568
+          },
+          {
+            "J": 1.5,
+            "sse": 0.0762125009252141
+          },
+          {
+            "J": 1.6,
+            "sse": 0.08072300458828265
+          },
+          {
+            "J": 1.7000000000000002,
+            "sse": 0.085661480806691
+          },
+          {
+            "J": 1.8,
+            "sse": 0.09105569462954483
+          },
+          {
+            "J": 1.9000000000000001,
+            "sse": 0.09693731910353452
+          },
+          {
+            "J": 2.0,
+            "sse": 0.10334157701977953
+          },
+          {
+            "J": 2.1,
+            "sse": 0.11030663677600071
+          },
+          {
+            "J": 2.2,
+            "sse": 0.117872796935883
+          },
+          {
+            "J": 2.3000000000000003,
+            "sse": 0.12608154825923648
+          },
+          {
+            "J": 2.4000000000000004,
+            "sse": 0.13497465194391658
+          },
+          {
+            "J": 2.5,
+            "sse": 0.14459342067135308
+          },
+          {
+            "J": 2.6,
+            "sse": 0.15497847502976314
+          },
+          {
+            "J": 2.7,
+            "sse": 0.1661702934212756
+          },
+          {
+            "J": 2.8000000000000003,
+            "sse": 0.1782109370202583
+          },
+          {
+            "J": 2.9000000000000004,
+            "sse": 0.1911473190766133
+          },
+          {
+            "J": 3.0,
+            "sse": 0.20503624416648508
+          }
+        ],
+        "sse": 0.04976772774792293
+      },
+      "id": "X06_FINITE_LATTICE_COOPERATIVITY",
+      "limitation": "Aggregate probabilities average time points across motors. The inferred J can absorb unmodeled intercellular heterogeneity and is therefore not a clean molecular interaction energy.",
+      "status": "FAIL",
+      "title": "Exact finite-lattice occupancy reproduction"
+    },
+    {
+      "criterion": "The ported M_GMC generator has nonnegative off-diagonal rates, column sums below 1e-10, stationary residual below 1e-9, and reproduces the published gamma=3.5 engaged-state marginal with L1 error below 0.03.",
+      "evidence": {
+        "engagedMarginal": [
+          0.4762070503817372,
+          0.02123911306156062,
+          0.002095243261823903,
+          0.000917186589664966,
+          0.002095243261824179,
+          0.021239113061564358,
+          0.4762070503818247
+        ],
+        "engagedMarginalL1": 0.01760527596991083,
+        "maximumColumnSumError": 8.526512829121202e-14,
+        "minimumOffDiagonalRate": 0.0,
+        "pass": true,
+        "sourceEngagedMarginal": [
+          0.47176770183571165,
+          0.02470896969182546,
+          0.002742786142706564,
+          0.0012410874189894548,
+          0.0027225471710583624,
+          0.02497314679681356,
+          0.4718437609428948
+        ],
+        "states": 175,
+        "stationaryResidualInfinityNorm": 9.547918011776346e-15
+      },
+      "id": "X07_GMC_GENERATOR_REPRODUCTION",
+      "limitation": "The source marginal comes from the authors' simulation; agreement verifies equations and coarse statistics, not experimental truth.",
+      "status": "PASS",
+      "title": "Independent CPU port of the GMC coarse generator"
+    },
+    {
+      "criterion": "For both published Yuan 2009 switching directions inside the model speed support, at least 60% of source-model interpolants fall within the digitized asymmetric error bars and mean absolute standardized residual is below 1.0.",
+      "evidence": {
+        "ccwToCw": {
+          "fractionWithinAsymmetricErrorBar": 0.6363636363636364,
+          "mae": 0.14086000714056812,
+          "meanAbsoluteStandardizedResidual": 0.875964243131148,
+          "rmse": 0.19208265522924872,
+          "supportedPoints": 11
+        },
+        "cwToCcw": {
+          "fractionWithinAsymmetricErrorBar": 0.6363636363636364,
+          "mae": 0.2941486060537049,
+          "meanAbsoluteStandardizedResidual": 0.7875687445174663,
+          "rmse": 0.3518190514922632,
+          "supportedPoints": 11
+        },
+        "pass": true
+      },
+      "id": "X08_GMC_SWITCHING_OBSERVATIONS",
+      "limitation": "This is source-model reproduction against digitized legacy observations, not held-out refitting or independent laboratory validation.",
+      "status": "PASS",
+      "title": "GMC source predictions against attributed switching observations"
+    },
+    {
+      "criterion": "Lisevich 2025 source RFT predictions achieve cell-speed RMSE below 2.0 um/s and beat a constant-mean baseline; the 95% interval for motor-speed slope versus flagellar count includes zero.",
+      "evidence": {
+        "motorSpeed": {
+          "meanHz": 219.5,
+          "n": 10,
+          "slope95": {
+            "lower": -2.1944908683585402,
+            "upper": 1.172132072181158
+          },
+          "slopeHzPerFlagellum": -0.5111793980886912,
+          "slopeSe": 0.7299689729831358
+        },
+        "pass": true,
+        "rftCellSpeed": {
+          "constantMeanBaselineRmse": 2.0537120440801826,
+          "n": 10,
+          "relativeImprovement": 0.15888369405797875,
+          "rmseUmPerSecond": 1.7274106879853608
+        }
+      },
+      "id": "X09_WHOLE_CELL_PROPULSION",
+      "limitation": "The source workbook contains ten condition/replicate values at three mean flagellar counts; this is not a universal strain- or medium-level propulsion law.",
+      "status": "PASS",
+      "title": "Motor invariance and RFT whole-cell transfer"
+    },
+    {
+      "criterion": "At least one mechanistic parameterization frozen on one laboratory/study predicts a second laboratory's commensurate raw observations with a predeclared advantage over baselines. Source-paper predictions or unit-incompatible mappings do not count.",
+      "evidence": {
+        "commensurateRawTransferTests": 0,
+        "reason": "Ito speed-bin assembly, Wadhwa post-electrorotation dwell events, Nord/Perez load protocols, and Antani switching assays have different interventions and observation operators. No unit-safe shared parameter was frozen on one lab and scored on another raw dataset."
+      },
+      "id": "X10_CROSS_STUDY_PARAMETER_TRANSFER",
+      "limitation": "Forcing a common coefficient across these assays would create apparent unity by erasing the measurement models.",
+      "status": "NOT_ESTABLISHED",
+      "title": "Independent cross-laboratory parameter transfer"
+    },
+    {
+      "criterion": "Every discrete mechanical state and allowed transition is mapped to published structural states or explicitly labeled phenomenological; geometry and state multiplicity conflicts are zero.",
+      "evidence": {
+        "cadRule": "Only dimensions and state multiplicities with direct structural provenance may drive CAD. Phenomenological states must be rendered as transparent mathematical layers, not literal molecular geometry.",
+        "knownConflicts": [
+          {
+            "consequence": "L=13 remains an assay-specific statistical lattice size and cannot be treated as CAD-ready molecular geometry.",
+            "id": "STRUCT-CONFLICT-01",
+            "issue": "The finite-lattice reanalysis fixes L=13, whereas the currently ingested E. coli single-motor remodeling data use lower observed occupancies and classic measurements establish at least 11 torque-generating units rather than a universally resolved 13-slot ring."
+          },
+          {
+            "consequence": "A physical gear or printed state labeled as a molecular weak/strong state would exceed the evidence.",
+            "id": "STRUCT-CONFLICT-02",
+            "issue": "The DLT hidden timescales are not molecularly identified by the dwell-time observations."
+          }
+        ],
+        "mappedStates": 5
+      },
+      "id": "X11_STRUCTURAL_CONSISTENCY",
+      "limitation": "The current mathematical model is CAD-ready only as an abstract transparent mechanism. It is not CAD-ready as literal molecular geometry.",
+      "status": "FAIL",
+      "title": "Structural and geometric claim audit"
+    },
+    {
+      "criterion": "A preregistered intervention must distinguish an Active-Inference-specific causal prediction from matched kinetic, control, and non-equilibrium statistical-mechanics alternatives.",
+      "evidence": {
+        "competingExplanations": [
+          "non-equilibrium statistical mechanics",
+          "kinetic hidden-state models",
+          "catch-bond remodeling",
+          "speed-rate remodeling",
+          "finite-lattice cooperativity",
+          "resistive-force mechanics"
+        ],
+        "discriminatingInterventions": 0
+      },
+      "id": "X12_ACTIVE_INFERENCE_CAUSAL_IDENTITY",
+      "limitation": "Bayesian or variational representation of data does not prove that the bacterium performs that representation.",
+      "status": "NOT_ESTABLISHED",
+      "title": "Biological Active Inference identity"
+    },
+    {
+      "criterion": "A calibrated instrument provides timestamped raw signal, uncertainty, prediction-before-outcome, and immutable audit linkage during the same live run.",
+      "evidence": {
+        "missing": "calibrated instrument run with prediction-before-outcome",
+        "softwareCannotSubstitute": true
+      },
+      "id": "X13_LIVE_SIGNAL_CHAIN",
+      "limitation": "This requires new physical evidence or independent human/institutional action and cannot be completed by software alone.",
+      "status": "BLOCKED_EXTERNAL",
+      "title": "Calibrated live signal-to-prediction chain"
+    },
+    {
+      "criterion": "A laboratory independent of the model authors reproduces the predeclared effects and releases raw data, calibration, exclusions, and analysis provenance.",
+      "evidence": {
+        "missing": "independent laboratory, raw files, calibration, and preregistered replication",
+        "softwareCannotSubstitute": true
+      },
+      "id": "X14_INDEPENDENT_WET_LAB_REPLICATION",
+      "limitation": "This requires new physical evidence or independent human/institutional action and cannot be completed by software alone.",
+      "status": "BLOCKED_EXTERNAL",
+      "title": "Independent wet-lab replication"
+    },
+    {
+      "criterion": "The exported UNI physical model is fabricated, measured against dimensional tolerances, and its sensor-to-screen math trace is tested with real inputs.",
+      "evidence": {
+        "missing": "fabricated print, dimensional inspection, sensor calibration, and observed hand-driven run",
+        "softwareCannotSubstitute": true
+      },
+      "id": "X15_PRINTED_MODEL_VALIDATION",
+      "limitation": "This requires new physical evidence or independent human/institutional action and cannot be completed by software alone.",
+      "status": "BLOCKED_EXTERNAL",
+      "title": "Fabricated physical UNI model"
+    },
+    {
+      "criterion": "X01 through X15 all pass without SOURCE_ONLY, NOT_ESTABLISHED, FAIL, or BLOCKED_EXTERNAL status.",
+      "evidence": {
+        "allPriorRequiredGatesPass": false,
+        "nonPassGateIds": [
+          "X06_FINITE_LATTICE_COOPERATIVITY",
+          "X10_CROSS_STUDY_PARAMETER_TRANSFER",
+          "X11_STRUCTURAL_CONSISTENCY",
+          "X12_ACTIVE_INFERENCE_CAUSAL_IDENTITY",
+          "X13_LIVE_SIGNAL_CHAIN",
+          "X14_INDEPENDENT_WET_LAB_REPLICATION",
+          "X15_PRINTED_MODEL_VALIDATION"
+        ]
+      },
+      "id": "X16_FULL_BIOLOGICAL_PARITY",
+      "limitation": "Full parity is a conjunction, not an average score; one missing required domain is sufficient to keep the claim false.",
+      "status": "FAIL",
+      "title": "Full biological parity"
+    }
+  ],
+  "modelScope": {
+    "nowExpressed": [
+      "post-perturbation stator dwell kinetics",
+      "rotation-gated stator assembly",
+      "torque-conditioned switching",
+      "finite-lattice occupancy cooperativity",
+      "non-equilibrium GMC switching",
+      "whole-cell RFT propulsion"
+    ],
+    "stillMissing": [
+      "commensurate cross-laboratory parameter transfer",
+      "molecular identity of hidden dwell states",
+      "conflict-free structural geometry",
+      "Active-Inference-specific intervention",
+      "live calibrated signal",
+      "independent wet-lab replication",
+      "fabricated physical validation"
+    ]
+  },
+  "protocolId": "UNI-FLAGELLUM-XSTUDY-001",
+  "runId": "454bfc6cfcd78e77781792dd3e3c3da051da72240670bd05ffb8cfdbba6ab09c",
+  "schema": "uni.flagellum.cross-study-parity-report/1.0.0",
+  "summary": {
+    "attributedStudies": 11,
+    "directIndependentMotorCellLowerBound": 409,
+    "directPrimaryArtifactFamilies": 4,
+    "fullBiologicalParityAchieved": false,
+    "overall": "PARTIAL_PARITY_ONLY",
+    "previousSingleStudyOverall": "PARTIAL_PARITY_ONLY",
+    "statusCounts": {
+      "BLOCKED_EXTERNAL": 3,
+      "FAIL": 3,
+      "NOT_ESTABLISHED": 2,
+      "PASS": 8
+    }
+  }
+}

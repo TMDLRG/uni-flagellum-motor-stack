@@ -1,0 +1,80 @@
+
+> uni-flagellum-laboratory@0.3.0 experiment:run
+> node scripts/run-observed-experiments.mjs
+
+{
+  "runId": "e463510a5b80497e95cb56f7853527a6f6c9d3bdab70f970c56d516abaca7543",
+  "reportSha256": "13a37e1f764afd620e8ae98f08bee607f2542773975d1f0e86713f77424c2111",
+  "auditSha256": "0f8842bea17cdc57458d88ea7205a2e045f95b466f3b8e7f6d1cc4176c906508",
+  "cohort": {
+    "sourceMotors": 129,
+    "sourceEvents": 1349,
+    "trainMotors": 80,
+    "holdoutMotors": 19,
+    "trainEvents": 793,
+    "holdoutEvents": 233,
+    "eligibleStates": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "exclusions": {
+      "leftTruncatedDwells": 129,
+      "rightCensoredDwells": 109,
+      "outOfRangeDwells": 3,
+      "zeroOrNegativeDurationDwells": 0
+    }
+  },
+  "claims": [
+    {
+      "hypothesisId": "H1_OVERDISPERSION",
+      "status": "SUPPORTED_WITHIN_PROTOCOL",
+      "observed": 3.149531339591441,
+      "interval95": {
+        "lower": 1.5141240937044127,
+        "upper": 3.5675042610575742
+      },
+      "claim": "Held-out dwell timing rejects the homogeneous memoryless duration prediction within the frozen analysis population.",
+      "fence": "This does not uniquely identify a molecular hidden state; heterogeneity and nonstationarity remain alternatives."
+    },
+    {
+      "hypothesisId": "H2_HELDOUT_LOG_SCORE",
+      "status": "SUPPORTED_WITHIN_PROTOCOL",
+      "observed": 0.210181454187411,
+      "interval95": {
+        "lower": 0.06918462236407662,
+        "upper": 0.3247183938187771
+      },
+      "unit": "nats per event",
+      "claim": "The training-fitted two-timescale mixture assigned higher predictive density to held-out dwell events than the memoryless baseline.",
+      "fence": "Predictive superiority does not prove that the latent mixture components are biological states or that the motor performs Bayesian inference."
+    },
+    {
+      "hypothesisId": "H3_SURVIVAL_POSTERIOR",
+      "status": "MODEL_CONSEQUENCE_CONFIRMED",
+      "observed": {
+        "initial": 0.05217702237074307,
+        "atHoldoutQ90": 0.9998083638426865
+      },
+      "claim": "Within the frozen mixture model, surviving longer without a transition increases posterior mass on the slower latent timescale.",
+      "fence": "This is exact inference in the declared model, illustrated with observed durations; it is not evidence that a bacterium represents this posterior."
+    },
+    {
+      "hypothesisId": "H4_DIRECTION",
+      "status": "INCONCLUSIVE_POINT_ESTIMATE_ONLY",
+      "observed": 0.008775508769140683,
+      "interval95": {
+        "lower": -0.028385118974911114,
+        "upper": 0.048404618954436
+      },
+      "unit": "log-loss reduction per event",
+      "claim": "Training-only stator-count-conditioned transition frequencies were evaluated on held-out motors.",
+      "fence": "The point estimate improved, but the motor-cluster interval crosses zero. Secondary and inconclusive; it cannot rescue a failed duration hypothesis."
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "artifact": {
+    "cachePath": "experiments/upstream-cache/ito-2021-raw-data.zip",
+    "declaredContents": "All manuscript rotation-rate traces",
+    "doi": "10.6084/m9.figshare.14371232.v2",
+    "downloadUrl": "https://ndownloader.figshare.com/files/27453833",
+    "license": "CC BY 4.0"
+  },
+  "claimFence": "This establishes archive identity and integrity, not correctness of every measurement or biological parity.",
+  "expected": {
+    "bytes": 4085227742,
+    "md5": "d42879e66142ff7190f256f4276db111"
+  },
+  "method": {
+    "byteCount": true,
+    "everyMemberCrc": true,
+    "normalTestSuiteRehashesArchive": false,
+    "streamingMd5": true,
+    "zipCentralDirectory": true
+  },
+  "observed": {
+    "bytes": 4085227742,
+    "md5": "d42879e66142ff7190f256f4276db111",
+    "zipCompressedMemberBytes": 4085099290,
+    "zipCrcFailure": null,
+    "zipEntryCount": 505,
+    "zipUncompressedMemberBytes": 10160270466
+  },
+  "schema": "uni.flagellum.large-source-verification/1.0.0",
+  "status": "PASS",
+  "studyId": "ITO_2021",
+  "verifiedAt": "2026-07-17T21:00:00Z"
+}

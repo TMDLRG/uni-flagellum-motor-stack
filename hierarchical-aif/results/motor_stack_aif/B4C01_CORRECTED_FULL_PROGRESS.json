@@ -1,0 +1,10 @@
+{
+ "DISCLAIMER": "Crash-recovery checkpoint of an IN-FLIGHT run. NOT a result, NOT evidence, licenses NO verdict. The result is B4C01_CORRECTED_FULL_RESULT.json, written only on completion.",
+ "LABEL": "PARTIAL_PROGRESS_CHECKPOINT_NOT_A_RESULT",
+ "cell": "B4C01",
+ "currentGenerator": "M5_GAMMA",
+ "elapsedS": 60577.46118021011,
+ "plannedTotal": 1000,
+ "simsAttemptedTotal": 1000,
+ "writtenUtc": "2026-07-22T21:03:09Z"
+}

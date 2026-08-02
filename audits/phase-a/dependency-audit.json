@@ -1,0 +1,37 @@
+{
+  "schema": "uni.flagellum.audit-artifact/1.0.0",
+  "purpose": "Production and development dependency risk, reported separately as CLAUDE.md:121 requires.",
+  "auditedCommit": "9c3a644e4b57e8ac27f925dcec84222463063aa1",
+  "auditPhase": "A",
+  "auditorModel": "claude-opus-4-8 (Phase A execution), claude-fable-5 (packaging)",
+  "operatingSystem": "Microsoft Windows 11 Pro 10.0.26200 build 26200 (x64)",
+  "cpu": "Intel Core i7-10700T @ 2.00GHz, 8 cores / 16 threads",
+  "ramGB": 63.71,
+  "appendOnly": true,
+  "note": "Timestamps are deliberately omitted: this package must be byte-reproducible. Ordering is established by git history.",
+  "production": {
+    "command": "npm audit --omit=dev --audit-level=moderate",
+    "exitStatus": 0,
+    "vulnerabilities": 0,
+    "verdict": "PASS"
+  },
+  "development": {
+    "command": "npm audit",
+    "exitStatus": 1,
+    "total": 12,
+    "low": 1,
+    "moderate": 5,
+    "high": 6,
+    "critical": 0,
+    "verdict": "FAIL"
+  },
+  "interpretation": "All 12 vulnerabilities are development-only. The shipped dependency surface is clean.",
+  "postcssOverride": {
+    "declared": "package.json:50-52 overrides.postcss = 8.5.10",
+    "lockfileOverridesKey": "ABSENT",
+    "note": "next@16.2.6 declares postcss 8.4.31 (known-vulnerable); the override forces 8.5.10. vite@8.0.13 declares ^8.5.14 and is forced DOWN to 8.5.10, outside its declared range. Removing the override would reintroduce the vulnerable version."
+  },
+  "uncertainty": "Advisory data is fetched live from the npm registry and will drift over time. This snapshot is not reproducible by hash.",
+  "alternativeExplanation": "n/a",
+  "independentlyReproduced": "Observed consistently across matrix cells."
+}

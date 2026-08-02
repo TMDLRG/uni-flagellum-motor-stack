@@ -1,0 +1,171 @@
+{
+ "actual_N_sim_per_gen": 200,
+ "cell": "B4C01_SYNTHETIC_PARAMETER_RECOVERY",
+ "claimBoundary": "Establishes no mechanism, no biological parity, and no active-inference claim. EVERY dataset in this cell is SYNTHETIC and none may be labelled OBSERVED. Scoped to 5 generating models, 6 fitted competitors, motor-equal NLPD, one 19-motor cohort geometry. M4/M7/M8 are skipped by construction, so this cell says nothing about the mixture, hierarchical, or KDE models. A self-win failure among statistically near-equivalent nested models is a POWER statement about the holdout size, not evidence of a coding defect; a parameter-recovery failure would be materially more serious. The retained adverse B3 finding - M2_LOGNORMAL out-predicting M3 by ~0.0369 nats event-pooled - is unchanged and is reported alongside this result. M2 is an ADVERSARIAL BASELINE, never the UNI model.",
+ "cohort": "derived_eligible_1_to_8",
+ "consumesB3ResultSha256": "5d7a0589e94de6b10f425f2d483e1e2a8f899d336aa59c335990209795e6b2bd",
+ "correctedReason_supersedes_frozen": "B4C01 fits the simple competitors (M0, M1, M2, M3, M5) plus M6 on each synthetic dataset; it explicitly skips M4/M8 and the hierarchical model, so the cost driver is the simple model set, not a full 9-model competition. Measured per-simulation cost on the frozen cohort is 52.1 s, so frozen N_sim=200 x 5 generators = 1000 simulations projects to approximately 14.5 h. The previously recorded 250-400 h figure was overstated by roughly 17-28x and attributed the cost to a model set this cell does not fit.",
+ "correctionApplied": [
+  "D3_HASH_SEED_NONDETERMINISM"
+ ],
+ "correctionNote": "Only the seed derivation differs from the committed cell: stable SHA-256 seed replaces the process-varying hash(gen) term. The '+ sim' term, seed_base, generator list and order, tolerances, self-win threshold, model set, and verdict rule are unchanged.",
+ "environment": {
+  "numpy": "2.3.5",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "python": "3.12.10",
+  "scipy": "1.16.3"
+ },
+ "failingCriteria": [
+  "M0_EXPONENTIAL:self_win"
+ ],
+ "frozenPredictionExpectation": "PASS",
+ "frozenRunnerSha256": "3e21edac97a2b68faec087e73de307439348e89e778b6e97d84809bbf1e135a7",
+ "frozen_N_sim": 200,
+ "gen_models": [
+  "M0_EXPONENTIAL",
+  "M1_WEIBULL",
+  "M2_LOGNORMAL",
+  "M3_TWO_TIMESCALE",
+  "M5_GAMMA"
+ ],
+ "predictionOutcome": "REFUTED",
+ "predictionRecord": "hierarchical-aif/protocols/B4C01-CORRECTED-FULL-PREDICTION.md",
+ "protocolVersion": "PHASE-B4-IDENTIFIABILITY-ROBUSTNESS-CLAUDE-V1",
+ "resourceBoundPartial": false,
+ "results": {
+  "M0_EXPONENTIAL": {
+   "completed": 200,
+   "failed": 0,
+   "failures": [],
+   "n_sims": 200,
+   "runtimeS": 9957.076079130173,
+   "self_win_frac": 0.29,
+   "self_win_passes": false,
+   "self_wins": 58,
+   "tolerance": null,
+   "trueParams": []
+  },
+  "M1_WEIBULL": {
+   "biasMedian": 0.0034112727319438596,
+   "completed": 200,
+   "failed": 0,
+   "failures": [],
+   "medianRecovered": 0.6285001063169614,
+   "n_sims": 200,
+   "runtimeS": 12334.998667955399,
+   "self_win_frac": 0.59,
+   "self_win_passes": true,
+   "self_wins": 118,
+   "spread": {
+    "note": "reported, does NOT enter the frozen verdict",
+    "p05": 0.5992150521738122,
+    "p95": 0.6601652822659398
+   },
+   "tolerance": 0.1,
+   "trueParams": [
+    0.6250888335850175
+   ],
+   "withinTolerance": true
+  },
+  "M2_LOGNORMAL": {
+   "biasMedian": -0.02162678419418884,
+   "completed": 200,
+   "failed": 0,
+   "failures": [],
+   "medianRecovered": 1.5566808259465263,
+   "n_sims": 200,
+   "runtimeS": 12707.710229635239,
+   "self_win_frac": 0.885,
+   "self_win_passes": true,
+   "self_wins": 177,
+   "spread": {
+    "note": "reported, does NOT enter the frozen verdict",
+    "p05": 1.4911694506833182,
+    "p95": 1.6316693332507293
+   },
+   "tolerance": 0.1,
+   "trueParams": [
+    1.5783076101407152
+   ],
+   "withinTolerance": true
+  },
+  "M3_TWO_TIMESCALE": {
+   "biasMedian": {
+    "lf_log10": 0.00905637414111421,
+    "w": 0.0074095733513086515
+   },
+   "completed": 200,
+   "failed": 0,
+   "failures": [],
+   "medianRecovered": {
+    "lf_log10": -0.34272092193630915,
+    "w": 0.40076557267272755
+   },
+   "n_sims": 200,
+   "runtimeS": 12388.222613811493,
+   "self_win_frac": 0.935,
+   "self_win_passes": true,
+   "self_wins": 187,
+   "spread": {
+    "lf_log10_p05": -0.3820602377206509,
+    "lf_log10_p95": 0.7486996868645343,
+    "note": "reported, does NOT enter the frozen verdict",
+    "w_p05": 0.356199374735634,
+    "w_p95": 0.6133988232735749
+   },
+   "tolerance": [
+    0.1,
+    0.2
+   ],
+   "trueParams": [
+    0.3933559993214189,
+    0.44485933051063775
+   ],
+   "withinTolerance": true
+  },
+  "M5_GAMMA": {
+   "biasMedian": 0.0006269457146445001,
+   "completed": 200,
+   "failed": 0,
+   "failures": [],
+   "medianRecovered": 0.5122069255579786,
+   "n_sims": 200,
+   "runtimeS": 13189.45362663269,
+   "self_win_frac": 0.67,
+   "self_win_passes": true,
+   "self_wins": 134,
+   "spread": {
+    "note": "reported, does NOT enter the frozen verdict",
+    "p05": 0.4789699622234699,
+    "p95": 0.5513596901807396
+   },
+   "tolerance": 0.15,
+   "trueParams": [
+    0.5115799798433341
+   ],
+   "withinTolerance": true
+  }
+ },
+ "runStatus": "ELIGIBLE_FOR_FROZEN_VERDICT",
+ "runVariant": "CORRECTED_FULL_N",
+ "secondsPerSim": 60.57746319270134,
+ "seed_base": 20260801,
+ "selfWinThreshold": 0.5,
+ "skippedModels": [
+  "M4_MIXTURE_K3",
+  "M7_HIERARCHICAL_MOTOR",
+  "M8_EMPIRICAL_KDE"
+ ],
+ "skippedReason": "M4/M7/M8 are skipped BY CONSTRUCTION in the frozen cell_C01. Self-win is judged against the 6 fitted competitors only. Recorded as a declared design limit, not a silent omission.",
+ "subModelsScored": [
+  "M0_EXPONENTIAL",
+  "M1_WEIBULL",
+  "M2_LOGNORMAL",
+  "M3_TWO_TIMESCALE",
+  "M5_GAMMA",
+  "M6_SEMI_MARKOV_STATE_DEPENDENT"
+ ],
+ "toleranceNote": "withinTolerance is a BIAS test on the MEDIAN recovered parameter, not a spread test. Per-simulation spread is reported alongside it (p05/p95) but does not enter the frozen verdict.",
+ "totalRuntimeS": 60577.46319270134,
+ "verdict": "NOT_ESTABLISHED"
+}

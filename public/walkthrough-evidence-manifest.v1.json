@@ -1,0 +1,58 @@
+{
+  "schema": "uni.flagellum.walkthrough-evidence/1.0.0",
+  "frozenAt": "2026-07-19T00:00:00.000Z",
+  "claimFence": "Hashes establish file identity. Media and structures constrain the labelled observation scale; they do not establish full biological parity or Active Inference causal identity.",
+  "assets": [
+    {
+      "id": "MEARS_2014_VIDEO_1",
+      "path": "public/media/mears-2014-run-tumble.mp4",
+      "bytes": 1634522,
+      "sha256": "b5839132aec15ca099e9b99e6bd0f57fa26a720a97928e0a5f285eb5d9cd5050",
+      "doi": "10.7554/eLife.01916.010",
+      "license": "CC BY 4.0",
+      "species": "Escherichia coli",
+      "truthClass": "OBSERVED"
+    },
+    {
+      "id": "SINGH_2024_VIDEO_4",
+      "path": "public/media/singh-2024-switching.mp4",
+      "bytes": 20790989,
+      "sha256": "d8cff0a3536a7dd9fbf2acc5b34c815cfdf2588b83725de7f8fe04a72fd5f6e9",
+      "doi": "10.1038/s41564-024-01674-1",
+      "license": "CC BY 4.0",
+      "species": "Salmonella enterica serovar Typhimurium",
+      "truthClass": "STRUCTURAL_RECONSTRUCTION"
+    },
+    {
+      "id": "WADHWA_2022_EVENTS",
+      "path": "public/wadhwa-2022-derived-events.json",
+      "sha256": "d119ca603621900aa4a076b110a1f43c6f01482ce891be2812634f71f597e353",
+      "rawSourceSha256": "c14de12cc11df8af2ab87f1ec94629eebc249c0e1475c24f850f5a28ddd1ea22",
+      "doi": "10.1038/s41467-022-33075-5",
+      "license": "source repository and paper terms",
+      "species": "Escherichia coli",
+      "truthClass": "OBSERVED",
+      "evidenceType": "derived"
+    },
+    {
+      "id": "PDB_7E82",
+      "path": "public/data/structures/7e82.cif.gz",
+      "bytes": 2186999,
+      "sha256": "c143331497d819b2be42b7892db80a577312ad8b4fbc50111d58e263597e8afc",
+      "doi": "10.2210/pdb7E82/pdb",
+      "license": "CC0 1.0",
+      "species": "Salmonella enterica",
+      "truthClass": "STRUCTURAL_RECONSTRUCTION"
+    },
+    {
+      "id": "PDB_6YSL",
+      "path": "public/data/structures/6ysl.cif.gz",
+      "bytes": 238979,
+      "sha256": "74386247ed1dd7a9f2d02e8b1805bea4c39b9b148ffc9c06766e92b26778c221",
+      "doi": "10.2210/pdb6YSL/pdb",
+      "license": "CC0 1.0",
+      "species": "Bacillus subtilis",
+      "truthClass": "STRUCTURAL_RECONSTRUCTION"
+    }
+  ]
+}

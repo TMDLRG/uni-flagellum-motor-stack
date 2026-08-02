@@ -1,0 +1,457 @@
+{
+  "schema": "uni.flagellum.blind-mutation-result/1.0.0",
+  "protocolId": "PHASE-C-BLIND-MUTATION-CODEX-V1",
+  "baseCommit": "e5b4969bd1af85cedc9d8b5b9d1d728bda7e906a",
+  "executionCommit": "b95e714d6f4f07b02eb369eb43fed1d1567b1acd",
+  "scratchRoot": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-phase-c-8a70d6af-9832-410a-acec-efe93a18f441",
+  "primaryCheckoutUnchanged": true,
+  "primaryBefore": {
+    "head": "b95e714d6f4f07b02eb369eb43fed1d1567b1acd",
+    "statusPorcelain": ""
+  },
+  "primaryAfter": {
+    "head": "b95e714d6f4f07b02eb369eb43fed1d1567b1acd",
+    "statusPorcelain": ""
+  },
+  "classificationCounts": {
+    "DETECTED_SEMANTIC": 0,
+    "DETECTED_BY_HASH_ONLY": 0,
+    "SURVIVED": 10,
+    "NOT_RUN": 0,
+    "INCONCLUSIVE": 0
+  },
+  "outcomes": [
+    {
+      "id": "CXM01_SECONDS_DENSITY_JACOBIAN_OMITTED",
+      "targetPath": "lib/observed-experiment.js",
+      "predictedClassification": "SURVIVED",
+      "clonePath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-phase-c-8a70d6af-9832-410a-acec-efe93a18f441\\clones\\cxm01_seconds_density_jacobian_omitted",
+      "baseCommitVerified": true,
+      "preMutationSha256": "b757971e1f207899ddac0b262241822552a06abc5272407b14b21fd98ddbe623",
+      "postMutationSha256": "3a7457422eabb1dc13c195f41e142b10e68c9109f0bffd3429e9b8dc5866875d",
+      "patchApplied": true,
+      "regenerationCommands": [
+        {
+          "id": "regenerate-observed-experiment",
+          "command": "npm run experiment:run",
+          "startedAt": "2026-07-20T14:20:33.923Z",
+          "finishedAt": "2026-07-20T14:20:35.698Z",
+          "exitCode": 0,
+          "signal": null,
+          "spawnError": null,
+          "stdoutPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-phase-c-8a70d6af-9832-410a-acec-efe93a18f441\\logs\\CXM01_SECONDS_DENSITY_JACOBIAN_OMITTED\\01-regenerate-observed-experiment.stdout.txt",
+          "stderrPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-phase-c-8a70d6af-9832-410a-acec-efe93a18f441\\logs\\CXM01_SECONDS_DENSITY_JACOBIAN_OMITTED\\01-regenerate-observed-experiment.stderr.txt",
+          "stdoutSha256": "d465e988963d8ec537ad95ffa2b3370074c3ee9d861f3c89a5cba963683dadfa",
+          "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdoutBytes": 2997,
+          "stderrBytes": 0
+        }
+      ],
+      "gateCommands": [
+        {
+          "id": "phase-c-semantic",
+          "command": "node --test tests/semantic/*.mjs",
+          "startedAt": "2026-07-20T14:20:35.698Z",
+          "finishedAt": "2026-07-20T14:20:45.541Z",
+          "exitCode": 0,
+          "signal": null,
+          "spawnError": null,
+          "stdoutPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-phase-c-8a70d6af-9832-410a-acec-efe93a18f441\\logs\\CXM01_SECONDS_DENSITY_JACOBIAN_OMITTED\\02-phase-c-semantic.stdout.txt",
+          "stderrPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-phase-c-8a70d6af-9832-410a-acec-efe93a18f441\\logs\\CXM01_SECONDS_DENSITY_JACOBIAN_OMITTED\\02-phase-c-semantic.stderr.txt",
+          "stdoutSha256": "5c78003cdf899bb157e07fd68e80c5aea99bcf9800d735ffc0348a41cceeff4b",
+          "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdoutBytes": 3902,
+          "stderrBytes": 0
+        }
+      ],
+      "classification": "SURVIVED",
+      "failureSignature": "ALL_DECLARED_GATE_COMMANDS_EXITED_ZERO",
+      "cloneCleanupStatus": "PRESERVED_WITHIN_EXPLICIT_SCRATCH_ROOT",
+      "error": null
+    },
+    {
+      "id": "CXM02_SURVIVAL_POSTERIOR_USES_EVENT_DENSITY",
+      "targetPath": "lib/observed-experiment.js",
+      "predictedClassification": "SURVIVED",
+      "clonePath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-phase-c-8a70d6af-9832-410a-acec-efe93a18f441\\clones\\cxm02_survival_posterior_uses_event_density",
+      "baseCommitVerified": true,
+      "preMutationSha256": "b757971e1f207899ddac0b262241822552a06abc5272407b14b21fd98ddbe623",
+      "postMutationSha256": "ae8cf1f7417e907574d32655d4ea37db2a3e150a56562fbe3df6df35f46e00ac",
+      "patchApplied": true,
+      "regenerationCommands": [
+        {
+          "id": "regenerate-observed-experiment",
+          "command": "npm run experiment:run",
+          "startedAt": "2026-07-20T14:20:47.536Z",
+          "finishedAt": "2026-07-20T14:20:49.328Z",
+          "exitCode": 0,
+          "signal": null,
+          "spawnError": null,
+          "stdoutPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-phase-c-8a70d6af-9832-410a-acec-efe93a18f441\\logs\\CXM02_SURVIVAL_POSTERIOR_USES_EVENT_DENSITY\\01-regenerate-observed-experiment.stdout.txt",
+          "stderrPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-phase-c-8a70d6af-9832-410a-acec-efe93a18f441\\logs\\CXM02_SURVIVAL_POSTERIOR_USES_EVENT_DENSITY\\01-regenerate-observed-experiment.stderr.txt",
+          "stdoutSha256": "c3e9f57a03b51142776354e5343a1523ae1b4821504b2f108f6dc96f2dde0029",
+          "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdoutBytes": 2996,
+          "stderrBytes": 0
+        }
+      ],
+      "gateCommands": [
+        {
+          "id": "phase-c-semantic",
+          "command": "node --test tests/semantic/*.mjs",
+          "startedAt": "2026-07-20T14:20:49.328Z",
+          "finishedAt": "2026-07-20T14:20:59.695Z",
+          "exitCode": 0,
+          "signal": null,
+          "spawnError": null,
+          "stdoutPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-phase-c-8a70d6af-9832-410a-acec-efe93a18f441\\logs\\CXM02_SURVIVAL_POSTERIOR_USES_EVENT_DENSITY\\02-phase-c-semantic.stdout.txt",
+          "stderrPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-phase-c-8a70d6af-9832-410a-acec-efe93a18f441\\logs\\CXM02_SURVIVAL_POSTERIOR_USES_EVENT_DENSITY\\02-phase-c-semantic.stderr.txt",
+          "stdoutSha256": "56af7748b04ffbbe8936226870b6ab598e9d930ad753b4db524bf0b950ac2007",
+          "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdoutBytes": 3902,
+          "stderrBytes": 0
+        }
+      ],
+      "classification": "SURVIVED",
+      "failureSignature": "ALL_DECLARED_GATE_COMMANDS_EXITED_ZERO",
+      "cloneCleanupStatus": "PRESERVED_WITHIN_EXPLICIT_SCRATCH_ROOT",
+      "error": null
+    },
+    {
+      "id": "CXM03_SAMPLE_VARIANCE_BESSEL_CORRECTION_DROPPED",
+      "targetPath": "lib/observed-experiment.js",
+      "predictedClassification": "SURVIVED",
+      "clonePath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-phase-c-8a70d6af-9832-410a-acec-efe93a18f441\\clones\\cxm03_sample_variance_bessel_correction_dropped",
+      "baseCommitVerified": true,
+      "preMutationSha256": "b757971e1f207899ddac0b262241822552a06abc5272407b14b21fd98ddbe623",
+      "postMutationSha256": "9431dc81439d182602eba1e6b21a64a4cc357181157de680acbdf0b6244815ff",
+      "patchApplied": true,
+      "regenerationCommands": [
+        {
+          "id": "regenerate-observed-experiment",
+          "command": "npm run experiment:run",
+          "startedAt": "2026-07-20T14:21:01.665Z",
+          "finishedAt": "2026-07-20T14:21:03.333Z",
+          "exitCode": 0,
+          "signal": null,
+          "spawnError": null,
+          "stdoutPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-phase-c-8a70d6af-9832-410a-acec-efe93a18f441\\logs\\CXM03_SAMPLE_VARIANCE_BESSEL_CORRECTION_DROPPED\\01-regenerate-observed-experiment.stdout.txt",
+          "stderrPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-phase-c-8a70d6af-9832-410a-acec-efe93a18f441\\logs\\CXM03_SAMPLE_VARIANCE_BESSEL_CORRECTION_DROPPED\\01-regenerate-observed-experiment.stderr.txt",
+          "stdoutSha256": "17a276a8a3f3410f18d2ffec8877adcef1c783938b617404caaec4c78d7b8ade",
+          "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdoutBytes": 2996,
+          "stderrBytes": 0
+        }
+      ],
+      "gateCommands": [
+        {
+          "id": "phase-c-semantic",
+          "command": "node --test tests/semantic/*.mjs",
+          "startedAt": "2026-07-20T14:21:03.333Z",
+          "finishedAt": "2026-07-20T14:21:13.055Z",
+          "exitCode": 0,
+          "signal": null,
+          "spawnError": null,
+          "stdoutPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-phase-c-8a70d6af-9832-410a-acec-efe93a18f441\\logs\\CXM03_SAMPLE_VARIANCE_BESSEL_CORRECTION_DROPPED\\02-phase-c-semantic.stdout.txt",
+          "stderrPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-phase-c-8a70d6af-9832-410a-acec-efe93a18f441\\logs\\CXM03_SAMPLE_VARIANCE_BESSEL_CORRECTION_DROPPED\\02-phase-c-semantic.stderr.txt",
+          "stdoutSha256": "524e91169514b8d046890ce438941ce1c4e948c246250d9af059047e926f0a41",
+          "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdoutBytes": 3903,
+          "stderrBytes": 0
+        }
+      ],
+      "classification": "SURVIVED",
+      "failureSignature": "ALL_DECLARED_GATE_COMMANDS_EXITED_ZERO",
+      "cloneCleanupStatus": "PRESERVED_WITHIN_EXPLICIT_SCRATCH_ROOT",
+      "error": null
+    },
+    {
+      "id": "CXM04_HIDDEN_TRUE_GRADIENT_CROSSES_BOUNDARY",
+      "targetPath": "lib/uni-motor.js",
+      "predictedClassification": "SURVIVED",
+      "clonePath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-phase-c-8a70d6af-9832-410a-acec-efe93a18f441\\clones\\cxm04_hidden_true_gradient_crosses_boundary",
+      "baseCommitVerified": true,
+      "preMutationSha256": "852b38d14e1de9e1baae9bda7c37fb2426911fb1b04b4f594d026373d4b50313",
+      "postMutationSha256": "4fbadc8b2e73626b1768fb8a10e3baf72fa922a38f89b851e3ce87b0b7e932f1",
+      "patchApplied": true,
+      "regenerationCommands": [],
+      "gateCommands": [
+        {
+          "id": "phase-c-semantic",
+          "command": "node --test tests/semantic/*.mjs",
+          "startedAt": "2026-07-20T14:21:15.067Z",
+          "finishedAt": "2026-07-20T14:21:24.978Z",
+          "exitCode": 0,
+          "signal": null,
+          "spawnError": null,
+          "stdoutPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-phase-c-8a70d6af-9832-410a-acec-efe93a18f441\\logs\\CXM04_HIDDEN_TRUE_GRADIENT_CROSSES_BOUNDARY\\01-phase-c-semantic.stdout.txt",
+          "stderrPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-phase-c-8a70d6af-9832-410a-acec-efe93a18f441\\logs\\CXM04_HIDDEN_TRUE_GRADIENT_CROSSES_BOUNDARY\\01-phase-c-semantic.stderr.txt",
+          "stdoutSha256": "ff627473c21caedeabec5c362be07d76a1eb11e2a30cc049c6e487ed374d843f",
+          "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdoutBytes": 3903,
+          "stderrBytes": 0
+        }
+      ],
+      "classification": "SURVIVED",
+      "failureSignature": "ALL_DECLARED_GATE_COMMANDS_EXITED_ZERO",
+      "cloneCleanupStatus": "PRESERVED_WITHIN_EXPLICIT_SCRATCH_ROOT",
+      "error": null
+    },
+    {
+      "id": "CXM05_INSTRUMENT_STATOR_COUNT_UNBOUNDED",
+      "targetPath": "lib/uni-motor.js",
+      "predictedClassification": "SURVIVED",
+      "clonePath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-phase-c-8a70d6af-9832-410a-acec-efe93a18f441\\clones\\cxm05_instrument_stator_count_unbounded",
+      "baseCommitVerified": true,
+      "preMutationSha256": "852b38d14e1de9e1baae9bda7c37fb2426911fb1b04b4f594d026373d4b50313",
+      "postMutationSha256": "da8695d3d0559eb41a11bcbafe77e6e03af939d143b97629a2b8248073d215d8",
+      "patchApplied": true,
+      "regenerationCommands": [],
+      "gateCommands": [
+        {
+          "id": "phase-c-semantic",
+          "command": "node --test tests/semantic/*.mjs",
+          "startedAt": "2026-07-20T14:21:27.069Z",
+          "finishedAt": "2026-07-20T14:21:36.668Z",
+          "exitCode": 0,
+          "signal": null,
+          "spawnError": null,
+          "stdoutPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-phase-c-8a70d6af-9832-410a-acec-efe93a18f441\\logs\\CXM05_INSTRUMENT_STATOR_COUNT_UNBOUNDED\\01-phase-c-semantic.stdout.txt",
+          "stderrPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-phase-c-8a70d6af-9832-410a-acec-efe93a18f441\\logs\\CXM05_INSTRUMENT_STATOR_COUNT_UNBOUNDED\\01-phase-c-semantic.stderr.txt",
+          "stdoutSha256": "8503bb54b7b6bb5e7b61c0ea05dd374e920c55cfd23b3ece65fafc9a7f2f787a",
+          "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdoutBytes": 3901,
+          "stderrBytes": 0
+        }
+      ],
+      "classification": "SURVIVED",
+      "failureSignature": "ALL_DECLARED_GATE_COMMANDS_EXITED_ZERO",
+      "cloneCleanupStatus": "PRESERVED_WITHIN_EXPLICIT_SCRATCH_ROOT",
+      "error": null
+    },
+    {
+      "id": "CXM06_STATOR_RECRUITMENT_ERASES_LOAD_RESPONSE",
+      "targetPath": "lib/uni-motor.js",
+      "predictedClassification": "SURVIVED",
+      "clonePath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-phase-c-8a70d6af-9832-410a-acec-efe93a18f441\\clones\\cxm06_stator_recruitment_erases_load_response",
+      "baseCommitVerified": true,
+      "preMutationSha256": "852b38d14e1de9e1baae9bda7c37fb2426911fb1b04b4f594d026373d4b50313",
+      "postMutationSha256": "fcc7d29d6ad46aecffe132812eb6b4f00ef5b084fe8c4c65736e4c3a73210ec9",
+      "patchApplied": true,
+      "regenerationCommands": [],
+      "gateCommands": [
+        {
+          "id": "phase-c-semantic",
+          "command": "node --test tests/semantic/*.mjs",
+          "startedAt": "2026-07-20T14:21:38.644Z",
+          "finishedAt": "2026-07-20T14:21:48.037Z",
+          "exitCode": 0,
+          "signal": null,
+          "spawnError": null,
+          "stdoutPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-phase-c-8a70d6af-9832-410a-acec-efe93a18f441\\logs\\CXM06_STATOR_RECRUITMENT_ERASES_LOAD_RESPONSE\\01-phase-c-semantic.stdout.txt",
+          "stderrPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-phase-c-8a70d6af-9832-410a-acec-efe93a18f441\\logs\\CXM06_STATOR_RECRUITMENT_ERASES_LOAD_RESPONSE\\01-phase-c-semantic.stderr.txt",
+          "stdoutSha256": "5161681d56b44346f551547b17970e4dd23f980850d4fa175076845047c929c9",
+          "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdoutBytes": 3906,
+          "stderrBytes": 0
+        }
+      ],
+      "classification": "SURVIVED",
+      "failureSignature": "ALL_DECLARED_GATE_COMMANDS_EXITED_ZERO",
+      "cloneCleanupStatus": "PRESERVED_WITHIN_EXPLICIT_SCRATCH_ROOT",
+      "error": null
+    },
+    {
+      "id": "CXM07_FIRST_PASSAGE_WEIGHTS_NOT_NORMALIZED",
+      "targetPath": "lib/source-first-passage.js",
+      "predictedClassification": "SURVIVED",
+      "clonePath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-phase-c-8a70d6af-9832-410a-acec-efe93a18f441\\clones\\cxm07_first_passage_weights_not_normalized",
+      "baseCommitVerified": true,
+      "preMutationSha256": "c66cf5ff048f5eb1e85c7b3148a002002636df14c5e96dda7eb840366a2ff6d8",
+      "postMutationSha256": "73ecc7b4c0b80ec98fa92fdaa52f4ddaf4b636b6cd6716307c74341ca5aed2cb",
+      "patchApplied": true,
+      "regenerationCommands": [
+        {
+          "id": "regenerate-science-gates",
+          "command": "npm run science:run",
+          "startedAt": "2026-07-20T14:21:50.196Z",
+          "finishedAt": "2026-07-20T14:22:02.713Z",
+          "exitCode": 0,
+          "signal": null,
+          "spawnError": null,
+          "stdoutPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-phase-c-8a70d6af-9832-410a-acec-efe93a18f441\\logs\\CXM07_FIRST_PASSAGE_WEIGHTS_NOT_NORMALIZED\\01-regenerate-science-gates.stdout.txt",
+          "stderrPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-phase-c-8a70d6af-9832-410a-acec-efe93a18f441\\logs\\CXM07_FIRST_PASSAGE_WEIGHTS_NOT_NORMALIZED\\01-regenerate-science-gates.stderr.txt",
+          "stdoutSha256": "cb3b2b2fe193d9e7cf2f36ead6cc663198a091488e18d877647d32626b6525f6",
+          "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdoutBytes": 1026,
+          "stderrBytes": 0
+        }
+      ],
+      "gateCommands": [
+        {
+          "id": "phase-c-semantic",
+          "command": "node --test tests/semantic/*.mjs",
+          "startedAt": "2026-07-20T14:22:02.713Z",
+          "finishedAt": "2026-07-20T14:22:12.369Z",
+          "exitCode": 0,
+          "signal": null,
+          "spawnError": null,
+          "stdoutPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-phase-c-8a70d6af-9832-410a-acec-efe93a18f441\\logs\\CXM07_FIRST_PASSAGE_WEIGHTS_NOT_NORMALIZED\\02-phase-c-semantic.stdout.txt",
+          "stderrPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-phase-c-8a70d6af-9832-410a-acec-efe93a18f441\\logs\\CXM07_FIRST_PASSAGE_WEIGHTS_NOT_NORMALIZED\\02-phase-c-semantic.stderr.txt",
+          "stdoutSha256": "87caaa4e746a98d582e6b17d2c6ec4a2c3f85df0b4170f24574706ad4b498d95",
+          "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdoutBytes": 3905,
+          "stderrBytes": 0
+        }
+      ],
+      "classification": "SURVIVED",
+      "failureSignature": "ALL_DECLARED_GATE_COMMANDS_EXITED_ZERO",
+      "cloneCleanupStatus": "PRESERVED_WITHIN_EXPLICIT_SCRATCH_ROOT",
+      "error": null
+    },
+    {
+      "id": "CXM08_OFF_HAZARD_OMITS_STATOR_MULTIPLICITY",
+      "targetPath": "lib/source-first-passage.js",
+      "predictedClassification": "SURVIVED",
+      "clonePath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-phase-c-8a70d6af-9832-410a-acec-efe93a18f441\\clones\\cxm08_off_hazard_omits_stator_multiplicity",
+      "baseCommitVerified": true,
+      "preMutationSha256": "c66cf5ff048f5eb1e85c7b3148a002002636df14c5e96dda7eb840366a2ff6d8",
+      "postMutationSha256": "52393f60627fb66294e863aaf455126d1ab2551bfd9587287e5d24d21c1dfe04",
+      "patchApplied": true,
+      "regenerationCommands": [
+        {
+          "id": "regenerate-science-gates",
+          "command": "npm run science:run",
+          "startedAt": "2026-07-20T14:22:14.431Z",
+          "finishedAt": "2026-07-20T14:22:21.353Z",
+          "exitCode": 0,
+          "signal": null,
+          "spawnError": null,
+          "stdoutPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-phase-c-8a70d6af-9832-410a-acec-efe93a18f441\\logs\\CXM08_OFF_HAZARD_OMITS_STATOR_MULTIPLICITY\\01-regenerate-science-gates.stdout.txt",
+          "stderrPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-phase-c-8a70d6af-9832-410a-acec-efe93a18f441\\logs\\CXM08_OFF_HAZARD_OMITS_STATOR_MULTIPLICITY\\01-regenerate-science-gates.stderr.txt",
+          "stdoutSha256": "549e3b0bcfa418e8f1fb4f8fbba20894778245d5d32ada9e7a3eee2d5da29fac",
+          "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdoutBytes": 1026,
+          "stderrBytes": 0
+        }
+      ],
+      "gateCommands": [
+        {
+          "id": "phase-c-semantic",
+          "command": "node --test tests/semantic/*.mjs",
+          "startedAt": "2026-07-20T14:22:21.353Z",
+          "finishedAt": "2026-07-20T14:22:31.581Z",
+          "exitCode": 0,
+          "signal": null,
+          "spawnError": null,
+          "stdoutPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-phase-c-8a70d6af-9832-410a-acec-efe93a18f441\\logs\\CXM08_OFF_HAZARD_OMITS_STATOR_MULTIPLICITY\\02-phase-c-semantic.stdout.txt",
+          "stderrPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-phase-c-8a70d6af-9832-410a-acec-efe93a18f441\\logs\\CXM08_OFF_HAZARD_OMITS_STATOR_MULTIPLICITY\\02-phase-c-semantic.stderr.txt",
+          "stdoutSha256": "5c8946f86247ec951780fbf2c83f6314797a063ca93dd6863aea454ad37c6781",
+          "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdoutBytes": 3905,
+          "stderrBytes": 0
+        }
+      ],
+      "classification": "SURVIVED",
+      "failureSignature": "ALL_DECLARED_GATE_COMMANDS_EXITED_ZERO",
+      "cloneCleanupStatus": "PRESERVED_WITHIN_EXPLICIT_SCRATCH_ROOT",
+      "error": null
+    },
+    {
+      "id": "CXM09_EXPONENTIAL_SECOND_MOMENT_FACTOR_DROPPED",
+      "targetPath": "lib/source-first-passage.js",
+      "predictedClassification": "SURVIVED",
+      "clonePath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-phase-c-8a70d6af-9832-410a-acec-efe93a18f441\\clones\\cxm09_exponential_second_moment_factor_dropped",
+      "baseCommitVerified": true,
+      "preMutationSha256": "c66cf5ff048f5eb1e85c7b3148a002002636df14c5e96dda7eb840366a2ff6d8",
+      "postMutationSha256": "047a87ba5b05aa75a86afb7f662d3f89da289210cebcbeb0d0e06fe23706ada5",
+      "patchApplied": true,
+      "regenerationCommands": [
+        {
+          "id": "regenerate-science-gates",
+          "command": "npm run science:run",
+          "startedAt": "2026-07-20T14:22:33.709Z",
+          "finishedAt": "2026-07-20T14:22:40.691Z",
+          "exitCode": 0,
+          "signal": null,
+          "spawnError": null,
+          "stdoutPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-phase-c-8a70d6af-9832-410a-acec-efe93a18f441\\logs\\CXM09_EXPONENTIAL_SECOND_MOMENT_FACTOR_DROPPED\\01-regenerate-science-gates.stdout.txt",
+          "stderrPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-phase-c-8a70d6af-9832-410a-acec-efe93a18f441\\logs\\CXM09_EXPONENTIAL_SECOND_MOMENT_FACTOR_DROPPED\\01-regenerate-science-gates.stderr.txt",
+          "stdoutSha256": "2e542a64eb060eef7efd06784f2c536205f8825c40f44cd1b21e63894ca044ce",
+          "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdoutBytes": 1026,
+          "stderrBytes": 0
+        }
+      ],
+      "gateCommands": [
+        {
+          "id": "phase-c-semantic",
+          "command": "node --test tests/semantic/*.mjs",
+          "startedAt": "2026-07-20T14:22:40.691Z",
+          "finishedAt": "2026-07-20T14:22:50.730Z",
+          "exitCode": 0,
+          "signal": null,
+          "spawnError": null,
+          "stdoutPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-phase-c-8a70d6af-9832-410a-acec-efe93a18f441\\logs\\CXM09_EXPONENTIAL_SECOND_MOMENT_FACTOR_DROPPED\\02-phase-c-semantic.stdout.txt",
+          "stderrPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-phase-c-8a70d6af-9832-410a-acec-efe93a18f441\\logs\\CXM09_EXPONENTIAL_SECOND_MOMENT_FACTOR_DROPPED\\02-phase-c-semantic.stderr.txt",
+          "stdoutSha256": "e094773bbb340dc54c38996d6950f88ece751ee87c170ebaced878d3637aadcb",
+          "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdoutBytes": 3904,
+          "stderrBytes": 0
+        }
+      ],
+      "classification": "SURVIVED",
+      "failureSignature": "ALL_DECLARED_GATE_COMMANDS_EXITED_ZERO",
+      "cloneCleanupStatus": "PRESERVED_WITHIN_EXPLICIT_SCRATCH_ROOT",
+      "error": null
+    },
+    {
+      "id": "CXM10_PERIODIC_LATTICE_OPENED",
+      "targetPath": "scripts/run-cross-study-parity.py",
+      "predictedClassification": "SURVIVED",
+      "clonePath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-phase-c-8a70d6af-9832-410a-acec-efe93a18f441\\clones\\cxm10_periodic_lattice_opened",
+      "baseCommitVerified": true,
+      "preMutationSha256": "89e0c0ae11cb01fb7a829f34308d63c6ce19da79f12496f24f78a4876c55d777",
+      "postMutationSha256": "03a9e028193ff970877bca5d7867755a06643030cddf06c373b7ab30e5d28213",
+      "patchApplied": true,
+      "regenerationCommands": [
+        {
+          "id": "regenerate-cross-study-parity",
+          "command": "npm run cross-study:run",
+          "startedAt": "2026-07-20T14:22:52.788Z",
+          "finishedAt": "2026-07-20T14:23:00.734Z",
+          "exitCode": 0,
+          "signal": null,
+          "spawnError": null,
+          "stdoutPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-phase-c-8a70d6af-9832-410a-acec-efe93a18f441\\logs\\CXM10_PERIODIC_LATTICE_OPENED\\01-regenerate-cross-study-parity.stdout.txt",
+          "stderrPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-phase-c-8a70d6af-9832-410a-acec-efe93a18f441\\logs\\CXM10_PERIODIC_LATTICE_OPENED\\01-regenerate-cross-study-parity.stderr.txt",
+          "stdoutSha256": "244efda9b036468d8e466b69e317a6080781b3eb1d6aec712e04f0d6909b3f2d",
+          "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdoutBytes": 446,
+          "stderrBytes": 0
+        }
+      ],
+      "gateCommands": [
+        {
+          "id": "phase-c-semantic",
+          "command": "node --test tests/semantic/*.mjs",
+          "startedAt": "2026-07-20T14:23:00.734Z",
+          "finishedAt": "2026-07-20T14:23:10.540Z",
+          "exitCode": 0,
+          "signal": null,
+          "spawnError": null,
+          "stdoutPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-phase-c-8a70d6af-9832-410a-acec-efe93a18f441\\logs\\CXM10_PERIODIC_LATTICE_OPENED\\02-phase-c-semantic.stdout.txt",
+          "stderrPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-phase-c-8a70d6af-9832-410a-acec-efe93a18f441\\logs\\CXM10_PERIODIC_LATTICE_OPENED\\02-phase-c-semantic.stderr.txt",
+          "stdoutSha256": "e940a50fbe74af5645d8cb77ce40ef184cb54ef4707e505de94af506fd359744",
+          "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdoutBytes": 3904,
+          "stderrBytes": 0
+        }
+      ],
+      "classification": "SURVIVED",
+      "failureSignature": "ALL_DECLARED_GATE_COMMANDS_EXITED_ZERO",
+      "cloneCleanupStatus": "PRESERVED_WITHIN_EXPLICIT_SCRATCH_ROOT",
+      "error": null
+    }
+  ]
+}

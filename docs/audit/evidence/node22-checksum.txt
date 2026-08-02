@@ -1,0 +1,5 @@
+﻿url: https://nodejs.org/dist/v22.13.1/node-v22.13.1-win-x64.zip
+bytes: 34866392
+declared: 398a61e250a5584a62a5959e2f69f5d597fc83f1a5ebe3ed8fff29ba39d55f14
+observed: 398a61e250a5584a62a5959e2f69f5d597fc83f1a5ebe3ed8fff29ba39d55f14
+verdict: MATCH - extraction authorized

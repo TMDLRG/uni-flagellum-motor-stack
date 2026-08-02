@@ -1,0 +1,11 @@
+# RE-RECORDED 2026-07-27 under the operator's ruling. S9: this pin named 6dbafb5cefafe10f...,
+# the CRLF form this file carried in a Windows working copy. .gitattributes declares
+# `* text=auto eol=lf`, so EVERY checkout on EVERY platform produces the LF form and the
+# pin was of bytes git has never stored - verifiable on one machine and nowhere else.
+# The TEXT was byte-for-byte identical once CR was ignored, verified before re-recording:
+# this is a RECORDING fault repaired, not an evidence change. The result is untouched.
+# SUPERSEDED: 6dbafb5cefafe10fa6649b2b15336178cd729acd26d77173b4794b9320838798
+# Anything citing the superseded hash (FLOW-JOURNAL.jsonl, POWER-ATLAS-MOTOR-EQUAL-SCORING.md)
+# is LEFT AS WRITTEN - a journal is append-only and a report records what was true when it
+# was written. This line is the bridge between the two.
+69d8b4c5c4e687bdf1c39e856301446cdd1c44da720fba18e40af265a989b912  TAU_PROFILE_PROBE5_RESULT.json

@@ -1,0 +1,91 @@
+{
+  "schema": "uni.flagellum.audit-artifact/1.0.0",
+  "purpose": "Second append-only Phase C addendum. Closes C6-1 correctly by measuring the actual same-commit event, protects BOTH adverse provenance records from deletion, withdraws a broken verification command, and rebinds the gate source files.",
+  "auditedCommit": "9c3a644e4b57e8ac27f925dcec84222463063aa1",
+  "auditPhase": "C",
+  "appendOnly": true,
+  "correctsButDoesNotReplace": "audits/phase-c/semantic-gates.json and audits/phase-c/semantic-gates-addendum.json, both PRESERVED byte-identical.",
+  "reportedBy": "Codex",
+  "corrections": [
+    {
+      "id": "C7-1",
+      "severity": "BLOCKING",
+      "title": "C6-1 was not actually closed: the C3 record was present but unenforced and mismeasured",
+      "defect1": "Deleting C3-CANONICAL-WRITE-FIX still left the prospectivity suite GREEN. Verified before the fix: exit 0 with the record removed. Only B1-RERUN-ON-C3-FIXED-TREE was protected.",
+      "defect2": "The gate measured the ORIGINAL INTRODUCTION of scripts/run-observed-experiments.mjs, a file introduced long before the audit, so it reported RESULT_NOT_DESCENDED_FROM_PREDICTION rather than proving the same-commit event. A generic non-ancestry reason is also what a MISSING file produces, so it did not demonstrate the defect.",
+      "remedyA": "Extended the record schema with an optional resultCommit. When present the gate verifies the commit exists and is reachable from HEAD, verifies every declared resultPath was CHANGED by that commit using git diff-tree rather than --diff-filter=A, then compares the prediction introduction against resultCommit: equal gives TIMING_UNVERIFIED with reason SAME_COMMIT, strict ancestry gives PROSPECTIVE, anything else gives TIMING_UNVERIFIED. Records without resultCommit keep the original conservative path-introduction behaviour unchanged.",
+      "remedyB": "Replaced the singular preservation assertion with one that requires BOTH adverse records to exist, to be declared TIMING_UNVERIFIED, and to measure as not PROSPECTIVE. For C3 it additionally requires the measured reason to start with SAME_COMMIT.",
+      "measuredBefore": "C3-CANONICAL-WRITE-FIX: TIMING_UNVERIFIED (RESULT_NOT_DESCENDED_FROM_PREDICTION:scripts/run-observed-experiments.mjs)",
+      "measuredAfter": "C3-CANONICAL-WRITE-FIX: TIMING_UNVERIFIED (SAME_COMMIT:1630a68f)",
+      "resultCommitDeclared": "1630a68f48d777ec8db07b6fa36433cb4fdc0de8",
+      "resultPathsDeclared": [
+        "scripts/run-observed-experiments.mjs",
+        "experiments/results/observed-experiment-report.json"
+      ],
+      "adversarialVerification": [
+        {
+          "attack": "flip C3 to PROSPECTIVE",
+          "exit": 1,
+          "evidence": "PROSPECTIVITY VIOLATION at tests/semantic/prospectivity-provenance.test.mjs#C3-CANONICAL-WRITE-FIX, with the SAME_COMMIT explanation"
+        },
+        {
+          "attack": "delete the complete C3 record",
+          "exit": 1,
+          "evidence": "THE ADVERSE PROVENANCE RECORD C3-CANONICAL-WRITE-FIX HAS BEEN REMOVED FROM THE CORPUS"
+        },
+        {
+          "attack": "replace resultCommit with a REAL commit (4aef2414) that changed none of the declared paths",
+          "exit": 1,
+          "evidence": "RESULT_COMMIT_DID_NOT_CHANGE_PATH:scripts/run-observed-experiments.mjs,experiments/results/observed-experiment-report.json"
+        }
+      ],
+      "isolation": "All three attacks ran in separate disposable clones. The primary checkout was never mutated; verified 0 dirty production paths afterwards."
+    },
+    {
+      "id": "C7-2",
+      "severity": "NON-BLOCKING",
+      "title": "The verification command recorded in semantic-gates-addendum.json is broken and is WITHDRAWN",
+      "withdrawnCommand": "python -c \"import hashlib,pathlib;[print(...) for p in sorted(pathlib.Path(chr(39)+chr(39)).glob(chr(39)+chr(39)))]\"",
+      "observedBehaviour": "It does not merely print nothing. Run verbatim it RAISES ValueError: Unacceptable pattern, exit 1, because both the path and the glob pattern are empty strings. Codex reported it as exiting 0 with no output; the observed behaviour here is an exception. Either way it verifies nothing and is withdrawn.",
+      "replacementCommand": "node -e \"const fs=require('node:fs'),c=require('node:crypto');for(const n of fs.readdirSync('tests/semantic').filter(n=>n.endsWith('.mjs')).sort()){const p='tests/semantic/'+n;console.log(c.createHash('sha256').update(fs.readFileSync(p)).digest('hex'),p)}\"",
+      "replacementVerified": "Run at correction time: printed exactly 4 lines matching the four digests recorded below.",
+      "simplerAlternative": "sha256sum tests/semantic/*.mjs"
+    },
+    {
+      "id": "C7-3",
+      "severity": "NON-BLOCKING",
+      "title": "Gate source digests rebound after the prospectivity gate was edited",
+      "note": "prospectivity-provenance.test.mjs changed as part of C7-1, so its digest in semantic-gates-addendum.json is superseded. The other three are unchanged. All four current digests are recorded here.",
+      "gateSourceFiles": [
+        {
+          "path": "tests/semantic/censoring-exclusion.semantic.test.mjs",
+          "sha256": "a9bfd7a8fd087b18597139fee241334bc97fdaa981614fee73ec9c65e0219791",
+          "bytes": 16411
+        },
+        {
+          "path": "tests/semantic/orientation-direction-and-score-sign.test.mjs",
+          "sha256": "9e77b9334e9de0d66461771f06be94cff44b253cb7d1ee3c3e4808bea38bf713",
+          "bytes": 25240
+        },
+        {
+          "path": "tests/semantic/prospectivity-provenance.test.mjs",
+          "sha256": "7720566cf3454ec7c5c3c7b754956bbd4bbfabce1b94e0c1a50404150a463344",
+          "bytes": 36858
+        },
+        {
+          "path": "tests/semantic/train-holdout-leakage.semantic.test.mjs",
+          "sha256": "5505801d068a660a0a056a78243e9550569328202ddfc670c4650a07f0fb7285",
+          "bytes": 21853
+        }
+      ],
+      "supersededDigest": {
+        "path": "tests/semantic/prospectivity-provenance.test.mjs",
+        "was": "436e0e654e129df2...",
+        "now": "7720566cf3454ec7c5c3c7b754956bbd4bbfabce1b94e0c1a50404150a463344"
+      }
+    }
+  ],
+  "limitationUnchanged": "Nothing in the gate detects an INCOMPLETE corpus. Both known adverse records are now enforced, but a violation never entered as a record remains invisible. Closing that needs a source of truth for what violations exist, which the gate does not have.",
+  "circularityUnchanged": "These gates prove target coverage, not future robustness. A fresh mutation battery must be authored independently of the gate designers. That is recorded as an EXTERNAL task and is not something this audit can honestly perform against its own gates.",
+  "independentlyReproduced": "Both defects were identified by Codex. Each was reproduced here before the fix and each remedy was verified adversarially after."
+}

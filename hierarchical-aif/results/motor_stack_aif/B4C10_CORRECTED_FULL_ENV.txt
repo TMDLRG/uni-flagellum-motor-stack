@@ -1,0 +1,8 @@
+started_utc=2026-07-21T17:51:13Z
+HEAD=17a2f0e18c09c762ab1cefe854c0d68698803eac
+runner=audits/phase-b/b4-identifiability-robustness-runner.py (FROZEN, UNMODIFIED, sha256 3e21edac97a2b68f...)
+correctionApplied=NONE - D1 does not affect M4 (pooled train_y); D3 does not affect C10 (arithmetic seeds)
+onlyChangeFromRecordedRun=replicate count 100 -> 2000 (the frozen N)
+python=3.12.10
+numpy=2.3.5
+scipy=1.16.3

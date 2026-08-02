@@ -1,0 +1,273 @@
+{
+  "schema": "uni.flagellum.d1-correction-package/1.0.0",
+  "correctionPackageId": "PHASE-D1-CORRECTION-PACKAGE-01",
+  "status": "APPEND_ONLY_CORRECTION",
+  "budget": "This is the ONE bounded correction package permitted for Phase 1 by plan section 5. No further correction package may be opened for this phase.",
+  "reviewedCommit": "fb9aa3369fded56a9be7ac4998d01933599a2d73",
+  "reviewVerdict": "REJECT_BLOCKING",
+  "reviewer": "Codex, independent reviewer and phase gatekeeper",
+  "corrector": "Claude, active builder and recorder",
+  "branch": "phase-1/d1-semantic-measurement-closure",
+
+  "selfReviewDisclosure": {
+    "method": "Before committing, Claude ran six independent adversarial reviewers over a draft of this package, instructed to REFUTE it and specifically to hunt for new false claims of the same kind Codex had just caught.",
+    "outcome": "The draft was PARTIALLY_SATISFIED on all six axes. It contained one load-bearing incomplete repair (AF1 below), one incomplete claim withdrawal (AF2), one inaccurate paraphrase of a frozen acceptance criterion (AF3), one overstated empirical claim (AF4), one omitted SHA-256 user (AF5), and several overstated guard descriptions. All are corrected here and none is suppressed.",
+    "significance": "The most serious, AF1, was NOT in Codex's original five. It was found while correcting, and it materially weakens the prospectivity of one cell. It is recorded here rather than deferred."
+  },
+
+  "preservationContract": {
+    "rule": "Every historical result, protocol, prediction, evidence log, Phase-C artifact, and production file is preserved BYTE-IDENTICALLY. This package adds records and repairs the instrument; it never rewrites a measurement.",
+    "byteIdenticalArtifacts": [
+      { "path": "audits/phase-d/d1-semantic-remediation-result.v1.json", "sha256": "62d72e2a86d5280add6341d85d07cb6b935b52bdb2793ecd4bc1eac45f4c9f79" },
+      { "path": "audits/phase-d/d1-semantic-remediation-protocol.v1.json", "sha256": "e294c3f7d01d43f59f35cf2b12158ee6142751399d10257e34ab776e56ee0e97" },
+      { "path": "audits/phase-d/d1-semantic-remediation-protocol-addendum-v2.json", "sha256": "95343554bb7fc4cc3774fec492a2e2b3e476a6e7cb46bc29081e173de2bd3bf8" },
+      { "path": "audits/phase-d/d1-semantic-remediation-predictions.v1.json", "sha256": "513498fc01e200afef3f93331c3fff8881693969674e19a3542f695d4e4bfb8b" },
+      { "path": "audits/phase-d/package-manifest.json", "sha256": "ee53bd2c57a7d7e4ee912f382b48a970f96f401c83e7ac4b65c96ac3e7a2c10e" }
+    ],
+    "alsoUnchanged": [
+      "audits/phase-d/d1-semantic-remediation-evidence.v1/** (all 23 cell log directories)",
+      "audits/phase-d/phase-c-preservation-baseline.v1.json",
+      "audits/phase-d/d1-coverage-provenance-posthoc.v1.json",
+      "audits/phase-c/** (all 64 files)",
+      "experiments/predictions/d1-semantic-remediation.prediction.json",
+      "lib/**, scripts/** (all production sources; also byte-identical to e5b4969)"
+    ],
+    "note": "audits/phase-d/package-manifest.json is intentionally NOT regenerated. It is the historical manifest of the result commit. Files changed by this package are covered by audits/phase-d/package-manifest-addendum-v2.json."
+  },
+
+  "corrections": [
+    {
+      "id": "C1_RESULT_PROTOCOL_BINDING",
+      "severity": "BLOCKING",
+      "affectedClaim": "Which protocol governed the executed D1 replay, and therefore which frozen cell set and which predicted classifications the result may be scored against.",
+      "defect": "audits/phase-d/d1-semantic-remediation-result.v1.json records protocolPath = 'audits/phase-d/d1-semantic-remediation-protocol.v1.json'. The replay was actually executed with --protocol audits/phase-d/d1-semantic-remediation-protocol-addendum-v2.json. The historical result therefore names a protocol containing 22 cells and predicting 22 DETECTED_SEMANTIC, while the executed protocol contains 23 cells and predicts 22 DETECTED_SEMANTIC plus 1 SURVIVED.",
+      "fileAndLine": "audits/phase-d/tools/run-d1-semantic-replay.mjs:688 (pre-correction), result-object literal",
+      "rootCause": "TWO independent hardcoded references to the v1 protocol path, not one. (a) The result-assembly object hardcoded protocolPath as a string literal, so --protocol was honoured for EXECUTION but ignored for PROVENANCE. (b) verifyPredictionAncestry hardcoded the same path, so --protocol was ALSO ignored by a PRECONDITION GATE. See AF1: (b) is load-bearing and was missed in the first draft of this package.",
+      "proofNotAssertion": {
+        "method": "The binding is proven by cell containment, not asserted.",
+        "v1ProtocolCells": 22,
+        "addendumCells": 23,
+        "resultOutcomes": 23,
+        "resultMinusV1": ["D1A10B_LATTICE_SINGLE_BOND_DOUBLE_COUNTED"],
+        "resultMinusAddendum": [],
+        "addendumMinusResult": [],
+        "secondIndependentProof": "Predicted-classification counts. v1 predicts {DETECTED_SEMANTIC: 22}. The addendum predicts {DETECTED_SEMANTIC: 22, SURVIVED: 1}. The result records {DETECTED_SEMANTIC: 22, SURVIVED: 1}. The result matches the addendum and contradicts v1."
+      },
+      "authoritativeBinding": {
+        "executedProtocolPath": "audits/phase-d/d1-semantic-remediation-protocol-addendum-v2.json",
+        "executedProtocolSha256": "95343554bb7fc4cc3774fec492a2e2b3e476a6e7cb46bc29081e173de2bd3bf8",
+        "executedProtocolVersion": "v2-addendum",
+        "cellCount": 23,
+        "supersededFieldsInHistoricalResult": [
+          { "field": "protocolPath", "recordedValue": "audits/phase-d/d1-semantic-remediation-protocol.v1.json", "supersededBy": "the executed addendum path above" },
+          { "field": "ancestry.protocolCommit", "recordedValue": "0a460a66458cd5e82c8ed18197548374739020d9", "supersededBy": "8baead252f1b1fcbcc0852a5e466915f1910515c, the commit that introduced the executed addendum" },
+          { "field": "ancestry.strictAncestry", "recordedValue": true, "supersededBy": "FALSE for the executed protocol. See AF1." }
+        ],
+        "ruleForReaders": "Where this correction record and the historical result disagree about which protocol governed the run or about that protocol's ancestry, THIS RECORD is authoritative. The historical result fields are preserved unedited as the erroneous originals."
+      },
+      "instrumentRepair": "The runner now derives BOTH the recorded protocolPath and the ancestry target from the actual --protocol argument, and additionally records protocolVersion, protocolSha256, and ancestry.protocolPath.",
+      "requiredFailingTest": "tests/semantic/d1-correction-integrity.semantic.test.mjs D1C1 asserts (a) the runner assigns no hardcoded phase-d protocol path in any position other than the declared DEFAULT_PROTOCOL_PATH constant, (b) the ancestry target is derived from the supplied protocol, and (c) the executed-protocol binding recorded here contains every cell id present in the historical result.",
+      "rollback": "Revert this commit. The historical result, protocols, predictions and evidence are untouched by it."
+    },
+    {
+      "id": "C2_ADDENDUM_TIMING",
+      "severity": "BLOCKING",
+      "affectedClaim": "The prospectivity standing of the addendum, and therefore whether the revised D1A10 prediction and the added D1A10B cell are legitimately pre-execution.",
+      "defect": "The addendum recorded its timing only in prose. It carried no machine-readable timing classification, so a reviewer could not mechanically distinguish 'frozen before implementation' from 'written after implementation but before execution'. The two have different evidential weight and the addendum is the weaker kind.",
+      "authoritativeTiming": {
+        "value": "AFTER_IMPLEMENTATION_BEFORE_EXECUTION",
+        "vocabulary": [
+          "BEFORE_IMPLEMENTATION_BEFORE_EXECUTION",
+          "AFTER_IMPLEMENTATION_BEFORE_EXECUTION",
+          "AFTER_EXECUTION"
+        ],
+        "commitOrdering": {
+          "predictionCommit": "0a460a66458cd5e82c8ed18197548374739020d9",
+          "implementationCommit": "6e5c68399e0ccdee74acc919db65e31752d73a4e",
+          "addendumCommit": "8baead252f1b1fcbcc0852a5e466915f1910515c",
+          "resultCommit": "fb9aa3369fded56a9be7ac4998d01933599a2d73",
+          "gitProof": "git merge-base --is-ancestor confirms prediction -> implementation -> addendum -> result."
+        },
+        "additionalDefectFoundWhileCorrecting": "The addendum commit EQUALS the replay base commit. Under the runner's own strictness rule that is NOT strict ancestry. See AF1. The three-value vocabulary above has no slot for that condition and is therefore INSUFFICIENT on its own; AF1 must be read with it.",
+        "evidentialConsequence": "The v1 protocol and v1 predictions retain full BEFORE_IMPLEMENTATION prospectivity. The addendum does NOT. Its revised D1A10 prediction and its added D1A10B cell were authored with knowledge of the implemented gates AND entered history in the very commit used as the replay base. They carry materially lower evidential weight than the ten exact replays.",
+        "ruleForReaders": "D1A10B may not be presented as a pre-implementation frozen prediction, and may not be presented as having strict prospective ancestry."
+      },
+      "rollback": "Revert this commit."
+    },
+    {
+      "id": "C3_DETECTION_ACCOUNTING",
+      "severity": "BLOCKING",
+      "affectedClaim": "How much detection coverage Phase D1 is entitled to claim.",
+      "defect": "The result reported classificationCounts.DETECTED_SEMANTIC = 22 as a single headline number while separately listing 2 attribution failures. Reporting 22 as the coverage figure overstates the result: a detection whose diagnostic cannot be attributed to its declared intended test has not demonstrated that the intended invariant fired.",
+      "authoritativeAccounting": {
+        "cells": 23,
+        "classifiedDetectedSemantic": 22,
+        "creditedDetections": 20,
+        "uncreditedDetections": 2,
+        "uncreditedIds": [
+          "D1A02_SURVIVAL_POSTERIOR_SLOW_USES_FAST_RATE",
+          "D1P02_ADVERSE_EVIDENCE_COPY_DIVERGED"
+        ],
+        "survived": 1,
+        "survivedIds": ["D1A10_LATTICE_NEXT_NEAREST_NEIGHBOUR_RING"],
+        "detectedByHashOnly": 0,
+        "notRun": 0,
+        "inconclusive": 0,
+        "AC4": "FAIL",
+        "AC4FrozenText": "attributionSatisfied is true for all twenty-two: the matched pattern is produced by the intended gate test.",
+        "AC4Statement": "AC4 is scoped to the twenty-two CLASSIFIED DETECTIONS, not to all twenty-three cells. It is false for 2 of those 22. AC4 FAILS. Separately, attributionSatisfied is also false for the SURVIVED cell D1A10, which has no failing tests at all and lies outside AC4's scope; the total count of outcomes with attributionSatisfied=false is therefore 3 of 23, of which only 2 bear on AC4. An earlier draft of this record said 'true for every cell ... false for 2 of 23', which was an inaccurate paraphrase of the frozen criterion and internally inconsistent. Corrected here.",
+        "headlineRule": "Phase D1 may claim 20 CREDITED detections out of 23 cells. It may NOT claim 22."
+      },
+      "whatIsAndIsNotExcused": {
+        "established": "Both uncredited cells were detected by a test belonging to the CORRECT declared property (D1P02 and D1P11 respectively), so the corresponding scientific invariant did fire.",
+        "notEstablished": "Attribution to the declared intended TEST is not established for those two cells, which is what AC4 asked for. The mismatch was a protocol labelling error by Claude: for D1A02 the protocol named the t=0 test, which is provably incapable of firing for that mutation, as the protocol itself stated elsewhere.",
+        "forbidden": "The uncredited pair may not be silently folded back into the credited count on the argument that the property matched."
+      },
+      "instrumentRepair": "The runner now emits a detectionAccounting block with classified, credited, uncredited, uncreditedIds and an AC4 verdict.",
+      "rollback": "Revert this commit."
+    },
+    {
+      "id": "C4_FRACTIONAL_STATOR_PIN_REMOVED",
+      "severity": "BLOCKING",
+      "affectedClaim": "Whether non-integral live stator occupancy is required, permitted, or unestablished behaviour.",
+      "defect": "tests/semantic/world-agent-observation-boundary.semantic.test.mjs asserted instrumentObservation({stators: 7.5}).stators === 7.5. That PINNED fractional occupancy as REQUIRED behaviour. It converted a sub-property explicitly recorded NOT_ESTABLISHED into an enforced contract, and it would have FAILED a future correct change that added integrality enforcement.",
+      "fileAndLine": "tests/semantic/world-agent-observation-boundary.semantic.test.mjs:185-191 (pre-correction)",
+      "rootCause": "Confusing 'characterise current behaviour so a silent change is visible' with 'require current behaviour'. In a gate suite the two are indistinguishable to a future contributor, and only the second is what an assertion actually means.",
+      "correction": "The assertion is removed. The surrounding comment records integrality as NOT_ESTABLISHED and states that nothing in the suite licenses either quantizing or not quantizing live stator occupancy.",
+      "whatIsStillGated": "The declared physical bound 0..11: 20 clamps to 11, -3 clamps to 0, in-range values pass through, absent and non-finite readings return null.",
+      "whatIsNotGated": "Integrality. Recorded NOT_ESTABLISHED. lib/uni-motor.js is unchanged and byte-identical to e5b4969.",
+      "requiredFailingTest": "D1C4 guards against the SPECIFIC regression that occurred: a fractional numeric literal passed to the statorsFor helper. Scope limitation, stated rather than overstated: the guard is a literal-pattern check over tests/semantic/ only. A re-pin written through a variable, a differently named helper, or a direct instrumentObservation call would evade it. It was negative-control verified to fire on the exact removed text.",
+      "rollback": "Revert this commit."
+    },
+    {
+      "id": "C5_SHA256_BLANKET_CLAIM_WITHDRAWN",
+      "severity": "BLOCKING",
+      "affectedClaim": "Oracle independence, and the basis for reporting DETECTED_BY_HASH_ONLY = 0.",
+      "defect": "An aggregate claim over the whole D1 gate suite, that no assertion uses a sha256/runId/snapshot/committed-report digest as its criterion, is FALSE.",
+      "locationsOfTheWithdrawnClaim": [
+        { "where": "The Phase-1 handoff message to Codex, section 5", "status": "WITHDRAWN by this record" },
+        {
+          "where": "audits/phase-d/d1-semantic-remediation-predictions.v1.json, prediction P-D1-4 rationale",
+          "text": "No D1 assertion consults a sha256, runId, snapshot, or committed report digest as its criterion.",
+          "status": "FROZEN PREDICTION, PRESERVED BYTE-IDENTICALLY, NOT EDITED. Its rationale is hereby recorded as FALSE. The prediction P-D1-4 itself (zero DETECTED_BY_HASH_ONLY) was nonetheless CONFIRMED as a measurement. A reader of that frozen file must be directed here.",
+          "disclosureNote": "The first draft of this correction package located the false claim only in the handoff and failed to disclose this second, in-repository location. Corrected."
+        }
+      ],
+      "withdrawnClaim": "No assertion in the D1 gates uses SHA-256 as its criterion.",
+      "replacementClaim": "Three files under tests/semantic/ compute SHA-256. Exactly one of them is a D1 measurement gate that uses a digest as an assertion criterion, and there it is a SECONDARY consistency assertion placed after the primary parsed-counts assertion. It was never the SOLE basis of any classification.",
+      "sha256Inventory": [
+        {
+          "file": "tests/semantic/adverse-record-preservation.semantic.test.mjs",
+          "role": "SECONDARY_CONSISTENCY_ASSERTION",
+          "assertion": "sha256(evidenceCopyBytes) === sha256(canonicalBytes)",
+          "primaryAssertionThatPrecedesIt": "assert.deepEqual(evidence.classificationCounts, FROZEN_ADVERSE_COUNTS)",
+          "wasSoleBasisOfAnyClassification": false,
+          "didExecuteInAnyCell": true,
+          "detail": "In D1P02_ADVERSE_EVIDENCE_COPY_DIVERGED it never executed: the counts assertion threw first. In D1P01_ADVERSE_COUNTS_LAUNDERED it DID execute and DID fail, because that mutation launders the canonical file and leaves the evidence copy's counts intact. Even there the classification was independently grounded by the counts assertion failing in the sibling test. An earlier draft of this record said it 'produced ZERO of the 23 classifications', which is false as worded; corrected."
+        },
+        {
+          "file": "tests/semantic/train-holdout-leakage.semantic.test.mjs",
+          "role": "PREREGISTERED_SPLIT_FUNCTION_NOT_AN_ARTIFACT_DIGEST",
+          "assertion": "recomputes the preregistered split rule sha256(motorName) mod 5",
+          "wasSoleBasisOfAnyClassification": false,
+          "detail": "A scientific DEFINITION of the partition, not an artifact-identity check. Predates D1 and is not a D1 gate."
+        },
+        {
+          "file": "tests/semantic/d1-correction-integrity.semantic.test.mjs",
+          "role": "PRIMARY_ARTIFACT_IDENTITY_CRITERION",
+          "assertion": "sha256(preservedArtifactBytes) === recordedDigest, for every artifact this package promises is byte-identical",
+          "wasSoleBasisOfAnyClassification": false,
+          "detail": "Added BY this correction package and therefore not present during the historical replay; it classified nothing. Its use of a digest is deliberate and appropriate: byte-identity is exactly what it must verify. The first draft omitted this file from the inventory while silently self-excluding it inside the guard; both are corrected. The self-exclusion is now declared in this field rather than hardcoded in the test."
+        }
+      ],
+      "classifierWeaknessDisclosed": {
+        "finding": "DETECTED_BY_HASH_ONLY is unreachable for the adverse-record gate, independently of whether the digest assertion fires.",
+        "mechanism": "In the runner's classify(), the DETECTED_SEMANTIC branch is taken whenever any frozen semantic pattern matches, before the hash-only branch is considered. The digest assertion's message contains the words 'adverse' and 'Phase-C', which are themselves D1P01/D1P02 semantic patterns. A digest-only failure would therefore be classified DETECTED_SEMANTIC.",
+        "consequence": "DETECTED_BY_HASH_ONLY = 0 remains a correct MEASUREMENT of what happened, but for this gate it is partly guaranteed by message wording and branch precedence rather than solely by the digest assertion being inert. Disclosed rather than left implicit.",
+        "notFixed": "The classifier is not changed. Changing it would alter the instrument after the measurement."
+      },
+      "requiredFailingTest": "D1C5 enumerates createHash('sha256') across tests/semantic/ and asserts the set equals the declared inventory, with the self-exclusion read from this record. Scope limitation, stated: it is a literal-pattern scan of tests/semantic/ only, and would not catch a variable algorithm name, a different casing, crypto.hash(), a helper imported from another module, or digest use outside tests/semantic/.",
+      "rollback": "Revert this commit."
+    }
+  ],
+
+  "additionalFindingsDiscoveredWhileCorrecting": [
+    {
+      "id": "AF1_ANCESTRY_PATH_HARDCODED_AND_LOAD_BEARING",
+      "severity": "BLOCKING",
+      "status": "NEWLY DISCOVERED. Not among Codex's original five.",
+      "affectedClaim": "The prospective ancestry of the protocol that actually governed the D1 replay, and therefore the evidential standing of the addendum-only cell D1A10B.",
+      "finding": "verifyPredictionAncestry hardcoded the v1 protocol path. The strictness assertion it guards requires that the protocol file NOT have entered history in the replay base commit itself. The executed addendum entered history at 8baead252f1b1fcbcc0852a5e466915f1910515c, which IS the replay base commit. The hardcoded v1 path is the ONLY reason the replay was permitted to proceed.",
+      "empiricalProof": {
+        "command": "node audits/phase-d/tools/run-d1-semantic-replay.mjs --preflight --base-commit 8baead252f1b1fcbcc0852a5e466915f1910515c --protocol audits/phase-d/d1-semantic-remediation-protocol-addendum-v2.json",
+        "beforeCorrection": "PASSED the ancestry precondition, because the check was evaluated against the v1 protocol introduced at 0a460a66.",
+        "afterCorrection": "ABORTS with: 'The D1 protocol file entered history in the replay base commit itself; ancestry is not STRICT.' Exit code 1.",
+        "interpretation": "The corrected instrument REFUSES the run that was actually performed. This is the correct behaviour and it is reported, not suppressed."
+      },
+      "consequence": "ancestry.strictAncestry = true in the preserved result is true of the v1 protocol and FALSE of the protocol that governed the run. The ten exact Phase-C replays and their v1-frozen predictions are unaffected, because the v1 protocol and predictions do have strict ancestry. The affected cells are the addendum-only D1A10B and the addendum's revised D1A10 prediction.",
+      "statusOfAffectedCells": {
+        "D1A10B_LATTICE_SINGLE_BOND_DOUBLE_COUNTED": "Detection is real and reproducible, but its governing protocol lacks strict prospective ancestry. Its evidential standing is NOT_ESTABLISHED as a prospective prediction. It remains valid as a demonstration that the lattice gate discriminates an adjacency-weighting corruption.",
+        "D1A10_LATTICE_NEXT_NEAREST_NEIGHBOUR_RING": "Unaffected in substance: it SURVIVED, its null-mutation status is proven by algebra independent of any protocol, and the original DETECTED_SEMANTIC prediction remains recorded as falsified.",
+        "AC5forD1P10": "AC5 required at least one detected alternate form per property. For D1P10 that is satisfied only by D1A10B, whose protocol lacks strict ancestry. AC5 for D1P10 is therefore downgraded to SATISFIED_WITHOUT_STRICT_PROSPECTIVE_ANCESTRY."
+      },
+      "notDone": "No re-execution was performed. Re-running the battery under a corrected, strictly-ancestral protocol would be new work beyond this bounded package and is left to Codex to direct."
+    },
+    {
+      "id": "AF2_INCOMPLETE_CLAIM_WITHDRAWAL",
+      "severity": "MODERATE",
+      "finding": "The first draft withdrew the false SHA-256 blanket claim only where it appeared in the handoff, and did not disclose that a materially identical claim is frozen in audits/phase-d/d1-semantic-remediation-predictions.v1.json as the P-D1-4 rationale.",
+      "correction": "Disclosed in C5.locationsOfTheWithdrawnClaim. The frozen file is preserved unedited; the remedy is disclosure, not an edit."
+    },
+    {
+      "id": "AF3_AC4_SCOPE_MISPARAPHRASED",
+      "severity": "MODERATE",
+      "finding": "The first draft said AC4 'required attributionSatisfied to be true for every cell. It is false for 2 of 23.' The frozen AC4 is scoped to the twenty-two classified detections, and attributionSatisfied is false for THREE of 23 outcomes once the SURVIVED cell is included. The sentence was inconsistent with itself.",
+      "correction": "Restated in C3.authoritativeAccounting.AC4Statement, with the frozen text quoted verbatim. The verdict AC4 = FAIL and the credited count of 20 were correct in the draft and are unchanged."
+    },
+    {
+      "id": "AF4_OVERSTATED_EMPIRICAL_CLAIM",
+      "severity": "MODERATE",
+      "finding": "The first draft claimed the SHA-256 assertion 'produced ZERO of the 23 classifications'. It did execute and fail in D1P01_ADVERSE_COUNTS_LAUNDERED.",
+      "correction": "Restated as 'never the SOLE basis of any classification', with the D1P01 detail recorded in the inventory."
+    },
+    {
+      "id": "AF5_OMITTED_SHA256_USER",
+      "severity": "MODERATE",
+      "finding": "The first draft's SHA-256 inventory omitted the new correction-integrity test, which uses digests as a PRIMARY criterion, while silently excluding it inside the guard by a hardcoded basename.",
+      "correction": "Added to the inventory with role PRIMARY_ARTIFACT_IDENTITY_CRITERION and an explicit rationale. The guard now reads the exclusion from this record."
+    },
+    {
+      "id": "AF6_OVERSTATED_GUARD_DESCRIPTIONS",
+      "severity": "MINOR",
+      "finding": "The first draft described the C4 and C5 guards as categorical ('no file asserts...', 'a new digest criterion cannot be added without updating this record'). Both are literal-pattern scans scoped to tests/semantic/ and are evadable.",
+      "correction": "Both requiredFailingTest fields now state their scope limitation explicitly."
+    }
+  ],
+
+  "scientificImpact": {
+    "changed": [
+      "The creditable Phase-D1 headline drops from 22 detections to 20 of 23 cells.",
+      "AC4 is recorded FAIL, correctly scoped to the 22 classified detections.",
+      "The result is correctly bound to the 23-cell addendum protocol that governed it.",
+      "The addendum's prospectivity is downgraded twice: to AFTER_IMPLEMENTATION_BEFORE_EXECUTION, and further by AF1 to lacking strict prospective ancestry.",
+      "AC5 for D1P10 is downgraded to SATISFIED_WITHOUT_STRICT_PROSPECTIVE_ANCESTRY.",
+      "One assertion that pinned unestablished behaviour is removed.",
+      "Two hardcoded protocol paths are removed from the instrument; the corrected instrument refuses the run that was performed."
+    ],
+    "unchanged": [
+      "No mutation was re-run. No classification changed. No historical measurement was edited.",
+      "The ten exact Phase-C replays retain full BEFORE_IMPLEMENTATION prospectivity via the v1 protocol and v1 predictions.",
+      "Phase-C 0/10 remains byte-identical and unrestated.",
+      "Production source remains byte-identical to e5b4969.",
+      "No parity ladder level moved. D1 still touches only P0 and P1 evidence.",
+      "Target coverage established for the ten named properties; future robustness still NOT established."
+    ]
+  },
+
+  "notDone": [
+    "Phase 2 not begun.",
+    "B3 not executed; its prediction record remains PENDING and its result file remains absent.",
+    "No mutation replay was re-executed as part of this correction package.",
+    "The runner's classify() precedence was NOT changed, because altering the classifier after the measurement would invalidate the measurement."
+  ]
+}

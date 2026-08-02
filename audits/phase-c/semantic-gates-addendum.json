@@ -1,0 +1,80 @@
+{
+  "schema": "uni.flagellum.audit-artifact/1.0.0",
+  "purpose": "Append-only Phase C addendum. Corrects a stale statement in semantic-gates.json, binds the gate SOURCE FILES to the audit package by digest, records the C3 prospectivity record added at Codex instruction, and states the test accounting precisely.",
+  "auditedCommit": "9c3a644e4b57e8ac27f925dcec84222463063aa1",
+  "auditPhase": "C",
+  "appendOnly": true,
+  "correctsButDoesNotReplace": "audits/phase-c/semantic-gates.json, PRESERVED unmodified.",
+  "reportedBy": "Codex",
+  "corrections": [
+    {
+      "id": "C6-1",
+      "severity": "BLOCKING",
+      "title": "The prospectivity gate documented only ONE of this audit two provenance violations",
+      "problem": "The gate corpus carried B1-MUTATION-BATTERY-V1 (PROSPECTIVE) and B1-RERUN-ON-C3-FIXED-TREE (TIMING_UNVERIFIED), but NOT the C3 same-commit violation, even though b1-c3-correction-addendum.json classifies it TIMING_UNVERIFIED. The gate therefore kept one adverse finding visible and left the other only in prose.",
+      "remedy": "Added record C3-CANONICAL-WRITE-FIX to the canonical corpus, classified TIMING_UNVERIFIED, citing madeAgainstCommit 1fc6758 with the prediction and the fix both landing in 1630a68.",
+      "verified": {
+        "gatePassesWithRecordAdded": "11/11",
+        "launderingBlocked": "flipping the new record to PROSPECTIVE fails with PROSPECTIVITY VIOLATION naming C3-CANONICAL-WRITE-FIX"
+      },
+      "note": "The record also carries the two P-C3 predictions that were REFUTED on execution, so the gate corpus reflects the full adverse result rather than only the timing defect."
+    },
+    {
+      "id": "C6-2",
+      "severity": "BLOCKING",
+      "title": "semantic-gates.json contains a NOW-FALSE statement that the orientation gate is not wired",
+      "staleText": "NOT YET WIRED: package.json test script enumerates test files explicitly and does not include tests/semantic/. The gate must be added to that list or it will never run in CI. I did not edit package.json.",
+      "whyItWasWrittenAndWhyItIsStale": "It was ACCURATE when its author wrote it. The gate designer correctly declined to edit package.json, which was outside the scope given. The statement became false when the wiring was added in b10d96a.",
+      "currentTruth": "All four semantic gates ARE wired into the package.json test script. Verified: the orientation gate path appears in the test command, and npm test executes 67 tests in its first invocation where it previously executed 34.",
+      "handling": "semantic-gates.json is PRESERVED unmodified. Correcting a committed artifact by editing it would destroy the record; this addendum governs."
+    },
+    {
+      "id": "C6-3",
+      "severity": "NON-BLOCKING",
+      "title": "Test accounting stated imprecisely",
+      "correction": "67 is the FIRST node --test invocation over nine files. npm test runs 68 tests in total, because tests/rendered-html.test.mjs executes separately after the build. Both numbers should be quoted together.",
+      "accounting": {
+        "firstInvocationBefore": 34,
+        "firstInvocationAfter": 67,
+        "semanticTestsAdded": 33,
+        "postBuildRenderedHtmlTest": 1,
+        "totalAfter": 68
+      },
+      "historicalStatementPreserved": "The Phase A finding that 34 was the first invocation and rendered-html a 35th test in a separate post-build invocation REMAINS HISTORICALLY CORRECT for commit 9c3a644 and is NOT rewritten. It described the tree as audited. This addendum describes the tree after Phase C."
+    },
+    {
+      "id": "C6-4",
+      "severity": "NON-BLOCKING",
+      "title": "The Phase C manifest bound the narrative but not the machinery",
+      "problem": "audits/phase-c/package-manifest.json covered only semantic-gates.json. The four gate SOURCE files live in tests/semantic/ and were outside the manifest walk, so the audit package described the gates without binding them.",
+      "remedy": "This addendum records the SHA-256 and byte count of each gate source file. A reader can now verify the machinery is the machinery that was described.",
+      "gateSourceFiles": [
+        {
+          "path": "tests/semantic/censoring-exclusion.semantic.test.mjs",
+          "sha256": "a9bfd7a8fd087b18597139fee241334bc97fdaa981614fee73ec9c65e0219791",
+          "bytes": 16411
+        },
+        {
+          "path": "tests/semantic/orientation-direction-and-score-sign.test.mjs",
+          "sha256": "9e77b9334e9de0d66461771f06be94cff44b253cb7d1ee3c3e4808bea38bf713",
+          "bytes": 25240
+        },
+        {
+          "path": "tests/semantic/prospectivity-provenance.test.mjs",
+          "sha256": "436e0e654e129df29b94b4c90bc4030c51562c4f0f279b7e5ce96c83cb4c92e8",
+          "bytes": 32858
+        },
+        {
+          "path": "tests/semantic/train-holdout-leakage.semantic.test.mjs",
+          "sha256": "5505801d068a660a0a056a78243e9550569328202ddfc670c4650a07f0fb7285",
+          "bytes": 21853
+        }
+      ],
+      "verificationCommand": "python -c \"import hashlib,pathlib;[print(hashlib.sha256(pathlib.Path(p).read_bytes()).hexdigest(),p) for p in sorted(pathlib.Path(chr(39)+chr(39)).glob(chr(39)+chr(39)))]\"",
+      "simplerVerification": "sha256sum tests/semantic/*.mjs"
+    }
+  ],
+  "circularityRestated": "Codex is right that this remains real and is not resolved by any of the above. These gates prove TARGET COVERAGE, not broad future robustness. They were written to catch five known corruptions and they catch them. The proper next measurement is a fresh mutation battery authored independently of the gate designers, and that has NOT been done.",
+  "uncertainty": "The C3 record was added because a reviewer noticed its absence. That is the correct outcome but the wrong mechanism: nothing in the gate itself detects an INCOMPLETE corpus, so a violation that is never entered as a record is still invisible. A corpus-completeness check would need a source of truth for what violations exist, which the gate does not have.",
+  "independentlyReproduced": "All four items were raised by Codex, and each was verified mechanically here before acceptance."
+}

@@ -1,0 +1,46 @@
+{
+  "schema": "uni.flagellum.audit-artifact/1.0.0",
+  "purpose": "Demonstration that the generated X01_SOURCE_INTEGRITY gate result is invariant to the presence or absence of the source bytes it claims to verify.",
+  "auditedCommit": "9c3a644e4b57e8ac27f925dcec84222463063aa1",
+  "auditPhase": "A",
+  "auditorModel": "claude-opus-4-8 (Phase A execution), claude-fable-5 (packaging)",
+  "operatingSystem": "Microsoft Windows 11 Pro 10.0.26200 build 26200 (x64)",
+  "cpu": "Intel Core i7-10700T @ 2.00GHz, 8 cores / 16 threads",
+  "ramGB": 63.71,
+  "appendOnly": true,
+  "note": "Timestamps are deliberately omitted: this package must be byte-reproducible. Ordering is established by git history.",
+  "finding": "HIGH",
+  "affectedClaim": "X01_SOURCE_INTEGRITY reports PASS in the generated cross-study report.",
+  "mechanism": "scripts/run-cross-study-parity.py:360-363 computes X01 from all(item['verified']) and cacheVerification['status']=='PASS' — JSON literals read out of the corpus file the gate is meant to validate. It performs zero filesystem reads of the artefacts.",
+  "experiment": [
+    {
+      "state": "cache EMPTY (0 files)",
+      "reportSha256": "bd3838c40b8d256342427e59c615679e0b004d757f21093ef640079a591ee384",
+      "x01Status": "PASS"
+    },
+    {
+      "state": "cache FULL (12 artifacts, 75001736 bytes, every SHA-256 independently verified)",
+      "reportSha256": "bd3838c40b8d256342427e59c615679e0b004d757f21093ef640079a591ee384",
+      "x01Status": "PASS"
+    }
+  ],
+  "runId": "454bfc6cfcd78e77781792dd3e3c3da051da72240670bd05ffb8cfdbba6ab09c",
+  "prediction": "The generated report would be byte-identical with and without the cache, and X01 would report PASS in both states.",
+  "observed": "CONFIRMED. Byte-identical report SHA-256 in both states; X01 PASS in both.",
+  "correctionToEarlierProse": "X01 is vacuous AS A GENERATED REPORT GATE. This is narrower than 'no source verification exists anywhere'. tests/cross-study-parity.test.mjs CAN hash real source files when they are present; its weakness is that line 39 wraps the hashing in fs.existsSync and line 45 explicitly accepts checkedArtifacts === 0. The two mechanisms are distinct and both statements must be carried.",
+  "statusVocabularyDefect": {
+    "valuesInUse": [
+      "PASS",
+      "FAIL",
+      "NOT_ESTABLISHED",
+      "BLOCKED_EXTERNAL",
+      "SOURCE_ONLY"
+    ],
+    "notRunRepresentable": false,
+    "validatorExists": false,
+    "consequence": "CLAUDE.md:119-121 requires an absent dataset to be marked BLOCKED / NOT RUN / EXTERNAL VALIDATION REQUIRED. That status is currently unrepresentable, and no schema or validator constrains status strings, so a typo would render unstyled and fail no test."
+  },
+  "uncertainty": "Corrupted-cache and substituted-cache states were NOT tested in Phase A. They are specified in red test C2.",
+  "alternativeExplanation": "None surviving: byte-identity of the report under a 75 MB change in filesystem state admits no alternative reading.",
+  "independentlyReproduced": false
+}

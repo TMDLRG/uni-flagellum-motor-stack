@@ -1,0 +1,68 @@
+{
+  "schema": "uni.flagellum.audit-artifact/1.0.0",
+  "purpose": "Fourth correction to the B2 evidence package. Two are corrections to this audit's own record-keeping honesty; one withdraws a statistical overclaim. Genuinely append-only: no existing file is modified by this addendum.",
+  "auditedCommit": "9c3a644e4b57e8ac27f925dcec84222463063aa1",
+  "auditPhase": "B",
+  "auditorModel": "claude-opus-4-8",
+  "appendOnly": true,
+  "appendOnlyIsAccurateHere": "Verifiable: this addendum adds files only. Contrast with addendum 3, whose identical claim was false. See correction C4-B2-2.",
+  "note": "Timestamps are deliberately omitted: this package must be byte-reproducible. Ordering is established by git history.",
+
+  "corrections": [
+    {
+      "id": "C4-B2-1",
+      "severity": "P1",
+      "type": "STATISTICAL OVERCLAIM WITHDRAWN",
+      "reportedBy": "Codex",
+      "locationOfTheOverclaim": "audits/phase-b/b2-correction-addendum-3.json, finding F-B2-REV-2",
+      "withdrawnWording": [
+        "'the ARGMIN is identified only to roughly seven significant figures in rateFast'",
+        "'the objective is therefore essentially FLAT along that direction near the optimum'",
+        "'This is excluded by the training NLL being identical to sixteen significant figures at both points, which is the signature of one flat basin rather than two distinct minima.'"
+      ],
+      "whyItIsWrong": "Two parameter vectors whose printed NLL agrees to sixteen figures demonstrate OPTIMIZER SENSITIVITY and local numerical flatness under one specific perturbation. They do not establish statistical identification, they do not bound a confidence region, and they do not exclude two distinct minima. Equality of a printed objective at two sampled points says nothing about the objective between or beyond them. The audit converted a numerical observation into a statistical claim it had not earned.",
+      "adoptedWording": "rateFast is not numerically reproducible beyond roughly seven significant figures under this perturbation. Statistical identification has NOT been established, and the existence of a single basin has NOT been demonstrated.",
+      "whatWouldBeNeededToSupportTheOriginalClaim": "A profile-likelihood analysis over rateFast on a declared grid, reporting the log-likelihood span and a likelihood-based interval, plus a systematic multistart basin census. Neither was performed. Both remain open.",
+      "unaffected": "The B2 conclusion is untouched. The refutation of P-B2, the |delta| of 5.313722795108333e-10 nats, and the survival of the adverse lognormal result do not depend on any identification claim."
+    },
+    {
+      "id": "C4-B2-2",
+      "severity": "P1",
+      "type": "FALSE APPEND-ONLY ASSERTION BY THIS AUDIT",
+      "reportedBy": "Codex",
+      "theFalseAssertion": "audits/phase-b/b2-correction-addendum-3.json declares appendOnly: true and states 'All prior phase-b artifacts are PRESERVED BYTE-IDENTICAL at de5c2fb, 6ad64ec and 52aedca.'",
+      "theFacts": {
+        "b2-portable-oracle-v2.py": { "at_52aedca": "0d01679674fea05d...", "at_47ed334": "16bd40793ca0b66c...", "identical": false },
+        "b2-portable-oracle-v2-result.json": { "at_52aedca": "3e4fee0d5b9b6abb...", "at_47ed334": "7fb3888968a824ee...", "identical": false }
+      },
+      "whyThisIsWorseThanAWordingSlip": "The sentence makes a universal claim and then, in the very next sentence, carves out an exception to it. A reader checking the universal claim mechanically would find it false. An audit whose own append-only assertions cannot be verified mechanically has damaged the property it exists to certify.",
+      "whatWasActuallyTrue": "Two files were amended IN PLACE: the v2 oracle and its emitted result. Nine other phase-b artifacts and all of phase-a were genuinely unchanged. The amendment was declared in the same artifact, so nothing was concealed, but the blanket assertion above it was false.",
+      "correctedDiscipline": "Executable tooling is versioned by FILENAME from this point on, never amended in place. A future repair to the v2 oracle becomes b2-portable-oracle-v3.py alongside it. appendOnly: true is asserted only when it is mechanically true of every file in the package, and the preflight described in the B3 integration addendum checks this."
+    },
+    {
+      "id": "C4-B2-3",
+      "severity": "P1",
+      "type": "RETRACTED FINDING LEFT LIVE IN ANOTHER ARTIFACT",
+      "reportedBy": "Codex",
+      "problem": "audits/phase-b/phase-b-roadmap.v1.json openItemsCarriedFromEarlierPhases still contains F-B2-NEW-1 with the text 'Protocol declares primaryStates [0..8]; implementation uses [1..8] with no authorizing rule' and status 'newly reported, awaiting decision'. That finding was RETRACTED as FALSE in addendum 2. State 0 fails the frozen H1 threshold of at least 20 uncensored holdout events, having 18.",
+      "whyItMatters": "A retraction recorded in one artifact and not propagated to another leaves the package internally inconsistent. A reader consulting only the roadmap would act on a claim the audit knows to be false. This is precisely the class of cross-artifact disagreement the resonance contract exists to detect.",
+      "correction": "audits/phase-b/phase-b-roadmap.v2.json supersedes v1, carrying the reclassified F-B2-REV-1 (PROTOCOL_SCOPE_AMBIGUITY, LOW) in place of the retracted text. v1 is preserved unmodified as the historical record.",
+      "processLesson": "A retraction is not complete when it is written. It is complete when every artifact that referenced the retracted claim has been updated or superseded. The preflight now checks that no artifact references a retracted finding id."
+    }
+  ],
+
+  "openItemsCreatedByTheseCorrections": [
+    { "id": "OPEN-B2-1", "item": "Profile-likelihood analysis of rateFast on a declared grid, with a likelihood-based interval and a multistart basin census.", "status": "NOT DONE. Required before any identification claim about the M3 parameters." }
+  ],
+
+  "preservedConclusion": {
+    "P_B2": "REFUTED. No strictly better mixture solution was found over the declared search domain.",
+    "mixtureFit": "Numerically indistinguishable from the best located optimum, |delta| 5.313722795108333e-10 nats.",
+    "adverseLognormalResult": "SURVIVES under both cohorts.",
+    "statement": "Two record-keeping failures by this audit and one statistical overclaim are corrected. The result is unchanged."
+  },
+
+  "uncertainty": "The withdrawn identification claim is replaced by an explicit statement that identification is unknown, not by a weaker identification claim.",
+  "alternativeExplanation": "n/a",
+  "independentlyReproduced": "All three corrections were identified by Codex."
+}

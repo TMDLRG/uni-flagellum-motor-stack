@@ -1,0 +1,357 @@
+{
+  "schema": "uni.flagellum.audit-artifact/1.0.0",
+  "purpose": "B3 model-competition predictions and falsifiers, frozen BEFORE any competitor is fitted. Nine models x two scoring rules x two cohorts.",
+  "auditedCommit": "9c3a644e4b57e8ac27f925dcec84222463063aa1",
+  "auditPhase": "B",
+  "appendOnly": true,
+  "frozenBeforeExecution": true,
+  "governedBy": [
+    "audits/phase-b/b3-competition-protocol.v1.json",
+    "audits/phase-b/b3-competition-protocol-addendum-v2.json",
+    "audits/phase-b/b3-integration-addendum-v3.json",
+    "audits/phase-b/b3-specs/"
+  ],
+  "preflightAtFreeze": "46/46",
+  "referenceModel": "M3_TWO_TIMESCALE. Every contrast is against M3, which B2 established sits at the best located optimum, so a comparison against it is not a comparison against a mis-fit model.",
+  "primaryContrasts": "The eight pairwise contrasts of M3 against each other model, Bonferroni companion at 0.99375. All 36 pairs reported secondary and unadjusted.",
+  "aggregation": "MOTOR-EQUAL primary per integration addendum R3. Event-pooled reported as a mandatory secondary and as the continuity bridge to the published 0.0369 nat figure, which is an event-pooled quantity and may only be cited against that column.",
+  "predictionCount": 36,
+  "headlinePredictions": [
+    "The adverse lognormal result HOLDS: M2 beats M3 under NLPD in both cohorts. If a wider competition overturns it, that is reported alongside the existing finding, never instead of it.",
+    "M4 and M6 win on point estimate with intervals containing zero. Both add flexibility; neither is expected to be resolvable with 19 holdout motors.",
+    "M7 is expected to be declared UNIDENTIFIED. That is the honest expected outcome, not a defect.",
+    "M8, a non-mechanistic ceiling, is expected to win under NLPD. If it does, predictive superiority is shown to be largely unrelated to mechanism.",
+    "The two scoring rules may disagree. Any disagreement is reported as a first-class result."
+  ],
+  "whatAResultWouldNotEstablish": "A leaderboard win establishes only better prediction of held-out durations under the declared rules on this cohort. It does not establish that latent states are molecular states, that the organism implements the inference, or that any mechanism is identified. The protocol forbiddenClaim field is binding.",
+  "predictions": [
+    {
+      "cohort": "derived_eligible_1_to_8",
+      "cohortSize": "793 train / 233 holdout",
+      "scoringRule": "NLPD_motor_equal",
+      "model": "M0_EXPONENTIAL",
+      "expectation": "DOES_NOT_BEAT_M3",
+      "falsifier": "A paired interval lying entirely above zero refutes this.",
+      "rationale": "M3 nests M0. B2 measured the M3-minus-M0 interval as [0.07073, 0.32474], entirely above zero. M0 is the memoryless baseline the whole experiment was built to reject."
+    },
+    {
+      "cohort": "derived_eligible_1_to_8",
+      "cohortSize": "793 train / 233 holdout",
+      "scoringRule": "NLPD_motor_equal",
+      "model": "M1_WEIBULL",
+      "expectation": "DOES_NOT_BEAT_M3",
+      "falsifier": "A paired interval lying entirely above zero refutes this.",
+      "rationale": "B2 measured weibull -3.0963 against mixture -3.0498 on held-out per-event log score. M3 wins by roughly 0.046 nats."
+    },
+    {
+      "cohort": "derived_eligible_1_to_8",
+      "cohortSize": "793 train / 233 holdout",
+      "scoringRule": "NLPD_motor_equal",
+      "model": "M2_LOGNORMAL",
+      "expectation": "BEATS_M3",
+      "falsifier": "A paired interval lying entirely below zero refutes this.",
+      "rationale": "THE ADVERSE RESULT. B2 measured lognormal -3.0129 against mixture -3.0498, a 0.0369 nat advantage to the lognormal, surviving independent rederivation and reproduced at 0.0387 on the wider cohort."
+    },
+    {
+      "cohort": "derived_eligible_1_to_8",
+      "cohortSize": "793 train / 233 holdout",
+      "scoringRule": "NLPD_motor_equal",
+      "model": "M3_TWO_TIMESCALE",
+      "expectation": "REFERENCE_MODEL",
+      "falsifier": "Not applicable. M3 is the reference against which the other eight are contrasted; a self-contrast is identically zero and carries no information. Recorded explicitly so the artifact covers all nine declared models rather than silently omitting one.",
+      "rationale": "B2 established that the committed M3 fit is numerically indistinguishable from the best located optimum over the declared search domain, |delta| 5.31e-10 nats. Contrasts against M3 are therefore not contrasts against a mis-fit model. That is the precondition B3 required."
+    },
+    {
+      "cohort": "derived_eligible_1_to_8",
+      "cohortSize": "793 train / 233 holdout",
+      "scoringRule": "NLPD_motor_equal",
+      "model": "M4_MIXTURE_K3",
+      "expectation": "POINT_ESTIMATE_BEATS_M3_INTERVAL_CONTAINS_ZERO",
+      "falsifier": "An interval excluding zero in either direction refutes this.",
+      "rationale": "M4 NESTS M3, so its training fit cannot be worse and its held-out score is a flexibility-versus-overfitting question that 233 holdout events may not resolve. Predicted to win on the point estimate with an interval containing zero. If M4 collapses onto M3 under the prespecified criteria, that is the informative outcome: it would mean the third component buys nothing."
+    },
+    {
+      "cohort": "derived_eligible_1_to_8",
+      "cohortSize": "793 train / 233 holdout",
+      "scoringRule": "NLPD_motor_equal",
+      "model": "M5_GAMMA",
+      "expectation": "DOES_NOT_BEAT_M3",
+      "falsifier": "A paired interval lying entirely above zero refutes this.",
+      "rationale": "A one-parameter mean-one family in the same regime as the Weibull, which M3 already beats. No mechanism is expected to make gamma succeed where Weibull failed."
+    },
+    {
+      "cohort": "derived_eligible_1_to_8",
+      "cohortSize": "793 train / 233 holdout",
+      "scoringRule": "NLPD_motor_equal",
+      "model": "M6_SEMI_MARKOV_STATE_DEPENDENT",
+      "expectation": "POINT_ESTIMATE_BEATS_M3_INTERVAL_CONTAINS_ZERO",
+      "falsifier": "An interval excluding zero in either direction refutes this.",
+      "rationale": "Relaxes the common-shape restriction that M1, M2 and M3 all share, spending 8 or 9 parameters instead of 1. Predicted to win on the point estimate with an interval containing zero. This is the cleanest test of whether a single common shape is an adequate restriction."
+    },
+    {
+      "cohort": "derived_eligible_1_to_8",
+      "cohortSize": "793 train / 233 holdout",
+      "scoringRule": "NLPD_motor_equal",
+      "model": "M7_HIERARCHICAL_MOTOR",
+      "expectation": "DOES_NOT_BEAT_M3",
+      "falsifier": "A paired interval lying entirely above zero refutes this.",
+      "rationale": "Its own specification predicts it will likely be declared UNIDENTIFIED, because tau is informed only by between-motor contrasts and there are 19 holdout motors. Even if identified, the per-event marginal score deliberately discards the within-motor dependence M7 exists to represent. A poor M7 score is therefore NOT evidence against motor heterogeneity, and must not be reported as such."
+    },
+    {
+      "cohort": "derived_eligible_1_to_8",
+      "cohortSize": "793 train / 233 holdout",
+      "scoringRule": "NLPD_motor_equal",
+      "model": "M8_EMPIRICAL_KDE",
+      "expectation": "BEATS_M3",
+      "falsifier": "A paired interval lying entirely below zero refutes this.",
+      "rationale": "A deliberately flexible non-mechanistic ceiling. Predicted to win on the point estimate under NLPD. If NO mechanistic model approaches it the mechanistic claims are weak; if M8 wins outright, predictive superiority is shown to be largely unrelated to mechanism."
+    },
+    {
+      "cohort": "derived_eligible_1_to_8",
+      "cohortSize": "793 train / 233 holdout",
+      "scoringRule": "CRPS_seconds",
+      "model": "M0_EXPONENTIAL",
+      "expectation": "UNRESOLVED_OR_RULE_DISAGREEMENT_POSSIBLE",
+      "falsifier": "CRPS is not tail-dominated the way log score is, and is reported in seconds so it weights slow states more heavily. A CRPS ranking that AGREES with NLPD for every model would refute the expectation that the two rules can disagree here. A disagreement is a first-class result and is not resolved by preferring either rule.",
+      "rationale": "M3 nests M0. B2 measured the M3-minus-M0 interval as [0.07073, 0.32474], entirely above zero. M0 is the memoryless baseline the whole experiment was built to reject."
+    },
+    {
+      "cohort": "derived_eligible_1_to_8",
+      "cohortSize": "793 train / 233 holdout",
+      "scoringRule": "CRPS_seconds",
+      "model": "M1_WEIBULL",
+      "expectation": "UNRESOLVED_OR_RULE_DISAGREEMENT_POSSIBLE",
+      "falsifier": "CRPS is not tail-dominated the way log score is, and is reported in seconds so it weights slow states more heavily. A CRPS ranking that AGREES with NLPD for every model would refute the expectation that the two rules can disagree here. A disagreement is a first-class result and is not resolved by preferring either rule.",
+      "rationale": "B2 measured weibull -3.0963 against mixture -3.0498 on held-out per-event log score. M3 wins by roughly 0.046 nats."
+    },
+    {
+      "cohort": "derived_eligible_1_to_8",
+      "cohortSize": "793 train / 233 holdout",
+      "scoringRule": "CRPS_seconds",
+      "model": "M2_LOGNORMAL",
+      "expectation": "UNRESOLVED_OR_RULE_DISAGREEMENT_POSSIBLE",
+      "falsifier": "CRPS is not tail-dominated the way log score is, and is reported in seconds so it weights slow states more heavily. A CRPS ranking that AGREES with NLPD for every model would refute the expectation that the two rules can disagree here. A disagreement is a first-class result and is not resolved by preferring either rule.",
+      "rationale": "THE ADVERSE RESULT. B2 measured lognormal -3.0129 against mixture -3.0498, a 0.0369 nat advantage to the lognormal, surviving independent rederivation and reproduced at 0.0387 on the wider cohort."
+    },
+    {
+      "cohort": "derived_eligible_1_to_8",
+      "cohortSize": "793 train / 233 holdout",
+      "scoringRule": "CRPS_seconds",
+      "model": "M3_TWO_TIMESCALE",
+      "expectation": "REFERENCE_MODEL",
+      "falsifier": "Not applicable. M3 is the reference against which the other eight are contrasted; a self-contrast is identically zero and carries no information. Recorded explicitly so the artifact covers all nine declared models rather than silently omitting one.",
+      "rationale": "B2 established that the committed M3 fit is numerically indistinguishable from the best located optimum over the declared search domain, |delta| 5.31e-10 nats. Contrasts against M3 are therefore not contrasts against a mis-fit model. That is the precondition B3 required."
+    },
+    {
+      "cohort": "derived_eligible_1_to_8",
+      "cohortSize": "793 train / 233 holdout",
+      "scoringRule": "CRPS_seconds",
+      "model": "M4_MIXTURE_K3",
+      "expectation": "UNRESOLVED_OR_RULE_DISAGREEMENT_POSSIBLE",
+      "falsifier": "CRPS is not tail-dominated the way log score is, and is reported in seconds so it weights slow states more heavily. A CRPS ranking that AGREES with NLPD for every model would refute the expectation that the two rules can disagree here. A disagreement is a first-class result and is not resolved by preferring either rule.",
+      "rationale": "M4 NESTS M3, so its training fit cannot be worse and its held-out score is a flexibility-versus-overfitting question that 233 holdout events may not resolve. Predicted to win on the point estimate with an interval containing zero. If M4 collapses onto M3 under the prespecified criteria, that is the informative outcome: it would mean the third component buys nothing."
+    },
+    {
+      "cohort": "derived_eligible_1_to_8",
+      "cohortSize": "793 train / 233 holdout",
+      "scoringRule": "CRPS_seconds",
+      "model": "M5_GAMMA",
+      "expectation": "UNRESOLVED_OR_RULE_DISAGREEMENT_POSSIBLE",
+      "falsifier": "CRPS is not tail-dominated the way log score is, and is reported in seconds so it weights slow states more heavily. A CRPS ranking that AGREES with NLPD for every model would refute the expectation that the two rules can disagree here. A disagreement is a first-class result and is not resolved by preferring either rule.",
+      "rationale": "A one-parameter mean-one family in the same regime as the Weibull, which M3 already beats. No mechanism is expected to make gamma succeed where Weibull failed."
+    },
+    {
+      "cohort": "derived_eligible_1_to_8",
+      "cohortSize": "793 train / 233 holdout",
+      "scoringRule": "CRPS_seconds",
+      "model": "M6_SEMI_MARKOV_STATE_DEPENDENT",
+      "expectation": "UNRESOLVED_OR_RULE_DISAGREEMENT_POSSIBLE",
+      "falsifier": "CRPS is not tail-dominated the way log score is, and is reported in seconds so it weights slow states more heavily. A CRPS ranking that AGREES with NLPD for every model would refute the expectation that the two rules can disagree here. A disagreement is a first-class result and is not resolved by preferring either rule.",
+      "rationale": "Relaxes the common-shape restriction that M1, M2 and M3 all share, spending 8 or 9 parameters instead of 1. Predicted to win on the point estimate with an interval containing zero. This is the cleanest test of whether a single common shape is an adequate restriction."
+    },
+    {
+      "cohort": "derived_eligible_1_to_8",
+      "cohortSize": "793 train / 233 holdout",
+      "scoringRule": "CRPS_seconds",
+      "model": "M7_HIERARCHICAL_MOTOR",
+      "expectation": "UNRESOLVED_OR_RULE_DISAGREEMENT_POSSIBLE",
+      "falsifier": "CRPS is not tail-dominated the way log score is, and is reported in seconds so it weights slow states more heavily. A CRPS ranking that AGREES with NLPD for every model would refute the expectation that the two rules can disagree here. A disagreement is a first-class result and is not resolved by preferring either rule.",
+      "rationale": "Its own specification predicts it will likely be declared UNIDENTIFIED, because tau is informed only by between-motor contrasts and there are 19 holdout motors. Even if identified, the per-event marginal score deliberately discards the within-motor dependence M7 exists to represent. A poor M7 score is therefore NOT evidence against motor heterogeneity, and must not be reported as such."
+    },
+    {
+      "cohort": "derived_eligible_1_to_8",
+      "cohortSize": "793 train / 233 holdout",
+      "scoringRule": "CRPS_seconds",
+      "model": "M8_EMPIRICAL_KDE",
+      "expectation": "UNRESOLVED_OR_RULE_DISAGREEMENT_POSSIBLE",
+      "falsifier": "CRPS is not tail-dominated the way log score is, and is reported in seconds so it weights slow states more heavily. A CRPS ranking that AGREES with NLPD for every model would refute the expectation that the two rules can disagree here. A disagreement is a first-class result and is not resolved by preferring either rule.",
+      "rationale": "A deliberately flexible non-mechanistic ceiling. Predicted to win on the point estimate under NLPD. If NO mechanistic model approaches it the mechanistic claims are weak; if M8 wins outright, predictive superiority is shown to be largely unrelated to mechanism."
+    },
+    {
+      "cohort": "primary_states_0_to_8",
+      "cohortSize": "818 train / 251 holdout",
+      "scoringRule": "NLPD_motor_equal",
+      "model": "M0_EXPONENTIAL",
+      "expectation": "DOES_NOT_BEAT_M3",
+      "falsifier": "A paired interval lying entirely above zero refutes this.",
+      "rationale": "M3 nests M0. B2 measured the M3-minus-M0 interval as [0.07073, 0.32474], entirely above zero. M0 is the memoryless baseline the whole experiment was built to reject."
+    },
+    {
+      "cohort": "primary_states_0_to_8",
+      "cohortSize": "818 train / 251 holdout",
+      "scoringRule": "NLPD_motor_equal",
+      "model": "M1_WEIBULL",
+      "expectation": "DOES_NOT_BEAT_M3",
+      "falsifier": "A paired interval lying entirely above zero refutes this.",
+      "rationale": "B2 measured weibull -3.0963 against mixture -3.0498 on held-out per-event log score. M3 wins by roughly 0.046 nats."
+    },
+    {
+      "cohort": "primary_states_0_to_8",
+      "cohortSize": "818 train / 251 holdout",
+      "scoringRule": "NLPD_motor_equal",
+      "model": "M2_LOGNORMAL",
+      "expectation": "BEATS_M3",
+      "falsifier": "A paired interval lying entirely below zero refutes this.",
+      "rationale": "THE ADVERSE RESULT. B2 measured lognormal -3.0129 against mixture -3.0498, a 0.0369 nat advantage to the lognormal, surviving independent rederivation and reproduced at 0.0387 on the wider cohort."
+    },
+    {
+      "cohort": "primary_states_0_to_8",
+      "cohortSize": "818 train / 251 holdout",
+      "scoringRule": "NLPD_motor_equal",
+      "model": "M3_TWO_TIMESCALE",
+      "expectation": "REFERENCE_MODEL",
+      "falsifier": "Not applicable. M3 is the reference against which the other eight are contrasted; a self-contrast is identically zero and carries no information. Recorded explicitly so the artifact covers all nine declared models rather than silently omitting one.",
+      "rationale": "B2 established that the committed M3 fit is numerically indistinguishable from the best located optimum over the declared search domain, |delta| 5.31e-10 nats. Contrasts against M3 are therefore not contrasts against a mis-fit model. That is the precondition B3 required."
+    },
+    {
+      "cohort": "primary_states_0_to_8",
+      "cohortSize": "818 train / 251 holdout",
+      "scoringRule": "NLPD_motor_equal",
+      "model": "M4_MIXTURE_K3",
+      "expectation": "POINT_ESTIMATE_BEATS_M3_INTERVAL_CONTAINS_ZERO",
+      "falsifier": "An interval excluding zero in either direction refutes this.",
+      "rationale": "M4 NESTS M3, so its training fit cannot be worse and its held-out score is a flexibility-versus-overfitting question that 233 holdout events may not resolve. Predicted to win on the point estimate with an interval containing zero. If M4 collapses onto M3 under the prespecified criteria, that is the informative outcome: it would mean the third component buys nothing."
+    },
+    {
+      "cohort": "primary_states_0_to_8",
+      "cohortSize": "818 train / 251 holdout",
+      "scoringRule": "NLPD_motor_equal",
+      "model": "M5_GAMMA",
+      "expectation": "DOES_NOT_BEAT_M3",
+      "falsifier": "A paired interval lying entirely above zero refutes this.",
+      "rationale": "A one-parameter mean-one family in the same regime as the Weibull, which M3 already beats. No mechanism is expected to make gamma succeed where Weibull failed."
+    },
+    {
+      "cohort": "primary_states_0_to_8",
+      "cohortSize": "818 train / 251 holdout",
+      "scoringRule": "NLPD_motor_equal",
+      "model": "M6_SEMI_MARKOV_STATE_DEPENDENT",
+      "expectation": "POINT_ESTIMATE_BEATS_M3_INTERVAL_CONTAINS_ZERO",
+      "falsifier": "An interval excluding zero in either direction refutes this.",
+      "rationale": "Relaxes the common-shape restriction that M1, M2 and M3 all share, spending 8 or 9 parameters instead of 1. Predicted to win on the point estimate with an interval containing zero. This is the cleanest test of whether a single common shape is an adequate restriction."
+    },
+    {
+      "cohort": "primary_states_0_to_8",
+      "cohortSize": "818 train / 251 holdout",
+      "scoringRule": "NLPD_motor_equal",
+      "model": "M7_HIERARCHICAL_MOTOR",
+      "expectation": "DOES_NOT_BEAT_M3",
+      "falsifier": "A paired interval lying entirely above zero refutes this.",
+      "rationale": "Its own specification predicts it will likely be declared UNIDENTIFIED, because tau is informed only by between-motor contrasts and there are 19 holdout motors. Even if identified, the per-event marginal score deliberately discards the within-motor dependence M7 exists to represent. A poor M7 score is therefore NOT evidence against motor heterogeneity, and must not be reported as such."
+    },
+    {
+      "cohort": "primary_states_0_to_8",
+      "cohortSize": "818 train / 251 holdout",
+      "scoringRule": "NLPD_motor_equal",
+      "model": "M8_EMPIRICAL_KDE",
+      "expectation": "BEATS_M3",
+      "falsifier": "A paired interval lying entirely below zero refutes this.",
+      "rationale": "A deliberately flexible non-mechanistic ceiling. Predicted to win on the point estimate under NLPD. If NO mechanistic model approaches it the mechanistic claims are weak; if M8 wins outright, predictive superiority is shown to be largely unrelated to mechanism."
+    },
+    {
+      "cohort": "primary_states_0_to_8",
+      "cohortSize": "818 train / 251 holdout",
+      "scoringRule": "CRPS_seconds",
+      "model": "M0_EXPONENTIAL",
+      "expectation": "UNRESOLVED_OR_RULE_DISAGREEMENT_POSSIBLE",
+      "falsifier": "CRPS is not tail-dominated the way log score is, and is reported in seconds so it weights slow states more heavily. A CRPS ranking that AGREES with NLPD for every model would refute the expectation that the two rules can disagree here. A disagreement is a first-class result and is not resolved by preferring either rule.",
+      "rationale": "M3 nests M0. B2 measured the M3-minus-M0 interval as [0.07073, 0.32474], entirely above zero. M0 is the memoryless baseline the whole experiment was built to reject."
+    },
+    {
+      "cohort": "primary_states_0_to_8",
+      "cohortSize": "818 train / 251 holdout",
+      "scoringRule": "CRPS_seconds",
+      "model": "M1_WEIBULL",
+      "expectation": "UNRESOLVED_OR_RULE_DISAGREEMENT_POSSIBLE",
+      "falsifier": "CRPS is not tail-dominated the way log score is, and is reported in seconds so it weights slow states more heavily. A CRPS ranking that AGREES with NLPD for every model would refute the expectation that the two rules can disagree here. A disagreement is a first-class result and is not resolved by preferring either rule.",
+      "rationale": "B2 measured weibull -3.0963 against mixture -3.0498 on held-out per-event log score. M3 wins by roughly 0.046 nats."
+    },
+    {
+      "cohort": "primary_states_0_to_8",
+      "cohortSize": "818 train / 251 holdout",
+      "scoringRule": "CRPS_seconds",
+      "model": "M2_LOGNORMAL",
+      "expectation": "UNRESOLVED_OR_RULE_DISAGREEMENT_POSSIBLE",
+      "falsifier": "CRPS is not tail-dominated the way log score is, and is reported in seconds so it weights slow states more heavily. A CRPS ranking that AGREES with NLPD for every model would refute the expectation that the two rules can disagree here. A disagreement is a first-class result and is not resolved by preferring either rule.",
+      "rationale": "THE ADVERSE RESULT. B2 measured lognormal -3.0129 against mixture -3.0498, a 0.0369 nat advantage to the lognormal, surviving independent rederivation and reproduced at 0.0387 on the wider cohort."
+    },
+    {
+      "cohort": "primary_states_0_to_8",
+      "cohortSize": "818 train / 251 holdout",
+      "scoringRule": "CRPS_seconds",
+      "model": "M3_TWO_TIMESCALE",
+      "expectation": "REFERENCE_MODEL",
+      "falsifier": "Not applicable. M3 is the reference against which the other eight are contrasted; a self-contrast is identically zero and carries no information. Recorded explicitly so the artifact covers all nine declared models rather than silently omitting one.",
+      "rationale": "B2 established that the committed M3 fit is numerically indistinguishable from the best located optimum over the declared search domain, |delta| 5.31e-10 nats. Contrasts against M3 are therefore not contrasts against a mis-fit model. That is the precondition B3 required."
+    },
+    {
+      "cohort": "primary_states_0_to_8",
+      "cohortSize": "818 train / 251 holdout",
+      "scoringRule": "CRPS_seconds",
+      "model": "M4_MIXTURE_K3",
+      "expectation": "UNRESOLVED_OR_RULE_DISAGREEMENT_POSSIBLE",
+      "falsifier": "CRPS is not tail-dominated the way log score is, and is reported in seconds so it weights slow states more heavily. A CRPS ranking that AGREES with NLPD for every model would refute the expectation that the two rules can disagree here. A disagreement is a first-class result and is not resolved by preferring either rule.",
+      "rationale": "M4 NESTS M3, so its training fit cannot be worse and its held-out score is a flexibility-versus-overfitting question that 233 holdout events may not resolve. Predicted to win on the point estimate with an interval containing zero. If M4 collapses onto M3 under the prespecified criteria, that is the informative outcome: it would mean the third component buys nothing."
+    },
+    {
+      "cohort": "primary_states_0_to_8",
+      "cohortSize": "818 train / 251 holdout",
+      "scoringRule": "CRPS_seconds",
+      "model": "M5_GAMMA",
+      "expectation": "UNRESOLVED_OR_RULE_DISAGREEMENT_POSSIBLE",
+      "falsifier": "CRPS is not tail-dominated the way log score is, and is reported in seconds so it weights slow states more heavily. A CRPS ranking that AGREES with NLPD for every model would refute the expectation that the two rules can disagree here. A disagreement is a first-class result and is not resolved by preferring either rule.",
+      "rationale": "A one-parameter mean-one family in the same regime as the Weibull, which M3 already beats. No mechanism is expected to make gamma succeed where Weibull failed."
+    },
+    {
+      "cohort": "primary_states_0_to_8",
+      "cohortSize": "818 train / 251 holdout",
+      "scoringRule": "CRPS_seconds",
+      "model": "M6_SEMI_MARKOV_STATE_DEPENDENT",
+      "expectation": "UNRESOLVED_OR_RULE_DISAGREEMENT_POSSIBLE",
+      "falsifier": "CRPS is not tail-dominated the way log score is, and is reported in seconds so it weights slow states more heavily. A CRPS ranking that AGREES with NLPD for every model would refute the expectation that the two rules can disagree here. A disagreement is a first-class result and is not resolved by preferring either rule.",
+      "rationale": "Relaxes the common-shape restriction that M1, M2 and M3 all share, spending 8 or 9 parameters instead of 1. Predicted to win on the point estimate with an interval containing zero. This is the cleanest test of whether a single common shape is an adequate restriction."
+    },
+    {
+      "cohort": "primary_states_0_to_8",
+      "cohortSize": "818 train / 251 holdout",
+      "scoringRule": "CRPS_seconds",
+      "model": "M7_HIERARCHICAL_MOTOR",
+      "expectation": "UNRESOLVED_OR_RULE_DISAGREEMENT_POSSIBLE",
+      "falsifier": "CRPS is not tail-dominated the way log score is, and is reported in seconds so it weights slow states more heavily. A CRPS ranking that AGREES with NLPD for every model would refute the expectation that the two rules can disagree here. A disagreement is a first-class result and is not resolved by preferring either rule.",
+      "rationale": "Its own specification predicts it will likely be declared UNIDENTIFIED, because tau is informed only by between-motor contrasts and there are 19 holdout motors. Even if identified, the per-event marginal score deliberately discards the within-motor dependence M7 exists to represent. A poor M7 score is therefore NOT evidence against motor heterogeneity, and must not be reported as such."
+    },
+    {
+      "cohort": "primary_states_0_to_8",
+      "cohortSize": "818 train / 251 holdout",
+      "scoringRule": "CRPS_seconds",
+      "model": "M8_EMPIRICAL_KDE",
+      "expectation": "UNRESOLVED_OR_RULE_DISAGREEMENT_POSSIBLE",
+      "falsifier": "CRPS is not tail-dominated the way log score is, and is reported in seconds so it weights slow states more heavily. A CRPS ranking that AGREES with NLPD for every model would refute the expectation that the two rules can disagree here. A disagreement is a first-class result and is not resolved by preferring either rule.",
+      "rationale": "A deliberately flexible non-mechanistic ceiling. Predicted to win on the point estimate under NLPD. If NO mechanistic model approaches it the mechanistic claims are weak; if M8 wins outright, predictive superiority is shown to be largely unrelated to mechanism."
+    }
+  ],
+  "modelCount": 9,
+  "scoringRules": 2,
+  "cohorts": 2,
+  "countReconciliation": "9 models x 2 scoring rules x 2 cohorts = 36 rows. Four of those are M3 self-reference rows, carried explicitly rather than omitted, leaving 32 substantive contrasts."
+}

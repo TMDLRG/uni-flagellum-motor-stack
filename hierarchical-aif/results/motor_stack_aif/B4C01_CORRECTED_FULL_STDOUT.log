@@ -1,0 +1,113 @@
+B4C01 CORRECTED FULL RUN  n_sims=200 per generator x 5 generators = 1000 total
+out=C:\Users\mpolz\Documents\UNI-Flagellum\UNI-FLAGELLUM\hierarchical-aif\results\motor_stack_aif\B4C01_CORRECTED_FULL_RESULT.json
+progress=C:\Users\mpolz\Documents\UNI-Flagellum\UNI-FLAGELLUM\hierarchical-aif\results\motor_stack_aif\B4C01_CORRECTED_FULL_PROGRESS.json
+  [M0_EXPONENTIAL] 10/200  elapsed 564s  eta 10725s  self_wins=3 fail=0
+  [M0_EXPONENTIAL] 20/200  elapsed 1004s  eta 9032s  self_wins=6 fail=0
+  [M0_EXPONENTIAL] 30/200  elapsed 1499s  eta 8495s  self_wins=9 fail=0
+  [M0_EXPONENTIAL] 40/200  elapsed 2104s  eta 8417s  self_wins=10 fail=0
+  [M0_EXPONENTIAL] 50/200  elapsed 2677s  eta 8030s  self_wins=11 fail=0
+  [M0_EXPONENTIAL] 60/200  elapsed 3177s  eta 7413s  self_wins=15 fail=0
+  [M0_EXPONENTIAL] 70/200  elapsed 3591s  eta 6670s  self_wins=19 fail=0
+  [M0_EXPONENTIAL] 80/200  elapsed 4023s  eta 6034s  self_wins=22 fail=0
+  [M0_EXPONENTIAL] 90/200  elapsed 4430s  eta 5414s  self_wins=24 fail=0
+  [M0_EXPONENTIAL] 100/200  elapsed 4834s  eta 4834s  self_wins=28 fail=0
+  [M0_EXPONENTIAL] 110/200  elapsed 5343s  eta 4372s  self_wins=31 fail=0
+  [M0_EXPONENTIAL] 120/200  elapsed 5876s  eta 3917s  self_wins=36 fail=0
+  [M0_EXPONENTIAL] 130/200  elapsed 6429s  eta 3462s  self_wins=38 fail=0
+  [M0_EXPONENTIAL] 140/200  elapsed 6944s  eta 2976s  self_wins=40 fail=0
+  [M0_EXPONENTIAL] 150/200  elapsed 7446s  eta 2482s  self_wins=43 fail=0
+  [M0_EXPONENTIAL] 160/200  elapsed 7950s  eta 1988s  self_wins=44 fail=0
+  [M0_EXPONENTIAL] 170/200  elapsed 8443s  eta 1490s  self_wins=48 fail=0
+  [M0_EXPONENTIAL] 180/200  elapsed 8944s  eta 994s  self_wins=52 fail=0
+  [M0_EXPONENTIAL] 190/200  elapsed 9450s  eta 497s  self_wins=54 fail=0
+  [M0_EXPONENTIAL] 200/200  elapsed 9957s  eta 0s  self_wins=58 fail=0
+[M0_EXPONENTIAL] DONE self_win 58/200 frac=0.2900  withinTolerance=n/a  fail=0
+  [M1_WEIBULL] 10/200  elapsed 558s  eta 10607s  self_wins=6 fail=0
+  [M1_WEIBULL] 20/200  elapsed 1119s  eta 10068s  self_wins=9 fail=0
+  [M1_WEIBULL] 30/200  elapsed 1681s  eta 9523s  self_wins=13 fail=0
+  [M1_WEIBULL] 40/200  elapsed 2248s  eta 8992s  self_wins=19 fail=0
+  [M1_WEIBULL] 50/200  elapsed 2807s  eta 8422s  self_wins=24 fail=0
+  [M1_WEIBULL] 60/200  elapsed 3362s  eta 7845s  self_wins=32 fail=0
+  [M1_WEIBULL] 70/200  elapsed 3973s  eta 7379s  self_wins=38 fail=0
+  [M1_WEIBULL] 80/200  elapsed 4625s  eta 6938s  self_wins=45 fail=0
+  [M1_WEIBULL] 90/200  elapsed 5278s  eta 6451s  self_wins=53 fail=0
+  [M1_WEIBULL] 100/200  elapsed 5932s  eta 5932s  self_wins=59 fail=0
+  [M1_WEIBULL] 110/200  elapsed 6580s  eta 5384s  self_wins=64 fail=0
+  [M1_WEIBULL] 120/200  elapsed 7232s  eta 4821s  self_wins=71 fail=0
+  [M1_WEIBULL] 130/200  elapsed 7881s  eta 4244s  self_wins=76 fail=0
+  [M1_WEIBULL] 140/200  elapsed 8527s  eta 3654s  self_wins=82 fail=0
+  [M1_WEIBULL] 150/200  elapsed 9187s  eta 3062s  self_wins=89 fail=0
+  [M1_WEIBULL] 160/200  elapsed 9850s  eta 2463s  self_wins=95 fail=0
+  [M1_WEIBULL] 170/200  elapsed 10514s  eta 1855s  self_wins=103 fail=0
+  [M1_WEIBULL] 180/200  elapsed 11167s  eta 1241s  self_wins=108 fail=0
+  [M1_WEIBULL] 190/200  elapsed 11803s  eta 621s  self_wins=111 fail=0
+  [M1_WEIBULL] 200/200  elapsed 12335s  eta 0s  self_wins=118 fail=0
+[M1_WEIBULL] DONE self_win 118/200 frac=0.5900  withinTolerance=True  fail=0
+  [M2_LOGNORMAL] 10/200  elapsed 495s  eta 9406s  self_wins=7 fail=0
+  [M2_LOGNORMAL] 20/200  elapsed 1058s  eta 9521s  self_wins=14 fail=0
+  [M2_LOGNORMAL] 30/200  elapsed 1739s  eta 9856s  self_wins=24 fail=0
+  [M2_LOGNORMAL] 40/200  elapsed 2396s  eta 9586s  self_wins=34 fail=0
+  [M2_LOGNORMAL] 50/200  elapsed 3062s  eta 9185s  self_wins=43 fail=0
+  [M2_LOGNORMAL] 60/200  elapsed 3724s  eta 8689s  self_wins=53 fail=0
+  [M2_LOGNORMAL] 70/200  elapsed 4393s  eta 8158s  self_wins=63 fail=0
+  [M2_LOGNORMAL] 80/200  elapsed 5037s  eta 7556s  self_wins=73 fail=0
+  [M2_LOGNORMAL] 90/200  elapsed 5673s  eta 6934s  self_wins=82 fail=0
+  [M2_LOGNORMAL] 100/200  elapsed 6311s  eta 6311s  self_wins=92 fail=0
+  [M2_LOGNORMAL] 110/200  elapsed 6959s  eta 5694s  self_wins=100 fail=0
+  [M2_LOGNORMAL] 120/200  elapsed 7588s  eta 5059s  self_wins=109 fail=0
+  [M2_LOGNORMAL] 130/200  elapsed 8228s  eta 4430s  self_wins=118 fail=0
+  [M2_LOGNORMAL] 140/200  elapsed 8870s  eta 3801s  self_wins=126 fail=0
+  [M2_LOGNORMAL] 150/200  elapsed 9510s  eta 3170s  self_wins=134 fail=0
+  [M2_LOGNORMAL] 160/200  elapsed 10152s  eta 2538s  self_wins=143 fail=0
+  [M2_LOGNORMAL] 170/200  elapsed 10786s  eta 1903s  self_wins=153 fail=0
+  [M2_LOGNORMAL] 180/200  elapsed 11431s  eta 1270s  self_wins=160 fail=0
+  [M2_LOGNORMAL] 190/200  elapsed 12072s  eta 635s  self_wins=169 fail=0
+  [M2_LOGNORMAL] 200/200  elapsed 12708s  eta 0s  self_wins=177 fail=0
+[M2_LOGNORMAL] DONE self_win 177/200 frac=0.8850  withinTolerance=True  fail=0
+  [M3_TWO_TIMESCALE] 10/200  elapsed 652s  eta 12383s  self_wins=7 fail=0
+  [M3_TWO_TIMESCALE] 20/200  elapsed 1303s  eta 11729s  self_wins=17 fail=0
+  [M3_TWO_TIMESCALE] 30/200  elapsed 1882s  eta 10662s  self_wins=26 fail=0
+  [M3_TWO_TIMESCALE] 40/200  elapsed 2371s  eta 9486s  self_wins=36 fail=0
+  [M3_TWO_TIMESCALE] 50/200  elapsed 2860s  eta 8579s  self_wins=45 fail=0
+  [M3_TWO_TIMESCALE] 60/200  elapsed 3344s  eta 7804s  self_wins=55 fail=0
+  [M3_TWO_TIMESCALE] 70/200  elapsed 3789s  eta 7036s  self_wins=65 fail=0
+  [M3_TWO_TIMESCALE] 80/200  elapsed 4434s  eta 6650s  self_wins=75 fail=0
+  [M3_TWO_TIMESCALE] 90/200  elapsed 5116s  eta 6253s  self_wins=84 fail=0
+  [M3_TWO_TIMESCALE] 100/200  elapsed 5792s  eta 5792s  self_wins=93 fail=0
+  [M3_TWO_TIMESCALE] 110/200  elapsed 6472s  eta 5295s  self_wins=101 fail=0
+  [M3_TWO_TIMESCALE] 120/200  elapsed 7160s  eta 4773s  self_wins=110 fail=0
+  [M3_TWO_TIMESCALE] 130/200  elapsed 7818s  eta 4210s  self_wins=120 fail=0
+  [M3_TWO_TIMESCALE] 140/200  elapsed 8449s  eta 3621s  self_wins=130 fail=0
+  [M3_TWO_TIMESCALE] 150/200  elapsed 9084s  eta 3028s  self_wins=140 fail=0
+  [M3_TWO_TIMESCALE] 160/200  elapsed 9745s  eta 2436s  self_wins=150 fail=0
+  [M3_TWO_TIMESCALE] 170/200  elapsed 10413s  eta 1838s  self_wins=160 fail=0
+  [M3_TWO_TIMESCALE] 180/200  elapsed 11066s  eta 1230s  self_wins=169 fail=0
+  [M3_TWO_TIMESCALE] 190/200  elapsed 11718s  eta 617s  self_wins=178 fail=0
+  [M3_TWO_TIMESCALE] 200/200  elapsed 12388s  eta 0s  self_wins=187 fail=0
+[M3_TWO_TIMESCALE] DONE self_win 187/200 frac=0.9350  withinTolerance=True  fail=0
+  [M5_GAMMA] 10/200  elapsed 662s  eta 12587s  self_wins=5 fail=0
+  [M5_GAMMA] 20/200  elapsed 1325s  eta 11927s  self_wins=12 fail=0
+  [M5_GAMMA] 30/200  elapsed 1976s  eta 11197s  self_wins=17 fail=0
+  [M5_GAMMA] 40/200  elapsed 2642s  eta 10568s  self_wins=26 fail=0
+  [M5_GAMMA] 50/200  elapsed 3326s  eta 9979s  self_wins=33 fail=0
+  [M5_GAMMA] 60/200  elapsed 4004s  eta 9342s  self_wins=39 fail=0
+  [M5_GAMMA] 70/200  elapsed 4671s  eta 8675s  self_wins=47 fail=0
+  [M5_GAMMA] 80/200  elapsed 5345s  eta 8018s  self_wins=53 fail=0
+  [M5_GAMMA] 90/200  elapsed 6023s  eta 7361s  self_wins=61 fail=0
+  [M5_GAMMA] 100/200  elapsed 6700s  eta 6700s  self_wins=65 fail=0
+  [M5_GAMMA] 110/200  elapsed 7374s  eta 6033s  self_wins=72 fail=0
+  [M5_GAMMA] 120/200  elapsed 8048s  eta 5365s  self_wins=78 fail=0
+  [M5_GAMMA] 130/200  elapsed 8708s  eta 4689s  self_wins=84 fail=0
+  [M5_GAMMA] 140/200  elapsed 9343s  eta 4004s  self_wins=92 fail=0
+  [M5_GAMMA] 150/200  elapsed 9988s  eta 3329s  self_wins=98 fail=0
+  [M5_GAMMA] 160/200  elapsed 10646s  eta 2662s  self_wins=105 fail=0
+  [M5_GAMMA] 170/200  elapsed 11305s  eta 1995s  self_wins=111 fail=0
+  [M5_GAMMA] 180/200  elapsed 11935s  eta 1326s  self_wins=121 fail=0
+  [M5_GAMMA] 190/200  elapsed 12555s  eta 661s  self_wins=126 fail=0
+  [M5_GAMMA] 200/200  elapsed 13189s  eta 0s  self_wins=134 fail=0
+[M5_GAMMA] DONE self_win 134/200 frac=0.6700  withinTolerance=True  fail=0
+
+WROTE C:\Users\mpolz\Documents\UNI-Flagellum\UNI-FLAGELLUM\hierarchical-aif\results\motor_stack_aif\B4C01_CORRECTED_FULL_RESULT.json
+sha256=8256cb120376f46bf00b537d2ad665f9d50335e3eed3727a1299129195dfb65b
+verdict=NOT_ESTABLISHED  runStatus=ELIGIBLE_FOR_FROZEN_VERDICT  outcome=REFUTED  failing=['M0_EXPONENTIAL:self_win']
+totalRuntimeS=60577.5  secondsPerSim=60.58

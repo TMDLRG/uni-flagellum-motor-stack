@@ -1,0 +1,9 @@
+{
+  "id": "D1A04_HIDDEN_METHYLATION_LEAKS_UNDER_DIFFERENT_NAME",
+  "class": "ALTERNATE_FORM",
+  "propertyId": "D1P04_HIDDEN_WORLD_OBSERVATION_BOUNDARY",
+  "targetPath": "lib/uni-motor.js",
+  "preMutationSha256": "852b38d14e1de9e1baae9bda7c37fb2426911fb1b04b4f594d026373d4b50313",
+  "postMutationSha256": "16e6a6f18215645e3c9fa0add9077f886562ec38ce1b68de08d955a03468e553",
+  "diff": "diff --git a/lib/uni-motor.js b/lib/uni-motor.js\nindex 6f206b6..11e6dfd 100644\n--- a/lib/uni-motor.js\n+++ b/lib/uni-motor.js\n@@ -213,6 +213,7 @@ export function observeWorld(world, controls, receivedAtMs) {\n     rotation: world.rotation,\n     loadPnNm: controls.loadPnNm,\n     pmfMv: controls.pmfMv,\n+    methylationLevel: world.methylation,\n   };\n }\n \n"
+}

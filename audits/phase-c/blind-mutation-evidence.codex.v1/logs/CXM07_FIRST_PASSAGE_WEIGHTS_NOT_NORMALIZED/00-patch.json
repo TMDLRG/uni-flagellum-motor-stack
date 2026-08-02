@@ -1,0 +1,7 @@
+{
+  "id": "CXM07_FIRST_PASSAGE_WEIGHTS_NOT_NORMALIZED",
+  "targetPath": "lib/source-first-passage.js",
+  "preMutationSha256": "c66cf5ff048f5eb1e85c7b3148a002002636df14c5e96dda7eb840366a2ff6d8",
+  "postMutationSha256": "73ecc7b4c0b80ec98fa92fdaa52f4ddaf4b636b6cd6716307c74341ca5aed2cb",
+  "diff": "diff --git a/lib/source-first-passage.js b/lib/source-first-passage.js\nindex 36e624d..d426367 100644\n--- a/lib/source-first-passage.js\n+++ b/lib/source-first-passage.js\n@@ -13,7 +13,7 @@ export function sourceCoefficients(stateN, c1, c2, c3, codeN0Branch = false) {\n     const next = Array(coefficients.length + 1).fill(0);\n     coefficients.forEach((value, index) => {\n       next[index] += value * (1 - c);\n-      next[index + 1] += value * c;\n+      next[index + 1] += value * (1 - c);\n     });\n     coefficients = next;\n   }\n"
+}

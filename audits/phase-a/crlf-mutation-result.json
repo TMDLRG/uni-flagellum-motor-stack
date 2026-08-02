@@ -1,0 +1,46 @@
+{
+  "schema": "uni.flagellum.audit-artifact/1.0.0",
+  "purpose": "Evidence that running the observed-experiment generator corrupts a hash-pinned evidence artifact, and that git's normalized content view does not reveal it.",
+  "auditedCommit": "9c3a644e4b57e8ac27f925dcec84222463063aa1",
+  "auditPhase": "A",
+  "auditorModel": "claude-opus-4-8 (Phase A execution), claude-fable-5 (packaging)",
+  "operatingSystem": "Microsoft Windows 11 Pro 10.0.26200 build 26200 (x64)",
+  "cpu": "Intel Core i7-10700T @ 2.00GHz, 8 cores / 16 threads",
+  "ramGB": 63.71,
+  "appendOnly": true,
+  "note": "Timestamps are deliberately omitted: this package must be byte-reproducible. Ordering is established by git history.",
+  "finding": "HIGH",
+  "mechanism": "scripts/run-observed-experiments.mjs:35 performs fs.copyFileSync(datasetPath, publicEventsPath) across a .gitattributes eol boundary. .gitattributes:3 pins experiments/data/wadhwa-2022-events.json to eol=crlf; public/wadhwa-2022-derived-events.json is governed by the global eol=lf rule. Both resolve to ONE identical LF blob in the index.",
+  "currentPrimaryState": {
+    "experiments/data/wadhwa-2022-events.json": {
+      "bytes": 508103,
+      "sha256": "32ec7ebf45bf7776ebef239351d2304cc3cead6d1be7749a2478e44a323f25db"
+    },
+    "public/wadhwa-2022-derived-events.json": {
+      "bytes": 487890,
+      "sha256": "d119ca603621900aa4a076b110a1f43c6f01482ce891be2812634f71f597e353"
+    }
+  },
+  "prediction": "Running the three generators changes EXACTLY ONE tracked file on disk: public/wadhwa-2022-derived-events.json, 487890 -> 508103 bytes, sha256 d119ca60... -> 32ec7ebf...",
+  "observed": "CONFIRMED EXACTLY. One file changed; +20213 CR bytes; raw blob 95ad0597... -> cc7e3064...",
+  "instrumentBehaviour": {
+    "git status --porcelain": " M public/wadhwa-2022-derived-events.json  (DOES report the change)",
+    "git diff --numstat": "0 lines (does NOT report the change)",
+    "git diff --stat": "empty",
+    "git hash-object (with filters)": "95ad0597e455aab81dfd38428c12906a458b8a87 == index blob",
+    "git hash-object --no-filters": "cc7e30642b8f532285a4f934361dd679006c733a != index blob",
+    "consequence": "The corruption cannot be committed, because the normalized blob is unchanged. But the on-disk bytes served to the browser and hashed by the manifest tests ARE corrupted."
+  },
+  "correctionToEarlierProse": "An earlier statement that 'git reports a clean tree' is WRONG and is retracted. git status DOES see the working-tree change. It is the normalized git diff that does not.",
+  "detector": {
+    "file": "tests/walkthrough.test.mjs",
+    "line": 58,
+    "result": "FAILS correctly",
+    "assertion": "WADHWA_2022_EVENTS hash: actual 32ec7ebf... expected d119ca60...",
+    "exitCode": 1
+  },
+  "remediationNote": "A failing test for this defect ALREADY EXISTS. The correct write pattern already exists in-repo at scripts/run-science-gates.py:590 (write_text(..., newline='\\n')).",
+  "uncertainty": "Only core.autocrlf=true was exercised (the audit host default). Behaviour under false and input is UNTESTED and is specified in red test C3.",
+  "alternativeExplanation": "None: the byte delta equals the CR count exactly (508103 - 487890 = 20213).",
+  "independentlyReproduced": "Reproduced twice within this audit (generator run, and direct copy reproduction)."
+}

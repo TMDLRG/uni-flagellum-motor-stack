@@ -1,0 +1,334 @@
+{
+  "schema": "uni.flagellum.audit-artifact/1.0.0",
+  "purpose": "Frozen B3 component specification, written before execution. Derived independently from the frozen protocol prose by a specialist with no access to sibling specifications.",
+  "auditedCommit": "9c3a644e4b57e8ac27f925dcec84222463063aa1",
+  "auditPhase": "B",
+  "component": "B3-SCORING-UNCERTAINTY-v1",
+  "appendOnly": true,
+  "frozenBeforeExecution": true,
+  "summary": "This component fixes the model-agnostic scoring and uncertainty machinery for the B3 dwell-time model competition: two co-primary strictly proper scoring rules (negative log predictive density and CRPS), a motor-level aggregation that refuses to pseudoreplicate events, a motor-cluster nonparametric bootstrap over the 19 holdout motors, and a pre-committed rule for what happens when the two rules disagree. The hardest specification decision was the CRPS scale. CRPS is not invariant under change of variables, but the B3 normalization y = t / scale_N is a per-state positive linear rescaling, which means CRPS transforms by the exact identity CRPS_seconds = scale_N * CRPS_y. That turns a genuine ambiguity into a computation choice: CRPS is always computed in y-space (one fixed quadrature split point valid for every state and every model) and converted to seconds by multiplying by scale_N, because seconds is the scale on which the log score is reported and the scale on which a dwell-time predictor's error is decision-relevant. The consequence is stated honestly rather than hidden: NLPD paired differences are invariant to this choice (the log-Jacobian is model-independent and cancels), CRPS paired differences are NOT — seconds-scale CRPS weights slow states more heavily — so the normalized-scale CRPS ranking is a mandatory secondary report and a seconds-vs-normalized ranking flip is itself a first-class reported disagreement. The second hardest decision was frozen-fit versus refit bootstrap: because the resampling unit is drawn from the holdout partition, refitting inside a replicate would train on holdout data, so frozen training fits are the only coherent choice, and the resulting exclusion of parameter-estimation uncertainty is declared as a limitation rather than papered over.",
+  "specification": {
+    "componentId": "B3-SCORING-UNCERTAINTY-v1",
+    "status": "FROZEN SPECIFICATION - no element is selectable after seeing any result",
+    "appliesTo": [
+      "M0 exponential",
+      "M1 Weibull",
+      "M2 lognormal",
+      "M3 two-timescale mixture",
+      "every future competitor admitted to B3"
+    ],
+    "environment": {
+      "python": "3.12",
+      "numpy": "2.3.5",
+      "scipy": "1.16.3",
+      "dtype": "numpy.float64 everywhere; no float32, no longdouble",
+      "seed": 20260717,
+      "threading": "All reductions are performed by explicit numpy.mean / numpy.sum over arrays in a deterministic, specified order. No parallel reduction, no math.fsum, no pairwise-vs-naive ambiguity is permitted to vary between implementations: every mean is numpy.mean on a contiguous float64 1-D array constructed in the ordering named at its point of use."
+    },
+    "0_scope_restatement": {
+      "eligibleEvents": "Only rightCensored == false events with stateN in 1..8 enter any likelihood or any score. 793 uncensored training events; 233 uncensored holdout events across 19 holdout motors.",
+      "experimentalUnit": "MOTOR. Never the event, never the frame, never the dwell.",
+      "scaleN": "scale_N = mean(durationS) over UNCENSORED TRAINING events with that stateN. Computed once, before any fitting, from the training partition only. Frozen thereafter and reused verbatim for holdout scoring.",
+      "normalization": "y = durationS / scale_N",
+      "holdoutStateCoverageAssertion": "Before any fitting: assert that every stateN appearing among the 233 uncensored holdout events also appears among the 793 uncensored training events, so scale_N is defined for it. If this assertion fails the run HALTS with status BLOCKED-SCALE-UNDEFINED. Excluding such holdout events after the fact is forbidden; the only permitted response is a recorded preregistration amendment with the pre-amendment evidence preserved."
+    },
+    "1_scoring_rules": {
+      "co_primary": "There are exactly two co-primary scoring rules. Neither is subordinate to the other. No third rule may be introduced at any point in B3, and in particular not after a disagreement is observed.",
+      "rule_NLPD": {
+        "name": "Negative log predictive density (logarithmic score), seconds scale",
+        "orientation": "lower is better",
+        "units": "nats per event, with an additive units-of-log-seconds offset",
+        "perEventFormula": "nlpd_sec(event) = -( logDensityNormalized(y) - log(scale_N) ) = -logDensityNormalized(y) + log(scale_N)",
+        "where": "y = durationS / scale_N for that event's stateN; logDensityNormalized is the fitted competitor's log density on y-space evaluated at the frozen training-fit parameters",
+        "nonFiniteHandling": "If nlpd_sec is non-finite (density exactly zero, negative, NaN, or infinite) for ANY eligible holdout event under ANY competitor, the run HALTS with status FAILED-NONFINITE-LOGSCORE and reports the offending (model, motorId, stateN, durationS). Flooring, clipping, winsorizing, epsilon-adding, or dropping the event is FORBIDDEN.",
+        "scaleInvarianceNote": "NLPD_seconds = NLPD_normalized + mean(log scale_N) over the scored events. The offset is identical for every competitor, therefore every PAIRED NLPD difference is exactly invariant to the seconds-vs-normalized choice. This is stated so that the asymmetry with CRPS (which is NOT invariant) is explicit."
+      },
+      "rule_CRPS": {
+        "name": "Continuous Ranked Probability Score, seconds scale (primary) with normalized scale (mandatory secondary)",
+        "orientation": "lower is better",
+        "definition": "CRPS(F,t) = integral over [0, inf) of (F(x) - 1{x >= t})^2 dx",
+        "units_primary": "seconds",
+        "scaleDecision": {
+          "computedIn": "normalized y-space, always",
+          "reportedIn": "seconds (primary) AND normalized (mandatory secondary)",
+          "exactIdentity": "Because y = t / scale_N is a strictly increasing linear map with a constant positive factor within a stateN, CRPS transforms exactly: CRPS_seconds(F_t, t) = scale_N * CRPS_y(F_y, y). There is no approximation and no information loss in this conversion.",
+          "perEventConversion": "crps_sec(event) = scale_N * crps_y(event)",
+          "justification": [
+            "The log score is reported on the seconds scale; reporting CRPS on the seconds scale keeps both co-primary rules on one common, physically interpretable scale, as required.",
+            "Seconds is the decision-relevant scale for a dwell-time predictor: a predictor is used to say how long a motor will remain in state N, and error is felt in seconds.",
+            "Computing in y-space rather than seconds-space means ONE fixed quadrature split point U is valid for every stateN and every competitor simultaneously, which is what makes U model-independent as required. Computing directly in seconds would force either a per-state or a per-model bound.",
+            "The substantive cost is declared, not hidden: seconds-scale CRPS weights each event by scale_N, so states with long mean dwells dominate the CRPS comparison. The normalized-scale CRPS is therefore computed and reported for every competitor as a mandatory secondary. If the seconds-scale CRPS ranking and the normalized-scale CRPS ranking of any pair of competitors disagree in direction with both 95% intervals excluding zero, that disagreement is reported as a first-class result under section 5 and no winner is declared for that pair on CRPS."
+          ]
+        }
+      }
+    },
+    "2_aggregation": {
+      "principle": "The experimental unit is the motor. Event-pooled means are pseudoreplicated and may never be the headline number.",
+      "perMotor": "For scoring rule r and competitor M, for holdout motor i with n_i eligible events: m_i(r,M) = numpy.mean over that motor's per-event scores, events ordered by ascending durationS then ascending stateN then original row index (fully deterministic tie-break).",
+      "headline": "S(r,M) = numpy.mean over the 19 per-motor values m_i(r,M), motors ordered by ascending motorId under Python's default str comparison (Unicode code-point ordering) on the exact motorId strings.",
+      "weighting": "Unweighted across motors. A motor contributes equally regardless of n_i. This is the pre-declared choice; n_i-weighted means are FORBIDDEN as a headline and may not be substituted later.",
+      "secondary": "The event-pooled mean over all 233 events is computed and reported, labelled explicitly 'PSEUDOREPLICATED - DIAGNOSTIC ONLY, NOT A COMPETITION SCORE'.",
+      "assertion": "Assert n_i >= 1 for all 19 holdout motors before scoring. If any n_i == 0 the run HALTS with status FAILED-EMPTY-MOTOR."
+    },
+    "3_crps_computation": {
+      "3a_quadrature": {
+        "engine": "scipy.integrate.quad (adaptive Gauss-Kronrod, QAGS on finite intervals, QAGI on the semi-infinite interval). Deterministic; no stochastic or Monte Carlo integration is permitted anywhere in CRPS.",
+        "splitPoint": {
+          "symbol": "U",
+          "value": 50,
+          "space": "normalized y-space, dimensionless",
+          "fixedInAdvance": true,
+          "modelIndependent": true,
+          "selection": "U = 50.0 is declared here, before any fit, and applies identically to every competitor, every stateN, and every event. It may not be changed after any result is seen.",
+          "whyThisIsNotATruncationLoss": "The interval [U, inf) is NOT discarded. It is integrated to the exact limit by scipy.integrate.quad with upper bound numpy.inf (QAGI transformation). U is therefore a SPLIT POINT that separates a region where the integrand has a kink from a smooth decaying tail, not a truncation. The value of CRPS is mathematically independent of U.",
+          "mandatoryInvarianceTest": "For a fixed deterministic checkpoint set (defined in 3d), recompute every checkpoint CRPS with U = 20.0 and with U = 200.0. Require max absolute deviation from the U = 50.0 result <= 1.0e-8. If this test fails the run HALTS with status FAILED-CRPS-U-INVARIANCE.",
+          "sanityAssertion": "Before any fitting, compute ymax = max(y) over ALL eligible (training + holdout) uncensored events. Record ymax. If ymax >= 50.0 the run HALTS with status BLOCKED-U-TOO-SMALL; U is NOT silently enlarged. The only permitted response is a recorded preregistration amendment. Note the formula in 3b remains mathematically correct even when y > U, so this assertion is a discipline guard against post-hoc bound tuning, not a correctness requirement."
+        },
+        "tolerances": {
+          "epsabs": 1e-11,
+          "epsrel": 1e-11,
+          "limit": 500,
+          "points": null,
+          "full_output": 0
+        },
+        "errorBudget": "Let abserr_A, abserr_B, abserr_C be the three quad error estimates for one event. Require abserr_A + abserr_B + abserr_C <= 1.0e-8. If exceeded for any event, the run HALTS with status FAILED-CRPS-QUADRATURE and reports (model, motorId, stateN, durationS, the three error estimates). Silent acceptance, retry with looser tolerance, or fallback to a different integrator is FORBIDDEN.",
+        "warningPolicy": "scipy IntegrationWarning is escalated to an exception via warnings.simplefilter('error', scipy.integrate.IntegrationWarning) for the duration of CRPS evaluation. A raised IntegrationWarning HALTS the run."
+      },
+      "3b_exactDecomposition": {
+        "inputs": "F = fitted competitor's CDF on y-space at frozen training-fit parameters; yobs = the event's normalized duration",
+        "L": "L = max(U, yobs)",
+        "termA": "A = quad(lambda x: F(x)**2, 0.0, yobs, epsabs=1e-11, epsrel=1e-11, limit=500)[0]",
+        "termB": "B = quad(lambda x: (1.0 - F(x))**2, yobs, L, epsabs=1e-11, epsrel=1e-11, limit=500)[0]   # exactly 0.0, with abserr 0.0, when yobs >= U so that L == yobs; in that case the quad call is skipped and B := 0.0",
+        "termC": "C = quad(lambda x: (1.0 - F(x))**2, L, numpy.inf, epsabs=1e-11, epsrel=1e-11, limit=500)[0]",
+        "total": "crps_y = A + B + C",
+        "whySplitAtYobs": "The integrand (F(x) - 1{x >= yobs})^2 has a jump discontinuity in the indicator at x = yobs. Splitting there makes both pieces C-infinity smooth on their intervals wherever F is, which is what allows the stated 1e-11 tolerances to be met with a fixed subdivision limit.",
+        "tailHandlingStatement": "Beyond L the integrand is exactly (1 - F(x))^2 = S(x)^2 because the indicator is identically 1 there (L >= yobs by construction). This tail is integrated to infinity by QAGI. No tail mass is dropped, no asymptotic approximation is substituted, and no zero-tail assumption is made."
+      },
+      "3c_closedForms": {
+        "policy": "Closed forms are MANDATORY where specified below and are the authoritative value used in the reported score. Exactly two competitors have a mandated closed form: M0 and M2. M1 and M3 use the quadrature route of 3b and only the quadrature route. No implementer may substitute an alternative closed form for M1 or M3, and no closed form may be introduced for any competitor after a result is seen — this removes the possibility of selecting a computational path on the basis of the number it produces.",
+        "M0_exponential": {
+          "model": "f(y) = exp(-y), F(y) = 1 - exp(-y) (rate exactly 1; mean-one automatic)",
+          "closedFormCRPS_y": "crps_y(yobs) = yobs - 2.0 * (1.0 - exp(-yobs)) + 0.5",
+          "derivationCheck": "At yobs = 0 this gives 0.5, which equals integral over [0,inf) of exp(-2x) dx = 0.5. Verified analytically."
+        },
+        "M2_lognormal": {
+          "model": "y ~ LogNormal(mu, sigma) with the mean-one constraint mu = -sigma^2/2, so exp(mu + sigma^2/2) = 1 exactly",
+          "omega": "omega = (log(yobs) - mu) / sigma",
+          "closedFormCRPS_y_general": "crps_y = yobs*(2*Phi(omega) - 1) - 2*exp(mu + sigma**2/2) * ( Phi(omega - sigma) + Phi(sigma/sqrt(2)) - 1 )",
+          "closedFormCRPS_y_underMeanOne": "crps_y = yobs*(2*Phi(omega) - 1) - 2.0 * ( Phi(omega - sigma) + Phi(sigma/sqrt(2)) - 1 )",
+          "Phi": "scipy.stats.norm.cdf",
+          "derivationCheck": "As sigma -> 0 under mean-one, the law tends to a point mass at 1 and the formula tends to 2 - 2*Phi(0) = 1 at yobs = 0, which equals |0 - 1| = 1, the CRPS of a point mass. Verified analytically.",
+          "implementationNote": "Use the mean-one form. Do not recompute exp(mu + sigma^2/2) numerically as a substitute for the exact 1.0, so that a violated mean-one constraint cannot be absorbed silently into the CRPS."
+        },
+        "mandatoryCrossCheck": {
+          "scope": "For M0 and M2, on EVERY one of the 233 eligible holdout events (not a sample), compute crps_y by BOTH the closed form and the full 3b quadrature route.",
+          "absoluteTolerance": 1e-8,
+          "relativeTolerance": {
+            "value": 1e-7,
+            "appliesWhen": "crps_y_closed > 1.0e-3"
+          },
+          "failureAction": "If max absolute deviation > 1e-8, or any relative deviation exceeds 1e-7 where applicable, the run HALTS with status FAILED-CRPS-CLOSEDFORM-DISAGREEMENT and reports the worst-offending event with both values at 17 significant digits. Preferring whichever path 'looks right', averaging the two, or loosening the tolerance is FORBIDDEN.",
+          "reporting": "The max absolute and max relative deviation are recorded in the gate ledger for every run, including passing runs, so the two paths cannot silently drift."
+        }
+      },
+      "3d_checkpointSet": {
+        "purpose": "Fixed, deterministic inputs for the U-invariance test of 3a and for regression-locking the CRPS implementation independently of the fitted parameters.",
+        "models": "All four competitors, each evaluated at its frozen training-fit parameters AND at three fixed synthetic parameter settings declared in the competitor specifications.",
+        "yGrid": "yobs in the exact list [1.0e-6, 1.0e-3, 0.01, 0.1, 0.25, 0.5, 1.0, 2.0, 5.0, 10.0, 25.0, 49.0, 60.0]. The 60.0 point deliberately exceeds U so the yobs > U branch of 3b is exercised.",
+        "count": "13 y-values x 4 models x 4 parameter settings = 208 checkpoints."
+      }
+    },
+    "4_bootstrap": {
+      "name": "Motor-cluster nonparametric bootstrap over the holdout partition",
+      "4a_resamplingUnit": {
+        "unit": "MOTOR",
+        "population": "the 19 holdout motors, ordered by ascending motorId (Unicode code-point ordering) and indexed 0..18",
+        "draw": "19 draws with replacement per replicate",
+        "carried": "a drawn motor carries ALL of its eligible (uncensored, stateN in 1..8) holdout events; a motor drawn k times contributes its per-motor score k times",
+        "notResampled": "Events are never resampled within a motor. Training motors are never resampled (see 4b)."
+      },
+      "4b_frozenFitsVsRefit": {
+        "DECISION": "REUSE THE FROZEN TRAINING FITS. Every bootstrap replicate evaluates every competitor at exactly the parameters estimated once on the full 793-event training partition. Nothing is refitted inside any replicate.",
+        "whatFrozenFitsMeasure": "Sampling uncertainty in the HELD-OUT SCORE arising from the finite sample of 19 holdout motors, CONDITIONAL on the fitted parameters. It does not contain parameter-estimation uncertainty.",
+        "whatRefittingWouldMeasure": "Uncertainty in fit-and-score jointly, i.e. the variability of the whole estimate-then-evaluate pipeline under resampling of the units it was built from.",
+        "whyFrozenIsCorrectHere": [
+          "The competition question B3 asks is: 'given models fitted once on the training partition, which predicts previously unseen motors better?' The estimand is a held-out predictive score at a fixed parameter vector.",
+          "The resampling unit is drawn from the HOLDOUT partition. Refitting a model on a holdout bootstrap replicate would fit parameters to holdout data, destroying the train/holdout separation that the truth contract requires. It would be leakage, and the resulting 'held-out' score would no longer be held out.",
+          "Refitting on resampled TRAINING motors while scoring the fixed holdout set is a coherent but DIFFERENT analysis answering a different question. It is explicitly OUT OF SCOPE for B3-SCORING-UNCERTAINTY-v1 and may not be silently substituted for, or blended with, the primary procedure. If it is ever run it must be registered separately with its own frozen specification and its own gate row.",
+          "For the primary comparative claims, which are PAIRED differences between competitors evaluated on the same resampled motors, parameter-estimation uncertainty is largely common across competitors and partly cancels in the difference, whereas the holdout-motor sampling uncertainty does not."
+        ],
+        "declaredLimitation": "REPORTED IN EVERY OUTPUT: 'Bootstrap intervals are conditional on the frozen training fits and therefore EXCLUDE parameter-estimation uncertainty. Intervals on absolute scores are consequently narrower than a full fit-and-score interval would be. Paired-difference intervals are less affected but are still conditional.' This sentence is part of the deliverable, not an optional caveat.",
+        "consequenceForDegeneracy": "Because no fit occurs inside a replicate, the failure mode 'replicate draws too few distinct motors for a model to fit' CANNOT ARISE. See 4f."
+      },
+      "4c_replicateCounts": {
+        "primary": 2000,
+        "sensitivity": 50000,
+        "fixedInAdvance": true,
+        "noIncreaseRule": "The primary replicate count is 2000 and is fixed in advance. It MAY NOT be increased after seeing any result. Running more replicates because an interval was uncomfortably wide, or because it just contained zero, is forbidden and would invalidate the gate.",
+        "nesting": "The 50000 sensitivity replicates are drawn as one sequence from a single RNG stream; the 2000 primary replicates are exactly the FIRST 2000 of that sequence. The primary set is therefore a strict prefix of the sensitivity set, which makes the sensitivity check a genuine superset and makes reseeding-until-favourable impossible to hide.",
+        "reportingRule": "Both the 2000-replicate and 50000-replicate intervals are reported for every quantity. The 50000 result does NOT replace the 2000 result. If the two differ in whether the interval contains zero for any primary contrast, that is reported as a MONTE-CARLO-SENSITIVE flag and treated as a first-class result under section 5, not resolved by preferring one count."
+      },
+      "4d_rng": {
+        "generator": "numpy.random.Generator with the PCG64 bit generator",
+        "construction": "rng = numpy.random.default_rng(20260717)   # equivalent to numpy.random.Generator(numpy.random.PCG64(numpy.random.SeedSequence(20260717)))",
+        "instantiation": "Constructed EXACTLY ONCE per run, before any replicate is drawn, and never reseeded, re-created, spawned, or jumped.",
+        "indexMatrix": "R = rng.integers(low=0, high=19, size=(50000, 19), dtype=numpy.int64)   # a single call, producing the full 50000 x 19 index matrix",
+        "commonRandomNumbers": "R is generated once and reused VERBATIM for every competitor, every scoring rule, both the seconds and normalized CRPS scales, and every pairwise contrast. This makes all differences exactly paired on identical resampled motor sets. Drawing separate indices per model is FORBIDDEN.",
+        "replicateB": "Replicate b (1-indexed) uses row b-1 of R.",
+        "persistence": "The SHA-256 of R.tobytes() is recorded in the run artifact so the resample structure is verifiable without shipping the matrix."
+      },
+      "4e_intervals": {
+        "level": "95 percent, two-sided, equal-tailed",
+        "primaryType": "BCa (bias-corrected and accelerated)",
+        "companionType": "percentile — ALWAYS computed and ALWAYS reported alongside BCa, never as a conditional fallback",
+        "quantileMethod": "numpy.quantile(sorted_replicate_values, q, method='linear')",
+        "BCa_definition": {
+          "statistic": "theta_hat = the statistic computed on the actual (unresampled) 19 holdout motors: either S(r,M) for an absolute score, or Delta_r(A,B) = S(r,A) - S(r,B) for a contrast",
+          "replicates": "theta_star[b] for b = 1..B, computed from row b-1 of R using the frozen fits",
+          "z0": "z0 = Phi_inv( ( count(theta_star < theta_hat) + 0.5 * count(theta_star == theta_hat) ) / B ). The half-weight tie term is mandatory so that ties cannot be resolved differently by two implementers.",
+          "jackknife": "For i = 0..18, theta_(i) = the statistic recomputed on the 18 actual holdout motors excluding motor i (unweighted mean over 18 per-motor values). theta_bar = numpy.mean over the 19 theta_(i) values in motor index order.",
+          "acceleration": "a = sum_i (theta_bar - theta_(i))**3 / ( 6.0 * ( sum_i (theta_bar - theta_(i))**2 )**1.5 )",
+          "degenerateAcceleration": "If the denominator is exactly 0.0 (all jackknife values identical), set a = 0.0 and raise flag BCA-ACCEL-DEGENERATE. Do not perturb, do not add epsilon.",
+          "alpha": 0.025,
+          "zAlpha": "z_lo = Phi_inv(0.025), z_hi = Phi_inv(0.975)",
+          "endpoints": "alpha1 = Phi( z0 + (z0 + z_lo) / (1.0 - a*(z0 + z_lo)) ); alpha2 = Phi( z0 + (z0 + z_hi) / (1.0 - a*(z0 + z_hi)) )",
+          "interval": "[ quantile(theta_star, alpha1), quantile(theta_star, alpha2) ]",
+          "Phi_and_inverse": "scipy.stats.norm.cdf and scipy.stats.norm.ppf",
+          "undefinedConditions": [
+            "count(theta_star < theta_hat) + 0.5*count(theta_star == theta_hat) is exactly 0 or exactly B, making z0 non-finite",
+            "(1.0 - a*(z0 + z_lo)) <= 0.0 or (1.0 - a*(z0 + z_hi)) <= 0.0",
+            "alpha1 or alpha2 is non-finite, or alpha1 >= alpha2"
+          ],
+          "undefinedAction": "BCa is reported as UNDEFINED with the triggering condition named. The percentile interval — which is reported unconditionally anyway — carries the inference for that quantity, and the substitution is stated in the output. Silently emitting the percentile interval under a BCa label is FORBIDDEN."
+        },
+        "percentile_definition": "[ numpy.quantile(theta_star, 0.025, method='linear'), numpy.quantile(theta_star, 0.975, method='linear') ]",
+        "pointEstimate": "The reported point estimate is always theta_hat computed on the actual holdout motors. The bootstrap mean of theta_star is reported separately as a bias diagnostic and is NEVER substituted for theta_hat.",
+        "bonferroniCompanion": "For the three PRIMARY contrasts (M1-M0, M2-M0, M3-M0), an additional Bonferroni-adjusted interval at level 1 - 0.05/3 = 0.9833333333333333 (equal-tailed, alpha = 0.008333333333333333 per side) is computed by the identical BCa and percentile machinery and reported alongside the 95 percent interval. Both are pre-declared; neither may be dropped after seeing which one excludes zero."
+      },
+      "4f_degenerateReplicates": {
+        "retentionRule": "ALL replicates are retained. The expected number of discarded replicates is EXACTLY ZERO by construction.",
+        "whyZero": "Because 4b freezes the fits, no estimation occurs inside a replicate, so the usual degeneracy 'too few distinct motors for the model to fit' cannot occur. A replicate that draws the same motor 19 times is a legitimate draw from the bootstrap distribution and is scored normally.",
+        "biasStatement": "DISCARDING REPLICATES ON THE BASIS OF THEIR CONTENT OR THEIR VALUE WOULD BIAS THE INTERVAL, because the discarded draws are systematically the low-diversity, extreme-value ones and their removal truncates exactly the tails the interval is meant to capture. No such discard is permitted under any name (filtering, screening, validity check, outlier removal).",
+        "computationalFailure": "If a replicate cannot be evaluated for a computational reason (non-finite score, quadrature failure), the entire run HALTS under the relevant FAILED status of sections 1 and 3. The replicate is NOT dropped and the run does NOT continue with B-1 replicates.",
+        "mandatoryDiagnostics": [
+          "distribution of the number of DISTINCT motors per replicate: minimum, 1st percentile, median, maximum, over both the 2000 and 50000 sets",
+          "count of replicates containing exactly 1 distinct motor",
+          "number of replicates discarded, which must be reported explicitly as 0"
+        ]
+      }
+    },
+    "5_disagreement_rule": {
+      "perRuleVerdict": {
+        "quantity": "Delta_r(A,B) = S(r,A) - S(r,B), lower-is-better orientation, so Delta < 0 favours A",
+        "A_BETTER": "the 95 percent primary interval for Delta_r(A,B) lies entirely below 0.0",
+        "B_BETTER": "the 95 percent primary interval lies entirely above 0.0",
+        "INCONCLUSIVE": "the interval contains 0.0",
+        "intervalUsed": "BCa when defined, percentile when BCa is UNDEFINED, with the substitution stated"
+      },
+      "jointVerdict": {
+        "CONCORDANT": "Both NLPD and CRPS give the same conclusive direction. Verdict: that competitor is better on both proper scoring rules. This is the only outcome that may be described as a win.",
+        "PARTIAL": "Exactly one rule is conclusive, the other is INCONCLUSIVE. Verdict: 'WEAK, SCORING-RULE-DEPENDENT'. This is NOT reported as a win, and the inconclusive rule may not be omitted from the report.",
+        "DISCORDANT": "Both rules are conclusive and point in OPPOSITE directions. Verdict: DISCORDANT. NO WINNER IS DECLARED for that pair.",
+        "SCALE-DISCORDANT": "Seconds-scale CRPS and normalized-scale CRPS are both conclusive and point in opposite directions for a pair. Reported as a first-class result under the same prohibitions below."
+      },
+      "discordantHandling": {
+        "status": "A DISCORDANT result is a FIRST-CLASS SCIENTIFIC RESULT and is reported at the same prominence as a concordant one, in the summary, the gate ledger, and any abstract-level claim.",
+        "mandatoryContent": [
+          "both point estimates",
+          "both 95 percent intervals (BCa and percentile)",
+          "both Bonferroni companions where the pair is a primary contrast",
+          "the 50000-replicate sensitivity intervals",
+          "the normalized-scale CRPS result",
+          "the substantive interpretation: NLPD is a local rule sensitive to predictive density at the realized points and is therefore dominated by the sharpest and the worst-predicted events, especially tail events; CRPS is a global rule integrating over the whole predictive CDF and, on the seconds scale, weights events by scale_N. Discordance is evidence that the competitors differ in WHICH aspect of the predictive distribution they capture, and it is a finding about the models, not a defect of the analysis."
+        ],
+        "FORBIDDEN": [
+          "dropping, downweighting, or relegating either rule",
+          "declaring a winner by any tiebreaker, including AIC, BIC, likelihood ratio, parameter count, parsimony, or prior plausibility",
+          "introducing a third scoring rule after the disagreement is observed",
+          "changing the aggregation, the scale, the interval type, the level, or the replicate count in response to the disagreement",
+          "reporting only the rule that gives the tidier answer, or burying the other in an appendix",
+          "forming any composite or averaged score across the two rules"
+        ]
+      },
+      "rankings": "Two separate rankings of the four competitors are reported, one per rule. No single overall ranking is produced. If the two rankings differ in any adjacent pair whose contrast is conclusive, that is a DISCORDANT result for that pair.",
+      "primaryContrasts": [
+        "M1 - M0",
+        "M2 - M0",
+        "M3 - M0"
+      ],
+      "allPairs": "All 6 pairwise contrasts are reported. The 3 vs-M0 contrasts are pre-declared primary; the other 3 are labelled 'SECONDARY, UNADJUSTED, EXPLORATORY' and may not be promoted to primary after the fact."
+    },
+    "6_power_and_identifiability_of_the_comparison": {
+      "honestStatement": "With 19 holdout motors as the experimental unit, the bootstrap has 19 independent clusters. This is a small number. Several competitor pairs are likely to be WEAKLY RESOLVED, and the mixture competitor M3 in particular may be weakly identified. The scoring machinery does not repair this; it must expose it.",
+      "observableCriterion_declaredInAdvance": {
+        "name": "UNDERPOWERED-CONTRAST",
+        "ruleNLPD": "A contrast is declared UNDERPOWERED on NLPD if width( 95 percent primary interval for Delta_NLPD(A,B) ) / |S(NLPD, M0)| > 0.50",
+        "ruleCRPS": "A contrast is declared UNDERPOWERED on CRPS if width( 95 percent primary interval for Delta_CRPS(A,B) ) / S(CRPS, M0) > 0.50",
+        "denominator": "The reference competitor M0's headline score on that same rule and scale. M0 is used because it has no free parameters, so the denominator cannot be influenced by any fitting decision.",
+        "constant": 0.5,
+        "binding": "The constant 0.50 and the M0 denominator are fixed here, in advance, and may not be adjusted after any width is observed.",
+        "consequence": "An UNDERPOWERED contrast may NEVER be reported as evidence of equivalence, similarity, or 'no meaningful difference'. It is reported as 'NOT RESOLVED AT THIS SAMPLE SIZE' with the interval width shown.",
+        "reportedAlways": "The ratio is computed and printed for every contrast on every rule, including contrasts that are not underpowered, so the threshold cannot be applied selectively."
+      },
+      "noEquivalenceClaims": "Absence of a conclusive direction is never evidence of equivalence. No equivalence or non-inferiority claim may be made from B3 because no equivalence margin was pre-registered."
+    },
+    "7_reproducibility_and_artifact": {
+      "floatSerialization": "'%.17g' for every float in the results JSON",
+      "canonicalJSON": "UTF-8, keys sorted ascending by Unicode code point, separators (',', ':'), no trailing whitespace, LF line endings",
+      "artifactHash": "SHA-256 over the canonical JSON bytes, recorded in the gate ledger",
+      "recordedInputs": [
+        "seed 20260717",
+        "SHA-256 of the bootstrap index matrix R",
+        "U = 50.0",
+        "quadrature tolerances and limit",
+        "replicate counts 2000 and 50000",
+        "frozen training-fit parameters for every competitor at 17 significant digits",
+        "the 8 scale_N values at 17 significant digits",
+        "the 19 motorIds in sorted order and their n_i",
+        "numpy, scipy, and Python versions as reported at runtime"
+      ],
+      "determinismGate": "The full pipeline is executed twice in the same environment and the two artifact hashes must be byte-identical. A mismatch HALTS with status FAILED-NONDETERMINISM.",
+      "independentRederivation": "The CRPS closed forms of 3c and the BCa endpoints of 4e are independently rederived by a second implementation that shares no code with the primary, and agreement is required to 1e-8 absolute. Sharing a helper module between the two implementations would make this a circular oracle and is FORBIDDEN."
+    },
+    "8_prohibitions_summary": [
+      "No element of this specification may be selected, tuned, relaxed, or reinterpreted after any numerical result is seen.",
+      "No log score is floored, clipped, or epsilon-regularized.",
+      "No bootstrap replicate is discarded.",
+      "No replicate count is increased post hoc.",
+      "No third scoring rule is introduced.",
+      "No composite of the two rules is formed.",
+      "No tiebreaker resolves a discordant result.",
+      "No event-pooled mean is used as a headline.",
+      "No refitting occurs inside a bootstrap replicate.",
+      "No fallback integrator or looser tolerance is used when a tolerance is missed; the run halts instead."
+    ]
+  },
+  "ambiguitiesEliminated": [
+    "'Integration method' fixed to scipy.integrate.quad only, with epsabs=1e-11, epsrel=1e-11, limit=500, points=None, and IntegrationWarning escalated to an exception. No Monte Carlo, no fixed-grid trapezoid, no alternative integrator, no retry at a looser tolerance.",
+    "'Finite upper truncation bound' fixed to the exact numeric value U = 50.0 in normalized y-space, declared before any fit, identical for every competitor and every stateN. Chosen in y-space precisely so that one value can be model-independent, which a seconds-space bound could not be.",
+    "'Tail handling beyond truncation' made exact rather than approximate: the interval [max(U, y), inf) is integrated to the true limit by quad with upper bound numpy.inf, so no mass is dropped and CRPS is mathematically independent of U. Locked by a mandatory U-invariance test at U = 20.0 and U = 200.0 to 1e-8 over a 208-point deterministic checkpoint set.",
+    "Kink handling made explicit: the integral is split at x = yobs, where the indicator jumps, into three named terms A, B, C, with the yobs > U branch defined via L = max(U, yobs) so the formula is correct for every possible observation rather than only when an assertion holds.",
+    "'Tolerance' disambiguated into three distinct numbers that were previously one word: the per-call quad tolerance (1e-11), the per-event summed error budget (1e-8, halting), and the closed-form-vs-quadrature cross-check tolerance (1e-8 absolute, 1e-7 relative above 1e-3).",
+    "CRPS scale decision made and justified rather than left implicit: computed in y-space, reported in seconds via the exact identity CRPS_seconds = scale_N * CRPS_y, with the normalized-scale CRPS as a mandatory secondary. The non-invariance of CRPS (versus the exact invariance of paired NLPD differences) is stated as a substantive asymmetry, and a seconds-vs-normalized ranking flip is pre-declared as a reportable disagreement.",
+    "Closed-form CRPS assignments fixed to exactly M0 and M2, with both formulas written out and analytically sanity-checked at limiting cases. M1 and M3 are quadrature-only, and introducing a closed form for them later is forbidden, which removes any post-hoc choice of computational path.",
+    "'Cross-checked' made non-optional and non-sampled: closed form versus quadrature is checked on all 233 holdout events, and the max deviation is recorded in the ledger even on passing runs.",
+    "Aggregation fixed: unweighted mean over 19 motors of within-motor means, with fully deterministic event and motor orderings. n_i-weighted means and event-pooled means are demoted to labelled diagnostics.",
+    "Frozen-fit versus refit decided explicitly (frozen), with the reason (refitting on holdout bootstrap replicates is leakage) and with the refit-on-training variant named and placed out of scope so it cannot be silently substituted.",
+    "'Exact RNG' fixed to numpy.random.default_rng(20260717) / PCG64, constructed once, never reseeded or spawned, with the full 50000 x 19 index matrix drawn in a single integers() call so that the 2000 primary replicates are a strict prefix of the 50000 sensitivity replicates.",
+    "Common random numbers mandated: one index matrix reused verbatim across all models, both rules, and both scales, so every contrast is exactly paired.",
+    "'Interval type and level' fixed to 95 percent equal-tailed BCa as primary with percentile always reported as a companion, including the exact z0 tie-handling (half-weight), the exact jackknife acceleration formula, the exact numpy.quantile method='linear', and an enumerated list of conditions under which BCa is declared UNDEFINED rather than silently replaced.",
+    "Degenerate-replicate handling resolved to 'exactly zero discards, by construction', with the reason (no fitting occurs inside a replicate under frozen fits) and an explicit statement of why value-conditional discarding would bias the interval.",
+    "Non-finite log density turned from an implementer judgement call into a halting condition, with flooring and clipping explicitly banned.",
+    "Multiplicity pre-committed: three primary contrasts against M0, with a Bonferroni companion at level 0.9833333333333333 reported alongside the 95 percent interval, and the other three pairs labelled secondary and unadjusted in advance.",
+    "'Weakly identified' turned into an observable pre-declared criterion: interval width divided by M0's score on the same rule exceeding the fixed constant 0.50 declares UNDERPOWERED-CONTRAST, with the ratio printed for every contrast so the threshold cannot be applied selectively."
+  ],
+  "residualRisks": [
+    "The 0.50 UNDERPOWERED-CONTRAST constant is a judgement call. It is pre-declared and applied uniformly, which is what removes post-hoc selectability, but it is not derived from a power calculation. A reviewer should check whether 0.50 is the right sensitivity for 19 clusters; if a different constant is preferred it must be changed BEFORE any fit is run, not after.",
+    "Frozen fits mean the reported intervals are conditional and exclude parameter-estimation uncertainty. Intervals on ABSOLUTE scores are therefore anticonservative. The specification declares this in every output, but a reader who skims could still over-read an absolute-score interval. The paired-difference intervals are the defensible product.",
+    "BCa with 19 jackknife units is itself only asymptotically justified. With this few clusters the acceleration estimate is noisy and BCa can be less reliable than its reputation suggests. This is why the percentile interval is reported unconditionally rather than as a fallback, but a reviewer should treat a case where BCa and percentile differ materially as a signal about sample size, not as a choice between two numbers.",
+    "Seconds-scale CRPS weights events by scale_N, so if the eight stateN scale factors span a wide range the CRPS comparison could be effectively decided by one or two slow states. The mandatory normalized-scale secondary is the guard, but if the two scales agree in direction the report will not surface how concentrated the seconds-scale signal was. Recommend also reporting, as a descriptive diagnostic, the share of total seconds-scale CRPS contributed by each stateN.",
+    "I have verified the M0 exponential and M2 lognormal closed-form CRPS expressions analytically at limiting cases (yobs = 0 for M0, sigma -> 0 for M2), but I have not executed them, per the specification-only constraint. The mandatory 233-event cross-check against quadrature is the mechanism that catches a transcription error, and it halts rather than warns — but if BOTH the closed form and my decomposition contained the same sign error the cross-check would not catch it. The independent rederivation requirement in section 7 is the second line of defence and should not be skipped.",
+    "The requirement that quadrature tolerance failures HALT the run rather than degrade gracefully is deliberate, but it means a single pathological parameter setting reached during a fit (for example an M1 Weibull shape driving F near a boundary) could stop the whole competition. That is the intended behaviour, but the run should be expected to need at least one diagnostic cycle, and the response must be to fix the competitor's parameter bounds in ITS specification, never to loosen the tolerance here.",
+    "U = 50.0 comes with a pre-fit assertion that max normalized duration is below it. I have deliberately not inspected the dwell data to check this, since choosing U from the observed maximum would be exactly the post-hoc bound tuning the assertion exists to prevent. If the assertion fires, the correct response is a recorded amendment with pre-amendment evidence preserved — and a reviewer should confirm nobody quietly raises the constant instead. Note the 3b formula remains correct even when y > U, so a fired assertion is a discipline event, not a numerical error."
+  ]
+}

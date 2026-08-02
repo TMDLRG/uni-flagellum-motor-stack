@@ -1,0 +1,2029 @@
+{
+  "schema": "uni.flagellum.d1-semantic-remediation-result/1.0.0",
+  "protocolId": "PHASE-D1-SEMANTIC-REMEDIATION-CLAUDE-V1",
+  "protocolPath": "audits/phase-d/d1-semantic-remediation-protocol.v1.json",
+  "baseCommit": "8baead252f1b1fcbcc0852a5e466915f1910515c",
+  "executionCommit": "8baead252f1b1fcbcc0852a5e466915f1910515c",
+  "ancestry": {
+    "predictionCommit": "0a460a66458cd5e82c8ed18197548374739020d9",
+    "protocolCommit": "0a460a66458cd5e82c8ed18197548374739020d9",
+    "strictAncestry": true
+  },
+  "scratchRoot": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85",
+  "primaryCheckoutUnchanged": true,
+  "primaryBefore": {
+    "head": "8baead252f1b1fcbcc0852a5e466915f1910515c",
+    "statusPorcelain": ""
+  },
+  "primaryAfter": {
+    "head": "8baead252f1b1fcbcc0852a5e466915f1910515c",
+    "statusPorcelain": ""
+  },
+  "phaseCPreservation": {
+    "before": {
+      "stage": "BEFORE_EXECUTION",
+      "fileCount": 64,
+      "unchanged": true
+    },
+    "after": {
+      "stage": "AFTER_EXECUTION",
+      "fileCount": 64,
+      "unchanged": true
+    }
+  },
+  "classificationCounts": {
+    "DETECTED_SEMANTIC": 22,
+    "DETECTED_BY_HASH_ONLY": 0,
+    "SURVIVED": 1,
+    "NOT_RUN": 0,
+    "INCONCLUSIVE": 0
+  },
+  "attributionFailures": [
+    "D1A02_SURVIVAL_POSTERIOR_SLOW_USES_FAST_RATE",
+    "D1P02_ADVERSE_EVIDENCE_COPY_DIVERGED"
+  ],
+  "coverageProvenanceSummary": {
+    "SUITE_MEMBERSHIP_MIGRATION": 15,
+    "NEW_COVERAGE_IN_D1": 8,
+    "NOT_MEASURED": 0
+  },
+  "outcomes": [
+    {
+      "id": "D1X01_SECONDS_DENSITY_JACOBIAN_OMITTED",
+      "class": "EXACT_PHASE_C_REPLAY",
+      "propertyId": "D1P01_SECONDS_DENSITY_JACOBIAN",
+      "targetPath": "lib/observed-experiment.js",
+      "predictedClassification": "DETECTED_SEMANTIC",
+      "expectedFailingTest": "seconds-scale predictive density carries the change-of-variables jacobian",
+      "clonePath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\clones\\d1x01_seconds_density_jacobian_omitted",
+      "baseCommitVerified": true,
+      "preMutationSha256": "b757971e1f207899ddac0b262241822552a06abc5272407b14b21fd98ddbe623",
+      "postMutationSha256": "3a7457422eabb1dc13c195f41e142b10e68c9109f0bffd3429e9b8dc5866875d",
+      "patchApplied": true,
+      "regenerationCommands": [
+        {
+          "id": "regenerate-observed-experiment",
+          "command": "npm run experiment:run",
+          "startedAt": "2026-07-20T15:39:15.477Z",
+          "finishedAt": "2026-07-20T15:39:17.189Z",
+          "exitCode": 0,
+          "signal": null,
+          "spawnError": null,
+          "stdoutPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1X01_SECONDS_DENSITY_JACOBIAN_OMITTED\\01-regenerate-observed-experiment.stdout.txt",
+          "stderrPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1X01_SECONDS_DENSITY_JACOBIAN_OMITTED\\01-regenerate-observed-experiment.stderr.txt",
+          "stdoutSha256": "d465e988963d8ec537ad95ffa2b3370074c3ee9d861f3c89a5cba963683dadfa",
+          "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdoutBytes": 2997,
+          "stderrBytes": 0
+        }
+      ],
+      "gateCommands": [
+        {
+          "id": "d1-semantic",
+          "command": "node --test tests/semantic/*.mjs",
+          "startedAt": "2026-07-20T15:39:17.189Z",
+          "finishedAt": "2026-07-20T15:39:30.122Z",
+          "exitCode": 1,
+          "signal": null,
+          "spawnError": null,
+          "stdoutPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1X01_SECONDS_DENSITY_JACOBIAN_OMITTED\\02-d1-semantic.stdout.txt",
+          "stderrPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1X01_SECONDS_DENSITY_JACOBIAN_OMITTED\\02-d1-semantic.stderr.txt",
+          "stdoutSha256": "5ebe10b3c3af6b208f6af30746f4de298f498b289b11da342d6917f55aafdf62",
+          "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdoutBytes": 8846,
+          "stderrBytes": 0
+        }
+      ],
+      "baselineCommands": [
+        {
+          "id": "baseline-ordinary-tests",
+          "command": "node --test tests/model.test.mjs tests/observed-experiment.test.mjs tests/science-gates.test.mjs tests/cross-study-parity.test.mjs tests/walkthrough.test.mjs",
+          "startedAt": "2026-07-20T15:39:30.123Z",
+          "finishedAt": "2026-07-20T15:39:32.175Z",
+          "exitCode": 1,
+          "signal": null,
+          "spawnError": null,
+          "stdoutPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1X01_SECONDS_DENSITY_JACOBIAN_OMITTED\\03-baseline-ordinary-tests.stdout.txt",
+          "stderrPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1X01_SECONDS_DENSITY_JACOBIAN_OMITTED\\03-baseline-ordinary-tests.stderr.txt",
+          "stdoutSha256": "6b7b3d6c943fb361d3a719b3287d7ec6307ff014bf41ddd9a18b05d8a642e047",
+          "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdoutBytes": 4083,
+          "stderrBytes": 0
+        }
+      ],
+      "classification": "DETECTED_SEMANTIC",
+      "matchedPatterns": [
+        "jacobian",
+        "seconds[- ]scale",
+        "change[- ]of[- ]variables",
+        "absolute predictive densit"
+      ],
+      "matchingDiagnosticLines": [
+        "✖ D1P01 seconds-scale predictive density carries the change-of-variables jacobian (2.1209ms)",
+        "✖ D1P01 seconds-scale predictive density is equivariant under unit reparameterization (0.4465ms)",
+        "✖ D1P01 seconds-scale predictive density carries the change-of-variables jacobian (2.1209ms)",
+        "AssertionError [ERR_ASSERTION]: The seconds-scale mean log predictive density is missing or misapplying its change-of-variables jacobian. Hand-calculated seconds-scale value -1 - ln(3) = -2.0986122886681096, observed -1. A density reported in nats per event on the seconds scale must include the jacobian -log(scale); omitting it reports a density on normalized duration while labelling it a seconds-scale density.",
+        "at TestContext.<anonymous> (file:///C:/Users/mpolz/AppData/Local/Temp/uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85/clones/d1x01_seconds_density_jacobian_omitted/tests/semantic/density-scale-and-dispersion.semantic.test.mjs:148:10)",
+        "✖ D1P01 seconds-scale predictive density is equivariant under unit reparameterization (0.4465ms)",
+        "AssertionError [ERR_ASSERTION]: The reported predictive density is not a proper seconds-scale density under change-of-variables. Re-expressing every dwell in half-seconds must shift the mean log score by exactly -ln(2) = -0.6931471805599453, observed shift 0. A shift of zero means the jacobian is absent and the quantity is a density on normalized duration, not an absolute predictive density in nats per event on the seconds scale.",
+        "at TestContext.<anonymous> (file:///C:/Users/mpolz/AppData/Local/Temp/uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85/clones/d1x01_seconds_density_jacobian_omitted/tests/semantic/density-scale-and-dispersion.semantic.test.mjs:177:10)"
+      ],
+      "failingTests": [
+        "D1P01 seconds-scale predictive density carries the change-of-variables jacobian",
+        "D1P01 seconds-scale predictive density is equivariant under unit reparameterization",
+        "failing tests:"
+      ],
+      "attributionSatisfied": true,
+      "baselineDetected": true,
+      "coverageProvenance": "SUITE_MEMBERSHIP_MIGRATION",
+      "failureSignature": "✖ D1P01 seconds-scale predictive density carries the change-of-variables jacobian (2.1209ms)",
+      "cloneCleanupStatus": "PRESERVED_WITHIN_EXPLICIT_SCRATCH_ROOT",
+      "error": null
+    },
+    {
+      "id": "D1A01_SECONDS_DENSITY_JACOBIAN_SIGN_INVERTED",
+      "class": "ALTERNATE_FORM",
+      "propertyId": "D1P01_SECONDS_DENSITY_JACOBIAN",
+      "targetPath": "lib/observed-experiment.js",
+      "predictedClassification": "DETECTED_SEMANTIC",
+      "expectedFailingTest": "seconds-scale predictive density carries the change-of-variables jacobian",
+      "clonePath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\clones\\d1a01_seconds_density_jacobian_sign_inverted",
+      "baseCommitVerified": true,
+      "preMutationSha256": "b757971e1f207899ddac0b262241822552a06abc5272407b14b21fd98ddbe623",
+      "postMutationSha256": "d9331b57db0f0f98a38ea3c29587190ef363c9920f5a38fba3b303cc71da1aa6",
+      "patchApplied": true,
+      "regenerationCommands": [
+        {
+          "id": "regenerate-observed-experiment",
+          "command": "npm run experiment:run",
+          "startedAt": "2026-07-20T15:39:34.592Z",
+          "finishedAt": "2026-07-20T15:39:36.348Z",
+          "exitCode": 0,
+          "signal": null,
+          "spawnError": null,
+          "stdoutPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1A01_SECONDS_DENSITY_JACOBIAN_SIGN_INVERTED\\01-regenerate-observed-experiment.stdout.txt",
+          "stderrPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1A01_SECONDS_DENSITY_JACOBIAN_SIGN_INVERTED\\01-regenerate-observed-experiment.stderr.txt",
+          "stdoutSha256": "e927cd1004da57b878b297c4618d5ad69483ce9c7527e3b1d36c84f295af699b",
+          "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdoutBytes": 2997,
+          "stderrBytes": 0
+        }
+      ],
+      "gateCommands": [
+        {
+          "id": "d1-semantic",
+          "command": "node --test tests/semantic/*.mjs",
+          "startedAt": "2026-07-20T15:39:36.348Z",
+          "finishedAt": "2026-07-20T15:39:49.399Z",
+          "exitCode": 1,
+          "signal": null,
+          "spawnError": null,
+          "stdoutPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1A01_SECONDS_DENSITY_JACOBIAN_SIGN_INVERTED\\02-d1-semantic.stdout.txt",
+          "stderrPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1A01_SECONDS_DENSITY_JACOBIAN_SIGN_INVERTED\\02-d1-semantic.stderr.txt",
+          "stdoutSha256": "21bd8adeb02cb6b7d99d4e1eaa44ed0f3a6e33aa0b4c6e4718a96b17fd1fbb18",
+          "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdoutBytes": 8886,
+          "stderrBytes": 0
+        }
+      ],
+      "baselineCommands": [
+        {
+          "id": "baseline-ordinary-tests",
+          "command": "node --test tests/model.test.mjs tests/observed-experiment.test.mjs tests/science-gates.test.mjs tests/cross-study-parity.test.mjs tests/walkthrough.test.mjs",
+          "startedAt": "2026-07-20T15:39:49.399Z",
+          "finishedAt": "2026-07-20T15:39:52.088Z",
+          "exitCode": 1,
+          "signal": null,
+          "spawnError": null,
+          "stdoutPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1A01_SECONDS_DENSITY_JACOBIAN_SIGN_INVERTED\\03-baseline-ordinary-tests.stdout.txt",
+          "stderrPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1A01_SECONDS_DENSITY_JACOBIAN_SIGN_INVERTED\\03-baseline-ordinary-tests.stderr.txt",
+          "stdoutSha256": "661ce137c17a577655b21ce8fc36db8408f95fc5931a91f37355bff1fb68b293",
+          "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdoutBytes": 4093,
+          "stderrBytes": 0
+        }
+      ],
+      "classification": "DETECTED_SEMANTIC",
+      "matchedPatterns": [
+        "jacobian",
+        "seconds[- ]scale",
+        "change[- ]of[- ]variables",
+        "absolute predictive densit"
+      ],
+      "matchingDiagnosticLines": [
+        "✖ D1P01 seconds-scale predictive density carries the change-of-variables jacobian (2.8715ms)",
+        "✖ D1P01 seconds-scale predictive density is equivariant under unit reparameterization (0.4151ms)",
+        "✖ D1P01 seconds-scale predictive density carries the change-of-variables jacobian (2.8715ms)",
+        "AssertionError [ERR_ASSERTION]: The seconds-scale mean log predictive density is missing or misapplying its change-of-variables jacobian. Hand-calculated seconds-scale value -1 - ln(3) = -2.0986122886681096, observed 0.09861228866810962. A density reported in nats per event on the seconds scale must include the jacobian -log(scale); omitting it reports a density on normalized duration while labelling it a seconds-scale density.",
+        "at TestContext.<anonymous> (file:///C:/Users/mpolz/AppData/Local/Temp/uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85/clones/d1a01_seconds_density_jacobian_sign_inverted/tests/semantic/density-scale-and-dispersion.semantic.test.mjs:148:10)",
+        "✖ D1P01 seconds-scale predictive density is equivariant under unit reparameterization (0.4151ms)",
+        "AssertionError [ERR_ASSERTION]: The reported predictive density is not a proper seconds-scale density under change-of-variables. Re-expressing every dwell in half-seconds must shift the mean log score by exactly -ln(2) = -0.6931471805599453, observed shift 0.6931471805599454. A shift of zero means the jacobian is absent and the quantity is a density on normalized duration, not an absolute predictive density in nats per event on the seconds scale.",
+        "at TestContext.<anonymous> (file:///C:/Users/mpolz/AppData/Local/Temp/uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85/clones/d1a01_seconds_density_jacobian_sign_inverted/tests/semantic/density-scale-and-dispersion.semantic.test.mjs:177:10)"
+      ],
+      "failingTests": [
+        "D1P01 seconds-scale predictive density carries the change-of-variables jacobian",
+        "D1P01 seconds-scale predictive density is equivariant under unit reparameterization",
+        "failing tests:"
+      ],
+      "attributionSatisfied": true,
+      "baselineDetected": true,
+      "coverageProvenance": "SUITE_MEMBERSHIP_MIGRATION",
+      "failureSignature": "✖ D1P01 seconds-scale predictive density carries the change-of-variables jacobian (2.8715ms)",
+      "cloneCleanupStatus": "PRESERVED_WITHIN_EXPLICIT_SCRATCH_ROOT",
+      "error": null
+    },
+    {
+      "id": "D1X02_SURVIVAL_POSTERIOR_USES_EVENT_DENSITY",
+      "class": "EXACT_PHASE_C_REPLAY",
+      "propertyId": "D1P02_SURVIVAL_CONDITIONED_POSTERIOR",
+      "targetPath": "lib/observed-experiment.js",
+      "predictedClassification": "DETECTED_SEMANTIC",
+      "expectedFailingTest": "slow-state posterior conditions on survival not on event density",
+      "clonePath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\clones\\d1x02_survival_posterior_uses_event_density",
+      "baseCommitVerified": true,
+      "preMutationSha256": "b757971e1f207899ddac0b262241822552a06abc5272407b14b21fd98ddbe623",
+      "postMutationSha256": "ae8cf1f7417e907574d32655d4ea37db2a3e150a56562fbe3df6df35f46e00ac",
+      "patchApplied": true,
+      "regenerationCommands": [
+        {
+          "id": "regenerate-observed-experiment",
+          "command": "npm run experiment:run",
+          "startedAt": "2026-07-20T15:39:55.228Z",
+          "finishedAt": "2026-07-20T15:39:57.199Z",
+          "exitCode": 0,
+          "signal": null,
+          "spawnError": null,
+          "stdoutPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1X02_SURVIVAL_POSTERIOR_USES_EVENT_DENSITY\\01-regenerate-observed-experiment.stdout.txt",
+          "stderrPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1X02_SURVIVAL_POSTERIOR_USES_EVENT_DENSITY\\01-regenerate-observed-experiment.stderr.txt",
+          "stdoutSha256": "c3e9f57a03b51142776354e5343a1523ae1b4821504b2f108f6dc96f2dde0029",
+          "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdoutBytes": 2996,
+          "stderrBytes": 0
+        }
+      ],
+      "gateCommands": [
+        {
+          "id": "d1-semantic",
+          "command": "node --test tests/semantic/*.mjs",
+          "startedAt": "2026-07-20T15:39:57.200Z",
+          "finishedAt": "2026-07-20T15:40:11.271Z",
+          "exitCode": 1,
+          "signal": null,
+          "spawnError": null,
+          "stdoutPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1X02_SURVIVAL_POSTERIOR_USES_EVENT_DENSITY\\02-d1-semantic.stdout.txt",
+          "stderrPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1X02_SURVIVAL_POSTERIOR_USES_EVENT_DENSITY\\02-d1-semantic.stderr.txt",
+          "stdoutSha256": "f9ed0b3d96941a56a428670469dc2d43c656bc1c69b90bdfdc4a266f0784b7cb",
+          "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdoutBytes": 8745,
+          "stderrBytes": 0
+        }
+      ],
+      "baselineCommands": [
+        {
+          "id": "baseline-ordinary-tests",
+          "command": "node --test tests/model.test.mjs tests/observed-experiment.test.mjs tests/science-gates.test.mjs tests/cross-study-parity.test.mjs tests/walkthrough.test.mjs",
+          "startedAt": "2026-07-20T15:40:11.271Z",
+          "finishedAt": "2026-07-20T15:40:13.583Z",
+          "exitCode": 1,
+          "signal": null,
+          "spawnError": null,
+          "stdoutPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1X02_SURVIVAL_POSTERIOR_USES_EVENT_DENSITY\\03-baseline-ordinary-tests.stdout.txt",
+          "stderrPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1X02_SURVIVAL_POSTERIOR_USES_EVENT_DENSITY\\03-baseline-ordinary-tests.stderr.txt",
+          "stdoutSha256": "d900908b407ef164f5c38e5e48625e1afe6885a9238357bad9c460eeaa4d50ce",
+          "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdoutBytes": 4092,
+          "stderrBytes": 0
+        }
+      ],
+      "classification": "DETECTED_SEMANTIC",
+      "matchedPatterns": [
+        "posterior.*slow",
+        "slow.*posterior",
+        "survival condition",
+        "event density",
+        "survivor mass"
+      ],
+      "matchingDiagnosticLines": [
+        "✖ D1P02 slow-state posterior conditions on survival not on event density (3.1586ms)",
+        "✖ D1P02 slow-state posterior equals the independently recomputed survivor mass ratio (0.5514ms)",
+        "✖ D1P02 slow-state posterior conditions on survival not on event density (3.1586ms)",
+        "AssertionError [ERR_ASSERTION]: The slow-state posterior at time zero does not equal the prior slow weight. Conditioning on survival gives exactly 1 - weightFast = 0.75, observed 0.2727272727272727. A posterior conditioned on survivor mass must reduce to the prior at t = 0, because surviving zero time carries no information.",
+        "✖ D1P02 slow-state posterior equals the independently recomputed survivor mass ratio (0.5514ms)",
+        "AssertionError [ERR_ASSERTION]: The slow-state posterior at normalized time 0.25 does not equal the declared survivor mass ratio. Independently recomputed survival conditioned value 0.8779985796096821, observed 0.4735673522418059. The posterior must weight each latent component by its own survivor mass w_i exp(-lambda_i t), using the slow rate for the slow component and the fast rate for the fast component."
+      ],
+      "failingTests": [
+        "D1P02 slow-state posterior conditions on survival not on event density",
+        "D1P02 slow-state posterior equals the independently recomputed survivor mass ratio",
+        "failing tests:"
+      ],
+      "attributionSatisfied": true,
+      "baselineDetected": true,
+      "coverageProvenance": "SUITE_MEMBERSHIP_MIGRATION",
+      "failureSignature": "✖ D1P02 slow-state posterior conditions on survival not on event density (3.1586ms)",
+      "cloneCleanupStatus": "PRESERVED_WITHIN_EXPLICIT_SCRATCH_ROOT",
+      "error": null
+    },
+    {
+      "id": "D1A02_SURVIVAL_POSTERIOR_SLOW_USES_FAST_RATE",
+      "class": "ALTERNATE_FORM",
+      "propertyId": "D1P02_SURVIVAL_CONDITIONED_POSTERIOR",
+      "targetPath": "lib/observed-experiment.js",
+      "predictedClassification": "DETECTED_SEMANTIC",
+      "expectedFailingTest": "slow-state posterior conditions on survival not on event density",
+      "clonePath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\clones\\d1a02_survival_posterior_slow_uses_fast_rate",
+      "baseCommitVerified": true,
+      "preMutationSha256": "b757971e1f207899ddac0b262241822552a06abc5272407b14b21fd98ddbe623",
+      "postMutationSha256": "acef6976f5712f6654dddaba0a91b973e36df47ec88c1abd384652132239a6c6",
+      "patchApplied": true,
+      "regenerationCommands": [
+        {
+          "id": "regenerate-observed-experiment",
+          "command": "npm run experiment:run",
+          "startedAt": "2026-07-20T15:40:15.946Z",
+          "finishedAt": "2026-07-20T15:40:17.595Z",
+          "exitCode": 0,
+          "signal": null,
+          "spawnError": null,
+          "stdoutPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1A02_SURVIVAL_POSTERIOR_SLOW_USES_FAST_RATE\\01-regenerate-observed-experiment.stdout.txt",
+          "stderrPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1A02_SURVIVAL_POSTERIOR_SLOW_USES_FAST_RATE\\01-regenerate-observed-experiment.stderr.txt",
+          "stdoutSha256": "54c11cabe986932c5d7fb66f71e55cb1ec37181aa8edad41efdbb7779a73be39",
+          "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdoutBytes": 2995,
+          "stderrBytes": 0
+        }
+      ],
+      "gateCommands": [
+        {
+          "id": "d1-semantic",
+          "command": "node --test tests/semantic/*.mjs",
+          "startedAt": "2026-07-20T15:40:17.595Z",
+          "finishedAt": "2026-07-20T15:40:29.215Z",
+          "exitCode": 1,
+          "signal": null,
+          "spawnError": null,
+          "stdoutPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1A02_SURVIVAL_POSTERIOR_SLOW_USES_FAST_RATE\\02-d1-semantic.stdout.txt",
+          "stderrPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1A02_SURVIVAL_POSTERIOR_SLOW_USES_FAST_RATE\\02-d1-semantic.stderr.txt",
+          "stdoutSha256": "593f44a58b584fb89b600fb71369778b0d68b461269fd9b193cfb86852feaa71",
+          "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdoutBytes": 8799,
+          "stderrBytes": 0
+        }
+      ],
+      "baselineCommands": [
+        {
+          "id": "baseline-ordinary-tests",
+          "command": "node --test tests/model.test.mjs tests/observed-experiment.test.mjs tests/science-gates.test.mjs tests/cross-study-parity.test.mjs tests/walkthrough.test.mjs",
+          "startedAt": "2026-07-20T15:40:29.216Z",
+          "finishedAt": "2026-07-20T15:40:31.247Z",
+          "exitCode": 1,
+          "signal": null,
+          "spawnError": null,
+          "stdoutPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1A02_SURVIVAL_POSTERIOR_SLOW_USES_FAST_RATE\\03-baseline-ordinary-tests.stdout.txt",
+          "stderrPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1A02_SURVIVAL_POSTERIOR_SLOW_USES_FAST_RATE\\03-baseline-ordinary-tests.stderr.txt",
+          "stdoutSha256": "74986ed98aa84cb0bf10349de59d95ab586f61a3d8bb7d00a36c257f8246b5e4",
+          "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdoutBytes": 5110,
+          "stderrBytes": 0
+        }
+      ],
+      "classification": "DETECTED_SEMANTIC",
+      "matchedPatterns": [
+        "posterior.*slow",
+        "slow.*posterior",
+        "survival condition",
+        "surviving longer",
+        "survivor mass",
+        "slow rate"
+      ],
+      "matchingDiagnosticLines": [
+        "✖ D1P02 slow-state posterior equals the independently recomputed survivor mass ratio (1.1497ms)",
+        "✖ D1P02 slow-state posterior increases with survival and saturates toward the slow component (0.3578ms)",
+        "✖ D1P02 slow-state posterior equals the independently recomputed survivor mass ratio (1.1497ms)",
+        "AssertionError [ERR_ASSERTION]: The slow-state posterior at normalized time 0.25 does not equal the declared survivor mass ratio. Independently recomputed survival conditioned value 0.8779985796096821, observed 0.75. The posterior must weight each latent component by its own survivor mass w_i exp(-lambda_i t), using the slow rate for the slow component and the fast rate for the fast component.",
+        "at TestContext.<anonymous> (file:///C:/Users/mpolz/AppData/Local/Temp/uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85/clones/d1a02_survival_posterior_slow_uses_fast_rate/tests/semantic/survival-posterior-conditioning.semantic.test.mjs:86:12)",
+        "✖ D1P02 slow-state posterior increases with survival and saturates toward the slow component (0.3578ms)",
+        "AssertionError [ERR_ASSERTION]: Surviving longer without a transition did not increase posterior mass on the slower latent timescale. Posterior at t = 0 is 0.75 and at t = 6 is 0.75. Survival conditioning must favour the slow component.",
+        "at TestContext.<anonymous> (file:///C:/Users/mpolz/AppData/Local/Temp/uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85/clones/d1a02_survival_posterior_slow_uses_fast_rate/tests/semantic/survival-posterior-conditioning.semantic.test.mjs:101:10)"
+      ],
+      "failingTests": [
+        "D1P02 slow-state posterior equals the independently recomputed survivor mass ratio",
+        "D1P02 slow-state posterior increases with survival and saturates toward the slow component",
+        "failing tests:"
+      ],
+      "attributionSatisfied": false,
+      "baselineDetected": true,
+      "coverageProvenance": "SUITE_MEMBERSHIP_MIGRATION",
+      "failureSignature": "✖ D1P02 slow-state posterior equals the independently recomputed survivor mass ratio (1.1497ms)",
+      "cloneCleanupStatus": "PRESERVED_WITHIN_EXPLICIT_SCRATCH_ROOT",
+      "error": null
+    },
+    {
+      "id": "D1X03_SAMPLE_VARIANCE_BESSEL_CORRECTION_DROPPED",
+      "class": "EXACT_PHASE_C_REPLAY",
+      "propertyId": "D1P03_SAMPLE_VARIANCE_BESSEL",
+      "targetPath": "lib/observed-experiment.js",
+      "predictedClassification": "DETECTED_SEMANTIC",
+      "expectedFailingTest": "sample variance uses the bessel n-1 denominator",
+      "clonePath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\clones\\d1x03_sample_variance_bessel_correction_dropped",
+      "baseCommitVerified": true,
+      "preMutationSha256": "b757971e1f207899ddac0b262241822552a06abc5272407b14b21fd98ddbe623",
+      "postMutationSha256": "9431dc81439d182602eba1e6b21a64a4cc357181157de680acbdf0b6244815ff",
+      "patchApplied": true,
+      "regenerationCommands": [
+        {
+          "id": "regenerate-observed-experiment",
+          "command": "npm run experiment:run",
+          "startedAt": "2026-07-20T15:40:33.560Z",
+          "finishedAt": "2026-07-20T15:40:35.256Z",
+          "exitCode": 0,
+          "signal": null,
+          "spawnError": null,
+          "stdoutPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1X03_SAMPLE_VARIANCE_BESSEL_CORRECTION_DROPPED\\01-regenerate-observed-experiment.stdout.txt",
+          "stderrPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1X03_SAMPLE_VARIANCE_BESSEL_CORRECTION_DROPPED\\01-regenerate-observed-experiment.stderr.txt",
+          "stdoutSha256": "17a276a8a3f3410f18d2ffec8877adcef1c783938b617404caaec4c78d7b8ade",
+          "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdoutBytes": 2996,
+          "stderrBytes": 0
+        }
+      ],
+      "gateCommands": [
+        {
+          "id": "d1-semantic",
+          "command": "node --test tests/semantic/*.mjs",
+          "startedAt": "2026-07-20T15:40:35.256Z",
+          "finishedAt": "2026-07-20T15:40:46.979Z",
+          "exitCode": 1,
+          "signal": null,
+          "spawnError": null,
+          "stdoutPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1X03_SAMPLE_VARIANCE_BESSEL_CORRECTION_DROPPED\\02-d1-semantic.stdout.txt",
+          "stderrPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1X03_SAMPLE_VARIANCE_BESSEL_CORRECTION_DROPPED\\02-d1-semantic.stderr.txt",
+          "stdoutSha256": "2e4bf566e5ee34e653bee8a2b98c1c35f0bcea31d1a65fdc149e407cfb7bc3f3",
+          "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdoutBytes": 8768,
+          "stderrBytes": 0
+        }
+      ],
+      "baselineCommands": [
+        {
+          "id": "baseline-ordinary-tests",
+          "command": "node --test tests/model.test.mjs tests/observed-experiment.test.mjs tests/science-gates.test.mjs tests/cross-study-parity.test.mjs tests/walkthrough.test.mjs",
+          "startedAt": "2026-07-20T15:40:46.979Z",
+          "finishedAt": "2026-07-20T15:40:49.010Z",
+          "exitCode": 1,
+          "signal": null,
+          "spawnError": null,
+          "stdoutPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1X03_SAMPLE_VARIANCE_BESSEL_CORRECTION_DROPPED\\03-baseline-ordinary-tests.stdout.txt",
+          "stderrPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1X03_SAMPLE_VARIANCE_BESSEL_CORRECTION_DROPPED\\03-baseline-ordinary-tests.stderr.txt",
+          "stdoutSha256": "986de64cdd4f13f63cb41278101001f887176801f20aff5a19e1b7081ebcd55e",
+          "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdoutBytes": 4090,
+          "stderrBytes": 0
+        }
+      ],
+      "classification": "DETECTED_SEMANTIC",
+      "matchedPatterns": [
+        "sample variance",
+        "bessel",
+        "n[- ]?1 denominator",
+        "cv.?squared"
+      ],
+      "matchingDiagnosticLines": [
+        "✖ D1P03 sample variance uses the bessel n-1 denominator (0.9183ms)",
+        "✖ D1P03 reported cvSquared propagates the bessel n-1 denominator into the held-out state summary (0.3604ms)",
+        "✖ D1P03 sample variance uses the bessel n-1 denominator (0.9183ms)",
+        "AssertionError [ERR_ASSERTION]: sampleVariance does not apply the Bessel n-1 denominator. For [2,4,4,4,5,5,7,9] the hand-calculated sample variance is 32/7 = 4.571428571428571, observed 4. A quantity reported as a sample variance must be the unbiased estimate.",
+        "at TestContext.<anonymous> (file:///C:/Users/mpolz/AppData/Local/Temp/uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85/clones/d1x03_sample_variance_bessel_correction_dropped/tests/semantic/density-scale-and-dispersion.semantic.test.mjs:191:10)",
+        "✖ D1P03 reported cvSquared propagates the bessel n-1 denominator into the held-out state summary (0.3604ms)",
+        "AssertionError [ERR_ASSERTION]: The reported held-out cvSquared does not carry the Bessel n-1 denominator. Twenty-five holdout dwells of five copies of (1,2,3,4,5) have mean 3 and summed squared deviation 50, so cvSquared = (50/24)/9 = 0.2314814814814815, observed 0.2222222222222222. This is a sample variance divided by a squared mean and must use the n-1 denominator.",
+        "at TestContext.<anonymous> (file:///C:/Users/mpolz/AppData/Local/Temp/uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85/clones/d1x03_sample_variance_bessel_correction_dropped/tests/semantic/density-scale-and-dispersion.semantic.test.mjs:219:10)"
+      ],
+      "failingTests": [
+        "D1P03 sample variance uses the bessel n-1 denominator",
+        "D1P03 reported cvSquared propagates the bessel n-1 denominator into the held-out state summary",
+        "failing tests:"
+      ],
+      "attributionSatisfied": true,
+      "baselineDetected": true,
+      "coverageProvenance": "SUITE_MEMBERSHIP_MIGRATION",
+      "failureSignature": "✖ D1P03 sample variance uses the bessel n-1 denominator (0.9183ms)",
+      "cloneCleanupStatus": "PRESERVED_WITHIN_EXPLICIT_SCRATCH_ROOT",
+      "error": null
+    },
+    {
+      "id": "D1A03_SAMPLE_VARIANCE_DENOMINATOR_N_PLUS_ONE",
+      "class": "ALTERNATE_FORM",
+      "propertyId": "D1P03_SAMPLE_VARIANCE_BESSEL",
+      "targetPath": "lib/observed-experiment.js",
+      "predictedClassification": "DETECTED_SEMANTIC",
+      "expectedFailingTest": "sample variance uses the bessel n-1 denominator",
+      "clonePath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\clones\\d1a03_sample_variance_denominator_n_plus_one",
+      "baseCommitVerified": true,
+      "preMutationSha256": "b757971e1f207899ddac0b262241822552a06abc5272407b14b21fd98ddbe623",
+      "postMutationSha256": "0a3970d9a965de3985003b2f776eec3340bb80601d693265307461e67377b5c2",
+      "patchApplied": true,
+      "regenerationCommands": [
+        {
+          "id": "regenerate-observed-experiment",
+          "command": "npm run experiment:run",
+          "startedAt": "2026-07-20T15:40:51.364Z",
+          "finishedAt": "2026-07-20T15:40:52.957Z",
+          "exitCode": 0,
+          "signal": null,
+          "spawnError": null,
+          "stdoutPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1A03_SAMPLE_VARIANCE_DENOMINATOR_N_PLUS_ONE\\01-regenerate-observed-experiment.stdout.txt",
+          "stderrPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1A03_SAMPLE_VARIANCE_DENOMINATOR_N_PLUS_ONE\\01-regenerate-observed-experiment.stderr.txt",
+          "stdoutSha256": "a2cec31a0f58d7bf8e92bb79399382832f3022ea54b9c65ee2a0608d10ab0000",
+          "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdoutBytes": 2996,
+          "stderrBytes": 0
+        }
+      ],
+      "gateCommands": [
+        {
+          "id": "d1-semantic",
+          "command": "node --test tests/semantic/*.mjs",
+          "startedAt": "2026-07-20T15:40:52.957Z",
+          "finishedAt": "2026-07-20T15:41:04.607Z",
+          "exitCode": 1,
+          "signal": null,
+          "spawnError": null,
+          "stdoutPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1A03_SAMPLE_VARIANCE_DENOMINATOR_N_PLUS_ONE\\02-d1-semantic.stdout.txt",
+          "stderrPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1A03_SAMPLE_VARIANCE_DENOMINATOR_N_PLUS_ONE\\02-d1-semantic.stderr.txt",
+          "stdoutSha256": "fe01e0e77e167ba08f777c9f6f715c43f30eaa2687b43df2b46ae49a85a6293d",
+          "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdoutBytes": 8782,
+          "stderrBytes": 0
+        }
+      ],
+      "baselineCommands": [
+        {
+          "id": "baseline-ordinary-tests",
+          "command": "node --test tests/model.test.mjs tests/observed-experiment.test.mjs tests/science-gates.test.mjs tests/cross-study-parity.test.mjs tests/walkthrough.test.mjs",
+          "startedAt": "2026-07-20T15:41:04.608Z",
+          "finishedAt": "2026-07-20T15:41:06.598Z",
+          "exitCode": 1,
+          "signal": null,
+          "spawnError": null,
+          "stdoutPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1A03_SAMPLE_VARIANCE_DENOMINATOR_N_PLUS_ONE\\03-baseline-ordinary-tests.stdout.txt",
+          "stderrPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1A03_SAMPLE_VARIANCE_DENOMINATOR_N_PLUS_ONE\\03-baseline-ordinary-tests.stderr.txt",
+          "stdoutSha256": "1b58f38c847cbb03ebf429eadbfd221f30129f828002405a1afb16dd05e41ded",
+          "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdoutBytes": 4093,
+          "stderrBytes": 0
+        }
+      ],
+      "classification": "DETECTED_SEMANTIC",
+      "matchedPatterns": [
+        "sample variance",
+        "bessel",
+        "n[- ]?1 denominator",
+        "cv.?squared"
+      ],
+      "matchingDiagnosticLines": [
+        "✖ D1P03 sample variance uses the bessel n-1 denominator (0.9774ms)",
+        "✖ D1P03 reported cvSquared propagates the bessel n-1 denominator into the held-out state summary (0.3385ms)",
+        "✖ D1P03 sample variance uses the bessel n-1 denominator (0.9774ms)",
+        "AssertionError [ERR_ASSERTION]: sampleVariance does not apply the Bessel n-1 denominator. For [2,4,4,4,5,5,7,9] the hand-calculated sample variance is 32/7 = 4.571428571428571, observed 3.5555555555555554. A quantity reported as a sample variance must be the unbiased estimate.",
+        "✖ D1P03 reported cvSquared propagates the bessel n-1 denominator into the held-out state summary (0.3385ms)",
+        "AssertionError [ERR_ASSERTION]: The reported held-out cvSquared does not carry the Bessel n-1 denominator. Twenty-five holdout dwells of five copies of (1,2,3,4,5) have mean 3 and summed squared deviation 50, so cvSquared = (50/24)/9 = 0.2314814814814815, observed 0.2136752136752137. This is a sample variance divided by a squared mean and must use the n-1 denominator."
+      ],
+      "failingTests": [
+        "D1P03 sample variance uses the bessel n-1 denominator",
+        "D1P03 reported cvSquared propagates the bessel n-1 denominator into the held-out state summary",
+        "failing tests:"
+      ],
+      "attributionSatisfied": true,
+      "baselineDetected": true,
+      "coverageProvenance": "SUITE_MEMBERSHIP_MIGRATION",
+      "failureSignature": "✖ D1P03 sample variance uses the bessel n-1 denominator (0.9774ms)",
+      "cloneCleanupStatus": "PRESERVED_WITHIN_EXPLICIT_SCRATCH_ROOT",
+      "error": null
+    },
+    {
+      "id": "D1X04_HIDDEN_TRUE_GRADIENT_CROSSES_BOUNDARY",
+      "class": "EXACT_PHASE_C_REPLAY",
+      "propertyId": "D1P04_HIDDEN_WORLD_OBSERVATION_BOUNDARY",
+      "targetPath": "lib/uni-motor.js",
+      "predictedClassification": "DETECTED_SEMANTIC",
+      "expectedFailingTest": "observation excludes hidden world truth at the markov boundary",
+      "clonePath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\clones\\d1x04_hidden_true_gradient_crosses_boundary",
+      "baseCommitVerified": true,
+      "preMutationSha256": "852b38d14e1de9e1baae9bda7c37fb2426911fb1b04b4f594d026373d4b50313",
+      "postMutationSha256": "4fbadc8b2e73626b1768fb8a10e3baf72fa922a38f89b851e3ce87b0b7e932f1",
+      "patchApplied": true,
+      "regenerationCommands": [],
+      "gateCommands": [
+        {
+          "id": "d1-semantic",
+          "command": "node --test tests/semantic/*.mjs",
+          "startedAt": "2026-07-20T15:41:08.858Z",
+          "finishedAt": "2026-07-20T15:41:20.983Z",
+          "exitCode": 1,
+          "signal": null,
+          "spawnError": null,
+          "stdoutPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1X04_HIDDEN_TRUE_GRADIENT_CROSSES_BOUNDARY\\01-d1-semantic.stdout.txt",
+          "stderrPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1X04_HIDDEN_TRUE_GRADIENT_CROSSES_BOUNDARY\\01-d1-semantic.stderr.txt",
+          "stdoutSha256": "6f24610f4d41998176a590693b4e1e8ceba8d87ea07b7c4cf89666aad9e67989",
+          "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdoutBytes": 12229,
+          "stderrBytes": 0
+        }
+      ],
+      "baselineCommands": [
+        {
+          "id": "baseline-ordinary-tests",
+          "command": "node --test tests/model.test.mjs tests/observed-experiment.test.mjs tests/science-gates.test.mjs tests/cross-study-parity.test.mjs tests/walkthrough.test.mjs",
+          "startedAt": "2026-07-20T15:41:20.983Z",
+          "finishedAt": "2026-07-20T15:41:23.013Z",
+          "exitCode": 1,
+          "signal": null,
+          "spawnError": null,
+          "stdoutPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1X04_HIDDEN_TRUE_GRADIENT_CROSSES_BOUNDARY\\02-baseline-ordinary-tests.stdout.txt",
+          "stderrPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1X04_HIDDEN_TRUE_GRADIENT_CROSSES_BOUNDARY\\02-baseline-ordinary-tests.stderr.txt",
+          "stdoutSha256": "6926b9d1449258d8d7db97a18884f73a3cecd1af27411ab01303256a8c43f734",
+          "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdoutBytes": 3743,
+          "stderrBytes": 0
+        }
+      ],
+      "classification": "DETECTED_SEMANTIC",
+      "matchedPatterns": [
+        "truegradient",
+        "hidden world",
+        "markov boundary",
+        "observation.*hidden",
+        "world.*agent separation"
+      ],
+      "matchingDiagnosticLines": [
+        "✖ D1P04 observation excludes hidden world truth at the markov boundary (7.8291ms)",
+        "✖ D1P04 observation is invariant to hidden world state under any field name (1.2213ms)",
+        "✖ D1P04 observation excludes hidden world truth at the markov boundary (7.8291ms)",
+        "AssertionError [ERR_ASSERTION]: The observation record does not carry exactly the declared instrument-measurable fields. Declared boundary key set [\"deviceTimeMs\",\"ligandUm\",\"loadPnNm\",\"motorSpeedRpm\",\"pmfMv\",\"receivedAtMs\",\"receptorActivity\",\"rotation\",\"source\"], observed [\"deviceTimeMs\",\"ligandUm\",\"loadPnNm\",\"motorSpeedRpm\",\"pmfMv\",\"receivedAtMs\",\"receptorActivity\",\"rotation\",\"source\",\"trueGradient\"]. Any extra key means hidden world state has crossed the markov boundary into an observation, which invalidates the claimed world/agent separation.",
+        "+   'trueGradient'",
+        "actual: [ 'deviceTimeMs', 'ligandUm', 'loadPnNm', 'motorSpeedRpm', 'pmfMv', 'receivedAtMs', 'receptorActivity', 'rotation', 'source', 'trueGradient' ],",
+        "✖ D1P04 observation is invariant to hidden world state under any field name (1.2213ms)",
+        "AssertionError [ERR_ASSERTION]: Two worlds that differ ONLY in hidden state produced DIFFERENT observation records. Some hidden world variable is leaking across the markov boundary, whatever the leaked field is named. Observation A {\"source\":\"SYNTHETIC_WORLD\",\"deviceTimeMs\":0,\"receivedAtMs\":1000,\"ligandUm\":0.9777976107004311,\"receptorActivity\":0.33777976107004315,\"motorSpeedRpm\":6165.586296585668,\"rotation\":\"CCW\",\"loadPnNm\":700,\"pmfMv\":150,\"trueGradient\":\"rising\"} versus observation B {\"source\":\"SYNTHETIC_WORLD\",\"deviceTimeMs\":0,\"receivedAtMs\":1000,\"ligandUm\":0.9777976107004311,\"receptorActivity\":0.33777976107004315,\"motorSpeedRpm\":6165.586296585668,\"rotation\":\"CCW\",\"loadPnNm\":700,\"pmfMv\":150,\"trueGradient\":\"falling\"}.",
+        "+   trueGradient: 'falling'",
+        "-   trueGradient: 'rising'",
+        "actual: { source: 'SYNTHETIC_WORLD', deviceTimeMs: 0, receivedAtMs: 1000, ligandUm: 0.9777976107004311, receptorActivity: 0.33777976107004315, motorSpeedRpm: 6165.586296585668, rotation: 'CCW', loadPnNm: 700, pmfMv: 150, trueGradient: 'falling' },",
+        "expected: { source: 'SYNTHETIC_WORLD', deviceTimeMs: 0, receivedAtMs: 1000, ligandUm: 0.9777976107004311, receptorActivity: 0.33777976107004315, motorSpeedRpm: 6165.586296585668, rotation: 'CCW', loadPnNm: 700, pmfMv: 150, trueGradient: 'rising' },",
+        "AssertionError [ERR_ASSERTION]: The observation retained by the agent contains keys outside the declared boundary set. Observed [\"deviceTimeMs\",\"ligandUm\",\"loadPnNm\",\"motorSpeedRpm\",\"pmfMv\",\"receivedAtMs\",\"receptorActivity\",\"rotation\",\"source\",\"trueGradient\"]. The agent may retain only what crossed the markov boundary.",
+        "+   'trueGradient'",
+        "actual: [ 'deviceTimeMs', 'ligandUm', 'loadPnNm', 'motorSpeedRpm', 'pmfMv', 'receivedAtMs', 'receptorActivity', 'rotation', 'source', 'trueGradient' ],"
+      ],
+      "failingTests": [
+        "D1P04 observation excludes hidden world truth at the markov boundary",
+        "D1P04 observation is invariant to hidden world state under any field name",
+        "D1P04 the agent receives an observation and never the world object",
+        "failing tests:"
+      ],
+      "attributionSatisfied": true,
+      "baselineDetected": true,
+      "coverageProvenance": "SUITE_MEMBERSHIP_MIGRATION",
+      "failureSignature": "✖ D1P04 observation excludes hidden world truth at the markov boundary (7.8291ms)",
+      "cloneCleanupStatus": "PRESERVED_WITHIN_EXPLICIT_SCRATCH_ROOT",
+      "error": null
+    },
+    {
+      "id": "D1A04_HIDDEN_METHYLATION_LEAKS_UNDER_DIFFERENT_NAME",
+      "class": "ALTERNATE_FORM",
+      "propertyId": "D1P04_HIDDEN_WORLD_OBSERVATION_BOUNDARY",
+      "targetPath": "lib/uni-motor.js",
+      "predictedClassification": "DETECTED_SEMANTIC",
+      "expectedFailingTest": "observation excludes hidden world truth at the markov boundary",
+      "clonePath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\clones\\d1a04_hidden_methylation_leaks_under_different_name",
+      "baseCommitVerified": true,
+      "preMutationSha256": "852b38d14e1de9e1baae9bda7c37fb2426911fb1b04b4f594d026373d4b50313",
+      "postMutationSha256": "16e6a6f18215645e3c9fa0add9077f886562ec38ce1b68de08d955a03468e553",
+      "patchApplied": true,
+      "regenerationCommands": [],
+      "gateCommands": [
+        {
+          "id": "d1-semantic",
+          "command": "node --test tests/semantic/*.mjs",
+          "startedAt": "2026-07-20T15:41:25.299Z",
+          "finishedAt": "2026-07-20T15:41:36.966Z",
+          "exitCode": 1,
+          "signal": null,
+          "spawnError": null,
+          "stdoutPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1A04_HIDDEN_METHYLATION_LEAKS_UNDER_DIFFERENT_NAME\\01-d1-semantic.stdout.txt",
+          "stderrPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1A04_HIDDEN_METHYLATION_LEAKS_UNDER_DIFFERENT_NAME\\01-d1-semantic.stderr.txt",
+          "stdoutSha256": "36413b8a1015bc7fefe7120be807d4653e17bd9d89f5b62f4c27b756cf83dfaa",
+          "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdoutBytes": 12381,
+          "stderrBytes": 0
+        }
+      ],
+      "baselineCommands": [
+        {
+          "id": "baseline-ordinary-tests",
+          "command": "node --test tests/model.test.mjs tests/observed-experiment.test.mjs tests/science-gates.test.mjs tests/cross-study-parity.test.mjs tests/walkthrough.test.mjs",
+          "startedAt": "2026-07-20T15:41:36.966Z",
+          "finishedAt": "2026-07-20T15:41:39.076Z",
+          "exitCode": 0,
+          "signal": null,
+          "spawnError": null,
+          "stdoutPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1A04_HIDDEN_METHYLATION_LEAKS_UNDER_DIFFERENT_NAME\\02-baseline-ordinary-tests.stdout.txt",
+          "stderrPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1A04_HIDDEN_METHYLATION_LEAKS_UNDER_DIFFERENT_NAME\\02-baseline-ordinary-tests.stderr.txt",
+          "stdoutSha256": "b6f5d0bc2366c6eb59c2bea209681d504319a7af5be7c0e558fe9b1ab27b478f",
+          "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdoutBytes": 2777,
+          "stderrBytes": 0
+        }
+      ],
+      "classification": "DETECTED_SEMANTIC",
+      "matchedPatterns": [
+        "hidden world",
+        "markov boundary",
+        "observation.*hidden",
+        "world.*agent separation",
+        "methylation"
+      ],
+      "matchingDiagnosticLines": [
+        "✖ D1P04 observation excludes hidden world truth at the markov boundary (6.7806ms)",
+        "✖ D1P04 observation is invariant to hidden world state under any field name (1.4809ms)",
+        "✖ D1P04 observation excludes hidden world truth at the markov boundary (6.7806ms)",
+        "AssertionError [ERR_ASSERTION]: The observation record does not carry exactly the declared instrument-measurable fields. Declared boundary key set [\"deviceTimeMs\",\"ligandUm\",\"loadPnNm\",\"motorSpeedRpm\",\"pmfMv\",\"receivedAtMs\",\"receptorActivity\",\"rotation\",\"source\"], observed [\"deviceTimeMs\",\"ligandUm\",\"loadPnNm\",\"methylationLevel\",\"motorSpeedRpm\",\"pmfMv\",\"receivedAtMs\",\"receptorActivity\",\"rotation\",\"source\"]. Any extra key means hidden world state has crossed the markov boundary into an observation, which invalidates the claimed world/agent separation.",
+        "+   'methylationLevel',",
+        "at TestContext.<anonymous> (file:///C:/Users/mpolz/AppData/Local/Temp/uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85/clones/d1a04_hidden_methylation_leaks_under_different_name/tests/semantic/world-agent-observation-boundary.semantic.test.mjs:92:10)",
+        "actual: [ 'deviceTimeMs', 'ligandUm', 'loadPnNm', 'methylationLevel', 'motorSpeedRpm', 'pmfMv', 'receivedAtMs', 'receptorActivity', 'rotation', 'source' ],",
+        "✖ D1P04 observation is invariant to hidden world state under any field name (1.4809ms)",
+        "AssertionError [ERR_ASSERTION]: Two worlds that differ ONLY in hidden state produced DIFFERENT observation records. Some hidden world variable is leaking across the markov boundary, whatever the leaked field is named. Observation A {\"source\":\"SYNTHETIC_WORLD\",\"deviceTimeMs\":0,\"receivedAtMs\":1000,\"ligandUm\":0.9777976107004311,\"receptorActivity\":0.33777976107004315,\"motorSpeedRpm\":6165.586296585668,\"rotation\":\"CCW\",\"loadPnNm\":700,\"pmfMv\":150,\"methylationLevel\":2.2} versus observation B {\"source\":\"SYNTHETIC_WORLD\",\"deviceTimeMs\":0,\"receivedAtMs\":1000,\"ligandUm\":0.9777976107004311,\"receptorActivity\":0.33777976107004315,\"motorSpeedRpm\":6165.586296585668,\"rotation\":\"CCW\",\"loadPnNm\":700,\"pmfMv\":150,\"methylationLevel\":7.9}.",
+        "+   methylationLevel: 7.9,",
+        "-   methylationLevel: 2.2,",
+        "at TestContext.<anonymous> (file:///C:/Users/mpolz/AppData/Local/Temp/uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85/clones/d1a04_hidden_methylation_leaks_under_different_name/tests/semantic/world-agent-observation-boundary.semantic.test.mjs:119:10)",
+        "actual: { source: 'SYNTHETIC_WORLD', deviceTimeMs: 0, receivedAtMs: 1000, ligandUm: 0.9777976107004311, receptorActivity: 0.33777976107004315, motorSpeedRpm: 6165.586296585668, rotation: 'CCW', loadPnNm: 700, pmfMv: 150, methylationLevel: 7.9 },",
+        "expected: { source: 'SYNTHETIC_WORLD', deviceTimeMs: 0, receivedAtMs: 1000, ligandUm: 0.9777976107004311, receptorActivity: 0.33777976107004315, motorSpeedRpm: 6165.586296585668, rotation: 'CCW', loadPnNm: 700, pmfMv: 150, methylationLevel: 2.2 },",
+        "AssertionError [ERR_ASSERTION]: The observation retained by the agent contains keys outside the declared boundary set. Observed [\"deviceTimeMs\",\"ligandUm\",\"loadPnNm\",\"methylationLevel\",\"motorSpeedRpm\",\"pmfMv\",\"receivedAtMs\",\"receptorActivity\",\"rotation\",\"source\"]. The agent may retain only what crossed the markov boundary.",
+        "+   'methylationLevel',",
+        "at TestContext.<anonymous> (file:///C:/Users/mpolz/AppData/Local/Temp/uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85/clones/d1a04_hidden_methylation_leaks_under_different_name/tests/semantic/world-agent-observation-boundary.semantic.test.mjs:140:10)",
+        "actual: [ 'deviceTimeMs', 'ligandUm', 'loadPnNm', 'methylationLevel', 'motorSpeedRpm', 'pmfMv', 'receivedAtMs', 'receptorActivity', 'rotation', 'source' ],"
+      ],
+      "failingTests": [
+        "D1P04 observation excludes hidden world truth at the markov boundary",
+        "D1P04 observation is invariant to hidden world state under any field name",
+        "D1P04 the agent receives an observation and never the world object",
+        "failing tests:"
+      ],
+      "attributionSatisfied": true,
+      "baselineDetected": false,
+      "coverageProvenance": "NEW_COVERAGE_IN_D1",
+      "failureSignature": "✖ D1P04 observation excludes hidden world truth at the markov boundary (6.7806ms)",
+      "cloneCleanupStatus": "PRESERVED_WITHIN_EXPLICIT_SCRATCH_ROOT",
+      "error": null
+    },
+    {
+      "id": "D1X05_INSTRUMENT_STATOR_COUNT_UNBOUNDED",
+      "class": "EXACT_PHASE_C_REPLAY",
+      "propertyId": "D1P05_INSTRUMENT_STATOR_RANGE",
+      "targetPath": "lib/uni-motor.js",
+      "predictedClassification": "DETECTED_SEMANTIC",
+      "expectedFailingTest": "live instrument stator occupancy is bounded to the physical zero to eleven range",
+      "clonePath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\clones\\d1x05_instrument_stator_count_unbounded",
+      "baseCommitVerified": true,
+      "preMutationSha256": "852b38d14e1de9e1baae9bda7c37fb2426911fb1b04b4f594d026373d4b50313",
+      "postMutationSha256": "da8695d3d0559eb41a11bcbafe77e6e03af939d143b97629a2b8248073d215d8",
+      "patchApplied": true,
+      "regenerationCommands": [],
+      "gateCommands": [
+        {
+          "id": "d1-semantic",
+          "command": "node --test tests/semantic/*.mjs",
+          "startedAt": "2026-07-20T15:41:41.516Z",
+          "finishedAt": "2026-07-20T15:41:53.909Z",
+          "exitCode": 1,
+          "signal": null,
+          "spawnError": null,
+          "stdoutPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1X05_INSTRUMENT_STATOR_COUNT_UNBOUNDED\\01-d1-semantic.stdout.txt",
+          "stderrPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1X05_INSTRUMENT_STATOR_COUNT_UNBOUNDED\\01-d1-semantic.stderr.txt",
+          "stdoutSha256": "116008d8e94b9b2ff797280d2ddd3304389dff7105f9f6c7b557529e2e858a4d",
+          "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdoutBytes": 7528,
+          "stderrBytes": 0
+        }
+      ],
+      "baselineCommands": [
+        {
+          "id": "baseline-ordinary-tests",
+          "command": "node --test tests/model.test.mjs tests/observed-experiment.test.mjs tests/science-gates.test.mjs tests/cross-study-parity.test.mjs tests/walkthrough.test.mjs",
+          "startedAt": "2026-07-20T15:41:53.910Z",
+          "finishedAt": "2026-07-20T15:41:56.124Z",
+          "exitCode": 0,
+          "signal": null,
+          "spawnError": null,
+          "stdoutPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1X05_INSTRUMENT_STATOR_COUNT_UNBOUNDED\\02-baseline-ordinary-tests.stdout.txt",
+          "stderrPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1X05_INSTRUMENT_STATOR_COUNT_UNBOUNDED\\02-baseline-ordinary-tests.stderr.txt",
+          "stdoutSha256": "a0f687cfc472e7edf29b5bdfbc0ad27a1c902685957e227d3010b32274788ad2",
+          "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdoutBytes": 2777,
+          "stderrBytes": 0
+        }
+      ],
+      "classification": "DETECTED_SEMANTIC",
+      "matchedPatterns": [
+        "instrument.*stator",
+        "stator.*instrument",
+        "stator.*(?:bound|range|zero|eleven)"
+      ],
+      "matchingDiagnosticLines": [
+        "✖ D1P05 live instrument stator occupancy is bounded to the physical zero to eleven range (1.9334ms)",
+        "✖ D1P05 live instrument stator occupancy is bounded to the physical zero to eleven range (1.9334ms)",
+        "AssertionError [ERR_ASSERTION]: An impossible instrument stator count of 20 was accepted instead of being clamped to the declared maximum 11. A flagellar motor cannot host more than eleven stator units; an out-of-range instrument reading must not enter model state as if it were a biologically valid measurement.",
+        "at TestContext.<anonymous> (file:///C:/Users/mpolz/AppData/Local/Temp/uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85/clones/d1x05_instrument_stator_count_unbounded/tests/semantic/world-agent-observation-boundary.semantic.test.mjs:152:10)"
+      ],
+      "failingTests": [
+        "D1P05 live instrument stator occupancy is bounded to the physical zero to eleven range",
+        "failing tests:"
+      ],
+      "attributionSatisfied": true,
+      "baselineDetected": false,
+      "coverageProvenance": "NEW_COVERAGE_IN_D1",
+      "failureSignature": "✖ D1P05 live instrument stator occupancy is bounded to the physical zero to eleven range (1.9334ms)",
+      "cloneCleanupStatus": "PRESERVED_WITHIN_EXPLICIT_SCRATCH_ROOT",
+      "error": null
+    },
+    {
+      "id": "D1A05_INSTRUMENT_STATOR_RANGE_WIDENED_TO_TWENTY",
+      "class": "ALTERNATE_FORM",
+      "propertyId": "D1P05_INSTRUMENT_STATOR_RANGE",
+      "targetPath": "lib/uni-motor.js",
+      "predictedClassification": "DETECTED_SEMANTIC",
+      "expectedFailingTest": "live instrument stator occupancy is bounded to the physical zero to eleven range",
+      "clonePath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\clones\\d1a05_instrument_stator_range_widened_to_twenty",
+      "baseCommitVerified": true,
+      "preMutationSha256": "852b38d14e1de9e1baae9bda7c37fb2426911fb1b04b4f594d026373d4b50313",
+      "postMutationSha256": "5b6bc1d4eee3c1d0c6ea9f02078c51c8f1721fd08e4088b71848a22897cb5af9",
+      "patchApplied": true,
+      "regenerationCommands": [],
+      "gateCommands": [
+        {
+          "id": "d1-semantic",
+          "command": "node --test tests/semantic/*.mjs",
+          "startedAt": "2026-07-20T15:41:58.385Z",
+          "finishedAt": "2026-07-20T15:42:11.762Z",
+          "exitCode": 1,
+          "signal": null,
+          "spawnError": null,
+          "stdoutPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1A05_INSTRUMENT_STATOR_RANGE_WIDENED_TO_TWENTY\\01-d1-semantic.stdout.txt",
+          "stderrPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1A05_INSTRUMENT_STATOR_RANGE_WIDENED_TO_TWENTY\\01-d1-semantic.stderr.txt",
+          "stdoutSha256": "da2c0c602f8c103fb50a8d5dc59b975a903e7984117ddbbd3db937acd87c3ffd",
+          "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdoutBytes": 7539,
+          "stderrBytes": 0
+        }
+      ],
+      "baselineCommands": [
+        {
+          "id": "baseline-ordinary-tests",
+          "command": "node --test tests/model.test.mjs tests/observed-experiment.test.mjs tests/science-gates.test.mjs tests/cross-study-parity.test.mjs tests/walkthrough.test.mjs",
+          "startedAt": "2026-07-20T15:42:11.762Z",
+          "finishedAt": "2026-07-20T15:42:13.689Z",
+          "exitCode": 0,
+          "signal": null,
+          "spawnError": null,
+          "stdoutPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1A05_INSTRUMENT_STATOR_RANGE_WIDENED_TO_TWENTY\\02-baseline-ordinary-tests.stdout.txt",
+          "stderrPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1A05_INSTRUMENT_STATOR_RANGE_WIDENED_TO_TWENTY\\02-baseline-ordinary-tests.stderr.txt",
+          "stdoutSha256": "946048a820f1c3d630198f9382f9067812961996bcf9e675db5c1105da91a393",
+          "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdoutBytes": 2774,
+          "stderrBytes": 0
+        }
+      ],
+      "classification": "DETECTED_SEMANTIC",
+      "matchedPatterns": [
+        "instrument.*stator",
+        "stator.*instrument",
+        "stator.*(?:bound|range|zero|eleven)"
+      ],
+      "matchingDiagnosticLines": [
+        "✖ D1P05 live instrument stator occupancy is bounded to the physical zero to eleven range (1.8713ms)",
+        "✖ D1P05 live instrument stator occupancy is bounded to the physical zero to eleven range (1.8713ms)",
+        "AssertionError [ERR_ASSERTION]: An impossible instrument stator count of 20 was accepted instead of being clamped to the declared maximum 11. A flagellar motor cannot host more than eleven stator units; an out-of-range instrument reading must not enter model state as if it were a biologically valid measurement.",
+        "at TestContext.<anonymous> (file:///C:/Users/mpolz/AppData/Local/Temp/uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85/clones/d1a05_instrument_stator_range_widened_to_twenty/tests/semantic/world-agent-observation-boundary.semantic.test.mjs:152:10)"
+      ],
+      "failingTests": [
+        "D1P05 live instrument stator occupancy is bounded to the physical zero to eleven range",
+        "failing tests:"
+      ],
+      "attributionSatisfied": true,
+      "baselineDetected": false,
+      "coverageProvenance": "NEW_COVERAGE_IN_D1",
+      "failureSignature": "✖ D1P05 live instrument stator occupancy is bounded to the physical zero to eleven range (1.8713ms)",
+      "cloneCleanupStatus": "PRESERVED_WITHIN_EXPLICIT_SCRATCH_ROOT",
+      "error": null
+    },
+    {
+      "id": "D1X06_STATOR_RECRUITMENT_ERASES_LOAD_RESPONSE",
+      "class": "EXACT_PHASE_C_REPLAY",
+      "propertyId": "D1P06_LOAD_DEPENDENT_STATOR_RECRUITMENT",
+      "targetPath": "lib/uni-motor.js",
+      "predictedClassification": "DETECTED_SEMANTIC",
+      "expectedFailingTest": "mechanosensitive stator recruitment increases with load",
+      "clonePath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\clones\\d1x06_stator_recruitment_erases_load_response",
+      "baseCommitVerified": true,
+      "preMutationSha256": "852b38d14e1de9e1baae9bda7c37fb2426911fb1b04b4f594d026373d4b50313",
+      "postMutationSha256": "fcc7d29d6ad46aecffe132812eb6b4f00ef5b084fe8c4c65736e4c3a73210ec9",
+      "patchApplied": true,
+      "regenerationCommands": [],
+      "gateCommands": [
+        {
+          "id": "d1-semantic",
+          "command": "node --test tests/semantic/*.mjs",
+          "startedAt": "2026-07-20T15:42:15.985Z",
+          "finishedAt": "2026-07-20T15:42:29.329Z",
+          "exitCode": 1,
+          "signal": null,
+          "spawnError": null,
+          "stdoutPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1X06_STATOR_RECRUITMENT_ERASES_LOAD_RESPONSE\\01-d1-semantic.stdout.txt",
+          "stderrPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1X06_STATOR_RECRUITMENT_ERASES_LOAD_RESPONSE\\01-d1-semantic.stderr.txt",
+          "stdoutSha256": "bfc3035bbf8a315a4c050d130689379189b12fd19ed5899e634dfd4c63c5d404",
+          "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdoutBytes": 7372,
+          "stderrBytes": 0
+        }
+      ],
+      "baselineCommands": [
+        {
+          "id": "baseline-ordinary-tests",
+          "command": "node --test tests/model.test.mjs tests/observed-experiment.test.mjs tests/science-gates.test.mjs tests/cross-study-parity.test.mjs tests/walkthrough.test.mjs",
+          "startedAt": "2026-07-20T15:42:29.329Z",
+          "finishedAt": "2026-07-20T15:42:31.413Z",
+          "exitCode": 0,
+          "signal": null,
+          "spawnError": null,
+          "stdoutPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1X06_STATOR_RECRUITMENT_ERASES_LOAD_RESPONSE\\02-baseline-ordinary-tests.stdout.txt",
+          "stderrPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1X06_STATOR_RECRUITMENT_ERASES_LOAD_RESPONSE\\02-baseline-ordinary-tests.stderr.txt",
+          "stdoutSha256": "8009949f972689f703df0d5ef95b14e69363984e6d00a896ac49749661b1046e",
+          "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdoutBytes": 2779,
+          "stderrBytes": 0
+        }
+      ],
+      "classification": "DETECTED_SEMANTIC",
+      "matchedPatterns": [
+        "stator.*load",
+        "mechanosensitive",
+        "stator recruitment"
+      ],
+      "matchingDiagnosticLines": [
+        "✖ D1P06 mechanosensitive stator recruitment increases with load (19.2406ms)",
+        "✖ D1P06 mechanosensitive stator recruitment increases with load (19.2406ms)",
+        "AssertionError [ERR_ASSERTION]: Steady-state stator occupancy at low load does not reach the declared mechanosensitive recruitment target. Expected 2.9230769230769234, observed 5.999999999999972.",
+        "at TestContext.<anonymous> (file:///C:/Users/mpolz/AppData/Local/Temp/uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85/clones/d1x06_stator_recruitment_erases_load_response/tests/semantic/world-agent-observation-boundary.semantic.test.mjs:223:10)"
+      ],
+      "failingTests": [
+        "D1P06 mechanosensitive stator recruitment increases with load",
+        "failing tests:"
+      ],
+      "attributionSatisfied": true,
+      "baselineDetected": false,
+      "coverageProvenance": "NEW_COVERAGE_IN_D1",
+      "failureSignature": "✖ D1P06 mechanosensitive stator recruitment increases with load (19.2406ms)",
+      "cloneCleanupStatus": "PRESERVED_WITHIN_EXPLICIT_SCRATCH_ROOT",
+      "error": null
+    },
+    {
+      "id": "D1A06_STATOR_RECRUITMENT_LOAD_RESPONSE_INVERTED",
+      "class": "ALTERNATE_FORM",
+      "propertyId": "D1P06_LOAD_DEPENDENT_STATOR_RECRUITMENT",
+      "targetPath": "lib/uni-motor.js",
+      "predictedClassification": "DETECTED_SEMANTIC",
+      "expectedFailingTest": "mechanosensitive stator recruitment increases with load",
+      "clonePath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\clones\\d1a06_stator_recruitment_load_response_inverted",
+      "baseCommitVerified": true,
+      "preMutationSha256": "852b38d14e1de9e1baae9bda7c37fb2426911fb1b04b4f594d026373d4b50313",
+      "postMutationSha256": "939a2cf8eeec0408feeb101f7f9f54b58b2f4fb25d32a1a05b1ce2dad76b9bf2",
+      "patchApplied": true,
+      "regenerationCommands": [],
+      "gateCommands": [
+        {
+          "id": "d1-semantic",
+          "command": "node --test tests/semantic/*.mjs",
+          "startedAt": "2026-07-20T15:42:33.807Z",
+          "finishedAt": "2026-07-20T15:42:46.152Z",
+          "exitCode": 1,
+          "signal": null,
+          "spawnError": null,
+          "stdoutPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1A06_STATOR_RECRUITMENT_LOAD_RESPONSE_INVERTED\\01-d1-semantic.stdout.txt",
+          "stderrPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1A06_STATOR_RECRUITMENT_LOAD_RESPONSE_INVERTED\\01-d1-semantic.stderr.txt",
+          "stdoutSha256": "a40698d30fcf228bfd31da2585e4707fa2038d3fb8bd7d2f63c6988226475470",
+          "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdoutBytes": 7369,
+          "stderrBytes": 0
+        }
+      ],
+      "baselineCommands": [
+        {
+          "id": "baseline-ordinary-tests",
+          "command": "node --test tests/model.test.mjs tests/observed-experiment.test.mjs tests/science-gates.test.mjs tests/cross-study-parity.test.mjs tests/walkthrough.test.mjs",
+          "startedAt": "2026-07-20T15:42:46.152Z",
+          "finishedAt": "2026-07-20T15:42:48.121Z",
+          "exitCode": 0,
+          "signal": null,
+          "spawnError": null,
+          "stdoutPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1A06_STATOR_RECRUITMENT_LOAD_RESPONSE_INVERTED\\02-baseline-ordinary-tests.stdout.txt",
+          "stderrPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1A06_STATOR_RECRUITMENT_LOAD_RESPONSE_INVERTED\\02-baseline-ordinary-tests.stderr.txt",
+          "stdoutSha256": "adc61c6322b77318a673cf4a835e41d8c24564eeb754330ce53a0de9a1502f03",
+          "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdoutBytes": 2778,
+          "stderrBytes": 0
+        }
+      ],
+      "classification": "DETECTED_SEMANTIC",
+      "matchedPatterns": [
+        "stator.*load",
+        "mechanosensitive",
+        "stator recruitment"
+      ],
+      "matchingDiagnosticLines": [
+        "✖ D1P06 mechanosensitive stator recruitment increases with load (15.4664ms)",
+        "✖ D1P06 mechanosensitive stator recruitment increases with load (15.4664ms)",
+        "AssertionError [ERR_ASSERTION]: Steady-state stator occupancy at low load does not reach the declared mechanosensitive recruitment target. Expected 2.9230769230769234, observed 9.07692307692302.",
+        "at TestContext.<anonymous> (file:///C:/Users/mpolz/AppData/Local/Temp/uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85/clones/d1a06_stator_recruitment_load_response_inverted/tests/semantic/world-agent-observation-boundary.semantic.test.mjs:223:10)"
+      ],
+      "failingTests": [
+        "D1P06 mechanosensitive stator recruitment increases with load",
+        "failing tests:"
+      ],
+      "attributionSatisfied": true,
+      "baselineDetected": false,
+      "coverageProvenance": "NEW_COVERAGE_IN_D1",
+      "failureSignature": "✖ D1P06 mechanosensitive stator recruitment increases with load (15.4664ms)",
+      "cloneCleanupStatus": "PRESERVED_WITHIN_EXPLICIT_SCRATCH_ROOT",
+      "error": null
+    },
+    {
+      "id": "D1X07_FIRST_PASSAGE_WEIGHTS_NOT_NORMALIZED",
+      "class": "EXACT_PHASE_C_REPLAY",
+      "propertyId": "D1P07_FIRST_PASSAGE_WEIGHT_NORMALIZATION",
+      "targetPath": "lib/source-first-passage.js",
+      "predictedClassification": "DETECTED_SEMANTIC",
+      "expectedFailingTest": "first-passage mixture weights are a normalized bernoulli convolution",
+      "clonePath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\clones\\d1x07_first_passage_weights_not_normalized",
+      "baseCommitVerified": true,
+      "preMutationSha256": "c66cf5ff048f5eb1e85c7b3148a002002636df14c5e96dda7eb840366a2ff6d8",
+      "postMutationSha256": "73ecc7b4c0b80ec98fa92fdaa52f4ddaf4b636b6cd6716307c74341ca5aed2cb",
+      "patchApplied": true,
+      "regenerationCommands": [
+        {
+          "id": "regenerate-science-gates",
+          "command": "npm run science:run",
+          "startedAt": "2026-07-20T15:42:50.409Z",
+          "finishedAt": "2026-07-20T15:42:58.919Z",
+          "exitCode": 0,
+          "signal": null,
+          "spawnError": null,
+          "stdoutPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1X07_FIRST_PASSAGE_WEIGHTS_NOT_NORMALIZED\\01-regenerate-science-gates.stdout.txt",
+          "stderrPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1X07_FIRST_PASSAGE_WEIGHTS_NOT_NORMALIZED\\01-regenerate-science-gates.stderr.txt",
+          "stdoutSha256": "cb3b2b2fe193d9e7cf2f36ead6cc663198a091488e18d877647d32626b6525f6",
+          "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdoutBytes": 1026,
+          "stderrBytes": 0
+        }
+      ],
+      "gateCommands": [
+        {
+          "id": "d1-semantic",
+          "command": "node --test tests/semantic/*.mjs",
+          "startedAt": "2026-07-20T15:42:58.919Z",
+          "finishedAt": "2026-07-20T15:43:11.770Z",
+          "exitCode": 1,
+          "signal": null,
+          "spawnError": null,
+          "stdoutPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1X07_FIRST_PASSAGE_WEIGHTS_NOT_NORMALIZED\\02-d1-semantic.stdout.txt",
+          "stderrPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1X07_FIRST_PASSAGE_WEIGHTS_NOT_NORMALIZED\\02-d1-semantic.stderr.txt",
+          "stdoutSha256": "903217c308265009f8de5159a42df8bebfbbf1ec59eb94ad4df45f8d4a5c82a7",
+          "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdoutBytes": 7334,
+          "stderrBytes": 0
+        }
+      ],
+      "baselineCommands": [
+        {
+          "id": "baseline-ordinary-tests",
+          "command": "node --test tests/model.test.mjs tests/observed-experiment.test.mjs tests/science-gates.test.mjs tests/cross-study-parity.test.mjs tests/walkthrough.test.mjs",
+          "startedAt": "2026-07-20T15:43:11.771Z",
+          "finishedAt": "2026-07-20T15:43:13.822Z",
+          "exitCode": 1,
+          "signal": null,
+          "spawnError": null,
+          "stdoutPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1X07_FIRST_PASSAGE_WEIGHTS_NOT_NORMALIZED\\03-baseline-ordinary-tests.stdout.txt",
+          "stderrPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1X07_FIRST_PASSAGE_WEIGHTS_NOT_NORMALIZED\\03-baseline-ordinary-tests.stderr.txt",
+          "stdoutSha256": "376dfb20ba90dfd744ac02571cfc4d0779f2c525fb68da55b6ed7ee7c833b364",
+          "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdoutBytes": 4970,
+          "stderrBytes": 0
+        }
+      ],
+      "classification": "DETECTED_SEMANTIC",
+      "matchedPatterns": [
+        "first[- ]passage coefficient",
+        "mixture weight",
+        "bernoulli convolution"
+      ],
+      "matchingDiagnosticLines": [
+        "✖ D1P07 first-passage mixture weights are a normalized bernoulli convolution (4.806ms)",
+        "✖ D1P07 first-passage mixture weights are a normalized bernoulli convolution (4.806ms)",
+        "AssertionError [ERR_ASSERTION]: The first-passage coefficient vector at N = 1 is not the declared Bernoulli convolution. Hand-calculated mixture weights [0.7,0.3], observed [0.7,0.7]. The component weights are a convolution of independent Bernoulli(c_i) choices; both their VALUES and their ORDER carry meaning."
+      ],
+      "failingTests": [
+        "D1P07 first-passage mixture weights are a normalized bernoulli convolution",
+        "failing tests:"
+      ],
+      "attributionSatisfied": true,
+      "baselineDetected": true,
+      "coverageProvenance": "SUITE_MEMBERSHIP_MIGRATION",
+      "failureSignature": "✖ D1P07 first-passage mixture weights are a normalized bernoulli convolution (4.806ms)",
+      "cloneCleanupStatus": "PRESERVED_WITHIN_EXPLICIT_SCRATCH_ROOT",
+      "error": null
+    },
+    {
+      "id": "D1A07_FIRST_PASSAGE_RETAIN_FACTOR_DROPPED",
+      "class": "ALTERNATE_FORM",
+      "propertyId": "D1P07_FIRST_PASSAGE_WEIGHT_NORMALIZATION",
+      "targetPath": "lib/source-first-passage.js",
+      "predictedClassification": "DETECTED_SEMANTIC",
+      "expectedFailingTest": "first-passage mixture weights are a normalized bernoulli convolution",
+      "clonePath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\clones\\d1a07_first_passage_retain_factor_dropped",
+      "baseCommitVerified": true,
+      "preMutationSha256": "c66cf5ff048f5eb1e85c7b3148a002002636df14c5e96dda7eb840366a2ff6d8",
+      "postMutationSha256": "0fa2f18c9e5a9ec95575ef9427d6e463f2505a622d1975b74b4757f7253fcc59",
+      "patchApplied": true,
+      "regenerationCommands": [
+        {
+          "id": "regenerate-science-gates",
+          "command": "npm run science:run",
+          "startedAt": "2026-07-20T15:43:16.138Z",
+          "finishedAt": "2026-07-20T15:43:25.502Z",
+          "exitCode": 0,
+          "signal": null,
+          "spawnError": null,
+          "stdoutPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1A07_FIRST_PASSAGE_RETAIN_FACTOR_DROPPED\\01-regenerate-science-gates.stdout.txt",
+          "stderrPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1A07_FIRST_PASSAGE_RETAIN_FACTOR_DROPPED\\01-regenerate-science-gates.stderr.txt",
+          "stdoutSha256": "c70387b8cc8c4570bad71172d1558446b22e700c32220adb6ac04b27a816de52",
+          "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdoutBytes": 1026,
+          "stderrBytes": 0
+        }
+      ],
+      "gateCommands": [
+        {
+          "id": "d1-semantic",
+          "command": "node --test tests/semantic/*.mjs",
+          "startedAt": "2026-07-20T15:43:25.502Z",
+          "finishedAt": "2026-07-20T15:43:38.402Z",
+          "exitCode": 1,
+          "signal": null,
+          "spawnError": null,
+          "stdoutPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1A07_FIRST_PASSAGE_RETAIN_FACTOR_DROPPED\\02-d1-semantic.stdout.txt",
+          "stderrPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1A07_FIRST_PASSAGE_RETAIN_FACTOR_DROPPED\\02-d1-semantic.stderr.txt",
+          "stdoutSha256": "3b6d9ee35a2b4da7b8795f9b2d718c61a41f09d080a9ef7e417bd09091b48f62",
+          "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdoutBytes": 7326,
+          "stderrBytes": 0
+        }
+      ],
+      "baselineCommands": [
+        {
+          "id": "baseline-ordinary-tests",
+          "command": "node --test tests/model.test.mjs tests/observed-experiment.test.mjs tests/science-gates.test.mjs tests/cross-study-parity.test.mjs tests/walkthrough.test.mjs",
+          "startedAt": "2026-07-20T15:43:38.402Z",
+          "finishedAt": "2026-07-20T15:43:40.497Z",
+          "exitCode": 1,
+          "signal": null,
+          "spawnError": null,
+          "stdoutPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1A07_FIRST_PASSAGE_RETAIN_FACTOR_DROPPED\\03-baseline-ordinary-tests.stdout.txt",
+          "stderrPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1A07_FIRST_PASSAGE_RETAIN_FACTOR_DROPPED\\03-baseline-ordinary-tests.stderr.txt",
+          "stdoutSha256": "6c809c764961aac24e9bdac6120ea41495138387c74dd8006fff08df6559f9d7",
+          "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdoutBytes": 4958,
+          "stderrBytes": 0
+        }
+      ],
+      "classification": "DETECTED_SEMANTIC",
+      "matchedPatterns": [
+        "first[- ]passage coefficient",
+        "mixture weight",
+        "bernoulli convolution"
+      ],
+      "matchingDiagnosticLines": [
+        "✖ D1P07 first-passage mixture weights are a normalized bernoulli convolution (2.7891ms)",
+        "✖ D1P07 first-passage mixture weights are a normalized bernoulli convolution (2.7891ms)",
+        "AssertionError [ERR_ASSERTION]: The first-passage coefficient vector at N = 1 is not the declared Bernoulli convolution. Hand-calculated mixture weights [0.7,0.3], observed [0.3,0.3]. The component weights are a convolution of independent Bernoulli(c_i) choices; both their VALUES and their ORDER carry meaning."
+      ],
+      "failingTests": [
+        "D1P07 first-passage mixture weights are a normalized bernoulli convolution",
+        "failing tests:"
+      ],
+      "attributionSatisfied": true,
+      "baselineDetected": true,
+      "coverageProvenance": "SUITE_MEMBERSHIP_MIGRATION",
+      "failureSignature": "✖ D1P07 first-passage mixture weights are a normalized bernoulli convolution (2.7891ms)",
+      "cloneCleanupStatus": "PRESERVED_WITHIN_EXPLICIT_SCRATCH_ROOT",
+      "error": null
+    },
+    {
+      "id": "D1X08_OFF_HAZARD_OMITS_STATOR_MULTIPLICITY",
+      "class": "EXACT_PHASE_C_REPLAY",
+      "propertyId": "D1P08_OFF_HAZARD_STATOR_MULTIPLICITY",
+      "targetPath": "lib/source-first-passage.js",
+      "predictedClassification": "DETECTED_SEMANTIC",
+      "expectedFailingTest": "competing-risk off hazard carries n-fold stator detachment multiplicity",
+      "clonePath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\clones\\d1x08_off_hazard_omits_stator_multiplicity",
+      "baseCommitVerified": true,
+      "preMutationSha256": "c66cf5ff048f5eb1e85c7b3148a002002636df14c5e96dda7eb840366a2ff6d8",
+      "postMutationSha256": "52393f60627fb66294e863aaf455126d1ab2551bfd9587287e5d24d21c1dfe04",
+      "patchApplied": true,
+      "regenerationCommands": [
+        {
+          "id": "regenerate-science-gates",
+          "command": "npm run science:run",
+          "startedAt": "2026-07-20T15:43:42.958Z",
+          "finishedAt": "2026-07-20T15:43:53.460Z",
+          "exitCode": 0,
+          "signal": null,
+          "spawnError": null,
+          "stdoutPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1X08_OFF_HAZARD_OMITS_STATOR_MULTIPLICITY\\01-regenerate-science-gates.stdout.txt",
+          "stderrPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1X08_OFF_HAZARD_OMITS_STATOR_MULTIPLICITY\\01-regenerate-science-gates.stderr.txt",
+          "stdoutSha256": "549e3b0bcfa418e8f1fb4f8fbba20894778245d5d32ada9e7a3eee2d5da29fac",
+          "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdoutBytes": 1026,
+          "stderrBytes": 0
+        }
+      ],
+      "gateCommands": [
+        {
+          "id": "d1-semantic",
+          "command": "node --test tests/semantic/*.mjs",
+          "startedAt": "2026-07-20T15:43:53.460Z",
+          "finishedAt": "2026-07-20T15:44:06.542Z",
+          "exitCode": 1,
+          "signal": null,
+          "spawnError": null,
+          "stdoutPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1X08_OFF_HAZARD_OMITS_STATOR_MULTIPLICITY\\02-d1-semantic.stdout.txt",
+          "stderrPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1X08_OFF_HAZARD_OMITS_STATOR_MULTIPLICITY\\02-d1-semantic.stderr.txt",
+          "stdoutSha256": "8ab2249aaa858629e7e6e6d886c6792f00e2cd2a4fbe0e83eeeaab97266608ba",
+          "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdoutBytes": 7576,
+          "stderrBytes": 0
+        }
+      ],
+      "baselineCommands": [
+        {
+          "id": "baseline-ordinary-tests",
+          "command": "node --test tests/model.test.mjs tests/observed-experiment.test.mjs tests/science-gates.test.mjs tests/cross-study-parity.test.mjs tests/walkthrough.test.mjs",
+          "startedAt": "2026-07-20T15:44:06.542Z",
+          "finishedAt": "2026-07-20T15:44:08.656Z",
+          "exitCode": 1,
+          "signal": null,
+          "spawnError": null,
+          "stdoutPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1X08_OFF_HAZARD_OMITS_STATOR_MULTIPLICITY\\03-baseline-ordinary-tests.stdout.txt",
+          "stderrPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1X08_OFF_HAZARD_OMITS_STATOR_MULTIPLICITY\\03-baseline-ordinary-tests.stderr.txt",
+          "stdoutSha256": "097be27b250ad12cfdc4e4d6f6cff7febad8146e2d8302fab9e5291c1f1ec584",
+          "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdoutBytes": 5068,
+          "stderrBytes": 0
+        }
+      ],
+      "classification": "DETECTED_SEMANTIC",
+      "matchedPatterns": [
+        "off.*hazard",
+        "detachment.*multiplicit",
+        "stator multiplicit"
+      ],
+      "matchingDiagnosticLines": [
+        "✖ D1P08 competing-risk off hazard carries n-fold stator detachment multiplicity (3.2043ms)",
+        "✖ D1P08 competing-risk off hazard carries n-fold stator detachment multiplicity (3.2043ms)",
+        "AssertionError [ERR_ASSERTION]: The competing-risk off hazard does not carry the declared N-fold stator detachment multiplicity. At N = 2 with sigmaMinus = 0.5 the hand-calculated off rates are [1, 2, 3], observed [0.5,1.5,2.5]. Omitting the stator multiplicity understates the off-transition hazard by (N-1) * sigmaMinus; dropping the component term makes the hazard constant across mixture components.",
+        "at TestContext.<anonymous> (file:///C:/Users/mpolz/AppData/Local/Temp/uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85/clones/d1x08_off_hazard_omits_stator_multiplicity/tests/semantic/first-passage-invariants.semantic.test.mjs:126:10)"
+      ],
+      "failingTests": [
+        "D1P08 competing-risk off hazard carries n-fold stator detachment multiplicity",
+        "failing tests:"
+      ],
+      "attributionSatisfied": true,
+      "baselineDetected": true,
+      "coverageProvenance": "SUITE_MEMBERSHIP_MIGRATION",
+      "failureSignature": "✖ D1P08 competing-risk off hazard carries n-fold stator detachment multiplicity (3.2043ms)",
+      "cloneCleanupStatus": "PRESERVED_WITHIN_EXPLICIT_SCRATCH_ROOT",
+      "error": null
+    },
+    {
+      "id": "D1A08_OFF_HAZARD_DROPS_COMPONENT_TERM",
+      "class": "ALTERNATE_FORM",
+      "propertyId": "D1P08_OFF_HAZARD_STATOR_MULTIPLICITY",
+      "targetPath": "lib/source-first-passage.js",
+      "predictedClassification": "DETECTED_SEMANTIC",
+      "expectedFailingTest": "competing-risk off hazard carries n-fold stator detachment multiplicity",
+      "clonePath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\clones\\d1a08_off_hazard_drops_component_term",
+      "baseCommitVerified": true,
+      "preMutationSha256": "c66cf5ff048f5eb1e85c7b3148a002002636df14c5e96dda7eb840366a2ff6d8",
+      "postMutationSha256": "5dee5facca4158c1fe9cda455c8fbd5c173fc6e4f7993c1c535e628edc2a50e4",
+      "patchApplied": true,
+      "regenerationCommands": [
+        {
+          "id": "regenerate-science-gates",
+          "command": "npm run science:run",
+          "startedAt": "2026-07-20T15:44:11.580Z",
+          "finishedAt": "2026-07-20T15:44:22.167Z",
+          "exitCode": 0,
+          "signal": null,
+          "spawnError": null,
+          "stdoutPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1A08_OFF_HAZARD_DROPS_COMPONENT_TERM\\01-regenerate-science-gates.stdout.txt",
+          "stderrPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1A08_OFF_HAZARD_DROPS_COMPONENT_TERM\\01-regenerate-science-gates.stderr.txt",
+          "stdoutSha256": "89e09122d83e33fd2fe74cbd5daf0643e7be97ed5ac35efbadfcb31f4b0b8794",
+          "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdoutBytes": 1026,
+          "stderrBytes": 0
+        }
+      ],
+      "gateCommands": [
+        {
+          "id": "d1-semantic",
+          "command": "node --test tests/semantic/*.mjs",
+          "startedAt": "2026-07-20T15:44:22.167Z",
+          "finishedAt": "2026-07-20T15:44:36.424Z",
+          "exitCode": 1,
+          "signal": null,
+          "spawnError": null,
+          "stdoutPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1A08_OFF_HAZARD_DROPS_COMPONENT_TERM\\02-d1-semantic.stdout.txt",
+          "stderrPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1A08_OFF_HAZARD_DROPS_COMPONENT_TERM\\02-d1-semantic.stderr.txt",
+          "stdoutSha256": "21a16853da15b3fa642513b51409d1d2306534efbc814ed85af2a62186eb3948",
+          "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdoutBytes": 7564,
+          "stderrBytes": 0
+        }
+      ],
+      "baselineCommands": [
+        {
+          "id": "baseline-ordinary-tests",
+          "command": "node --test tests/model.test.mjs tests/observed-experiment.test.mjs tests/science-gates.test.mjs tests/cross-study-parity.test.mjs tests/walkthrough.test.mjs",
+          "startedAt": "2026-07-20T15:44:36.424Z",
+          "finishedAt": "2026-07-20T15:44:39.073Z",
+          "exitCode": 1,
+          "signal": null,
+          "spawnError": null,
+          "stdoutPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1A08_OFF_HAZARD_DROPS_COMPONENT_TERM\\03-baseline-ordinary-tests.stdout.txt",
+          "stderrPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1A08_OFF_HAZARD_DROPS_COMPONENT_TERM\\03-baseline-ordinary-tests.stderr.txt",
+          "stdoutSha256": "2a10432525e0a63b0befd96d9ee4bb6b775e7cd04e3c8145215b0952aeea216b",
+          "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdoutBytes": 5065,
+          "stderrBytes": 0
+        }
+      ],
+      "classification": "DETECTED_SEMANTIC",
+      "matchedPatterns": [
+        "off.*hazard",
+        "detachment.*multiplicit",
+        "stator multiplicit"
+      ],
+      "matchingDiagnosticLines": [
+        "✖ D1P08 competing-risk off hazard carries n-fold stator detachment multiplicity (3.4809ms)",
+        "✖ D1P08 competing-risk off hazard carries n-fold stator detachment multiplicity (3.4809ms)",
+        "AssertionError [ERR_ASSERTION]: The competing-risk off hazard does not carry the declared N-fold stator detachment multiplicity. At N = 2 with sigmaMinus = 0.5 the hand-calculated off rates are [1, 2, 3], observed [1,1,1]. Omitting the stator multiplicity understates the off-transition hazard by (N-1) * sigmaMinus; dropping the component term makes the hazard constant across mixture components.",
+        "at TestContext.<anonymous> (file:///C:/Users/mpolz/AppData/Local/Temp/uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85/clones/d1a08_off_hazard_drops_component_term/tests/semantic/first-passage-invariants.semantic.test.mjs:126:10)"
+      ],
+      "failingTests": [
+        "D1P08 competing-risk off hazard carries n-fold stator detachment multiplicity",
+        "failing tests:"
+      ],
+      "attributionSatisfied": true,
+      "baselineDetected": true,
+      "coverageProvenance": "SUITE_MEMBERSHIP_MIGRATION",
+      "failureSignature": "✖ D1P08 competing-risk off hazard carries n-fold stator detachment multiplicity (3.4809ms)",
+      "cloneCleanupStatus": "PRESERVED_WITHIN_EXPLICIT_SCRATCH_ROOT",
+      "error": null
+    },
+    {
+      "id": "D1X09_EXPONENTIAL_SECOND_MOMENT_FACTOR_DROPPED",
+      "class": "EXACT_PHASE_C_REPLAY",
+      "propertyId": "D1P09_EXPONENTIAL_SECOND_MOMENT",
+      "targetPath": "lib/source-first-passage.js",
+      "predictedClassification": "DETECTED_SEMANTIC",
+      "expectedFailingTest": "exponential-mixture second moment retains its factor of two",
+      "clonePath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\clones\\d1x09_exponential_second_moment_factor_dropped",
+      "baseCommitVerified": true,
+      "preMutationSha256": "c66cf5ff048f5eb1e85c7b3148a002002636df14c5e96dda7eb840366a2ff6d8",
+      "postMutationSha256": "047a87ba5b05aa75a86afb7f662d3f89da289210cebcbeb0d0e06fe23706ada5",
+      "patchApplied": true,
+      "regenerationCommands": [
+        {
+          "id": "regenerate-science-gates",
+          "command": "npm run science:run",
+          "startedAt": "2026-07-20T15:44:41.556Z",
+          "finishedAt": "2026-07-20T15:44:51.917Z",
+          "exitCode": 0,
+          "signal": null,
+          "spawnError": null,
+          "stdoutPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1X09_EXPONENTIAL_SECOND_MOMENT_FACTOR_DROPPED\\01-regenerate-science-gates.stdout.txt",
+          "stderrPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1X09_EXPONENTIAL_SECOND_MOMENT_FACTOR_DROPPED\\01-regenerate-science-gates.stderr.txt",
+          "stdoutSha256": "2e542a64eb060eef7efd06784f2c536205f8825c40f44cd1b21e63894ca044ce",
+          "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdoutBytes": 1026,
+          "stderrBytes": 0
+        }
+      ],
+      "gateCommands": [
+        {
+          "id": "d1-semantic",
+          "command": "node --test tests/semantic/*.mjs",
+          "startedAt": "2026-07-20T15:44:51.917Z",
+          "finishedAt": "2026-07-20T15:45:05.857Z",
+          "exitCode": 1,
+          "signal": null,
+          "spawnError": null,
+          "stdoutPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1X09_EXPONENTIAL_SECOND_MOMENT_FACTOR_DROPPED\\02-d1-semantic.stdout.txt",
+          "stderrPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1X09_EXPONENTIAL_SECOND_MOMENT_FACTOR_DROPPED\\02-d1-semantic.stderr.txt",
+          "stdoutSha256": "a4abe0382403ff9e5635f12f0332c39bdb5ea8a93ec732335192baa1e82d0a7d",
+          "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdoutBytes": 7493,
+          "stderrBytes": 0
+        }
+      ],
+      "baselineCommands": [
+        {
+          "id": "baseline-ordinary-tests",
+          "command": "node --test tests/model.test.mjs tests/observed-experiment.test.mjs tests/science-gates.test.mjs tests/cross-study-parity.test.mjs tests/walkthrough.test.mjs",
+          "startedAt": "2026-07-20T15:45:05.857Z",
+          "finishedAt": "2026-07-20T15:45:08.027Z",
+          "exitCode": 1,
+          "signal": null,
+          "spawnError": null,
+          "stdoutPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1X09_EXPONENTIAL_SECOND_MOMENT_FACTOR_DROPPED\\03-baseline-ordinary-tests.stdout.txt",
+          "stderrPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1X09_EXPONENTIAL_SECOND_MOMENT_FACTOR_DROPPED\\03-baseline-ordinary-tests.stderr.txt",
+          "stdoutSha256": "ae83d60e8f3345945d74057e1b79305a4352758622f354207fdc0a1654ccbb58",
+          "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdoutBytes": 4071,
+          "stderrBytes": 0
+        }
+      ],
+      "classification": "DETECTED_SEMANTIC",
+      "matchedPatterns": [
+        "second moment",
+        "factor of two",
+        "normalized variance",
+        "first[- ]passage variance"
+      ],
+      "matchingDiagnosticLines": [
+        "✖ D1P09 exponential-mixture second moment retains its factor of two (1.5571ms)",
+        "✖ D1P09 exponential-mixture second moment retains its factor of two (1.5571ms)",
+        "AssertionError [ERR_ASSERTION]: The exponential-mixture second moment has lost its factor of two. A memoryless exponential has normalized variance exactly 1, observed 0. Dropping the factor of two reports the simplest memoryless branch as though it had zero normalized first-passage variance; inflating it overstates dispersion."
+      ],
+      "failingTests": [
+        "D1P09 exponential-mixture second moment retains its factor of two",
+        "failing tests:"
+      ],
+      "attributionSatisfied": true,
+      "baselineDetected": true,
+      "coverageProvenance": "SUITE_MEMBERSHIP_MIGRATION",
+      "failureSignature": "✖ D1P09 exponential-mixture second moment retains its factor of two (1.5571ms)",
+      "cloneCleanupStatus": "PRESERVED_WITHIN_EXPLICIT_SCRATCH_ROOT",
+      "error": null
+    },
+    {
+      "id": "D1A09_EXPONENTIAL_SECOND_MOMENT_FACTOR_THREE",
+      "class": "ALTERNATE_FORM",
+      "propertyId": "D1P09_EXPONENTIAL_SECOND_MOMENT",
+      "targetPath": "lib/source-first-passage.js",
+      "predictedClassification": "DETECTED_SEMANTIC",
+      "expectedFailingTest": "exponential-mixture second moment retains its factor of two",
+      "clonePath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\clones\\d1a09_exponential_second_moment_factor_three",
+      "baseCommitVerified": true,
+      "preMutationSha256": "c66cf5ff048f5eb1e85c7b3148a002002636df14c5e96dda7eb840366a2ff6d8",
+      "postMutationSha256": "8314702345a15049cc71ba71900352256ab295d9f7062bf394b416e4ee0d28a6",
+      "patchApplied": true,
+      "regenerationCommands": [
+        {
+          "id": "regenerate-science-gates",
+          "command": "npm run science:run",
+          "startedAt": "2026-07-20T15:45:10.825Z",
+          "finishedAt": "2026-07-20T15:45:22.436Z",
+          "exitCode": 0,
+          "signal": null,
+          "spawnError": null,
+          "stdoutPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1A09_EXPONENTIAL_SECOND_MOMENT_FACTOR_THREE\\01-regenerate-science-gates.stdout.txt",
+          "stderrPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1A09_EXPONENTIAL_SECOND_MOMENT_FACTOR_THREE\\01-regenerate-science-gates.stderr.txt",
+          "stdoutSha256": "9a7f9449b64078a7f5e41abfa1c2247662069f177fe8e0dda218444902e0997d",
+          "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdoutBytes": 1026,
+          "stderrBytes": 0
+        }
+      ],
+      "gateCommands": [
+        {
+          "id": "d1-semantic",
+          "command": "node --test tests/semantic/*.mjs",
+          "startedAt": "2026-07-20T15:45:22.436Z",
+          "finishedAt": "2026-07-20T15:45:35.933Z",
+          "exitCode": 1,
+          "signal": null,
+          "spawnError": null,
+          "stdoutPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1A09_EXPONENTIAL_SECOND_MOMENT_FACTOR_THREE\\02-d1-semantic.stdout.txt",
+          "stderrPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1A09_EXPONENTIAL_SECOND_MOMENT_FACTOR_THREE\\02-d1-semantic.stderr.txt",
+          "stdoutSha256": "00424ca361727afc0d0306c5d54d9f4ce6124a01f7a21fd5c3e520377f725431",
+          "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdoutBytes": 7488,
+          "stderrBytes": 0
+        }
+      ],
+      "baselineCommands": [
+        {
+          "id": "baseline-ordinary-tests",
+          "command": "node --test tests/model.test.mjs tests/observed-experiment.test.mjs tests/science-gates.test.mjs tests/cross-study-parity.test.mjs tests/walkthrough.test.mjs",
+          "startedAt": "2026-07-20T15:45:35.933Z",
+          "finishedAt": "2026-07-20T15:45:38.279Z",
+          "exitCode": 1,
+          "signal": null,
+          "spawnError": null,
+          "stdoutPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1A09_EXPONENTIAL_SECOND_MOMENT_FACTOR_THREE\\03-baseline-ordinary-tests.stdout.txt",
+          "stderrPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1A09_EXPONENTIAL_SECOND_MOMENT_FACTOR_THREE\\03-baseline-ordinary-tests.stderr.txt",
+          "stdoutSha256": "e2bca3291bf36fd2ed0893743684591418a8fb69e7a2eeafa38c97de20ac6403",
+          "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdoutBytes": 4071,
+          "stderrBytes": 0
+        }
+      ],
+      "classification": "DETECTED_SEMANTIC",
+      "matchedPatterns": [
+        "second moment",
+        "factor of two",
+        "normalized variance",
+        "first[- ]passage variance"
+      ],
+      "matchingDiagnosticLines": [
+        "✖ D1P09 exponential-mixture second moment retains its factor of two (1.1362ms)",
+        "✖ D1P09 exponential-mixture second moment retains its factor of two (1.1362ms)",
+        "AssertionError [ERR_ASSERTION]: The exponential-mixture second moment has lost its factor of two. A memoryless exponential has normalized variance exactly 1, observed 2. Dropping the factor of two reports the simplest memoryless branch as though it had zero normalized first-passage variance; inflating it overstates dispersion."
+      ],
+      "failingTests": [
+        "D1P09 exponential-mixture second moment retains its factor of two",
+        "failing tests:"
+      ],
+      "attributionSatisfied": true,
+      "baselineDetected": true,
+      "coverageProvenance": "SUITE_MEMBERSHIP_MIGRATION",
+      "failureSignature": "✖ D1P09 exponential-mixture second moment retains its factor of two (1.1362ms)",
+      "cloneCleanupStatus": "PRESERVED_WITHIN_EXPLICIT_SCRATCH_ROOT",
+      "error": null
+    },
+    {
+      "id": "D1X10_PERIODIC_LATTICE_OPENED",
+      "class": "EXACT_PHASE_C_REPLAY",
+      "propertyId": "D1P10_PERIODIC_LATTICE_TOPOLOGY",
+      "targetPath": "scripts/run-cross-study-parity.py",
+      "predictedClassification": "DETECTED_SEMANTIC",
+      "expectedFailingTest": "periodic thirteen-site lattice retains its wraparound bond",
+      "clonePath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\clones\\d1x10_periodic_lattice_opened",
+      "baseCommitVerified": true,
+      "preMutationSha256": "89e0c0ae11cb01fb7a829f34308d63c6ce19da79f12496f24f78a4876c55d777",
+      "postMutationSha256": "03a9e028193ff970877bca5d7867755a06643030cddf06c373b7ab30e5d28213",
+      "patchApplied": true,
+      "regenerationCommands": [
+        {
+          "id": "regenerate-cross-study-parity",
+          "command": "npm run cross-study:run",
+          "startedAt": "2026-07-20T15:45:40.613Z",
+          "finishedAt": "2026-07-20T15:45:49.693Z",
+          "exitCode": 0,
+          "signal": null,
+          "spawnError": null,
+          "stdoutPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1X10_PERIODIC_LATTICE_OPENED\\01-regenerate-cross-study-parity.stdout.txt",
+          "stderrPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1X10_PERIODIC_LATTICE_OPENED\\01-regenerate-cross-study-parity.stderr.txt",
+          "stdoutSha256": "244efda9b036468d8e466b69e317a6080781b3eb1d6aec712e04f0d6909b3f2d",
+          "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdoutBytes": 446,
+          "stderrBytes": 0
+        }
+      ],
+      "gateCommands": [
+        {
+          "id": "d1-semantic",
+          "command": "node --test tests/semantic/*.mjs",
+          "startedAt": "2026-07-20T15:45:49.693Z",
+          "finishedAt": "2026-07-20T15:46:02.935Z",
+          "exitCode": 1,
+          "signal": null,
+          "spawnError": null,
+          "stdoutPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1X10_PERIODIC_LATTICE_OPENED\\02-d1-semantic.stdout.txt",
+          "stderrPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1X10_PERIODIC_LATTICE_OPENED\\02-d1-semantic.stderr.txt",
+          "stdoutSha256": "c4d3e6b514d0f0c377427bde74f991ea07583e70bb8c09592571020b95169471",
+          "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdoutBytes": 7560,
+          "stderrBytes": 0
+        }
+      ],
+      "baselineCommands": [
+        {
+          "id": "baseline-ordinary-tests",
+          "command": "node --test tests/model.test.mjs tests/observed-experiment.test.mjs tests/science-gates.test.mjs tests/cross-study-parity.test.mjs tests/walkthrough.test.mjs",
+          "startedAt": "2026-07-20T15:46:02.935Z",
+          "finishedAt": "2026-07-20T15:46:05.081Z",
+          "exitCode": 1,
+          "signal": null,
+          "spawnError": null,
+          "stdoutPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1X10_PERIODIC_LATTICE_OPENED\\03-baseline-ordinary-tests.stdout.txt",
+          "stderrPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1X10_PERIODIC_LATTICE_OPENED\\03-baseline-ordinary-tests.stderr.txt",
+          "stdoutSha256": "c0cfb4ca09e7b1cc95e3e965763c3364b4cd97d6be1fff1122d874f0b578608b",
+          "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdoutBytes": 3856,
+          "stderrBytes": 0
+        },
+        {
+          "id": "baseline-independent-cross-study",
+          "command": "node scripts/independent-cross-study-check.mjs",
+          "startedAt": "2026-07-20T15:46:05.081Z",
+          "finishedAt": "2026-07-20T15:46:05.772Z",
+          "exitCode": 1,
+          "signal": null,
+          "spawnError": null,
+          "stdoutPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1X10_PERIODIC_LATTICE_OPENED\\04-baseline-independent-cross-study.stdout.txt",
+          "stderrPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1X10_PERIODIC_LATTICE_OPENED\\04-baseline-independent-cross-study.stderr.txt",
+          "stdoutSha256": "ac913372ecbefba7d7d2ba397f856b29add2c34659c02ef4b5ce81f1ecbc4dfa",
+          "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdoutBytes": 344,
+          "stderrBytes": 0
+        }
+      ],
+      "classification": "DETECTED_SEMANTIC",
+      "matchedPatterns": [
+        "periodic",
+        "wraparound",
+        "open chain",
+        "finite[- ]lattice",
+        "lattice.*partition"
+      ],
+      "matchingDiagnosticLines": [
+        "✖ D1P10 periodic thirteen-site lattice retains its wraparound bond (15.8329ms)",
+        "test at tests\\semantic\\periodic-lattice-topology.semantic.test.mjs:141:1",
+        "✖ D1P10 periodic thirteen-site lattice retains its wraparound bond (15.8329ms)",
+        "AssertionError [ERR_ASSERTION]: The reported finite-lattice fit is not consistent with a PERIODIC thirteen-site ring at its own reported parameters. Independently recomputed periodic sum of squared residuals 0.050178885672483395, reported 0.04972818338166263, absolute difference 0.0004507022908207675. The lattice adjacency must include the wraparound bond joining site 13 to site 1; an open chain or a next-nearest-neighbour ring changes the partition function and the fitted cooperativity while the model is still described as a periodic motor ring.",
+        "at TestContext.<anonymous> (file:///C:/Users/mpolz/AppData/Local/Temp/uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85/clones/d1x10_periodic_lattice_opened/tests/semantic/periodic-lattice-topology.semantic.test.mjs:152:10)"
+      ],
+      "failingTests": [
+        "D1P10 periodic thirteen-site lattice retains its wraparound bond",
+        "failing tests:"
+      ],
+      "attributionSatisfied": true,
+      "baselineDetected": true,
+      "coverageProvenance": "SUITE_MEMBERSHIP_MIGRATION",
+      "failureSignature": "✖ D1P10 periodic thirteen-site lattice retains its wraparound bond (15.8329ms)",
+      "cloneCleanupStatus": "PRESERVED_WITHIN_EXPLICIT_SCRATCH_ROOT",
+      "error": null
+    },
+    {
+      "id": "D1A10_LATTICE_NEXT_NEAREST_NEIGHBOUR_RING",
+      "class": "ALTERNATE_FORM",
+      "propertyId": "D1P10_PERIODIC_LATTICE_TOPOLOGY",
+      "targetPath": "scripts/run-cross-study-parity.py",
+      "predictedClassification": "SURVIVED",
+      "expectedFailingTest": "periodic thirteen-site lattice retains its wraparound bond",
+      "clonePath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\clones\\d1a10_lattice_next_nearest_neighbour_ring",
+      "baseCommitVerified": true,
+      "preMutationSha256": "89e0c0ae11cb01fb7a829f34308d63c6ce19da79f12496f24f78a4876c55d777",
+      "postMutationSha256": "c4f9ec625d223b248faf60d82bfba3f437ec3331b2e8a9b3a6372b282115d5fe",
+      "patchApplied": true,
+      "regenerationCommands": [
+        {
+          "id": "regenerate-cross-study-parity",
+          "command": "npm run cross-study:run",
+          "startedAt": "2026-07-20T15:46:08.124Z",
+          "finishedAt": "2026-07-20T15:46:18.517Z",
+          "exitCode": 0,
+          "signal": null,
+          "spawnError": null,
+          "stdoutPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1A10_LATTICE_NEXT_NEAREST_NEIGHBOUR_RING\\01-regenerate-cross-study-parity.stdout.txt",
+          "stderrPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1A10_LATTICE_NEXT_NEAREST_NEIGHBOUR_RING\\01-regenerate-cross-study-parity.stderr.txt",
+          "stdoutSha256": "b43f687aa44022b0dfd2a1c0075d429fda75754dc7fad89312978b74255929ad",
+          "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdoutBytes": 446,
+          "stderrBytes": 0
+        }
+      ],
+      "gateCommands": [
+        {
+          "id": "d1-semantic",
+          "command": "node --test tests/semantic/*.mjs",
+          "startedAt": "2026-07-20T15:46:18.518Z",
+          "finishedAt": "2026-07-20T15:46:32.861Z",
+          "exitCode": 0,
+          "signal": null,
+          "spawnError": null,
+          "stdoutPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1A10_LATTICE_NEXT_NEAREST_NEIGHBOUR_RING\\02-d1-semantic.stdout.txt",
+          "stderrPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1A10_LATTICE_NEXT_NEAREST_NEIGHBOUR_RING\\02-d1-semantic.stderr.txt",
+          "stdoutSha256": "44f6987050fb96f8eb527312b95910488a9edfe0c29b0fbf0da26000adcc73de",
+          "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdoutBytes": 6204,
+          "stderrBytes": 0
+        }
+      ],
+      "baselineCommands": [
+        {
+          "id": "baseline-ordinary-tests",
+          "command": "node --test tests/model.test.mjs tests/observed-experiment.test.mjs tests/science-gates.test.mjs tests/cross-study-parity.test.mjs tests/walkthrough.test.mjs",
+          "startedAt": "2026-07-20T15:46:32.861Z",
+          "finishedAt": "2026-07-20T15:46:35.307Z",
+          "exitCode": 0,
+          "signal": null,
+          "spawnError": null,
+          "stdoutPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1A10_LATTICE_NEXT_NEAREST_NEIGHBOUR_RING\\03-baseline-ordinary-tests.stdout.txt",
+          "stderrPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1A10_LATTICE_NEXT_NEAREST_NEIGHBOUR_RING\\03-baseline-ordinary-tests.stderr.txt",
+          "stdoutSha256": "3a1e52c3874a096887ecb8c8783dd7da335db0d1f94fef9e4fac60405a5eeb1b",
+          "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdoutBytes": 2776,
+          "stderrBytes": 0
+        },
+        {
+          "id": "baseline-independent-cross-study",
+          "command": "node scripts/independent-cross-study-check.mjs",
+          "startedAt": "2026-07-20T15:46:35.307Z",
+          "finishedAt": "2026-07-20T15:46:35.967Z",
+          "exitCode": 0,
+          "signal": null,
+          "spawnError": null,
+          "stdoutPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1A10_LATTICE_NEXT_NEAREST_NEIGHBOUR_RING\\04-baseline-independent-cross-study.stdout.txt",
+          "stderrPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1A10_LATTICE_NEXT_NEAREST_NEIGHBOUR_RING\\04-baseline-independent-cross-study.stderr.txt",
+          "stdoutSha256": "0f989e8567979b4cdb09f2ac1064c6ff443062588d8f2a3c850da464b34fbd66",
+          "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdoutBytes": 257,
+          "stderrBytes": 0
+        }
+      ],
+      "classification": "SURVIVED",
+      "matchedPatterns": [],
+      "matchingDiagnosticLines": [],
+      "failingTests": [],
+      "attributionSatisfied": false,
+      "baselineDetected": false,
+      "coverageProvenance": "NEW_COVERAGE_IN_D1",
+      "failureSignature": "ALL_DECLARED_GATE_COMMANDS_EXITED_ZERO",
+      "cloneCleanupStatus": "PRESERVED_WITHIN_EXPLICIT_SCRATCH_ROOT",
+      "error": null
+    },
+    {
+      "id": "D1P01_ADVERSE_COUNTS_LAUNDERED",
+      "class": "ADVERSE_RECORD_ATTACK",
+      "propertyId": "D1P11_ADVERSE_RECORD_PRESERVATION",
+      "targetPath": "audits/phase-c/blind-mutation-result.codex.v1.json",
+      "predictedClassification": "DETECTED_SEMANTIC",
+      "expectedFailingTest": "historical phase-c adverse 0/10 detection result is preserved unlaundered",
+      "clonePath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\clones\\d1p01_adverse_counts_laundered",
+      "baseCommitVerified": true,
+      "preMutationSha256": "e36bdfb01fd51a4acb078762da1edff9deef4ff0844cf8f80d00c68d400be7d1",
+      "postMutationSha256": "28300588c539fc1001e16f95f81b7c6666b438951c9798124bc6ad9bebe336f5",
+      "patchApplied": true,
+      "regenerationCommands": [],
+      "gateCommands": [
+        {
+          "id": "d1-semantic",
+          "command": "node --test tests/semantic/*.mjs",
+          "startedAt": "2026-07-20T15:46:38.333Z",
+          "finishedAt": "2026-07-20T15:46:50.084Z",
+          "exitCode": 1,
+          "signal": null,
+          "spawnError": null,
+          "stdoutPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1P01_ADVERSE_COUNTS_LAUNDERED\\01-d1-semantic.stdout.txt",
+          "stderrPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1P01_ADVERSE_COUNTS_LAUNDERED\\01-d1-semantic.stderr.txt",
+          "stdoutSha256": "2bf9144f37792d15b93e8a8c9083532fd4a0cce0f2a3a9bed5e4b9ae6651db1c",
+          "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdoutBytes": 9549,
+          "stderrBytes": 0
+        }
+      ],
+      "baselineCommands": [
+        {
+          "id": "baseline-ordinary-tests",
+          "command": "node --test tests/model.test.mjs tests/observed-experiment.test.mjs tests/science-gates.test.mjs tests/cross-study-parity.test.mjs tests/walkthrough.test.mjs",
+          "startedAt": "2026-07-20T15:46:50.084Z",
+          "finishedAt": "2026-07-20T15:46:52.147Z",
+          "exitCode": 0,
+          "signal": null,
+          "spawnError": null,
+          "stdoutPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1P01_ADVERSE_COUNTS_LAUNDERED\\02-baseline-ordinary-tests.stdout.txt",
+          "stderrPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1P01_ADVERSE_COUNTS_LAUNDERED\\02-baseline-ordinary-tests.stderr.txt",
+          "stdoutSha256": "6ffc35657705aca27e00e0e5a7425224121d7af531f6ef6dcee56141a3bebc0e",
+          "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdoutBytes": 2776,
+          "stderrBytes": 0
+        }
+      ],
+      "classification": "DETECTED_SEMANTIC",
+      "matchedPatterns": [
+        "adverse",
+        "phase-?c",
+        "0/10",
+        "survived"
+      ],
+      "matchingDiagnosticLines": [
+        "✖ D1P11 historical phase-c adverse 0/10 detection result is preserved unlaundered (7.0012ms)",
+        "✖ D1P11 the preserved phase-c evidence copy has not silently diverged from the canonical adverse result (5.7266ms)",
+        "PHASE-C-BLIND-MUTATION-CODEX: declared=PROSPECTIVE measured=PROSPECTIVE (STRICT_ANCESTRY_PROVEN)",
+        "test at tests\\semantic\\adverse-record-preservation.semantic.test.mjs:73:1",
+        "✖ D1P11 historical phase-c adverse 0/10 detection result is preserved unlaundered (7.0012ms)",
+        "AssertionError [ERR_ASSERTION]: The adverse Phase-C classification counts have been altered. The frozen historical outcome is {\"DETECTED_SEMANTIC\":0,\"DETECTED_BY_HASH_ONLY\":0,\"SURVIVED\":10,\"NOT_RUN\":0,\"INCONCLUSIVE\":0} -- ten SURVIVED and zero DETECTED_SEMANTIC -- observed {\"DETECTED_SEMANTIC\":10,\"DETECTED_BY_HASH_ONLY\":0,\"SURVIVED\":0,\"NOT_RUN\":0,\"INCONCLUSIVE\":0}. Later phases may ADD new detection evidence; they may never restate this 0/10 result as favourable.",
+        "+   SURVIVED: 0",
+        "-   SURVIVED: 10",
+        "at TestContext.<anonymous> (file:///C:/Users/mpolz/AppData/Local/Temp/uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85/clones/d1p01_adverse_counts_laundered/tests/semantic/adverse-record-preservation.semantic.test.mjs:82:10)",
+        "actual: { DETECTED_SEMANTIC: 10, DETECTED_BY_HASH_ONLY: 0, SURVIVED: 0, NOT_RUN: 0, INCONCLUSIVE: 0 },",
+        "expected: { DETECTED_SEMANTIC: 0, DETECTED_BY_HASH_ONLY: 0, SURVIVED: 10, NOT_RUN: 0, INCONCLUSIVE: 0 },",
+        "test at tests\\semantic\\adverse-record-preservation.semantic.test.mjs:112:1",
+        "✖ D1P11 the preserved phase-c evidence copy has not silently diverged from the canonical adverse result (5.7266ms)",
+        "AssertionError [ERR_ASSERTION]: The canonical adverse Phase-C result and its preserved evidence copy have DIVERGED. Canonical digest 28300588c539fc1001e16f95f81b7c6666b438951c9798124bc6ad9bebe336f5, evidence copy digest e36bdfb01fd51a4acb078762da1edff9deef4ff0844cf8f80d00c68d400be7d1. Two copies of the same adverse record must agree; a silent divergence means one of them has been edited.",
+        "at TestContext.<anonymous> (file:///C:/Users/mpolz/AppData/Local/Temp/uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85/clones/d1p01_adverse_counts_laundered/tests/semantic/adverse-record-preservation.semantic.test.mjs:131:10)"
+      ],
+      "failingTests": [
+        "D1P11 historical phase-c adverse 0/10 detection result is preserved unlaundered",
+        "D1P11 the preserved phase-c evidence copy has not silently diverged from the canonical adverse result",
+        "failing tests:"
+      ],
+      "attributionSatisfied": true,
+      "baselineDetected": false,
+      "coverageProvenance": "NEW_COVERAGE_IN_D1",
+      "failureSignature": "✖ D1P11 historical phase-c adverse 0/10 detection result is preserved unlaundered (7.0012ms)",
+      "cloneCleanupStatus": "PRESERVED_WITHIN_EXPLICIT_SCRATCH_ROOT",
+      "error": null
+    },
+    {
+      "id": "D1P02_ADVERSE_EVIDENCE_COPY_DIVERGED",
+      "class": "ADVERSE_RECORD_ATTACK",
+      "propertyId": "D1P11_ADVERSE_RECORD_PRESERVATION",
+      "targetPath": "audits/phase-c/blind-mutation-evidence.codex.v1/blind-mutation-result.codex.v1.json",
+      "predictedClassification": "DETECTED_SEMANTIC",
+      "expectedFailingTest": "historical phase-c adverse 0/10 detection result is preserved unlaundered",
+      "clonePath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\clones\\d1p02_adverse_evidence_copy_diverged",
+      "baseCommitVerified": true,
+      "preMutationSha256": "e36bdfb01fd51a4acb078762da1edff9deef4ff0844cf8f80d00c68d400be7d1",
+      "postMutationSha256": "28300588c539fc1001e16f95f81b7c6666b438951c9798124bc6ad9bebe336f5",
+      "patchApplied": true,
+      "regenerationCommands": [],
+      "gateCommands": [
+        {
+          "id": "d1-semantic",
+          "command": "node --test tests/semantic/*.mjs",
+          "startedAt": "2026-07-20T15:46:54.494Z",
+          "finishedAt": "2026-07-20T15:47:07.026Z",
+          "exitCode": 1,
+          "signal": null,
+          "spawnError": null,
+          "stdoutPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1P02_ADVERSE_EVIDENCE_COPY_DIVERGED\\01-d1-semantic.stdout.txt",
+          "stderrPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1P02_ADVERSE_EVIDENCE_COPY_DIVERGED\\01-d1-semantic.stderr.txt",
+          "stdoutSha256": "bd9ac45fc8917a4e8edd620aeeb6c09081b0498d276ac75c9b678b8e2561fe82",
+          "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdoutBytes": 8012,
+          "stderrBytes": 0
+        }
+      ],
+      "baselineCommands": [
+        {
+          "id": "baseline-ordinary-tests",
+          "command": "node --test tests/model.test.mjs tests/observed-experiment.test.mjs tests/science-gates.test.mjs tests/cross-study-parity.test.mjs tests/walkthrough.test.mjs",
+          "startedAt": "2026-07-20T15:47:07.026Z",
+          "finishedAt": "2026-07-20T15:47:09.196Z",
+          "exitCode": 0,
+          "signal": null,
+          "spawnError": null,
+          "stdoutPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1P02_ADVERSE_EVIDENCE_COPY_DIVERGED\\02-baseline-ordinary-tests.stdout.txt",
+          "stderrPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1P02_ADVERSE_EVIDENCE_COPY_DIVERGED\\02-baseline-ordinary-tests.stderr.txt",
+          "stdoutSha256": "b5d81c24afae7f1a744d6089a6a8b1cd8356e0abf11f52c111167fd02aaba4a9",
+          "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdoutBytes": 2781,
+          "stderrBytes": 0
+        }
+      ],
+      "classification": "DETECTED_SEMANTIC",
+      "matchedPatterns": [
+        "adverse",
+        "phase-?c",
+        "survived",
+        "laundering",
+        "evidence copy"
+      ],
+      "matchingDiagnosticLines": [
+        "✖ D1P11 the preserved phase-c evidence copy has not silently diverged from the canonical adverse result (7.0951ms)",
+        "PHASE-C-BLIND-MUTATION-CODEX: declared=PROSPECTIVE measured=PROSPECTIVE (STRICT_ANCESTRY_PROVEN)",
+        "test at tests\\semantic\\adverse-record-preservation.semantic.test.mjs:112:1",
+        "✖ D1P11 the preserved phase-c evidence copy has not silently diverged from the canonical adverse result (7.0951ms)",
+        "AssertionError [ERR_ASSERTION]: The PRESERVED EVIDENCE COPY of the adverse Phase-C result carries altered classification counts. Expected {\"DETECTED_SEMANTIC\":0,\"DETECTED_BY_HASH_ONLY\":0,\"SURVIVED\":10,\"NOT_RUN\":0,\"INCONCLUSIVE\":0}, observed {\"DETECTED_SEMANTIC\":10,\"DETECTED_BY_HASH_ONLY\":0,\"SURVIVED\":0,\"NOT_RUN\":0,\"INCONCLUSIVE\":0}. Laundering the evidence copy while leaving the canonical file intact is still laundering.",
+        "+   SURVIVED: 0",
+        "-   SURVIVED: 10",
+        "at TestContext.<anonymous> (file:///C:/Users/mpolz/AppData/Local/Temp/uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85/clones/d1p02_adverse_evidence_copy_diverged/tests/semantic/adverse-record-preservation.semantic.test.mjs:123:10)",
+        "actual: { DETECTED_SEMANTIC: 10, DETECTED_BY_HASH_ONLY: 0, SURVIVED: 0, NOT_RUN: 0, INCONCLUSIVE: 0 },",
+        "expected: { DETECTED_SEMANTIC: 0, DETECTED_BY_HASH_ONLY: 0, SURVIVED: 10, NOT_RUN: 0, INCONCLUSIVE: 0 },"
+      ],
+      "failingTests": [
+        "D1P11 the preserved phase-c evidence copy has not silently diverged from the canonical adverse result",
+        "failing tests:"
+      ],
+      "attributionSatisfied": false,
+      "baselineDetected": false,
+      "coverageProvenance": "NEW_COVERAGE_IN_D1",
+      "failureSignature": "✖ D1P11 the preserved phase-c evidence copy has not silently diverged from the canonical adverse result (7.0951ms)",
+      "cloneCleanupStatus": "PRESERVED_WITHIN_EXPLICIT_SCRATCH_ROOT",
+      "error": null
+    },
+    {
+      "id": "D1A10B_LATTICE_SINGLE_BOND_DOUBLE_COUNTED",
+      "class": "ALTERNATE_FORM",
+      "propertyId": "D1P10_PERIODIC_LATTICE_TOPOLOGY",
+      "targetPath": "scripts/run-cross-study-parity.py",
+      "predictedClassification": "DETECTED_SEMANTIC",
+      "expectedFailingTest": "periodic thirteen-site lattice retains its wraparound bond",
+      "clonePath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\clones\\d1a10b_lattice_single_bond_double_counted",
+      "baseCommitVerified": true,
+      "preMutationSha256": "89e0c0ae11cb01fb7a829f34308d63c6ce19da79f12496f24f78a4876c55d777",
+      "postMutationSha256": "01e3a76a0065f57dce13faa432bcfd1092745adc06300e09a865b1e9ea2f6cee",
+      "patchApplied": true,
+      "regenerationCommands": [
+        {
+          "id": "regenerate-cross-study-parity",
+          "command": "npm run cross-study:run",
+          "startedAt": "2026-07-20T15:47:11.563Z",
+          "finishedAt": "2026-07-20T15:47:20.244Z",
+          "exitCode": 0,
+          "signal": null,
+          "spawnError": null,
+          "stdoutPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1A10B_LATTICE_SINGLE_BOND_DOUBLE_COUNTED\\01-regenerate-cross-study-parity.stdout.txt",
+          "stderrPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1A10B_LATTICE_SINGLE_BOND_DOUBLE_COUNTED\\01-regenerate-cross-study-parity.stderr.txt",
+          "stdoutSha256": "b6f71f6e34668277380290f0ac62bb78d5a895464fa1406777342a51d799af84",
+          "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdoutBytes": 446,
+          "stderrBytes": 0
+        }
+      ],
+      "gateCommands": [
+        {
+          "id": "d1-semantic",
+          "command": "node --test tests/semantic/*.mjs",
+          "startedAt": "2026-07-20T15:47:20.244Z",
+          "finishedAt": "2026-07-20T15:47:33.989Z",
+          "exitCode": 1,
+          "signal": null,
+          "spawnError": null,
+          "stdoutPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1A10B_LATTICE_SINGLE_BOND_DOUBLE_COUNTED\\02-d1-semantic.stdout.txt",
+          "stderrPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1A10B_LATTICE_SINGLE_BOND_DOUBLE_COUNTED\\02-d1-semantic.stderr.txt",
+          "stdoutSha256": "729355a69d82ff1465912e5758b0e1254aa9d3ce2ad23f1c044a97bb7a7f3a9b",
+          "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdoutBytes": 7574,
+          "stderrBytes": 0
+        }
+      ],
+      "baselineCommands": [
+        {
+          "id": "baseline-ordinary-tests",
+          "command": "node --test tests/model.test.mjs tests/observed-experiment.test.mjs tests/science-gates.test.mjs tests/cross-study-parity.test.mjs tests/walkthrough.test.mjs",
+          "startedAt": "2026-07-20T15:47:33.989Z",
+          "finishedAt": "2026-07-20T15:47:36.171Z",
+          "exitCode": 0,
+          "signal": null,
+          "spawnError": null,
+          "stdoutPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1A10B_LATTICE_SINGLE_BOND_DOUBLE_COUNTED\\03-baseline-ordinary-tests.stdout.txt",
+          "stderrPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1A10B_LATTICE_SINGLE_BOND_DOUBLE_COUNTED\\03-baseline-ordinary-tests.stderr.txt",
+          "stdoutSha256": "c087bdc7832db83ae9b4021e6679b579431d48ac61a5eb298f9f619f9a24fc21",
+          "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdoutBytes": 2777,
+          "stderrBytes": 0
+        },
+        {
+          "id": "baseline-independent-cross-study",
+          "command": "node scripts/independent-cross-study-check.mjs",
+          "startedAt": "2026-07-20T15:47:36.171Z",
+          "finishedAt": "2026-07-20T15:47:36.875Z",
+          "exitCode": 1,
+          "signal": null,
+          "spawnError": null,
+          "stdoutPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1A10B_LATTICE_SINGLE_BOND_DOUBLE_COUNTED\\04-baseline-independent-cross-study.stdout.txt",
+          "stderrPath": "C:\\Users\\mpolz\\AppData\\Local\\Temp\\uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85\\logs\\D1A10B_LATTICE_SINGLE_BOND_DOUBLE_COUNTED\\04-baseline-independent-cross-study.stderr.txt",
+          "stdoutSha256": "ce8a07757c0a1633f74190b695e9cfab09a4d2f9980b1065e0e760c4ba4a75a4",
+          "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+          "stdoutBytes": 345,
+          "stderrBytes": 0
+        }
+      ],
+      "classification": "DETECTED_SEMANTIC",
+      "matchedPatterns": [
+        "periodic",
+        "wraparound",
+        "open chain",
+        "finite[- ]lattice",
+        "lattice.*partition",
+        "adjacency"
+      ],
+      "matchingDiagnosticLines": [
+        "✖ D1P10 periodic thirteen-site lattice retains its wraparound bond (11.7505ms)",
+        "test at tests\\semantic\\periodic-lattice-topology.semantic.test.mjs:141:1",
+        "✖ D1P10 periodic thirteen-site lattice retains its wraparound bond (11.7505ms)",
+        "AssertionError [ERR_ASSERTION]: The reported finite-lattice fit is not consistent with a PERIODIC thirteen-site ring at its own reported parameters. Independently recomputed periodic sum of squared residuals 0.050049639985098815, reported 0.04973850333007341, absolute difference 0.0003111366550254055. The lattice adjacency must include the wraparound bond joining site 13 to site 1; an open chain or a next-nearest-neighbour ring changes the partition function and the fitted cooperativity while the model is still described as a periodic motor ring.",
+        "at TestContext.<anonymous> (file:///C:/Users/mpolz/AppData/Local/Temp/uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85/clones/d1a10b_lattice_single_bond_double_counted/tests/semantic/periodic-lattice-topology.semantic.test.mjs:152:10)"
+      ],
+      "failingTests": [
+        "D1P10 periodic thirteen-site lattice retains its wraparound bond",
+        "failing tests:"
+      ],
+      "attributionSatisfied": true,
+      "baselineDetected": true,
+      "coverageProvenance": "SUITE_MEMBERSHIP_MIGRATION",
+      "failureSignature": "✖ D1P10 periodic thirteen-site lattice retains its wraparound bond (11.7505ms)",
+      "cloneCleanupStatus": "PRESERVED_WITHIN_EXPLICIT_SCRATCH_ROOT",
+      "error": null
+    }
+  ]
+}

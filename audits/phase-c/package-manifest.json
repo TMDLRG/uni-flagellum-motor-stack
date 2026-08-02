@@ -1,0 +1,25 @@
+{
+  "schema": "uni.flagellum.audit-artifact/1.0.0",
+  "purpose": "Self-manifest. package-manifest.json excluded by construction. Gate SOURCE files are bound in semantic-gates-addendum-2.json.",
+  "auditedCommit": "9c3a644e4b57e8ac27f925dcec84222463063aa1",
+  "auditPhase": "C",
+  "appendOnly": true,
+  "artifactCount": 3,
+  "artifacts": [
+    {
+      "name": "semantic-gates-addendum-2.json",
+      "sha256": "11bff33b6bccac1b2e6827016636b47266585022d9a5fa74a9758d244de47b0f",
+      "bytes": 6870
+    },
+    {
+      "name": "semantic-gates-addendum.json",
+      "sha256": "126a28cd77899a0b4c87da48d2e2ee8ab6ecb7625eceb0543b78ccc6173821a6",
+      "bytes": 6137
+    },
+    {
+      "name": "semantic-gates.json",
+      "sha256": "d4e2ff52000096c836429d9f24d96c7757be66ee8d88f4254db45d036d28a88c",
+      "bytes": 47544
+    }
+  ]
+}

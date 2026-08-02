@@ -1,0 +1,42 @@
+✔ cross-study protocol has one result for every ordered gate (2.6478ms)
+✔ source corpus expands biological units without counting time points as replicates (0.6311ms)
+✔ all frozen cached upstream artifacts remain byte-identical when present (2.2742ms)
+✔ expanded mechanistic gates preserve passes and falsifiers (0.4499ms)
+✔ GMC generator satisfies stochastic-matrix and source-marginal tolerances (0.2796ms)
+✔ audit binds report, corpus, protocol, structure map, and runner bytes (16.0762ms)
+✔ categorical posterior normalizes and free-energy identity is exact (1.5452ms)
+✔ log posterior odds equal log prior odds plus log likelihood ratio (0.227ms)
+✔ Markov observation excludes hidden world truth (0.3974ms)
+✔ same initial state and controls replay deterministically (2.7257ms)
+✔ policy posterior normalizes after a real observation record (0.7036ms)
+✔ physical encoder angles drive the exact log-odds calculation (0.43ms)
+✔ instrument validation rejects incomplete or non-finite frames (0.6227ms)
+✔ Hellinger distance is symmetric and bounded (0.2436ms)
+✔ CAD export names the model, boundary and explicit non-claim (0.69ms)
+✔ observed event artifact retains the pinned raw-data identity (1.1792ms)
+✔ motor-level partition prevents train/holdout leakage (0.6432ms)
+✔ frozen observed analysis replays byte-for-value deterministically (1610.9592ms)
+✔ held-out analysis reports the adverse flexible-baseline comparison (0.3592ms)
+✔ overdispersion gate is evaluated only on eligible held-out stator states (0.1836ms)
+✔ survival evidence monotonically increases the slow-timescale posterior (0.2087ms)
+✔ observed report cannot be confused with a live instrument run (0.1393ms)
+✔ first-passage coefficients and competing risks are normalized (3.0848ms)
+✔ analytic density equals the negative survival derivative (0.5562ms)
+✔ right-censored observations contribute survival, never an invented direction (0.311ms)
+✔ science ledger preserves failed and external gates (0.2488ms)
+✔ audit manifest binds the science report to its inputs and implementations (9.6115ms)
+✔ walkthrough has 13 ordered, evidence-bound, gate-bound lessons (2.1884ms)
+✔ truth contract retains species and evidence-class separation (0.5846ms)
+✔ all local evidence assets match pinned SHA-256 identities (167.1751ms)
+✔ recorded replay is deterministic, frozen, and exposes missing fields (0.3998ms)
+✔ every pencil-and-paper numerical anchor reproduces independently (0.3773ms)
+✔ observer notebook exports, imports, and rejects truth laundering (3.5022ms)
+✔ walkthrough application contains no LLM or GPU runtime (4.9034ms)
+ℹ tests 34
+ℹ suites 0
+ℹ pass 34
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1793.0271

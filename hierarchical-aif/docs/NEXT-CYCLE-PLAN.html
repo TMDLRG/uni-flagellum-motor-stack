@@ -1,0 +1,551 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UNI-FLAGELLUM · Next-cycle plan & honest gate state</title>
+<meta name="description" content="Standalone in-repo plan page — DESIGN, authorized to build, not a result. Anchor e21747c. Self-contained, CPU-only, no network.">
+<style>
+:root{
+  --ground:#f4f6f5; --panel:#ffffff; --panel-2:#f0f3f2; --ink:#16202b; --ink-soft:#38495a;
+  --muted:#5c6b78; --hair:#dde4e5; --hair-2:#e9eeee;
+  --accent:#1f9c8a;
+  --observed:#2f8f5b; --reconstructed:#bd8618; --model:#3d78c0; --design:#7d6fb8;
+  --green:#2f8f5b; --amber:#bd8618; --violet:#7d6fb8; --clay:#c25640;
+  --shadow:0 1px 2px rgba(20,32,43,.06),0 8px 24px rgba(20,32,43,.06);
+  --mono:ui-monospace,"Cascadia Code","JetBrains Mono","SF Mono",Menlo,Consolas,monospace;
+  --sans:ui-sans-serif,system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+}
+@media (prefers-color-scheme:dark){
+  :root{
+    --ground:#0a0e12; --panel:#111820; --panel-2:#0d141b; --ink:#e6edf2; --ink-soft:#b6c4d0;
+    --muted:#8798a6; --hair:#20303e; --hair-2:#1a2833;
+    --accent:#37c4ae;
+    --observed:#4bb277; --reconstructed:#d6a02f; --model:#5b98d8; --design:#a394d8;
+    --green:#4bb277; --amber:#d6a02f; --violet:#a394d8; --clay:#e07458;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 30px rgba(0,0,0,.35);
+  }
+}
+:root[data-theme="light"]{
+  --ground:#f4f6f5; --panel:#ffffff; --panel-2:#f0f3f2; --ink:#16202b; --ink-soft:#38495a;
+  --muted:#5c6b78; --hair:#dde4e5; --hair-2:#e9eeee; --accent:#1f9c8a;
+  --observed:#2f8f5b; --reconstructed:#bd8618; --model:#3d78c0; --design:#7d6fb8;
+  --green:#2f8f5b; --amber:#bd8618; --violet:#7d6fb8; --clay:#c25640;
+  --shadow:0 1px 2px rgba(20,32,43,.06),0 8px 24px rgba(20,32,43,.06);
+}
+:root[data-theme="dark"]{
+  --ground:#0a0e12; --panel:#111820; --panel-2:#0d141b; --ink:#e6edf2; --ink-soft:#b6c4d0;
+  --muted:#8798a6; --hair:#20303e; --hair-2:#1a2833; --accent:#37c4ae;
+  --observed:#4bb277; --reconstructed:#d6a02f; --model:#5b98d8; --design:#a394d8;
+  --green:#4bb277; --amber:#d6a02f; --violet:#a394d8; --clay:#e07458;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 10px 30px rgba(0,0,0,.35);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--sans);
+  line-height:1.6;-webkit-font-smoothing:antialiased;font-size:16px}
+.wrap{max-width:1060px;margin:0 auto;padding:0 22px}
+h1,h2,h3{text-wrap:balance;line-height:1.15;margin:0}
+p{margin:0}
+a{color:var(--accent)}
+.mono{font-family:var(--mono)}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--muted);font-weight:600}
+.tnum{font-variant-numeric:tabular-nums}
+.topbar{position:sticky;top:0;z-index:20;background:color-mix(in srgb,var(--ground) 86%,transparent);
+  backdrop-filter:blur(8px);border-bottom:1px solid var(--hair)}
+.topbar .row{display:flex;align-items:center;gap:14px;padding:10px 0;flex-wrap:wrap}
+.brand{font-family:var(--mono);font-weight:700;letter-spacing:.02em;font-size:14px}
+.brand b{color:var(--accent)}
+.spacer{flex:1}
+.minitiles{display:flex;gap:6px;flex-wrap:wrap}
+.minitile{font-family:var(--mono);font-size:11px;border:1px solid var(--hair);border-radius:999px;
+  padding:3px 9px;color:var(--ink-soft);display:flex;gap:6px;align-items:center}
+.minitile b{font-size:12px}
+.dot{width:8px;height:8px;border-radius:50%;display:inline-block}
+.toggle{font-family:var(--mono);font-size:12px;border:1px solid var(--hair);background:var(--panel);
+  color:var(--ink);border-radius:8px;padding:6px 10px;cursor:pointer}
+.toggle:hover{border-color:var(--accent)}
+.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--hair)}
+.hero .wrap{padding:52px 22px 44px;position:relative;z-index:2}
+#motor{position:absolute;right:-40px;top:50%;transform:translateY(-50%);z-index:1;opacity:.5;
+  pointer-events:none}
+.status-strip{display:inline-flex;gap:8px;align-items:center;font-family:var(--mono);font-size:11.5px;
+  letter-spacing:.04em;color:var(--muted);border:1px solid var(--hair);border-radius:999px;
+  padding:5px 12px;margin-bottom:20px;background:var(--panel)}
+.status-strip .k{color:var(--clay);font-weight:700}
+h1.title{font-size:clamp(30px,5.2vw,52px);font-weight:800;letter-spacing:-.02em;max-width:16ch}
+h1.title .accent{color:var(--accent)}
+.lede{margin-top:18px;font-size:clamp(16px,2.1vw,19px);color:var(--ink-soft);max-width:60ch}
+.lede b{color:var(--ink)}
+.hero-flags{display:flex;gap:10px;flex-wrap:wrap;margin-top:24px}
+.flag{font-family:var(--mono);font-size:12px;padding:7px 12px;border-radius:9px;border:1px solid var(--hair);
+  background:var(--panel);display:flex;gap:8px;align-items:center}
+.flag .lbl{color:var(--muted)}
+.flag .vl{font-weight:700}
+section{padding:46px 0}
+section+section{border-top:1px solid var(--hair-2)}
+.sec-head{display:flex;align-items:baseline;gap:14px;margin-bottom:22px;flex-wrap:wrap}
+.sec-head h2{font-size:clamp(21px,3vw,27px);font-weight:750;letter-spacing:-.01em}
+.sec-head .num{font-family:var(--mono);color:var(--accent);font-size:13px;font-weight:700}
+.sec-sub{color:var(--muted);font-size:14.5px;max-width:64ch;margin-top:-8px;margin-bottom:22px}
+.tiles{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.tile{background:var(--panel);border:1px solid var(--hair);border-radius:14px;padding:18px 16px;
+  box-shadow:var(--shadow);position:relative;overflow:hidden}
+.tile .cap{position:absolute;left:0;top:0;bottom:0;width:4px}
+.tile .n{font-family:var(--mono);font-size:38px;font-weight:800;line-height:1;letter-spacing:-.02em}
+.tile .lb{font-size:13px;color:var(--ink-soft);margin-top:8px;font-weight:600}
+.tile .ex{font-size:12px;color:var(--muted);margin-top:6px;line-height:1.45}
+.tile.green .cap{background:var(--green)} .tile.green .n{color:var(--green)}
+.tile.teal .cap{background:var(--accent)} .tile.teal .n{color:var(--accent)}
+.tile.amber .cap{background:var(--amber)} .tile.amber .n{color:var(--amber)}
+.tile.violet .cap{background:var(--violet)} .tile.violet .n{color:var(--violet)}
+.callout{margin-top:16px;font-family:var(--mono);font-size:12.5px;color:var(--ink-soft);
+  border:1px dashed var(--hair);border-radius:10px;padding:12px 14px;background:var(--panel-2)}
+.callout b{color:var(--clay)}
+.ladder{display:flex;flex-direction:column;gap:6px}
+.rung{display:grid;grid-template-columns:52px 128px 1fr auto;gap:14px;align-items:center;
+  background:var(--panel);border:1px solid var(--hair);border-radius:10px;padding:11px 14px}
+.rung .lv{font-family:var(--mono);font-weight:800;font-size:15px;color:var(--muted)}
+.rung .nm{font-weight:650;font-size:14px}
+.rung .st{font-family:var(--mono);font-size:12px;color:var(--ink-soft)}
+.rung .bd{font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;
+  padding:3px 9px;border-radius:999px;font-weight:700;white-space:nowrap}
+.b-green{background:color-mix(in srgb,var(--green) 16%,transparent);color:var(--green)}
+.b-amber{background:color-mix(in srgb,var(--amber) 18%,transparent);color:var(--amber)}
+.b-violet{background:color-mix(in srgb,var(--violet) 18%,transparent);color:var(--violet)}
+.b-clay{background:color-mix(in srgb,var(--clay) 16%,transparent);color:var(--clay)}
+.rung.first{border-color:var(--clay);box-shadow:0 0 0 1px var(--clay) inset}
+.rung.first .lv{color:var(--clay)}
+.cards{display:grid;grid-template-columns:repeat(3,1fr);gap:14px}
+.card{background:var(--panel);border:1px solid var(--hair);border-radius:14px;padding:18px;
+  box-shadow:var(--shadow);display:flex;flex-direction:column;gap:10px}
+.card .who{display:flex;align-items:center;gap:10px}
+.card .who .ic{width:34px;height:34px;border-radius:9px;display:grid;place-items:center;
+  font-family:var(--mono);font-weight:800;font-size:15px;color:#fff;flex:none}
+.card h3{font-size:16px;font-weight:700}
+.card .tag{font-family:var(--mono);font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;color:var(--muted)}
+.card p{font-size:13.5px;color:var(--ink-soft)}
+.verdict{margin-top:auto;font-family:var(--mono);font-size:11.5px;font-weight:700;padding:6px 10px;
+  border-radius:8px;text-align:center;letter-spacing:.04em}
+.v-reject{background:color-mix(in srgb,var(--clay) 15%,transparent);color:var(--clay)}
+.v-swc{background:color-mix(in srgb,var(--amber) 16%,transparent);color:var(--amber)}
+.lab-note{margin-top:14px;font-size:13px;color:var(--muted);border-left:3px solid var(--accent);
+  padding:6px 0 6px 14px}
+.tracks{display:flex;flex-direction:column;gap:26px}
+.track h3{font-family:var(--mono);font-size:13px;letter-spacing:.06em;text-transform:uppercase;
+  color:var(--accent);margin-bottom:12px;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.track h3 .tk{border:1px solid var(--accent);border-radius:6px;padding:1px 7px;font-size:11px}
+.steps{display:flex;flex-direction:column;gap:10px;border-left:2px solid var(--hair);padding-left:20px;
+  margin-left:6px}
+.step{position:relative;background:var(--panel);border:1px solid var(--hair);border-radius:11px;padding:14px 16px}
+.step::before{content:"";position:absolute;left:-27px;top:18px;width:11px;height:11px;border-radius:50%;
+  background:var(--accent);border:2px solid var(--ground)}
+.step .sh{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:6px}
+.step .sn{font-family:var(--mono);font-weight:800;color:var(--muted);font-size:13px}
+.step .st{font-weight:700;font-size:14.5px}
+.step p{font-size:13.5px;color:var(--ink-soft);margin-top:4px}
+.step .ev{font-family:var(--mono);font-size:12px;color:var(--green);margin-top:8px;display:block}
+.chip{font-family:var(--mono);font-size:10.5px;font-weight:700;letter-spacing:.03em;padding:3px 8px;
+  border-radius:999px;text-transform:uppercase}
+.c-auth{background:color-mix(in srgb,var(--green) 15%,transparent);color:var(--green)}
+.c-prin{background:color-mix(in srgb,var(--violet) 16%,transparent);color:var(--violet)}
+.c-block{background:color-mix(in srgb,var(--amber) 16%,transparent);color:var(--amber)}
+.owner{font-family:var(--mono);font-size:11px;color:var(--muted);margin-left:auto}
+.explorer{background:var(--panel);border:1px solid var(--hair);border-radius:16px;overflow:hidden;
+  box-shadow:var(--shadow)}
+.obj-bar{display:flex;gap:6px;overflow-x:auto;padding:12px;border-bottom:1px solid var(--hair);
+  background:var(--panel-2)}
+.obj-btn{font-family:var(--mono);font-size:12px;white-space:nowrap;border:1px solid var(--hair);
+  background:var(--panel);color:var(--ink-soft);border-radius:8px;padding:7px 11px;cursor:pointer}
+.obj-btn:hover{border-color:var(--accent)}
+.obj-btn.on{background:var(--accent);color:#04211d;border-color:var(--accent);font-weight:700}
+.exp-body{padding:20px}
+.exp-top{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:6px}
+.exp-top h3{font-size:19px;font-weight:750}
+.badge{font-family:var(--mono);font-size:11px;font-weight:800;letter-spacing:.06em;text-transform:uppercase;
+  padding:4px 11px;border-radius:999px}
+.t-observed{background:color-mix(in srgb,var(--observed) 18%,transparent);color:var(--observed);
+  border:1px solid var(--observed)}
+.t-model{background:color-mix(in srgb,var(--model) 15%,transparent);color:var(--model);border:1px solid var(--model)}
+.t-design{background:color-mix(in srgb,var(--design) 16%,transparent);color:var(--design);border:1px solid var(--design)}
+.t-reconstructed{background:color-mix(in srgb,var(--reconstructed) 16%,transparent);color:var(--reconstructed);border:1px solid var(--reconstructed)}
+.badge-invariant{font-size:11px;color:var(--muted);font-family:var(--mono)}
+.rungtabs{display:flex;gap:6px;margin:16px 0 14px}
+.rungtab{flex:1;font-family:var(--mono);font-size:12px;border:1px solid var(--hair);background:var(--panel-2);
+  color:var(--ink-soft);border-radius:9px;padding:9px 8px;cursor:pointer;text-align:center;font-weight:600}
+.rungtab .step-lbl{display:block;font-size:10px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:2px}
+.rungtab.on{border-color:var(--accent);background:var(--panel);color:var(--ink)}
+.rungtab.on .step-lbl{color:var(--accent)}
+.rung-content{font-size:15px;line-height:1.65;min-height:96px}
+.rung-content .mono{font-size:13px;background:var(--panel-2);border:1px solid var(--hair);border-radius:6px;
+  padding:1px 5px}
+.drops{margin-top:18px;border-top:1px dashed var(--hair);padding-top:14px;display:flex;gap:12px}
+.drops .di{font-family:var(--mono);font-size:10px;font-weight:800;letter-spacing:.08em;color:var(--clay);
+  padding-top:2px;flex:none}
+.drops p{font-size:13px;color:var(--ink-soft)}
+.tension-list{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.tension{background:var(--panel);border:1px solid var(--hair);border-left:3px solid var(--clay);
+  border-radius:8px;padding:12px 14px;font-size:13.5px;color:var(--ink-soft)}
+.tension b{color:var(--ink)}
+footer{border-top:1px solid var(--hair);padding:34px 0 60px;color:var(--muted);font-size:13px}
+.foot-grid{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+footer .mono{font-size:12px;color:var(--ink-soft);word-break:break-all}
+.sig{font-family:var(--mono);font-size:12px;margin-top:18px;color:var(--muted)}
+.sig .k{color:var(--accent)}
+@media(max-width:820px){
+  .tiles{grid-template-columns:repeat(2,1fr)}
+  .cards{grid-template-columns:1fr}
+  .tension-list{grid-template-columns:1fr}
+  .foot-grid{grid-template-columns:1fr}
+  .rung{grid-template-columns:40px 1fr auto;grid-template-areas:"lv nm bd" "lv st st"}
+  .rung .lv{grid-area:lv}.rung .nm{grid-area:nm}.rung .st{grid-area:st}.rung .bd{grid-area:bd}
+  #motor{opacity:.25}
+}
+@media(prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+</style>
+</head>
+<body>
+
+<div class="topbar"><div class="wrap row">
+  <span class="brand">UNI·<b>FLAGELLUM</b></span>
+  <div class="minitiles">
+    <span class="minitile"><span class="dot" style="background:var(--green)"></span>green <b>16</b></span>
+    <span class="minitile"><span class="dot" style="background:var(--accent)"></span>clear <b>4</b></span>
+    <span class="minitile"><span class="dot" style="background:var(--amber)"></span>blocked <b>10</b></span>
+    <span class="minitile"><span class="dot" style="background:var(--violet)"></span>design <b>1</b></span>
+  </div>
+  <span class="spacer"></span>
+  <button class="toggle" id="themeBtn" aria-label="Toggle light or dark theme">◐ theme</button>
+</div></div>
+
+<header class="hero">
+  <canvas id="motor" width="420" height="420" aria-hidden="true"></canvas>
+  <div class="wrap">
+    <span class="status-strip">DESIGN — AUTHORIZED TO BUILD, <span class="k">NOT A RESULT</span> · HEAD e21747c · in-repo · nothing pushed</span>
+    <h1 class="title">The math is done.<br>The binding constraint is <span class="accent">data.</span></h1>
+    <p class="lede">This cycle, <b>exactly 4 gates</b> can move to durable green with in-repo observed
+      evidence — and <b>zero of them raise a P-level</b>. The first missing rung is <b>P4 transfer</b>,
+      which no amount of in-repo work can close. And the honest headline a teaching platform owes first:
+      a plain <b>lognormal still out-predicts the flagship two-timescale model</b> on held-out data —
+      <span class="mono">unresolved at this sample size</span>, not a win for either.</p>
+    <div class="hero-flags">
+      <span class="flag"><span class="lbl">P8 full parity</span><span class="vl" style="color:var(--clay)">false</span></span>
+      <span class="flag"><span class="lbl">first missing rung</span><span class="vl mono" style="color:var(--clay)">P4</span></span>
+      <span class="flag"><span class="lbl">P-levels moved</span><span class="vl mono">0</span></span>
+      <span class="flag"><span class="lbl">held-out leader</span><span class="vl mono" style="color:var(--model)">M2 lognormal</span></span>
+    </div>
+  </div>
+</header>
+
+<main class="wrap">
+
+<section>
+  <div class="sec-head"><span class="num">01</span><h2>The honest gate forecast</h2></div>
+  <p class="sec-sub">31 gates across the P0–P8 parity ladder, the H-AIF program gates, and the defect
+    ledger. Counted by what the current evidence licenses — not by any stored claim.</p>
+  <div class="tiles">
+    <div class="tile green"><div class="cap"></div><div class="n tnum">16</div><div class="lb">Green now</div>
+      <div class="ex">But <b>only 1 (P2) is genuinely observational</b>, and it's limited. The other 15
+      are integrity / implementation / defect gates. Not "16 biological observations."</div></div>
+    <div class="tile teal"><div class="cap"></div><div class="n tnum">4</div><div class="lb">Clearable this cycle</div>
+      <div class="ex">Restore P0 · restore H-AIF-G1 · D12 remediation PENDING&rarr;PASS · close H-AIF-G9.
+      <b>Zero raise a P-level.</b></div></div>
+    <div class="tile amber"><div class="cap"></div><div class="n tnum">10</div><div class="lb">External-blocked</div>
+      <div class="ex">P4·P5·P6·P7·P8 · raw archive (G8) · D5 · D6 · D9 · the accessibility gate (ships
+      NOT_ESTABLISHED). No in-repo work moves these.</div></div>
+    <div class="tile violet"><div class="cap"></div><div class="n tnum">1</div><div class="lb">Design-only</div>
+      <div class="ex">The human L0..L12 stack (H-AIF-G6): not built, not scored, and forbidden on passive
+      data — building it there would be unfalsifiable scaffolding.</div></div>
+  </div>
+  <div class="callout">Two resonance disagreements kept visible with their receipts, never laundered:
+    <b>(1)</b> the working tree is <b>dirty</b> (one user-owned doc) so P0 &amp; H-AIF-G1 are
+    <em>clean-claim-withdrawn</em> until it's committed or reverted — a principal decision.
+    <b>(2)</b> <span class="mono">publicArtifactMismatchDetected:true</span> is the independent oracle
+    <em>confirming</em> the expected <span class="mono">G03_PUBLIC_ARTIFACT_PARITY=FAIL</span> — a green
+    that verifies an honest "false," receipted at <span class="mono">independent-science-check.mjs:44&ndash;46</span>.</div>
+</section>
+
+<section>
+  <div class="sec-head"><span class="num">02</span><h2>The parity ladder is the spine</h2></div>
+  <p class="sec-sub">Conjunctive: you stand only as high as the lowest rung you have NOT finished. A green
+    low rung, a passing test, or a tall-tower screenshot is never biological parity. The verdict names the
+    first unsatisfied level — and it is P4.</p>
+  <div class="ladder" id="ladder"></div>
+</section>
+
+<section>
+  <div class="sec-head"><span class="num">03</span><h2>Held as a three-body problem</h2></div>
+  <p class="sec-sub">Every decision is held by an odd number of perspectives, majority adversarial. Michael
+    sits inside as a present member; two new personas hold the adversarial majority; the lab team plugs in
+    for anything that touches the free-energy engine.</p>
+  <div class="cards">
+    <div class="card">
+      <div class="who"><span class="ic" style="background:var(--accent)">M</span>
+        <div><h3>Michael — Regenerative Architect</h3><span class="tag">New · inside · proponent</span></div></div>
+      <p>Algebra-up layering of every result, every time; all math, bytes and renderings surfaced OUTSIDE
+        (in the repo, version-controlled — never on an external surface); CPU-only. Channels ambition into
+        the honest non-science lane. Owns reviewer transmission personally. Will not manufacture a pass.</p>
+      <div class="verdict v-swc">THIS ROUND · SIGN-WITH-CHANGES</div>
+    </div>
+    <div class="card">
+      <div class="who"><span class="ic" style="background:var(--clay)">C</span>
+        <div><h3>Custodian of the Boundary</h3><span class="tag">New · adversary · default REJECT</span></div></div>
+      <p>No gate green on a false receipt; clean tree before any green. Distribution is irreversible — D12
+        never collapses to "closed by redaction," the incident stays NEGATIVE forever. No frozen-artifact
+        overwrite; a sanitized ancestry receipt, never a git bundle. Un-scanned archive = unverified.</p>
+      <div class="verdict v-reject">THIS ROUND · REJECT</div>
+    </div>
+    <div class="card">
+      <div class="who"><span class="ic" style="background:var(--design)">P</span>
+        <div><h3>Devil's Pedagogue</h3><span class="tag">New · adversary · default REJECT</span></div></div>
+      <p>The simplification is guilty of misleading until proven safe. Fail-closed method guards; forbid
+        free-energy / L0..L12 scaffolding on passive data; identifiability is not mechanism. Every simplified
+        layer carries a truth badge, a "what it drops" caveat, and a path back up.</p>
+      <div class="verdict v-swc">THIS ROUND · SIGN-WITH-CHANGES</div>
+    </div>
+  </div>
+  <p class="lab-note"><b>Existing lab team</b> (default WITHHELD) plugs in for free-energy-touching changes:
+    Math-Breaker &rarr; Systems Architect &rarr; RED Experimentalist &rarr; Embodiment &rarr; AIF Theorist
+    (merges); the Organic Operator defends the human at the operator-facing <span class="mono">/math-workbench</span> surface.</p>
+</section>
+
+<section>
+  <div class="sec-head"><span class="num">04</span><h2>Execution plan — containment first</h2></div>
+  <p class="sec-sub">Eleven steps, strictly sequenced per the M25 authorization. Containment precedes
+    everything; method guards are additive sidecars; the teaching surface is scored, not assumed honest;
+    the science step is pre-registration only. Nothing is pushed or transmitted.</p>
+  <div class="tracks" id="tracks"></div>
+</section>
+
+<section>
+  <div class="sec-head"><span class="num">05</span><h2>The child-to-scientist ladder</h2></div>
+  <p class="sec-sub">Pick a piece of the mathematics. Climb from arithmetic a five-year-old can do, through
+    high-school algebra, to the real formulation — <b>the truth badge never changes as you climb</b>, and
+    every object states exactly what the simplification drops. Climbing the math must never inflate the claim.</p>
+  <div class="explorer">
+    <div class="obj-bar" id="objBar"></div>
+    <div class="exp-body">
+      <div class="exp-top">
+        <h3 id="objTitle"></h3>
+        <span class="badge" id="objBadge"></span>
+        <span class="badge-invariant" id="objInv"></span>
+      </div>
+      <div class="rungtabs" id="rungTabs">
+        <button class="rungtab on" data-r="0"><span class="step-lbl">Rung 1</span>Plain arithmetic</button>
+        <button class="rungtab" data-r="1"><span class="step-lbl">Rung 2</span>High-school algebra</button>
+        <button class="rungtab" data-r="2"><span class="step-lbl">Rung 3</span>Full formulation</button>
+      </div>
+      <div class="rung-content" id="rungContent"></div>
+      <div class="drops"><span class="di">DROPS &#9656;</span><p id="objDrops"></p></div>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="sec-head"><span class="num">06</span><h2>Tensions kept live (never resolved by weakening)</h2></div>
+  <div class="tension-list" id="tensions"></div>
+</section>
+
+</main>
+
+<footer><div class="wrap">
+  <div class="foot-grid">
+    <div>
+      <span class="eyebrow">What this cycle is NOT</span>
+      <p style="margin-top:8px">It raises no P-level. It is containment, method integrity, and an honest
+        teaching surface. The next scientific gain (P4) needs external data and begins only after
+        containment and the guards are in place. No parity, active-inference, life, consciousness, or "soul"
+        claim is minted from passive data — at any layer, including the child-facing one.</p>
+    </div>
+    <div>
+      <span class="eyebrow">This page &amp; its receipts</span>
+      <p style="margin-top:8px" class="mono">standalone in-repo document · not a served route<br>
+        source: hierarchical-aif/docs/NEXT-CYCLE-PLAN.html<br>
+        record: hierarchical-aif/docs/NEXT-CYCLE-EXECUTION-PLAN.md<br>
+        self-contained · CPU-only · no network · anchor e21747c<br>
+        archive to withdraw sha256 7b28f0d6f338cb2f…41b2<br>
+        preserve e21747c · no amend / rebase / force-push</p>
+    </div>
+  </div>
+  <p class="sig"><span class="k">Signed frame:</span> Nature supplies the architecture candidate. The gate
+    supplies the status. Full biological parity is not a current status — it is the target world defined by
+    the receipts. · <span class="k">Method:</span> OODA + 9-agent ultracode 3-body review.</p>
+</div></footer>
+
+<script>
+(function(){
+  var root=document.documentElement, btn=document.getElementById('themeBtn');
+  function cur(){var t=root.getAttribute('data-theme'); if(t) return t;
+    return matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light';}
+  btn.addEventListener('click',function(){root.setAttribute('data-theme', cur()==='dark'?'light':'dark');});
+
+  var ladder=[
+    ['P0','Computational integrity','holds — strengthened (guards clean)','b-green','GREEN'],
+    ['P1','Equation / implementation','defects found & fixed in-namespace; frozen runners keep theirs','b-green','GREEN'],
+    ['P2','Observational','duration fields source-pinned; mark fields limited (D6)','b-green','LIMITED'],
+    ['P3','Held-out predictive','stands; adverse M2-over-M3 retained as headline','b-green','GREEN'],
+    ['P4','Transfer','single study; no independent dataset','b-clay','FIRST MISSING'],
+    ['P5','Intervention','passive data; action set empty (structural)','b-amber','BLOCKED'],
+    ['P6','Structural / mechanistic','carried per scope; no aggregate verdict','b-amber','PER-SCOPE'],
+    ['P7','Independent replication','external review in progress','b-amber','BLOCKED'],
+    ['P8','Full verdict','FULL_PARITY = false (conjunctive)','b-clay','FALSE']
+  ];
+  document.getElementById('ladder').innerHTML=ladder.map(function(r){
+    var first=r[0]==='P4'?' first':'';
+    return '<div class="rung'+first+'"><span class="lv">'+r[0]+'</span><span class="nm">'+r[1]+
+      '</span><span class="st">'+r[2]+'</span><span class="bd '+r[3]+'">'+r[4]+'</span></div>';
+  }).join('');
+
+  var tracks=[
+    {t:'A',name:'Containment',owner:'Custodian',steps:[
+      {n:1,s:'Restore the integrity floor',c:['prin'],own:'Michael decides',
+        p:'Commit or revert the one dirty user-owned state doc, then re-run the resample. Preserve e21747c — no amend/rebase/force-push.',
+        ev:'→ clean git status + PASS receipts → P0 & H-AIF-G1 re-green'},
+      {n:2,s:'Build d5_distribution_guard',c:['auth'],own:'Custodian',
+        p:'A separate guard (not an overload of numeric_provenance_guard) over the staged tree AND the round-trip archive: parses JSON/JSONL string values, scans code/logs/manifests, inspects or rejects nested archives, fails on pre-redaction + mutation variants.',
+        ev:'→ guard source + failing-first tests + machine-readable scan report'},
+      {n:3,s:'D12 incident-remediation',c:['auth'],own:'Custodian',
+        p:'Redact event-level identifiers from every distributable surface; add the tracked withdrawal notice (archive name + SHA-256, no records reproduced). Record incident = NEGATIVE, remediation gate = PENDING. Never "closed by redaction."',
+        ev:'→ tracked D12 rows + withdrawal notice + redacted surfaces'},
+      {n:4,s:'Build the D5-safe successor archive',c:['auth','block'],own:'Custodian',
+        p:'Staging → guard scan → manifest → archive → unpack → rescan → recompute hash → confirm no withdrawn blobs. Sanitized ancestry receipt, NOT a git bundle. This is what moves D12 PENDING→PASS.',
+        ev:'→ round-trip guard reports → D12 remediation gate PASS'}
+    ]},
+    {t:'B',name:'Method',owner:'Devil’s Pedagogue + Custodian',steps:[
+      {n:5,s:'Fail-closed method guards',c:['auth'],own:'Pedagogue',
+        p:'score.py: replace silent zip-truncation with length/finite/coverage checks. Optimizer: a non-converged fit may not enter scoring — one shared eligibility assertion across every entry point.',
+        ev:'→ hardened score.py + mutation tests (additive; moves no P-level)'},
+      {n:6,s:'Canonical P-ladder metadata',c:['auth'],own:'Pedagogue + Custodian',
+        p:'Fix compare.py:546 off-by-one (transfer=P4, intervention=P5, +P7 replication). Correction sidecars with new hashes; frozen result/prediction JSON untouched.',
+        ev:'→ corrected metadata + sidecars; frozen artifacts byte-identical'},
+      {n:7,s:'Failure-count + D9 corrections',c:['auth','block'],own:'Michael + Custodian',
+        p:'Add CORRECTION-NOTICE-e21747c.md quoting the false failure-count sentence and the superseding commit. Separate D9 prospectivity three ways; do NOT edit original B4C11 prediction bytes.',
+        ev:'→ tracked notice; transmission stays principal-gated (prepare, never send)'},
+      {n:8,s:'Close the stale-G5 disagreement',c:['auth'],own:'Michael',
+        p:'Correct the stale H-AIF-GATES.md "IN PROGRESS" to match the ladder-map "COMPLETE" — no frozen artifact touched. A stale record a learner reads is a lie-by-staleness.',
+        ev:'→ consistent status → closes H-AIF-G9'}
+    ]},
+    {t:'C',name:'UI-workbench + layman layering',owner:'Michael + Organic Operator',steps:[
+      {n:9,s:'Accessibility gate + honest in-repo rendering',c:['auth','block'],own:'Michael + Operator',
+        p:'Bind a first-class accessibility gate to /math-workbench; render the TRUE gate state where no layer may relabel a status; add a runtime truth-badge + species-label gate and a *.js/narration clamp. CPU-only, no LLM/GPU/WebGL/accounts. Ships NOT_ESTABLISHED with a falsifier.',
+        ev:'→ workbench-bound gate + honest rendering (accessibility is a claim, not an achievement)'},
+      {n:10,s:'Declare the non-science teaching lane',c:['auth'],own:'Pedagogue + AIF Theorist',
+        p:'A reduced teaching model over a reduced/synthetic world — no P-level, no free-energy on passive data, no mechanism claim. Keeps the test-enforced absence of any EFE function in passive scope.',
+        ev:'→ lane charter + the standing test that fails if EFE appears on passive data'}
+    ]},
+    {t:'D',name:'Science-external (pre-registration only)',owner:'Experimentalist + AIF Theorist',steps:[
+      {n:11,s:'Pre-register the shortest path to P4',c:['auth','block'],own:'Experimentalist',
+        p:'Rank external blockers by expected information gain; commit the scoring rule for the cheapest independent transfer cohort — enough independent MOTORS to beat the nesting-blindness — BEFORE any data is touched. Do NOT execute.',
+        ev:'→ committed pre-registration; P4 stays external-blocked and unmoved'}
+    ]}
+  ];
+  var chipLabel={auth:'authorized',prin:'principal-gated',block:'external-blocked'};
+  document.getElementById('tracks').innerHTML=tracks.map(function(tr){
+    var steps=tr.steps.map(function(st){
+      var chips=st.c.map(function(c){return '<span class="chip c-'+c+'">'+chipLabel[c]+'</span>';}).join('');
+      return '<div class="step"><div class="sh"><span class="sn">STEP '+st.n+'</span><span class="st">'+
+        st.s+'</span>'+chips+'<span class="owner">'+st.own+'</span></div><p>'+st.p+
+        '</p><span class="ev">'+st.ev+'</span></div>';
+    }).join('');
+    return '<div class="track"><h3><span class="tk">Track '+tr.t+'</span>'+tr.name+
+      '<span style="color:var(--muted);font-weight:400;text-transform:none;letter-spacing:0"> · '+tr.owner+
+      '</span></h3><div class="steps">'+steps+'</div></div>';
+  }).join('');
+
+  var objs=[
+    {name:'Dwell survival curve',badge:'MODEL',bcl:'t-model',
+     r:['Start with 100 holds. If about half drop out each second: 100 → 50 → 25 → 12. Divide by the 100 you started with: 1.00, 0.50, 0.25, 0.12. That shrinking list IS the survival curve. A hold can end two ways — a stator clicks ON or OFF — so split each drop into an on-part and an off-part that add to the whole drop.',
+        'Model the chance a hold outlasts time t as S(t)=e^(−rt): a curve that shrinks by a constant fraction each step. The chance it ends near t is the drop −dS/dt. With two competing exits, split into P+ and P− with P+ + P− = −dS/dt. A hold still going when observation stopped is censored — it tells you S(t), not an exact ending.',
+        'S_N(t)=Σ_j a_j(N)·e^(−r_j t), r_j(N)=k+(N)+N·σ− + j(σ+−σ−); P+(t|N)=k+(N)·S_N(t); P−(t|N)=−dS_N/dt − P+. Likelihood = log P+ / log P− / log S_N(c) per event; one motor stays in one partition; censored MLE on training motors only. Independent JS oracle: held-out −3.838 nat/interval over 244 intervals.'],
+     drops:'The dwell DURATIONS are OBSERVED and source-pinned; this survival law is a MODEL. It drops the real conformational coordinate, stator layout, cell-to-cell heterogeneity and nonstationarity. Its timescales are NOT molecular identities — gates G03/G05/G06 all FAILED. Reproducible, not validated mechanism.'},
+    {name:'Held-out log score',badge:'MODEL',bcl:'t-model',
+     r:['A guessing game on cards you have never seen. Before a hidden card is flipped, the model says how likely each outcome is. It earns a "surprise" number for whatever actually shows up — small if it gave that a high chance, big if a low chance. Add the surprises; the smaller total predicted better. Guessing 1/2 beats guessing 1/8.',
+        'For each held-out duration y, score ln f(y) in nats; average = mean log score (higher = better). What makes it honest: parameters were FROZEN on training motors, and these y come from DIFFERENT held-out motors under a fixed split — so it measures out-of-sample prediction. The log score is strictly proper: you cannot game it by hedging.',
+        'Logarithmic scoring on the seconds-scale density with the Jacobian log f_sec(t)=log f_norm(t/μ_N) − log μ_N; split = sha256(motorName) mod 5 recomputed by an independent leakage test; scored motor-equal, never event-weighted. Distinct units kept distinct: −3.838 nat/INTERVAL (mechanistic) vs the M0–M3 leaderboard in nats/EVENT.'],
+     drops:'The durations scored are OBSERVED; the score is a MODEL-produced evaluation. A better score ranks predictive accuracy ONLY — never a mechanism, a latent state, or that the organism performs the inference. At 19 holdout motors most contrasts are underpowered, so a good score is not a discovery.'},
+    {name:'M3 two-timescale vs M2 lognormal',badge:'MODEL',bcl:'t-model',
+     r:['Two rival recipes for how long holds last. Recipe A (UNI): every hold is a "quick" or a "slow" kind — flip a weighted coin, then it lasts a quick or slow time. Recipe B (lognormal): one smooth spread, mostly short with a long tail, no coin. Contest: which better guesses hold-times it never saw? Recipe B scored a little better. "We built ours from two clocks" did NOT win.',
+        'M3: p(y)=w·λ_f·e^(−λ_f y)+(1−w)·λ_s·e^(−λ_s y), mean-one constrained. M2: lognormal, μ_log=−σ²/2. Held-out mean log scores: M2 = −3.013, M3 = −3.050 nats/event; difference M3−M2 = −0.037, 95% motor-cluster interval [−0.068, 0.015]. The interval crosses zero → the honest reading is UNRESOLVED — not "M2 wins," not "no difference."',
+        'Frozen leaderboard (nats/event, higher better): M0 −3.260, M1 −3.096, M2 −3.013, M3 −3.050. M3−M0 RESOLVED (+0.210, [0.069,0.325]); M3−M1 and M3−M2 both cross zero. Nesting-blindness receipt (B4C01): the memoryless M0 self-wins only 0.290 vs a >0.5 bar, so an inconclusive near-nested contrast is the EXPECTED output of a 19-motor assay. M2 is kept alive as the leading adversary.'],
+     drops:'Both recipes are MODELS fitted to OBSERVED durations. Two fitted timescales are not two proven molecular clocks; a smooth single-scale lognormal predicting as well means overdispersion does NOT uniquely pick a two-state mechanism. Predictive ranking is never mechanism. It drops heterogeneity, nonstationarity, continuous rate mixtures, segmentation.'},
+    {name:'The parity ladder P0..P8',badge:'DESIGN',bcl:'t-design',
+     r:['A 9-rung ladder. Rung 0 = "the code runs the same every time." Rung 8 = "the whole thing truly matches nature." The rule: you stand only as high as the LOWEST rung you have NOT finished. Right now the first unfinished rung is rung 4 (does it carry over to a second, independent dataset?) — so "full parity" reads NO. A checkmark on a low rung does not lift you to the top.',
+        'A conjunctive ladder: P0 integrity, P1 equation/implementation, P2 observational, P3 held-out, P4 transfer, P5 intervention, P6 mechanistic, P7 replication, P8 verdict. P8 = logical AND of all required levels. Any single FAIL / NOT_ESTABLISHED / BLOCKED_EXTERNAL / NOT_RUN forces FULL_PARITY=false, and the report names the FIRST unsatisfied level. You cannot average a strong low level against a missing high one.',
+        'Each level carries receipts (artifact + gate id + status). Now: P0 holds; P1 fixed in-namespace; P2 limited (raw archive not located → G8); P3 stands, adverse M2 retained; P4/P5/P7 NOT_ESTABLISHED; P6 carried per scope, never in aggregate; P8 FULL_PARITY=false with P4 first-unsatisfied. H-AIF gates G1..G9 map onto but never redefine P0..P8; P4/P5/P7 cannot be closed by any in-repo modelling.'],
+     drops:'The ladder is a DESIGN — a map of EVIDENCE STATUS, not of the biology. A high rung states what evidence licenses, not that the model IS nature; the only way to fake a high rung is relabeling, which the contract forbids. It drops the MAGNITUDE of the remaining gap: it records that a gap exists (P4 open), not how large.'},
+    {name:'Free energy (nats) vs work (joules)',badge:'MODEL',bcl:'t-model',
+     r:['Two things both called "energy" that must NEVER be added. (1) Real motor work: turning-force τ times angle-turned Δθ. One turn at ~700 pN·nm ≈ 4.4×10⁻¹⁸ joules — measured in JOULES. (2) "Surprise energy": a number for how startled a belief was by the evidence — measured in NATS. Joules and nats are different kinds, like kilograms and kilometres. No exchange rate.',
+        'Thermodynamic work W = τ·Δθ [joules], from the proton-motive force. Variational free energy F[q]=Σ q(s)[ln q(s) − ln p(o,s)] [nats] = KL[q‖p(s|o)] − ln p(o) ≥ −ln p(o): an upper bound on model surprise, an information quantity, not mechanical output. Same word "free energy," two unrelated quantities, two unit systems.',
+        'F is kept in nats as model evidence; W in joules as physical work; the stack type system forbids a joules quantity from entering a free-energy socket — NO conversion function exists. KNOWN OPEN DEFECT E-M01 (lib/uni-motor.js:328): the shipped expected free energy double-counts the epistemic term (~61% inflation, flips action selection) — until fixed, the EFE card describes a quantity the tool does not produce.'],
+     drops:'Both are quantities of the REDUCED model, not measurements of a bacterium. In "Execute the math," the "observed" tiles are observations OF A SIMULATION, not a cell; no biological posterior is ever measured. Never convert nats↔joules. It drops the real molecular energetics and whether an organism computes F at all.'},
+    {name:'CV² overdispersion (the resolved result)',badge:'MODEL',bcl:'t-model',
+     r:['A plain "memoryless" process — like flipping a coin every second until heads — has a fingerprint: its spread equals its average, so (spread ÷ average)² comes out to exactly 1. Measure that ratio on the real hidden hold-times: we got about 3.15, and even the low end of the honest range is ~1.51 — still above 1. Every bit of the range sits above 1, so the holds are NOT a plain memoryless coin.',
+        'CV² = Var(T)/E[T]², the squared coefficient of variation. For a pure exponential process CV²=1 exactly. Held-out mean CV² = 3.150, 95% motor-cluster interval [1.514, 3.568]. Because the ENTIRE interval lies above 1, the homogeneous memoryless model is rejected within the frozen population — a RESOLVED result, unlike the zero-crossing (unresolved) M3-vs-M2 contest.',
+        'Overdispersion computed on held-out durations, 2,000 motor-cluster bootstrap replicates, unit = motor. The whole interval above 1 is a resolved rejection of the state-specific memoryless null M0 within the frozen validity domain — reported alongside, never instead of, the unresolved and adverse model-comparison results.'],
+     drops:'The statistic is a MODEL summary of OBSERVED held-out durations. CV²>1 rejects memorylessness but does NOT identify a molecular hidden state: heterogeneity, nonstationarity, continuous rate mixtures, and measurement segmentation all inflate CV² equally. Resolved is not mechanism — "these holds aren’t a simple coin" is all it licenses.'}
+  ];
+  var objBar=document.getElementById('objBar'), cur_o=0, cur_r=0;
+  objBar.innerHTML=objs.map(function(o,i){return '<button class="obj-btn'+(i===0?' on':'')+'" data-o="'+i+'">'+o.name+'</button>';}).join('');
+  function esc(s){return s.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+  function render(){
+    var o=objs[cur_o];
+    document.getElementById('objTitle').textContent=o.name;
+    var b=document.getElementById('objBadge'); b.textContent=o.badge; b.className='badge '+o.bcl;
+    document.getElementById('objInv').textContent='· badge fixed across all 3 rungs';
+    document.getElementById('rungContent').textContent=o.r[cur_r];
+    document.getElementById('objDrops').textContent=o.drops;
+    Array.prototype.forEach.call(objBar.children,function(el,i){el.classList.toggle('on',i===cur_o);});
+  }
+  objBar.addEventListener('click',function(e){var b=e.target.closest('.obj-btn'); if(!b)return;
+    cur_o=+b.dataset.o; render();});
+  var rt=document.getElementById('rungTabs');
+  rt.addEventListener('click',function(e){var b=e.target.closest('.rungtab'); if(!b)return;
+    cur_r=+b.dataset.r; Array.prototype.forEach.call(rt.children,function(el){el.classList.toggle('on',el===b);});
+    render();});
+  render();
+
+  var tensions=[
+    ['Adverse result rides on top','A simple lognormal (M2) still leads the held-out leaderboard. Mechanistic ambition may not bury it.'],
+    ['Full parity is false','P8 conjunctive; first missing rung P4 transfer, irreducibly external.'],
+    ['Identifiability is not mechanism','Mechanism is retrospective-only / transfer-required (D5/D6); no aggregate P6 is asserted.'],
+    ['Ambition has an honest home, not a free pass','L0..L12 & any free-energy function stay OFF passive data via a test-enforced absence.'],
+    ['Approachable is a hypothesis','The 5-to-199 accessibility path ships NOT_ESTABLISHED with a falsifier — any layer that relabels a status is rejected.'],
+    ['No sub-floor laundering','The F-side ~2.5×10⁻⁷-nat effect (~168,000× below the floor) may never be reported as "beats M7."'],
+    ['Distribution is irreversible','The D12 incident stays NEGATIVE forever even after the gate passes; un-scanned archives are unverified, never safe.'],
+    ['Transmission is the principal’s','The correction notice to the reviewer is prepared, never auto-sent — Michael transmits.']
+  ];
+  document.getElementById('tensions').innerHTML=tensions.map(function(t){
+    return '<div class="tension"><b>'+t[0]+'.</b> '+t[1]+'</div>';}).join('');
+
+  var cv=document.getElementById('motor');
+  if(cv && cv.getContext){
+    var ctx=cv.getContext('2d'), W=cv.width, H=cv.height, cx=W/2, cy=H/2, t=0;
+    var reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+    function ac(){return getComputedStyle(document.documentElement).getPropertyValue('--accent').trim()||'#1f9c8a';}
+    function draw(){
+      ctx.clearRect(0,0,W,H); var col=ac();
+      for(var ring=0;ring<5;ring++){
+        var r=44+ring*34, n=8+ring*3;
+        ctx.globalAlpha=0.14+ring*0.03; ctx.strokeStyle=col; ctx.lineWidth=1;
+        ctx.beginPath(); ctx.arc(cx,cy,r,0,Math.PI*2); ctx.stroke();
+        var dir=ring%2?-1:1;
+        for(var k=0;k<n;k++){
+          var a=t*dir*0.15 + k*(Math.PI*2/n);
+          var x=cx+Math.cos(a)*r, y=cy+Math.sin(a)*r;
+          ctx.globalAlpha=0.5-ring*0.06; ctx.fillStyle=col;
+          ctx.beginPath(); ctx.arc(x,y,2.1,0,Math.PI*2); ctx.fill();
+        }
+      }
+      ctx.globalAlpha=0.5; ctx.strokeStyle=col; ctx.lineWidth=2;
+      ctx.beginPath(); ctx.moveTo(cx,cy-8);
+      for(var s=0;s<60;s++){var yy=cy-8-s*3.0, xx=cx+Math.sin(s*0.4+t*0.1)*10; ctx.lineTo(xx,yy);}
+      ctx.stroke(); ctx.globalAlpha=1;
+    }
+    if(reduce){draw();} else{(function loop(){t+=0.5; draw(); requestAnimationFrame(loop);})();}
+  }
+})();
+</script>
+</body>
+</html>

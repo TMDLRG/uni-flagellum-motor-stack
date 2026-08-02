@@ -1,0 +1,98 @@
+{
+  "schema": "uni.flagellum.audit-artifact/1.0.0",
+  "purpose": "Frozen B3 model-competition protocol. Specified in full BEFORE any competition is executed, so that no model, bound, restart rule, hyperparameter choice or scoring rule can be selected after seeing a result.",
+  "auditedCommit": "9c3a644e4b57e8ac27f925dcec84222463063aa1",
+  "auditPhase": "B",
+  "auditorModel": "claude-fable-5",
+  "appendOnly": true,
+  "frozenBeforeExecution": true,
+  "precondition": "B2 established that the committed M3 fit is numerically indistinguishable from the best located optimum, so comparisons against M3 are not comparisons against a mis-fit model. SATISFIED.",
+  "note": "Timestamps are deliberately omitted: this package must be byte-reproducible. Ordering is established by git history.",
+
+  "cohortAndSplit": {
+    "eligibleStates": "DERIVED, not hard-coded: scope.primaryStates INTERSECT { N : uncensored holdout events >= 20 AND distinct holdout motors >= 5 }, which yields [1..8].",
+    "mandatoryDualReporting": "Every result MUST be reported under BOTH the H1-filtered cohort [1..8] (793 train / 233 holdout) and the unfiltered primaryStates cohort [0..8] (818 train / 251 holdout), per the PROTOCOL_SCOPE_AMBIGUITY recorded as F-B2-REV-1. If a ranking or an interval crossing differs between cohorts, that difference is the headline result.",
+    "split": "partition = holdout iff sha256(motorId) mod 5 == 0, recomputed and verified, never trusted from the data field alone.",
+    "leakage": "Holdout events are used for scoring only. They may not inform any parameter, any per-state scale, any model selection, any hyperparameter and any threshold.",
+    "experimentalUnit": "the motor. Events within a motor are NOT independent replicates."
+  },
+
+  "censoring": {
+    "rule": "Right-censored events are EXCLUDED from every duration likelihood and from every score, exactly as the frozen protocol specifies, for every model without exception.",
+    "prohibition": "No model may gain an advantage by treating censored events differently from any other model. Any competitor requiring a censoring-aware likelihood must be fitted and scored on the SAME uncensored subset as all others.",
+    "sensitivityDeferred": "Alternative censoring treatments are a B4 robustness question and must not be introduced mid-competition."
+  },
+
+  "normalization": {
+    "perStateScale": "scale_N = mean(durationS) over UNCENSORED TRAINING events with that stateN, computed from training only.",
+    "normalizedVariable": "y = durationS / scale_N",
+    "jacobian": "Every reported score is on the SECONDS scale: logDensitySeconds(t) = logDensityNormalized(y) - log(scale_N). No model may omit the Jacobian.",
+    "meanOneConstraint": "Every competing model defined on y MUST be constrained to mean exactly one in y-space, so that no model wins on scale. Any model that cannot accept this constraint must be declared, and its exemption reported as a limitation."
+  },
+
+  "models": [
+    { "id": "M0_EXPONENTIAL", "freeParameters": [], "density": "f(y) = exp(-y)", "bounds": {} },
+    { "id": "M1_WEIBULL", "freeParameters": ["k"], "density": "mean-one Weibull, scale_w = 1/Gamma(1+1/k)", "bounds": { "k": [0.05, 5.0] } },
+    { "id": "M2_LOGNORMAL", "freeParameters": ["sigma"], "density": "mean-one lognormal, mu = -sigma^2/2", "bounds": { "sigma": [0.05, 6.0] } },
+    { "id": "M3_TWO_TIMESCALE", "freeParameters": ["w", "lf"], "density": "w*lf*exp(-lf*y) + (1-w)*ls*exp(-ls*y), ls = (1-w)/(1 - w/lf)", "bounds": { "w": [1e-9, 0.999999999], "lf": [1e-9, 1e4] }, "domainConstraint": "lf > w" },
+    { "id": "M4_MIXTURE_K3", "freeParameters": ["w1", "w2", "l1", "l2"], "density": "three-component exponential mixture with the third rate fixed by the mean-one constraint", "bounds": { "w1": [1e-9, 0.999999999], "w2": [1e-9, 0.999999999], "l1": [1e-9, 1e4], "l2": [1e-9, 1e4] }, "domainConstraint": "w1 + w2 < 1 and the implied third rate must be strictly positive", "purpose": "Tests whether M3's advantage over M0 is a two-timescale claim or merely a flexibility claim." },
+    { "id": "M5_GAMMA", "freeParameters": ["shape"], "density": "mean-one gamma, rate = shape", "bounds": { "shape": [0.05, 20.0] } },
+    { "id": "M6_SEMI_MARKOV_STATE_DEPENDENT", "freeParameters": ["one shape per eligible N"], "density": "mean-one Weibull with a SEPARATE shape per state N, all sharing the per-state scale", "bounds": { "kN": [0.05, 5.0] }, "purpose": "Tests whether a single common shape is an adequate restriction. This is the nearest competitor that relaxes the common-parameter assumption shared by M1, M2 and M3." },
+    { "id": "M7_HIERARCHICAL_MOTOR", "freeParameters": ["population shape", "between-motor dispersion"], "density": "mean-one Weibull with a motor-level random effect on the shape, integrated numerically", "bounds": { "k": [0.05, 5.0], "tau": [1e-4, 5.0] }, "identifiabilityCaveat": "With 19 holdout motors this model may be weakly identified. If the fitted dispersion collapses to a bound, it MUST be reported as unidentified rather than as a fitted result.", "purpose": "Tests whether apparent duration structure is motor heterogeneity, which the protocol itself names as an alternative explanation for H1." },
+    { "id": "M8_EMPIRICAL_KDE", "freeParameters": ["bandwidth"], "density": "training-only kernel density estimate on log y, transformed back and renormalized to mean one", "bounds": { "bandwidth": "selected by training-only cross-validation, see hyperparameterSelection" }, "purpose": "A deliberately flexible non-mechanistic ceiling. If no mechanistic model approaches it, the mechanistic claims are weak; if M8 wins outright, predictive superiority is shown to be unrelated to mechanism." }
+  ],
+
+  "excludedModelsAndWhy": [
+    { "id": "HMM", "reason": "A hidden Markov model over dwell durations requires a state-transition structure that the frozen extraction does not supply per event. Declaring it and then not fitting it would be worse than excluding it in advance. Recorded as NOT ATTEMPTED, not as a failed competitor." }
+  ],
+
+  "fitting": {
+    "objective": "maximum likelihood on the UNCENSORED TRAINING events, in normalized y space",
+    "optimizers": ["Nelder-Mead", "L-BFGS-B", "differential_evolution"],
+    "requirement": "Every model must be fitted by AT LEAST two of the three, and the best training NLL across methods is taken.",
+    "restarts": { "gridStarts": "at least 10 per free parameter, log-spaced for rate-like parameters and linear for shape-like parameters", "randomStarts": "at least 200, seeded from protocol uncertainty.seed", "mandatoryExtraStart": "For any model whose parameters this repository already publishes, the published parameters MUST be supplied as an explicit start." },
+    "domainEnforcement": "Out-of-domain parameters receive an explicit finite penalty. No model may rely on numpy inf semantics to absorb a degenerate parameter.",
+    "convergenceReporting": "Report startsDeclared, methodStartPairsConsidered, domainFeasibleOptimizerCalls, successfulOptimizerCalls and finiteTerminalResults, with the coherence invariant finite <= feasible <= pairs machine-checked. Distinguish successful convergence from merely-finite termination.",
+    "claimStrength": "Report 'no better solution found over the declared search domain'. Never 'global optimum'."
+  },
+
+  "hyperparameterSelection": {
+    "rule": "Any hyperparameter, including the M8 bandwidth, is selected by cross-validation WITHIN THE TRAINING PARTITION ONLY, by motor-level folds so that no motor spans a fold boundary.",
+    "prohibition": "Holdout data may never inform a hyperparameter. A hyperparameter tuned on holdout invalidates that model's entry and the entry must be withdrawn, not adjusted."
+  },
+
+  "scoring": {
+    "primary": { "rule": "mean held-out log predictive density per event, in nats, on the seconds scale", "properScoring": true, "higherIsBetter": true },
+    "secondary": { "rule": "mean held-out Continuous Ranked Probability Score (CRPS) on the seconds scale, computed from each model's survival function by numerical integration", "properScoring": true, "lowerIsBetter": true, "purpose": "CRPS is strictly proper and, unlike log score, is not dominated by the extreme tail. If the two rules disagree on the ranking, that disagreement is a first-class result and must be reported, not resolved by preferring one." },
+    "rankStabilityRequirement": "The leaderboard must be reported under BOTH rules. A model is described as 'better' without qualification only if it wins under both."
+  },
+
+  "uncertainty": {
+    "method": "motor-cluster nonparametric bootstrap, resampling MOTORS with replacement and carrying all of each drawn motor's events",
+    "replicates": 2000,
+    "additionalCheck": "one run at 50000 replicates to confirm interval stability",
+    "seed": "from experiments/preregistration.v1.json uncertainty.seed",
+    "interval": "percentile 95 percent",
+    "prohibition": "Event-level resampling is forbidden. It would treat events within a motor as independent replicates, which the truth contract explicitly prohibits.",
+    "reporting": "Every pairwise comparison against M3 reports the interval and states explicitly whether it crosses zero."
+  },
+
+  "mandatoryAdverseResultRetention": {
+    "rule": "The existing finding that the mean-one lognormal baseline out-scores the two-timescale mixture by approximately 0.0369 nats per held-out event MUST remain visible in the B3 output whether it is confirmed, narrowed or overturned.",
+    "ifOverturned": "If a richer model overtakes the lognormal, that is reported ALONGSIDE the existing finding, never instead of it, and the report must state plainly that a more flexible model beating both is not evidence for the mechanistic claim.",
+    "prohibition": "No threshold may be introduced, and no model dropped, after seeing a ranking."
+  },
+
+  "interpretationFence": {
+    "predictiveSuperiorityIsNotMechanism": "A model winning the leaderboard establishes only that it predicts held-out durations better under the declared scoring rules on this cohort. It does not establish that its latent states are molecular states, that the organism implements the inference, or that the mechanism is identified. The protocol's own forbiddenClaim field says as much and is binding on B3.",
+    "requiredStatement": "The B3 deliverable must contain an explicit section stating what the result does NOT establish."
+  },
+
+  "predictionsToCommitBeforeExecution": {
+    "requirement": "Before B3 runs, a prediction file must be committed naming, for each model, whether it is expected to beat M3 under each scoring rule, and the falsifier.",
+    "status": "NOT YET COMMITTED. B3 must not execute until it is.",
+    "rationale": "B2 demonstrated the value of this discipline: a committed prediction was refuted, and the refutation was more informative than a confirmation would have been."
+  },
+
+  "deliverable": "audits/phase-b/b3-model-competition-result.json, emitted as canonical UTF-8 LF bytes, with a self-manifest entry, machine-checked telemetry coherence, dual-cohort and dual-scoring-rule leaderboards, bootstrap intervals, and an explicit not-established section."
+}

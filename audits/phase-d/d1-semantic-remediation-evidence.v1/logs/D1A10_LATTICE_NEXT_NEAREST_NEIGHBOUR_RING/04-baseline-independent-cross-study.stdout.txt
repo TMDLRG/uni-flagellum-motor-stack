@@ -1,0 +1,11 @@
+{
+  "status": "PASS",
+  "failures": [],
+  "checks": {
+    "itoLeaveOneBinOutRmse": 0.8293641328245378,
+    "latticeFittedSse": 0.049767727747923755,
+    "latticeJ0Sse": 0.050413163016410384,
+    "rftRmse": 1.7274106879853608,
+    "auditArtifacts": 10
+  }
+}

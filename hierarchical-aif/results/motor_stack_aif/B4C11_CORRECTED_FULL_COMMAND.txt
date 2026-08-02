@@ -1,0 +1,1 @@
+python /c/Users/mpolz/Documents/UNI-Flagellum/UNI-FLAGELLUM/hierarchical-aif/scripts/run_c11_corrected_full.py 2000 /c/Users/mpolz/Documents/UNI-Flagellum/UNI-FLAGELLUM/hierarchical-aif/results/motor_stack_aif/B4C11_CORRECTED_FULL_RESULT.json --paired 25

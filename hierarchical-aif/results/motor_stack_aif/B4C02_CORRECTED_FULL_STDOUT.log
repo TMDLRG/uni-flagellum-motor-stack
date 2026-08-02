@@ -1,0 +1,67 @@
+  [weibull_gamma_blend] 10/200  elapsed 518s  eta 9835s  m2>m3=0 fail=0
+  [weibull_gamma_blend] 20/200  elapsed 1132s  eta 10187s  m2>m3=0 fail=0
+  [weibull_gamma_blend] 30/200  elapsed 1740s  eta 9861s  m2>m3=0 fail=0
+  [weibull_gamma_blend] 40/200  elapsed 2373s  eta 9493s  m2>m3=0 fail=0
+  [weibull_gamma_blend] 50/200  elapsed 2996s  eta 8989s  m2>m3=0 fail=0
+  [weibull_gamma_blend] 60/200  elapsed 3684s  eta 8596s  m2>m3=0 fail=0
+  [weibull_gamma_blend] 70/200  elapsed 4358s  eta 8094s  m2>m3=0 fail=0
+  [weibull_gamma_blend] 80/200  elapsed 5023s  eta 7534s  m2>m3=0 fail=0
+  [weibull_gamma_blend] 90/200  elapsed 5674s  eta 6935s  m2>m3=0 fail=0
+  [weibull_gamma_blend] 100/200  elapsed 6271s  eta 6271s  m2>m3=0 fail=0
+  [weibull_gamma_blend] 110/200  elapsed 6908s  eta 5652s  m2>m3=0 fail=0
+  [weibull_gamma_blend] 120/200  elapsed 7519s  eta 5012s  m2>m3=0 fail=0
+  [weibull_gamma_blend] 130/200  elapsed 8141s  eta 4384s  m2>m3=0 fail=0
+  [weibull_gamma_blend] 140/200  elapsed 8639s  eta 3702s  m2>m3=0 fail=0
+  [weibull_gamma_blend] 150/200  elapsed 9091s  eta 3030s  m2>m3=0 fail=0
+  [weibull_gamma_blend] 160/200  elapsed 9552s  eta 2388s  m2>m3=0 fail=0
+  [weibull_gamma_blend] 170/200  elapsed 9983s  eta 1762s  m2>m3=0 fail=0
+  [weibull_gamma_blend] 180/200  elapsed 10405s  eta 1156s  m2>m3=1 fail=0
+  [weibull_gamma_blend] 190/200  elapsed 10816s  eta 569s  m2>m3=1 fail=0
+  [weibull_gamma_blend] 200/200  elapsed 11227s  eta 0s  m2>m3=1 fail=0
+[weibull_gamma_blend] DONE m2>m3 1/200 frac=0.0050
+  [three_timescale_heavy_tail] 10/200  elapsed 438s  eta 8320s  m2>m3=10 fail=0
+  [three_timescale_heavy_tail] 20/200  elapsed 876s  eta 7881s  m2>m3=19 fail=0
+  [three_timescale_heavy_tail] 30/200  elapsed 1310s  eta 7426s  m2>m3=29 fail=0
+  [three_timescale_heavy_tail] 40/200  elapsed 1763s  eta 7051s  m2>m3=39 fail=0
+  [three_timescale_heavy_tail] 50/200  elapsed 2212s  eta 6637s  m2>m3=47 fail=0
+  [three_timescale_heavy_tail] 60/200  elapsed 2664s  eta 6216s  m2>m3=55 fail=0
+  [three_timescale_heavy_tail] 70/200  elapsed 3135s  eta 5822s  m2>m3=64 fail=0
+  [three_timescale_heavy_tail] 80/200  elapsed 3614s  eta 5421s  m2>m3=73 fail=0
+  [three_timescale_heavy_tail] 90/200  elapsed 4089s  eta 4998s  m2>m3=82 fail=0
+  [three_timescale_heavy_tail] 100/200  elapsed 4572s  eta 4572s  m2>m3=92 fail=0
+  [three_timescale_heavy_tail] 110/200  elapsed 5027s  eta 4113s  m2>m3=101 fail=0
+  [three_timescale_heavy_tail] 120/200  elapsed 5501s  eta 3668s  m2>m3=111 fail=0
+  [three_timescale_heavy_tail] 130/200  elapsed 5970s  eta 3215s  m2>m3=121 fail=0
+  [three_timescale_heavy_tail] 140/200  elapsed 6451s  eta 2765s  m2>m3=131 fail=0
+  [three_timescale_heavy_tail] 150/200  elapsed 6909s  eta 2303s  m2>m3=141 fail=0
+  [three_timescale_heavy_tail] 160/200  elapsed 7380s  eta 1845s  m2>m3=151 fail=0
+  [three_timescale_heavy_tail] 170/200  elapsed 7847s  eta 1385s  m2>m3=160 fail=0
+  [three_timescale_heavy_tail] 180/200  elapsed 8308s  eta 923s  m2>m3=170 fail=0
+  [three_timescale_heavy_tail] 190/200  elapsed 8787s  eta 462s  m2>m3=179 fail=0
+  [three_timescale_heavy_tail] 200/200  elapsed 9266s  eta 0s  m2>m3=188 fail=0
+[three_timescale_heavy_tail] DONE m2>m3 188/200 frac=0.9400
+  [per_motor_heterogeneous_weibull] 10/200  elapsed 445s  eta 8462s  m2>m3=0 fail=0
+  [per_motor_heterogeneous_weibull] 20/200  elapsed 882s  eta 7935s  m2>m3=0 fail=0
+  [per_motor_heterogeneous_weibull] 30/200  elapsed 1294s  eta 7335s  m2>m3=0 fail=0
+  [per_motor_heterogeneous_weibull] 40/200  elapsed 1709s  eta 6837s  m2>m3=0 fail=0
+  [per_motor_heterogeneous_weibull] 50/200  elapsed 2123s  eta 6369s  m2>m3=0 fail=0
+  [per_motor_heterogeneous_weibull] 60/200  elapsed 2548s  eta 5945s  m2>m3=1 fail=0
+  [per_motor_heterogeneous_weibull] 70/200  elapsed 2967s  eta 5511s  m2>m3=1 fail=0
+  [per_motor_heterogeneous_weibull] 80/200  elapsed 3394s  eta 5090s  m2>m3=1 fail=0
+  [per_motor_heterogeneous_weibull] 90/200  elapsed 3820s  eta 4668s  m2>m3=1 fail=0
+  [per_motor_heterogeneous_weibull] 100/200  elapsed 4238s  eta 4238s  m2>m3=1 fail=0
+  [per_motor_heterogeneous_weibull] 110/200  elapsed 4638s  eta 3794s  m2>m3=1 fail=0
+  [per_motor_heterogeneous_weibull] 120/200  elapsed 5081s  eta 3388s  m2>m3=1 fail=0
+  [per_motor_heterogeneous_weibull] 130/200  elapsed 5534s  eta 2980s  m2>m3=1 fail=0
+  [per_motor_heterogeneous_weibull] 140/200  elapsed 5984s  eta 2565s  m2>m3=1 fail=0
+  [per_motor_heterogeneous_weibull] 150/200  elapsed 6451s  eta 2150s  m2>m3=1 fail=0
+  [per_motor_heterogeneous_weibull] 160/200  elapsed 6925s  eta 1731s  m2>m3=1 fail=0
+  [per_motor_heterogeneous_weibull] 170/200  elapsed 7417s  eta 1309s  m2>m3=1 fail=0
+  [per_motor_heterogeneous_weibull] 180/200  elapsed 7928s  eta 881s  m2>m3=1 fail=0
+  [per_motor_heterogeneous_weibull] 190/200  elapsed 8456s  eta 445s  m2>m3=1 fail=0
+  [per_motor_heterogeneous_weibull] 200/200  elapsed 8916s  eta 0s  m2>m3=1 fail=0
+[per_motor_heterogeneous_weibull] DONE m2>m3 1/200 frac=0.0050
+
+WROTE hierarchical-aif\results\motor_stack_aif\B4C02_CORRECTED_FULL_RESULT.json
+sha256=0633988dbfd690c0c0d12075dba4e0d8c25ddd178125064bd01fbdaf4629e398
+verdict=GENERATOR-SPECIFIC  gensWithM2overM3=1  outcome=REFUTED

@@ -1,0 +1,9 @@
+{
+  "id": "D1X08_OFF_HAZARD_OMITS_STATOR_MULTIPLICITY",
+  "class": "EXACT_PHASE_C_REPLAY",
+  "propertyId": "D1P08_OFF_HAZARD_STATOR_MULTIPLICITY",
+  "targetPath": "lib/source-first-passage.js",
+  "preMutationSha256": "c66cf5ff048f5eb1e85c7b3148a002002636df14c5e96dda7eb840366a2ff6d8",
+  "postMutationSha256": "52393f60627fb66294e863aaf455126d1ab2551bfd9587287e5d24d21c1dfe04",
+  "diff": "diff --git a/lib/source-first-passage.js b/lib/source-first-passage.js\nindex 36e624d..e2658d2 100644\n--- a/lib/source-first-passage.js\n+++ b/lib/source-first-passage.js\n@@ -36,7 +36,7 @@ export function sourceTerms(stateN, parameters, codeN0Branch = false) {\n     component,\n     weight,\n     totalRate: kPlus + stateN * sigmaMinus + component * deltaSigma,\n-    offRate: stateN * sigmaMinus + component * deltaSigma,\n+    offRate: sigmaMinus + component * deltaSigma,\n   }));\n }\n \n"
+}

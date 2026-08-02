@@ -1,0 +1,89 @@
+✔ D1P11 historical phase-c adverse 0/10 detection result is preserved unlaundered (5.4548ms)
+✔ D1P11 the preserved phase-c evidence copy has not silently diverged from the canonical adverse result (3.7579ms)
+✔ D1P11 the phase-c adverse result is not weakened by the D1 remediation contract (4.3604ms)
+✔ right-censored dwells are excluded from the uncensored duration likelihood (hand-calculated mean) (2.6085ms)
+✔ the fixture discriminates: admitting censored dwells changes the mean to a different hand-calculated value (0.463ms)
+✔ censored dwells exert zero influence on the likelihood: flagged-present run equals censored-absent run (0.4427ms)
+✔ likelihood cohort sizes equal the independently counted uncensored eligible events (0.3686ms)
+✔ right-censored dwells are RETAINED in the record for provenance (0.6638ms)
+✔ the frozen protocol still declares both halves of the censoring rule (2.3989ms)
+✔ D1P01 seconds-scale predictive density carries the change-of-variables jacobian (3.0776ms)
+✔ D1P01 seconds-scale predictive density is equivariant under unit reparameterization (0.2979ms)
+✔ D1P03 sample variance uses the bessel n-1 denominator (0.2177ms)
+✔ D1P03 reported cvSquared propagates the bessel n-1 denominator into the held-out state summary (0.2515ms)
+✖ D1P07 first-passage mixture weights are a normalized bernoulli convolution (2.7891ms)
+✔ D1P08 competing-risk off hazard carries n-fold stator detachment multiplicity (2.4789ms)
+✔ D1P09 exponential-mixture second moment retains its factor of two (233.3834ms)
+✔ fixture guard: both synthetic stator states are eligible and fully scored (2.0655ms)
+✔ direction semantics: "on" is the positive outcome in the training-fitted probabilities (0.29ms)
+✔ direction semantics: held-out outcome 1 is "on" (hand-calculated log loss and Brier score) (0.2633ms)
+✔ direction semantics: stateSummary.onFraction counts "on", not "off" (0.2689ms)
+✔ anchoring identity: state-conditioned direction predictor was constructed to beat the pooled baseline (0.281ms)
+✔ anchoring identity: the generating model outscores every mis-specified baseline (0.296ms)
+✔ paired advantage sign convention: mixture was constructed to beat every baseline (0.2998ms)
+✔ paired advantage sign convention: bootstrap intervals agree in sign with the point estimate (0.2786ms)
+✔ independent recomputation: paired advantages match an oracle written from the density definitions (0.927ms)
+✔ internal orientation identity: paired advantage equals the difference of the reported mean log scores (2.5482ms)
+✔ determinism: a second run of the same fixture reproduces every orientation-bearing value (116.6464ms)
+✔ D1P10 periodic thirteen-site lattice retains its wraparound bond (13.1408ms)
+✔ D1P10 periodic and open-chain lattice topologies are genuinely discriminated at the reported fit (4.9332ms)
+✔ D1P10 the lattice gate cannot detect a bond-offset relabelling, because on a prime ring it is an isomorphism (3.3617ms)
+✔ D1P10 lattice adjacency oracle counts the wraparound bond on hand-calculable configurations (1.631ms)
+PROSPECTIVITY GATE: 6/6 anchors verified against commit ancestry.
+PROSPECTIVITY GATE: class ledger
+  B1-MUTATION-BATTERY-V1: declared=PROSPECTIVE measured=PROSPECTIVE (STRICT_ANCESTRY_PROVEN)
+  B1-RERUN-ON-C3-FIXED-TREE: declared=TIMING_UNVERIFIED measured=TIMING_UNVERIFIED (SAME_COMMIT:audits/phase-b/b1-mutation-ledger-rerun.json)
+  C3-CANONICAL-WRITE-FIX: declared=TIMING_UNVERIFIED measured=TIMING_UNVERIFIED (SAME_COMMIT:1630a68f)
+  B3-MODEL-COMPETITION-V1: declared=PENDING measured=PENDING (RESULT_DOES_NOT_EXIST_YET)
+  PHASE-D1-SEMANTIC-REMEDIATION-CLAUDE: declared=PENDING measured=PENDING (RESULT_DOES_NOT_EXIST_YET)
+  PHASE-C-BLIND-MUTATION-CODEX: declared=PROSPECTIVE measured=PROSPECTIVE (STRICT_ANCESTRY_PROVEN)
+✔ SYNTHETIC: prediction committed one commit before its result => PROSPECTIVE (1514.2758ms)
+✔ SYNTHETIC: prediction and result in the SAME commit => TIMING_UNVERIFIED, never upgraded (905.2726ms)
+✔ SYNTHETIC: result committed BEFORE the prediction => TIMING_UNVERIFIED (1360.4914ms)
+✔ SYNTHETIC: prediction committed, result does not exist => PENDING (912.5536ms)
+✔ SYNTHETIC: result written but NOT committed cannot make a prediction PROSPECTIVE (928.0573ms)
+✔ SYNTHETIC: prospectivity is decided by ancestry, NOT by commit timestamps (1524.503ms)
+✔ SYNTHETIC: a fabricated anchor commit is not accepted as an anchor (866.04ms)
+✔ Every prediction record is well formed and carries claim, falsifier and anchor (0.62ms)
+✔ Every prediction anchor commit exists and precedes the prediction it anchors (2117.2957ms)
+✔ Declared prospectivity equals prospectivity measured from commit ancestry (1361.0598ms)
+✔ The known same-commit provenance defect remains declared and visible (544.9142ms)
+✔ D1P02 slow-state posterior conditions on survival not on event density (1.7661ms)
+✔ D1P02 slow-state posterior equals the independently recomputed survivor mass ratio (0.4428ms)
+✔ D1P02 slow-state posterior increases with survival and saturates toward the slow component (0.3156ms)
+✔ G1 a motor present in both partitions is refused, and the refusal names motor leakage (3.7105ms)
+✔ G2 the frozen dataset's partitions are disjoint at motor granularity (8.0146ms)
+✔ G2 every motor's partition equals the preregistered sha256(motorName) mod 5 rule, recomputed here (8.4805ms)
+✔ G3 fitted parameters equal HAND-CALCULATED training-only values, not pooled values (41.8744ms)
+✔ G3 corrupting every holdout observation leaves the real dataset's fitted parameters unmoved (1469.453ms)
+✔ D1P04 observation excludes hidden world truth at the markov boundary (4.0752ms)
+✔ D1P04 observation is invariant to hidden world state under any field name (0.3449ms)
+✔ D1P04 the agent receives an observation and never the world object (1.4385ms)
+✔ D1P05 live instrument stator occupancy is bounded to the physical zero to eleven range (0.5905ms)
+✔ D1P06 mechanosensitive stator recruitment increases with load (13.9511ms)
+ℹ tests 55
+ℹ suites 0
+ℹ pass 54
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 12762.7122
+
+✖ failing tests:
+
+test at tests\semantic\first-passage-invariants.semantic.test.mjs:79:1
+✖ D1P07 first-passage mixture weights are a normalized bernoulli convolution (2.7891ms)
+  AssertionError [ERR_ASSERTION]: The first-passage coefficient vector at N = 1 is not the declared Bernoulli convolution. Hand-calculated mixture weights [0.7,0.3], observed [0.3,0.3]. The component weights are a convolution of independent Bernoulli(c_i) choices; both their VALUES and their ORDER carry meaning.
+      at TestContext.<anonymous> (file:///C:/Users/mpolz/AppData/Local/Temp/uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85/clones/d1a07_first_passage_retain_factor_dropped/tests/semantic/first-passage-invariants.semantic.test.mjs:87:12)
+      at Test.runInAsyncScope (node:async_hooks:213:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.start (node:internal/test_runner/test:1003:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:358:17) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

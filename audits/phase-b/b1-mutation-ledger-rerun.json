@@ -1,0 +1,273 @@
+{
+  "schema": "uni.flagellum.audit-artifact/1.0.0",
+  "purpose": "B1 re-run against the C3-fixed tree, classified. Measures the mutation battery with the CRLF confound removed.",
+  "auditedCommit": "9c3a644e4b57e8ac27f925dcec84222463063aa1",
+  "executedAgainst": "1630a68 fix/c3-crlf-canonical-write",
+  "auditPhase": "B",
+  "appendOnly": true,
+  "baseline": {
+    "npmCiExit": 0,
+    "npmTestExit": 0,
+    "node": "v25.0.0"
+  },
+  "declaredSubstitution": "M10a uses the CORRECTED patch (swap lognormal and mixture log-score sources). The frozen M10a was established mis-targeted in the first run: it inverted a paired-delta field while the adverse-result assertion reads meanLogScoreNatsPerEvent.",
+  "evidenceCaptureWidened": "40 failure lines per gate, up from 6 in the first run.",
+  "summary": {
+    "DETECTED_SEMANTIC": 6,
+    "DETECTED_BY_HASH_ONLY": 5,
+    "SURVIVED": 3,
+    "NOT_RUN": 1,
+    "total": 15
+  },
+  "comparisonWithFirstRun": {
+    "firstRun": {
+      "at": "1fc6758 against 9c3a644",
+      "DETECTED_SEMANTIC": 6,
+      "DETECTED_BY_HASH_ONLY": 5,
+      "SURVIVED": 3,
+      "NOT_RUN": 1,
+      "INCONCLUSIVE": 1
+    },
+    "reRun": {
+      "at": "1630a68 C3-fixed",
+      "DETECTED_SEMANTIC": 6,
+      "DETECTED_BY_HASH_ONLY": 5,
+      "SURVIVED": 3,
+      "NOT_RUN": 1
+    },
+    "verdict": "DISCRIMINATING POWER IS UNCHANGED. The semantic detector count stays at 6. Fixing C3 removed noise, it did not make the suite understand the science any better. This was predicted in advance as P-R7 and is confirmed."
+  },
+  "predictionOutcomes": {
+    "P-R1": "CONFIRMED with one correct exception. The WADHWA_2022_EVENTS hash failure disappeared from 14 of 15 rows. It remains only in M07b, which deliberately edits the source data file, so there the hash failure is a genuine semantic detection of the mutation rather than the CRLF confound.",
+    "P-R2": "CONFIRMED. M01, M05, M06, M07a and M11 remain DETECTED and are now hash-only.",
+    "P-R3": "CONFIRMED. No mutation flipped from DETECTED to SURVIVED, so none of the five was detected solely by the CRLF accident.",
+    "P-R4": "CONFIRMED. The six semantic detections are unchanged.",
+    "P-R5": "CONFIRMED. M03b, M04 and M10b survive.",
+    "P-R6": "CONFIRMED. M08 remains NOT_RUN.",
+    "P-R7": "CONFIRMED. The semantic count did not increase. The improvement is attribution clarity, not discriminating power."
+  },
+  "sharpenedFinding": {
+    "statement": "With the confound removed, five structurally different mutations now produce EXACTLY ONE failure line, and it is byte-identical across all five.",
+    "theOneLine": "AssertionError [ERR_ASSERTION]: SHA-256 mismatch for experiments/results/observed-experiment-report.json",
+    "mutations": [
+      {
+        "id": "M01",
+        "theme": "CW/CCW direction semantics inverted"
+      },
+      {
+        "id": "M05",
+        "theme": "Sign inversion on a paired model-comparison difference"
+      },
+      {
+        "id": "M06",
+        "theme": "Censoring treatment: right-censored dwells admitted to the uncensored likelihood"
+      },
+      {
+        "id": "M07a",
+        "theme": "Motor-leakage guard removed, with no leak actually injected"
+      },
+      {
+        "id": "M11",
+        "theme": "Prospective prediction ordering falsified"
+      }
+    ],
+    "whyThisIsSharperThanTheFirstRun": "In the first run each of these failed on TWO lines, one of which was CRLF noise. A reader could have argued the noise was masking a real semantic detector underneath. It was not. With the noise gone there is exactly one line, it is a hash mismatch, and it is the same line for every one of the five.",
+    "whatItMeans": "Inverting CW/CCW semantics, inverting a paired score sign, admitting right-censored dwells to the uncensored likelihood, removing the motor-leakage guard, and falsifying the protocol freeze date so the preregistration claims to postdate its own results are ALL INDISTINGUISHABLE to this suite. It reports that the report's hash moved. It cannot report what changed or why it matters.",
+    "mechanism": "scripts/run-observed-experiments.mjs embeds sha256 of its own source and of the protocol into the report it emits. Any edit to lib/observed-experiment.js or experiments/preregistration.v1.json therefore changes runId and trips the audit-manifest binding test, irrespective of meaning.",
+    "distinctFailureSignaturesAmongTheFive": 1
+  },
+  "mutations": [
+    {
+      "id": "M01",
+      "theme": "CW/CCW direction semantics inverted",
+      "verdict": "DETECTED_BY_HASH_ONLY",
+      "classificationBasis": "EXACTLY ONE failure line, and it is the report SHA-256 mismatch. No gate names the mutated quantity.",
+      "distinctFailureLines": [
+        "AssertionError [ERR_ASSERTION]: SHA-256 mismatch for experiments/results/observed-experiment-report.json"
+      ],
+      "failureCount": 1,
+      "crlfConfoundPresent": false,
+      "predicted": "DETECTED",
+      "restorationVerified": true
+    },
+    {
+      "id": "M02",
+      "theme": "Species label swapped between E. coli behavioural and Salmonella structural evidence",
+      "verdict": "DETECTED_SEMANTIC",
+      "classificationBasis": "species assertion fires on the swapped value",
+      "distinctFailureLines": [
+        "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:"
+      ],
+      "failureCount": 1,
+      "crlfConfoundPresent": false,
+      "predicted": "DETECTED",
+      "restorationVerified": true
+    },
+    {
+      "id": "M03a",
+      "theme": "Truth laundering: a structural reconstruction relabelled OBSERVED",
+      "verdict": "DETECTED_SEMANTIC",
+      "classificationBasis": "the kind==='structure' guard at lib/walkthrough.js:470 fires",
+      "distinctFailureLines": [
+        "AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:"
+      ],
+      "failureCount": 1,
+      "crlfConfoundPresent": false,
+      "predicted": "DETECTED",
+      "restorationVerified": true
+    },
+    {
+      "id": "M03b",
+      "theme": "Truth laundering: a DERIVED product labelled OBSERVED — the control for M03a",
+      "verdict": "SURVIVED",
+      "classificationBasis": "every declared gate exited zero",
+      "distinctFailureLines": [],
+      "failureCount": 0,
+      "crlfConfoundPresent": false,
+      "predicted": "SURVIVED",
+      "restorationVerified": true
+    },
+    {
+      "id": "M04",
+      "theme": "Categorical normalization broken",
+      "verdict": "SURVIVED",
+      "classificationBasis": "every declared gate exited zero",
+      "distinctFailureLines": [],
+      "failureCount": 0,
+      "crlfConfoundPresent": false,
+      "predicted": "SURVIVED",
+      "restorationVerified": true
+    },
+    {
+      "id": "M05",
+      "theme": "Sign inversion on a paired model-comparison difference",
+      "verdict": "DETECTED_BY_HASH_ONLY",
+      "classificationBasis": "EXACTLY ONE failure line, and it is the report SHA-256 mismatch. No gate names the mutated quantity.",
+      "distinctFailureLines": [
+        "AssertionError [ERR_ASSERTION]: SHA-256 mismatch for experiments/results/observed-experiment-report.json"
+      ],
+      "failureCount": 1,
+      "crlfConfoundPresent": false,
+      "predicted": "DETECTED",
+      "restorationVerified": true
+    },
+    {
+      "id": "M06",
+      "theme": "Censoring treatment: right-censored dwells admitted to the uncensored likelihood",
+      "verdict": "DETECTED_BY_HASH_ONLY",
+      "classificationBasis": "EXACTLY ONE failure line, and it is the report SHA-256 mismatch. No gate names the mutated quantity.",
+      "distinctFailureLines": [
+        "AssertionError [ERR_ASSERTION]: SHA-256 mismatch for experiments/results/observed-experiment-report.json"
+      ],
+      "failureCount": 1,
+      "crlfConfoundPresent": false,
+      "predicted": "DETECTED",
+      "restorationVerified": true
+    },
+    {
+      "id": "M07a",
+      "theme": "Motor-leakage guard removed, with no leak actually injected",
+      "verdict": "DETECTED_BY_HASH_ONLY",
+      "classificationBasis": "EXACTLY ONE failure line, and it is the report SHA-256 mismatch. No gate names the mutated quantity.",
+      "distinctFailureLines": [
+        "AssertionError [ERR_ASSERTION]: SHA-256 mismatch for experiments/results/observed-experiment-report.json"
+      ],
+      "failureCount": 1,
+      "crlfConfoundPresent": false,
+      "predicted": "SURVIVED",
+      "restorationVerified": true
+    },
+    {
+      "id": "M07b",
+      "theme": "Actual train/holdout motor identity leak injected, guard intact",
+      "verdict": "DETECTED_SEMANTIC",
+      "classificationBasis": "cohort equality assertion plus the source data digest; the data genuinely changed",
+      "distinctFailureLines": [
+        "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:",
+        "AssertionError [ERR_ASSERTION]: SHA-256 mismatch for experiments/data/wadhwa-2022-events.json",
+        "AssertionError [ERR_ASSERTION]: WADHWA_2022_EVENTS hash"
+      ],
+      "failureCount": 3,
+      "crlfConfoundPresent": true,
+      "predicted": "DETECTED",
+      "restorationVerified": true
+    },
+    {
+      "id": "M08",
+      "theme": "Experimental-unit inflation: events counted as independent units",
+      "verdict": "NOT_RUN",
+      "classificationBasis": "regeneration failed: scripts/ingest-cross-study-evidence.py requires EXTRACTED upstream directories that no repository document specifies. The mutation never propagated.",
+      "distinctFailureLines": [
+        "AssertionError [ERR_ASSERTION]: scripts/ingest-cross-study-evidence.py"
+      ],
+      "failureCount": 1,
+      "crlfConfoundPresent": false,
+      "predicted": "DETECTED_BY_HASH_ONLY",
+      "restorationVerified": true
+    },
+    {
+      "id": "M09",
+      "theme": "Evidence source hash altered",
+      "verdict": "DETECTED_SEMANTIC",
+      "classificationBasis": "names the exact asset: MEARS_2014_VIDEO_1 hash",
+      "distinctFailureLines": [
+        "AssertionError [ERR_ASSERTION]: MEARS_2014_VIDEO_1 hash"
+      ],
+      "failureCount": 1,
+      "crlfConfoundPresent": false,
+      "predicted": "DETECTED",
+      "restorationVerified": true
+    },
+    {
+      "id": "M10a",
+      "theme": "Adverse result removed from the report",
+      "verdict": "DETECTED_SEMANTIC",
+      "classificationBasis": "the adverse-result assertion at tests/observed-experiment.test.mjs:47 fires",
+      "distinctFailureLines": [
+        "AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:",
+        "AssertionError [ERR_ASSERTION]: SHA-256 mismatch for experiments/results/observed-experiment-report.json"
+      ],
+      "failureCount": 2,
+      "crlfConfoundPresent": false,
+      "predicted": "DETECTED",
+      "restorationVerified": true
+    },
+    {
+      "id": "M10b",
+      "theme": "The adverse-result PROTECTION removed — the control for M10a",
+      "verdict": "SURVIVED",
+      "classificationBasis": "every declared gate exited zero",
+      "distinctFailureLines": [],
+      "failureCount": 0,
+      "crlfConfoundPresent": false,
+      "predicted": "SURVIVED",
+      "restorationVerified": true
+    },
+    {
+      "id": "M11",
+      "theme": "Prospective prediction ordering falsified",
+      "verdict": "DETECTED_BY_HASH_ONLY",
+      "classificationBasis": "EXACTLY ONE failure line, and it is the report SHA-256 mismatch. No gate names the mutated quantity.",
+      "distinctFailureLines": [
+        "AssertionError [ERR_ASSERTION]: SHA-256 mismatch for experiments/results/observed-experiment-report.json"
+      ],
+      "failureCount": 1,
+      "crlfConfoundPresent": false,
+      "predicted": "DETECTED_BY_HASH_ONLY",
+      "restorationVerified": true
+    },
+    {
+      "id": "M12",
+      "theme": "Physical work conflated with variational free energy",
+      "verdict": "DETECTED_SEMANTIC",
+      "classificationBasis": "numerical-anchor assertion fires",
+      "distinctFailureLines": [
+        "AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:"
+      ],
+      "failureCount": 1,
+      "crlfConfoundPresent": false,
+      "predicted": "DETECTED",
+      "restorationVerified": true
+    }
+  ]
+}

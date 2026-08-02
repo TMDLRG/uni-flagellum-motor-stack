@@ -1,0 +1,117 @@
+{
+ "DISCLAIMER": "DIAGNOSTIC ONLY at N=5. NOT the frozen N=2000 corrected C11 result. Licenses no verdict.",
+ "corrected_groups": [
+  80,
+  80,
+  80,
+  80,
+  80
+ ],
+ "corrected_tau": [
+  0.1186009353493865,
+  0.20020183204985909,
+  0.15626676308339552,
+  0.15874692004144833,
+  0.1331883135999573
+ ],
+ "corrected_tau_max": 0.20020183204985909,
+ "corrected_tau_median": 0.15626676308339552,
+ "corrected_tau_min": 0.1186009353493865,
+ "legacy_groups": [
+  46,
+  53,
+  52,
+  59,
+  56
+ ],
+ "legacy_tau": [
+  0.19906013275874299,
+  0.23470934095126772,
+  0.21282561461868615,
+  0.19144852455063333,
+  0.18485220647323228
+ ],
+ "legacy_tau_max": 0.23470934095126772,
+ "legacy_tau_median": 0.19906013275874299,
+ "legacy_tau_min": 0.18485220647323228,
+ "n_replicates": 5,
+ "rows": [
+  {
+   "corrected": {
+    "groups": 80,
+    "k": 0.6589739771170697,
+    "tau": 0.1186009353493865
+   },
+   "legacy_defective": {
+    "groups": 46,
+    "k": 0.666555799430118,
+    "tau": 0.19906013275874299
+   },
+   "n_distinct": 46,
+   "n_draws": 80,
+   "replicate": 0
+  },
+  {
+   "corrected": {
+    "groups": 80,
+    "k": 0.7087998458332903,
+    "tau": 0.20020183204985909
+   },
+   "legacy_defective": {
+    "groups": 53,
+    "k": 0.7073455405620714,
+    "tau": 0.23470934095126772
+   },
+   "n_distinct": 53,
+   "n_draws": 80,
+   "replicate": 1
+  },
+  {
+   "corrected": {
+    "groups": 80,
+    "k": 0.6562158858169582,
+    "tau": 0.15626676308339552
+   },
+   "legacy_defective": {
+    "groups": 52,
+    "k": 0.6738772011355862,
+    "tau": 0.21282561461868615
+   },
+   "n_distinct": 52,
+   "n_draws": 80,
+   "replicate": 2
+  },
+  {
+   "corrected": {
+    "groups": 80,
+    "k": 0.6522665575444789,
+    "tau": 0.15874692004144833
+   },
+   "legacy_defective": {
+    "groups": 59,
+    "k": 0.6628811142488182,
+    "tau": 0.19144852455063333
+   },
+   "n_distinct": 59,
+   "n_draws": 80,
+   "replicate": 3
+  },
+  {
+   "corrected": {
+    "groups": 80,
+    "k": 0.6494752390574298,
+    "tau": 0.1331883135999573
+   },
+   "legacy_defective": {
+    "groups": 56,
+    "k": 0.6654282929759602,
+    "tau": 0.18485220647323228
+   },
+   "n_distinct": 56,
+   "n_draws": 80,
+   "replicate": 4
+  }
+ ],
+ "runtime_s": 307.5444803237915,
+ "seed_base": 20260717
+}

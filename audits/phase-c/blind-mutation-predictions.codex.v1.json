@@ -1,0 +1,80 @@
+{
+  "schema": "uni.flagellum.blind-mutation-predictions/1.0.0",
+  "predictionId": "PHASE-C-BLIND-MUTATION-CODEX-V1",
+  "protocolPath": "audits/phase-c/blind-mutation-protocol.codex.v1.json",
+  "madeAgainstCommit": "e5b4969bd1af85cedc9d8b5b9d1d728bda7e906a",
+  "frozenBeforeExecution": true,
+  "mutationCount": 10,
+  "substantiveClaim": "All ten fresh corruptions will survive the declared Phase-C semantic command after successful propagation. This predicts a specific boundary of the current semantic gates: they are strong against their named known targets but do not yet generalize to absolute density units, survival-posterior conditioning, finite-sample variance, the synthetic Markov boundary, instrument stator ranges, load-dependent recruitment, first-passage normalization, stator-multiplicity hazards, exponential second moments, or periodic-lattice topology.",
+  "batteryLevelFalsifier": "The battery-level claim is false if any mutation successfully propagates and is classified DETECTED_SEMANTIC or DETECTED_BY_HASH_ONLY, or if a gate failure attributable to a mutation makes its frozen SURVIVED prediction false. NOT_RUN and INCONCLUSIVE do not confirm the claim; either prevents the exact all-ten prediction from being established.",
+  "scopeFence": "Even if all ten predictions are confirmed, these selected probes do not estimate a population-level defect-detection rate and do not imply that every unanticipated corruption survives.",
+  "predictedClassificationCounts": {
+    "DETECTED_SEMANTIC": 0,
+    "DETECTED_BY_HASH_ONLY": 0,
+    "SURVIVED": 10,
+    "NOT_RUN": 0,
+    "INCONCLUSIVE": 0
+  },
+  "predictions": [
+    {
+      "mutationId": "CXM01_SECONDS_DENSITY_JACOBIAN_OMITTED",
+      "predictedClassification": "SURVIVED",
+      "rationale": "The common seconds-scale Jacobian cancels from paired same-event model differences, and no black-box Phase-C test name declares an absolute-density unit invariant.",
+      "falsifier": "The mutation propagates and the semantic command exits nonzero with a failure naming the Jacobian, seconds-scale density, or change-of-variables units."
+    },
+    {
+      "mutationId": "CXM02_SURVIVAL_POSTERIOR_USES_EVENT_DENSITY",
+      "predictedClassification": "SURVIVED",
+      "rationale": "The black-box censoring gates concern cohort membership and likelihood influence, not the distinct posterior curve conditioned on survival.",
+      "falsifier": "The mutation propagates and the semantic command exits nonzero with a failure distinguishing survival conditioning from event-density conditioning."
+    },
+    {
+      "mutationId": "CXM03_SAMPLE_VARIANCE_BESSEL_CORRECTION_DROPPED",
+      "predictedClassification": "SURVIVED",
+      "rationale": "No black-box Phase-C test name declares a hand-calculated n-minus-one sample-variance, CV-squared, or PIT-variance oracle.",
+      "falsifier": "The mutation propagates and the semantic command exits nonzero with a failure naming sample variance, Bessel correction, CV-squared, or PIT variance."
+    },
+    {
+      "mutationId": "CXM04_HIDDEN_TRUE_GRADIENT_CROSSES_BOUNDARY",
+      "predictedClassification": "SURVIVED",
+      "rationale": "The black-box Phase-C leakage checks are motor train/holdout checks and do not announce a hidden-world observation-boundary check.",
+      "falsifier": "The mutation propagates and the semantic command exits nonzero with a failure naming trueGradient, hidden world truth, or the Markov boundary."
+    },
+    {
+      "mutationId": "CXM05_INSTRUMENT_STATOR_COUNT_UNBOUNDED",
+      "predictedClassification": "SURVIVED",
+      "rationale": "No black-box Phase-C test name declares live-instrument physical range validation for stator occupancy.",
+      "falsifier": "The mutation propagates and the semantic command exits nonzero with a failure naming invalid instrument stator range or the zero-to-eleven bound."
+    },
+    {
+      "mutationId": "CXM06_STATOR_RECRUITMENT_ERASES_LOAD_RESPONSE",
+      "predictedClassification": "SURVIVED",
+      "rationale": "No black-box Phase-C test name declares a load perturbation for mechanosensitive stator recruitment.",
+      "falsifier": "The mutation propagates and the semantic command exits nonzero with a failure naming load-dependent stator recruitment."
+    },
+    {
+      "mutationId": "CXM07_FIRST_PASSAGE_WEIGHTS_NOT_NORMALIZED",
+      "predictedClassification": "SURVIVED",
+      "rationale": "First-passage coefficient and normalization checks appeared in the ordinary baseline inventory, not among the 33 black-box Phase-C semantic tests.",
+      "falsifier": "The mutation propagates and the semantic command exits nonzero with a failure naming first-passage coefficient normalization or survival at time zero."
+    },
+    {
+      "mutationId": "CXM08_OFF_HAZARD_OMITS_STATOR_MULTIPLICITY",
+      "predictedClassification": "SURVIVED",
+      "rationale": "The black-box censoring gates do not name the N-fold biological detachment hazard or conservation between survival and competing-risk densities.",
+      "falsifier": "The mutation propagates and the semantic command exits nonzero with a failure naming stator multiplicity, off hazard, or competing-risk conservation."
+    },
+    {
+      "mutationId": "CXM09_EXPONENTIAL_SECOND_MOMENT_FACTOR_DROPPED",
+      "predictedClassification": "SURVIVED",
+      "rationale": "No black-box Phase-C test name declares the exponential second-moment identity or first-passage normalized variance.",
+      "falsifier": "The mutation propagates and the semantic command exits nonzero with a failure naming the second-moment factor of two or normalized variance."
+    },
+    {
+      "mutationId": "CXM10_PERIODIC_LATTICE_OPENED",
+      "predictedClassification": "SURVIVED",
+      "rationale": "The black-box Phase-C semantic inventory does not announce periodic-lattice topology or cross-study partition-function coverage.",
+      "falsifier": "The mutation propagates and the semantic command exits nonzero with a failure naming periodic wraparound adjacency, open-chain substitution, or the finite-lattice partition function."
+    }
+  ]
+}

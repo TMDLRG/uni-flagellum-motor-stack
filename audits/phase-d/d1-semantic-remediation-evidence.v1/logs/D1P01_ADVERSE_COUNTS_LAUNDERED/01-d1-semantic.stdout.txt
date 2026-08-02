@@ -1,0 +1,124 @@
+✖ D1P11 historical phase-c adverse 0/10 detection result is preserved unlaundered (7.0012ms)
+✖ D1P11 the preserved phase-c evidence copy has not silently diverged from the canonical adverse result (5.7266ms)
+✔ D1P11 the phase-c adverse result is not weakened by the D1 remediation contract (5.9024ms)
+✔ right-censored dwells are excluded from the uncensored duration likelihood (hand-calculated mean) (2.6946ms)
+✔ the fixture discriminates: admitting censored dwells changes the mean to a different hand-calculated value (0.3295ms)
+✔ censored dwells exert zero influence on the likelihood: flagged-present run equals censored-absent run (0.3671ms)
+✔ likelihood cohort sizes equal the independently counted uncensored eligible events (0.39ms)
+✔ right-censored dwells are RETAINED in the record for provenance (0.7018ms)
+✔ the frozen protocol still declares both halves of the censoring rule (1.9383ms)
+✔ D1P01 seconds-scale predictive density carries the change-of-variables jacobian (1.7854ms)
+✔ D1P01 seconds-scale predictive density is equivariant under unit reparameterization (0.2699ms)
+✔ D1P03 sample variance uses the bessel n-1 denominator (0.3257ms)
+✔ D1P03 reported cvSquared propagates the bessel n-1 denominator into the held-out state summary (0.2637ms)
+✔ D1P07 first-passage mixture weights are a normalized bernoulli convolution (3.0289ms)
+✔ D1P08 competing-risk off hazard carries n-fold stator detachment multiplicity (2.229ms)
+✔ D1P09 exponential-mixture second moment retains its factor of two (242.3231ms)
+✔ fixture guard: both synthetic stator states are eligible and fully scored (2.0156ms)
+✔ direction semantics: "on" is the positive outcome in the training-fitted probabilities (0.2914ms)
+✔ direction semantics: held-out outcome 1 is "on" (hand-calculated log loss and Brier score) (0.2976ms)
+✔ direction semantics: stateSummary.onFraction counts "on", not "off" (0.2842ms)
+✔ anchoring identity: state-conditioned direction predictor was constructed to beat the pooled baseline (0.2196ms)
+✔ anchoring identity: the generating model outscores every mis-specified baseline (0.2172ms)
+✔ paired advantage sign convention: mixture was constructed to beat every baseline (0.2489ms)
+✔ paired advantage sign convention: bootstrap intervals agree in sign with the point estimate (0.2964ms)
+✔ independent recomputation: paired advantages match an oracle written from the density definitions (0.7722ms)
+✔ internal orientation identity: paired advantage equals the difference of the reported mean log scores (0.3594ms)
+✔ determinism: a second run of the same fixture reproduces every orientation-bearing value (117.0341ms)
+✔ D1P10 periodic thirteen-site lattice retains its wraparound bond (14.7084ms)
+✔ D1P10 periodic and open-chain lattice topologies are genuinely discriminated at the reported fit (4.0537ms)
+✔ D1P10 the lattice gate cannot detect a bond-offset relabelling, because on a prime ring it is an isomorphism (2.6579ms)
+✔ D1P10 lattice adjacency oracle counts the wraparound bond on hand-calculable configurations (0.2721ms)
+PROSPECTIVITY GATE: 6/6 anchors verified against commit ancestry.
+PROSPECTIVITY GATE: class ledger
+  B1-MUTATION-BATTERY-V1: declared=PROSPECTIVE measured=PROSPECTIVE (STRICT_ANCESTRY_PROVEN)
+  B1-RERUN-ON-C3-FIXED-TREE: declared=TIMING_UNVERIFIED measured=TIMING_UNVERIFIED (SAME_COMMIT:audits/phase-b/b1-mutation-ledger-rerun.json)
+  C3-CANONICAL-WRITE-FIX: declared=TIMING_UNVERIFIED measured=TIMING_UNVERIFIED (SAME_COMMIT:1630a68f)
+  B3-MODEL-COMPETITION-V1: declared=PENDING measured=PENDING (RESULT_DOES_NOT_EXIST_YET)
+  PHASE-D1-SEMANTIC-REMEDIATION-CLAUDE: declared=PENDING measured=PENDING (RESULT_DOES_NOT_EXIST_YET)
+  PHASE-C-BLIND-MUTATION-CODEX: declared=PROSPECTIVE measured=PROSPECTIVE (STRICT_ANCESTRY_PROVEN)
+✔ SYNTHETIC: prediction committed one commit before its result => PROSPECTIVE (1209.5499ms)
+✔ SYNTHETIC: prediction and result in the SAME commit => TIMING_UNVERIFIED, never upgraded (883.27ms)
+✔ SYNTHETIC: result committed BEFORE the prediction => TIMING_UNVERIFIED (1248.2915ms)
+✔ SYNTHETIC: prediction committed, result does not exist => PENDING (870.6475ms)
+✔ SYNTHETIC: result written but NOT committed cannot make a prediction PROSPECTIVE (959.2519ms)
+✔ SYNTHETIC: prospectivity is decided by ancestry, NOT by commit timestamps (1214.6137ms)
+✔ SYNTHETIC: a fabricated anchor commit is not accepted as an anchor (767.696ms)
+✔ Every prediction record is well formed and carries claim, falsifier and anchor (0.5204ms)
+✔ Every prediction anchor commit exists and precedes the prediction it anchors (1967.0049ms)
+✔ Declared prospectivity equals prospectivity measured from commit ancestry (1346.4932ms)
+✔ The known same-commit provenance defect remains declared and visible (476.2829ms)
+✔ D1P02 slow-state posterior conditions on survival not on event density (1.8104ms)
+✔ D1P02 slow-state posterior equals the independently recomputed survivor mass ratio (0.4696ms)
+✔ D1P02 slow-state posterior increases with survival and saturates toward the slow component (0.6969ms)
+✔ G1 a motor present in both partitions is refused, and the refusal names motor leakage (4.2088ms)
+✔ G2 the frozen dataset's partitions are disjoint at motor granularity (8.0416ms)
+✔ G2 every motor's partition equals the preregistered sha256(motorName) mod 5 rule, recomputed here (10.5321ms)
+✔ G3 fitted parameters equal HAND-CALCULATED training-only values, not pooled values (39.412ms)
+✔ G3 corrupting every holdout observation leaves the real dataset's fitted parameters unmoved (1171.6216ms)
+✔ D1P04 observation excludes hidden world truth at the markov boundary (4.4654ms)
+✔ D1P04 observation is invariant to hidden world state under any field name (0.4388ms)
+✔ D1P04 the agent receives an observation and never the world object (2.3309ms)
+✔ D1P05 live instrument stator occupancy is bounded to the physical zero to eleven range (0.7681ms)
+✔ D1P06 mechanosensitive stator recruitment increases with load (13.7769ms)
+ℹ tests 55
+ℹ suites 0
+ℹ pass 53
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 11614.2993
+
+✖ failing tests:
+
+test at tests\semantic\adverse-record-preservation.semantic.test.mjs:73:1
+✖ D1P11 historical phase-c adverse 0/10 detection result is preserved unlaundered (7.0012ms)
+  AssertionError [ERR_ASSERTION]: The adverse Phase-C classification counts have been altered. The frozen historical outcome is {"DETECTED_SEMANTIC":0,"DETECTED_BY_HASH_ONLY":0,"SURVIVED":10,"NOT_RUN":0,"INCONCLUSIVE":0} -- ten SURVIVED and zero DETECTED_SEMANTIC -- observed {"DETECTED_SEMANTIC":10,"DETECTED_BY_HASH_ONLY":0,"SURVIVED":0,"NOT_RUN":0,"INCONCLUSIVE":0}. Later phases may ADD new detection evidence; they may never restate this 0/10 result as favourable.
+  + actual - expected
+  
+    {
+      DETECTED_BY_HASH_ONLY: 0,
+  +   DETECTED_SEMANTIC: 10,
+  -   DETECTED_SEMANTIC: 0,
+      INCONCLUSIVE: 0,
+      NOT_RUN: 0,
+  +   SURVIVED: 0
+  -   SURVIVED: 10
+    }
+  
+      at TestContext.<anonymous> (file:///C:/Users/mpolz/AppData/Local/Temp/uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85/clones/d1p01_adverse_counts_laundered/tests/semantic/adverse-record-preservation.semantic.test.mjs:82:10)
+      at Test.runInAsyncScope (node:async_hooks:213:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.start (node:internal/test_runner/test:1003:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:358:17) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: { DETECTED_SEMANTIC: 10, DETECTED_BY_HASH_ONLY: 0, SURVIVED: 0, NOT_RUN: 0, INCONCLUSIVE: 0 },
+    expected: { DETECTED_SEMANTIC: 0, DETECTED_BY_HASH_ONLY: 0, SURVIVED: 10, NOT_RUN: 0, INCONCLUSIVE: 0 },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\semantic\adverse-record-preservation.semantic.test.mjs:112:1
+✖ D1P11 the preserved phase-c evidence copy has not silently diverged from the canonical adverse result (5.7266ms)
+  AssertionError [ERR_ASSERTION]: The canonical adverse Phase-C result and its preserved evidence copy have DIVERGED. Canonical digest 28300588c539fc1001e16f95f81b7c6666b438951c9798124bc6ad9bebe336f5, evidence copy digest e36bdfb01fd51a4acb078762da1edff9deef4ff0844cf8f80d00c68d400be7d1. Two copies of the same adverse record must agree; a silent divergence means one of them has been edited.
+  + actual - expected
+  
+  + 'e36bdfb01fd51a4acb078762da1edff9deef4ff0844cf8f80d00c68d400be7d1'
+  - '28300588c539fc1001e16f95f81b7c6666b438951c9798124bc6ad9bebe336f5'
+  
+      at TestContext.<anonymous> (file:///C:/Users/mpolz/AppData/Local/Temp/uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85/clones/d1p01_adverse_counts_laundered/tests/semantic/adverse-record-preservation.semantic.test.mjs:131:10)
+      at Test.runInAsyncScope (node:async_hooks:213:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: 'e36bdfb01fd51a4acb078762da1edff9deef4ff0844cf8f80d00c68d400be7d1',
+    expected: '28300588c539fc1001e16f95f81b7c6666b438951c9798124bc6ad9bebe336f5',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

@@ -1,0 +1,27 @@
+=== BASELINE CAPTURE ===
+captured-by: claude-opus-4-8 / UNI-FLAGELLUM audit program Phase A0
+primary: C:/Users/mpolz/Documents/UNI-Flagellum/UNI-FLAGELLUM
+
+--- HEAD ---
+9c3a644e4b57e8ac27f925dcec84222463063aa1
+--- STATUS (porcelain, expect empty) ---
+[status lines: 0]
+--- BRANCH ---
+## main...origin/main
+--- LOG ---
+9c3a644 2026-07-19T12:36:20-05:00 Michael docs: add Claude deep-audit operating contract
+0c73d94 2026-07-19T12:04:08-05:00 Michael fix: make release lockfile npm 10 compatible
+ee9eb3c 2026-07-19T11:50:54-05:00 Michael test: make evidence replay clone-reproducible
+bad351c 2026-07-19T11:46:35-05:00 Michael feat: add living flagellum science walkthrough v0.3
+e16b272 2026-07-17T15:41:22-05:00 Michael Add cross-study flagellar motor parity program
+ea0cbff 2026-07-17T14:12:57-05:00 Michael Make science audit hashes byte-stable
+a71919e 2026-07-17T13:54:58-05:00 Michael Add rigorous flagellar science parity gates
+aa7d4db 2026-07-17T12:25:25-05:00 Michael Add source-pinned observed motor experiment
+0bea3fa 2026-07-17T11:41:13-05:00 Codex Build UNI-FLAGELLUM Verum laboratory
+--- REMOTE ---
+origin	https://github.com/TMDLRG/UNI-FLAGELLUM.git (fetch)
+origin	https://github.com/TMDLRG/UNI-FLAGELLUM.git (push)
+--- TAGS ---
+count: 0
+--- SIGNATURES ---
+9c3a644 N 0c73d94 N ee9eb3c N bad351c N e16b272 N ea0cbff N a71919e N aa7d4db N 0bea3fa N 

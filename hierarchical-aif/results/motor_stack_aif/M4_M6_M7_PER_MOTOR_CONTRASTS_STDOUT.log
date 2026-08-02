@@ -1,0 +1,11 @@
+M4_MIXTURE_K3                    published=3.4241154309421407 recomputed=3.4241154309421407 residual=0.0  PASS
+M6_SEMI_MARKOV_STATE_DEPENDENT   published=3.4298889709683209 recomputed=3.4298889709683209 residual=0.0  PASS
+M7_HIERARCHICAL_MOTOR            published=3.4326925889658892 recomputed=3.4326925889658892 residual=0.0  PASS
+M4_MIXTURE_K3                    point=-8.576907e-03 interval=[-7.114909e-02, +5.540236e-02] NOT_ESTABLISHED  SUB_FLOOR_EFFECT
+M6_SEMI_MARKOV_STATE_DEPENDENT   point=-2.803367e-03 interval=[-1.899034e-02, +1.391343e-02] NOT_ESTABLISHED  SCIENTIFICALLY_NULL
+M7_HIERARCHICAL_MOTOR            point=+2.506984e-07 interval=[+1.604451e-07, +3.374688e-07] RESOLVED_ABOVE   SCIENTIFICALLY_NULL
+    ** STATISTICALLY RESOLVED BUT SCIENTIFICALLY NULL. The frozen CI rule excluded 0, but the effect is 2.507e-07 nats against a 0.042-nat floor. This MUST NOT be reported as one model beating another. See D10.
+
+WROTE C:\Users\mpolz\Documents\UNI-Flagellum\UNI-FLAGELLUM\hierarchical-aif\results\motor_stack_aif\M4_M6_M7_PER_MOTOR_CONTRASTS_RESULT.json
+sha256=751a59ef45c8aecd1bdbe5fb5ef645423572a24d1691fb199d1b3b33fb8d4dbb
+oracleGate=PASS  candidateRank=5 of 10  resolvedBelow=[]

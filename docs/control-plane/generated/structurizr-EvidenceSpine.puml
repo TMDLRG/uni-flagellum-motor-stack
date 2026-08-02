@@ -1,0 +1,48 @@
+@startuml
+title <size:24>Container View: UNI Platform</size>\n<size:24>Only the path a claim travels to become evidence.</size>
+
+set separator none
+left to right direction
+
+<style>
+  root {
+    BackgroundColor: #ffffff
+    FontColor: #444444
+  }
+</style>
+
+!include <C4/C4>
+!include <C4/C4_Context>
+!include <C4/C4_Container>
+
+Person(Michael, "Michael", $descr="Regenerative architect and organic operator. Present inside every body, not a dashboard recipient. Types go-live personally.", $tags="", $link="")
+
+System_Boundary("UNIPlatform_boundary", "UNI Platform", $tags="") {
+  Container(UNIPlatform.TheLabView, "The Lab View", $techn="Phoenix LiveView + THREE.js on T1000", $descr="The immersive rendered room the operator works inside. Proposes commands; never writes. Rooms, airlocks, world portals, Gaia overhead.", $tags="", $link="")
+  Container(UNIPlatform.Gaia, "Gaia", $techn="Node.js / gaia_server.cjs :8096 + read-only MCP", $descr="World-visibility organ. 308 live signals, 0 provenance-incomplete, 5 drift signals. LAW: never summarizes, scores, ranks, narrates, authors a verdict, or acts outward.", $tags="", $link="")
+  Container(UNIPlatform.TheHUD, "The HUD", $techn="WPF widget + JSON service :8100", $descr="What the operator sees and carries. LAW: never fabricates a state; unknown renders SYNCING.", $tags="", $link="")
+  ContainerDb(UNIPlatform.Gateledger, "Gate ledger", $techn="NDJSON / evidence/gates.ndjson", $descr="Append-only record of every registered gate and its verdict. 206 rows, 109 unique, 1 FAIL.", $tags="", $link="")
+  ContainerDb(UNIPlatform.Receiptstore, "Receipt store", $techn="Filesystem + sha256", $descr="Content-addressed artifacts, commit ids and logs that reproduce each claim.", $tags="", $link="")
+  Container(UNIPlatform.Approvalqueue, "Approval queue", $techn="systemd / uni-approvald", $descr="One human approve or deny per mutating call.", $tags="", $link="")
+  Container(UNIPlatform.TheControlPlane, "The Control Plane", $techn="Elixir / SP.ControlPlane, root zero-dep app", $descr="Runs the science and authors every verdict, across every project. THIS IS THE LAB. Phase 2 landed Ledger, GateRow, Command and Drift; Registry, Verdict, Run, Pair, Room and Scene are not built.", $tags="", $link="")
+}
+
+Rel(Michael, UNIPlatform.TheLabView, "Works inside. Authors verdicts. Stops runs.", $techn="", $tags="", $link="")
+Rel(Michael, UNIPlatform.TheHUD, "Carries", $techn="", $tags="", $link="")
+Rel(Michael, UNIPlatform.Approvalqueue, "Co-signs each mutating call", $techn="", $tags="", $link="")
+Rel(UNIPlatform.Gaia, UNIPlatform.TheControlPlane, "Projects the Control Plane ledger VERBATIM (seat control-plane)", $techn="", $tags="", $link="")
+Rel(UNIPlatform.TheControlPlane, UNIPlatform.TheLabView, "Pushes a compact scene per tick", $techn="", $tags="", $link="")
+Rel(UNIPlatform.TheLabView, UNIPlatform.TheControlPlane, "Explicit verbs only. No hover or poll actuates.", $techn="", $tags="", $link="")
+Rel(UNIPlatform.TheControlPlane, UNIPlatform.Gateledger, "Appends a gate row. Never edits.", $techn="", $tags="", $link="")
+Rel(UNIPlatform.TheControlPlane, UNIPlatform.Receiptstore, "Writes a receipt per decision", $techn="", $tags="", $link="")
+Rel(UNIPlatform.TheControlPlane, UNIPlatform.Approvalqueue, "Requests the human co-sign", $techn="", $tags="", $link="")
+Rel(UNIPlatform.Gaia, UNIPlatform.Gateledger, "Projects rows verbatim", $techn="", $tags="", $link="")
+Rel(UNIPlatform.Gaia, UNIPlatform.Receiptstore, "Projects artifacts with sha256", $techn="", $tags="", $link="")
+Rel(UNIPlatform.Gaia, UNIPlatform.TheControlPlane, "Projects the ledger. Read-only.", $techn="", $tags="", $link="")
+Rel(UNIPlatform.TheHUD, UNIPlatform.Gaia, "Reads signals", $techn="", $tags="", $link="")
+Rel(UNIPlatform.TheHUD, UNIPlatform.TheControlPlane, "Reads run state", $techn="", $tags="", $link="")
+Rel(UNIPlatform.TheLabView, UNIPlatform.Gaia, "Renders signals overhead. Cannot act on them.", $techn="", $tags="", $link="")
+
+SHOW_LEGEND(true)
+hide stereotypes
+@enduml

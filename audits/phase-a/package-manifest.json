@@ -1,0 +1,90 @@
+{
+  "schema": "uni.flagellum.audit-artifact/1.0.0",
+  "purpose": "Self-manifest: SHA-256 and byte count of every artifact in this package. This file is excluded from its own manifest.",
+  "auditedCommit": "9c3a644e4b57e8ac27f925dcec84222463063aa1",
+  "auditPhase": "A",
+  "appendOnly": true,
+  "artifactCount": 16,
+  "artifacts": [
+    {
+      "name": "README.md",
+      "sha256": "d049150ccc90e08bb6122bf1a7b1243b2544fd0c6fa8afaed70f45ec1c022742",
+      "bytes": 4174
+    },
+    {
+      "name": "c1-localization-addendum.json",
+      "sha256": "cd7556be942b2e8ec5ce4b620ffb1578b762c197ce41b0f05ec6adba1ed95c07",
+      "bytes": 6895
+    },
+    {
+      "name": "c2f-cache-state-matrix.json",
+      "sha256": "74e538b65f38d589803596884076a6d2f3a13823b6fc9713e338e4aec3f85307",
+      "bytes": 6592
+    },
+    {
+      "name": "command-ledger.json",
+      "sha256": "490e3ef52b0c9d0da6685e00ff21b0f5179e2b189a3ffaf9a5bd82d318b91239",
+      "bytes": 4697
+    },
+    {
+      "name": "crlf-mutation-result.json",
+      "sha256": "6410881546bf5014dfac4f9b6acd29f70bd277852c7dc825f595987eb82fcda0",
+      "bytes": 3339
+    },
+    {
+      "name": "dependency-audit.json",
+      "sha256": "30af7e07645f6b5034cff792422c1f1cd623812421da99df09b52c7a1dedf18e",
+      "bytes": 1715
+    },
+    {
+      "name": "environment-matrix.json",
+      "sha256": "04105268cfa1bcb95335bbc548d67c29d6d6ff7659bede572fe9a5568cb9c379",
+      "bytes": 3815
+    },
+    {
+      "name": "evidence-integrity-notes.json",
+      "sha256": "d688d5d9ce955d6a5417e4effa980dc339c143acf033dc174f1267ac3bf31f09",
+      "bytes": 4801
+    },
+    {
+      "name": "ito-archive-verification.json",
+      "sha256": "f79065c4f95cbe7fda61119727cce7e3d077665a47788946d0438e16acb12229",
+      "bytes": 3178
+    },
+    {
+      "name": "node-runtime-divergence.json",
+      "sha256": "544f0d020c46e5ba1db03c31fd95e971cba6209c128d303a38eabaa064733bbb",
+      "bytes": 3717
+    },
+    {
+      "name": "phase-a-findings.md",
+      "sha256": "fcbe4fc138abb77992480a1d7b31767471982b8a58693ca2ac723b0fe1423a92",
+      "bytes": 12652
+    },
+    {
+      "name": "phase-a-gate-ledger.json",
+      "sha256": "f54ab677783e8e76e7fc95cbd50081a826f24ba5a87b944c4a6257a0614c1509",
+      "bytes": 4112
+    },
+    {
+      "name": "source-integrity-manifest.json",
+      "sha256": "7dd413cdc0570c3822fd56f239c797383b834df68f369f42618444940488a584",
+      "bytes": 6574
+    },
+    {
+      "name": "wadhwa-raw-derived-verification.json",
+      "sha256": "239c5e188bdb203224be388e306087f49f5d42ed1ec9139106138b91faff8989",
+      "bytes": 3167
+    },
+    {
+      "name": "x01-empty-vs-full-cache.json",
+      "sha256": "49b51273753ab984ae4913fd150e42e8080c8e7f6239364b4c57750f395d11e3",
+      "bytes": 3028
+    },
+    {
+      "name": "x02-experimental-unit-contract.json",
+      "sha256": "6082551594f7de269d71d36c380af10a70a1be644ecdce3b131631afc4fb3c0a",
+      "bytes": 5690
+    }
+  ]
+}

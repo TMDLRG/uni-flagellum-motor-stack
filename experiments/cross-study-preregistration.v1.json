@@ -1,0 +1,142 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "protocolId": "UNI-FLAGELLUM-XSTUDY-001",
+  "version": "1.0.0",
+  "frozenAt": "2026-07-17T20:00:00Z",
+  "registrationClass": "POST_PUBLICATION_REPRODUCTION_PROTOCOL_FROZEN_AFTER_SOURCE_INSPECTION_BEFORE_CODED_GATE_EXECUTION",
+  "caveat": "The source papers, their main conclusions, and exploratory workbook structure were known before this protocol was frozen. This is a deterministic reproduction, stress-test, and model-discrimination protocol. It is not a blind preregistration and cannot create independent confirmation of the source authors' claims.",
+  "objective": "Test whether a modular bacterial-flagellar-motor model reproduces observations across stator remodeling, motor switching, occupancy cooperativity, and whole-cell propulsion without pooling incompatible assays or upgrading fit to causal identity.",
+  "nonNegotiableClaimFence": {
+    "fullParity": "Full biological parity is false unless every required observational domain, live-measurement, independent-replication, and physical-model gate passes.",
+    "activeInference": "No fit establishes that a bacterium implements Active Inference. Biological Active Inference identity remains NOT_ESTABLISHED unless an intervention discriminates it from non-Active-Inference mechanisms.",
+    "latentStates": "Latent states are predictive constructs unless molecularly identified by an independent measurement.",
+    "assaySeparation": "A parameter is never shared across assays solely because it has the same informal name. Units, interventions, strains, loads, observation operators, and independence units must match first.",
+    "compute": "Every executable analysis in this protocol is deterministic CPU-only and uses no LLM or GPU at runtime."
+  },
+  "evidenceTiers": [
+    {"id": "A", "meaning": "Direct raw or cell/motor-level source artifact from the primary study"},
+    {"id": "B", "meaning": "Primary-study source workbook containing plotted values or aggregates"},
+    {"id": "C", "meaning": "Digitized or reanalyzed values carried by a later primary paper with explicit attribution"},
+    {"id": "D", "meaning": "Narrative or table-only published constraint; not eligible as raw-data replication"}
+  ],
+  "models": [
+    {
+      "id": "M_DLT",
+      "domain": "post-perturbation stator addition and loss",
+      "equation": "p(t,event|N)=sum_j w_j(N) exp[-(kPlus_N+kMinus_j)t] times the event-specific hazard",
+      "observationOperator": "single-motor dwell duration, direction, censoring, and integer stator occupancy"
+    },
+    {
+      "id": "M_ROTATION_GATE",
+      "domain": "rotation-dependent stator binding",
+      "equation": "b(omega)=b0+aPlus*max(omega,0)+aMinus*max(-omega,0)",
+      "observationOperator": "speed-bin binding-rate estimate with reported standard error and event counts"
+    },
+    {
+      "id": "M_LATTICE13",
+      "domain": "stationary stator occupancy cooperativity",
+      "equation": "P(phi|J,mu)=Z^-1 exp[J sum_i phi_i phi_(i+1)+mu sum_i phi_i], phi_i in {0,1}, L=13",
+      "observationOperator": "load-class probability mass over occupied stator counts"
+    },
+    {
+      "id": "M_GMC",
+      "domain": "non-equilibrium motor switching",
+      "equation": "A deterministic port of the published coarse-grained generator: local torque multiplies engaged-subunit conformation rates and rotor motion exchanges engaged and unengaged subunits",
+      "observationOperator": "stationary engaged-state distribution plus CW-to-CCW and CCW-to-CW rates versus motor speed"
+    },
+    {
+      "id": "M_RFT",
+      "domain": "whole-cell multi-flagellar propulsion",
+      "equation": "Published resistive-force-theory source predictions indexed by flagellar count",
+      "observationOperator": "cell swimming speed and independently measured motor/flagellar rotation rate"
+    }
+  ],
+  "splitAndUncertainty": {
+    "noRowSplit": "Training and validation are separated by motor/cell, condition, speed bin, or study. Time points from the same motor are never treated as independent replicates.",
+    "clusterBootstrap": {"replicates": 5000, "seed": 20260717, "interval": "percentile 95%"},
+    "smallAggregatePolicy": "For published aggregate tables, report finite-sample sensitivity and leave-one-condition-out results; do not invent sample sizes.",
+    "sourcePredictionPolicy": "Predictions shipped with a source paper are labeled source reproduction, not independent validation."
+  },
+  "gates": [
+    {
+      "id": "X01_SOURCE_INTEGRITY",
+      "required": true,
+      "criterion": "Every cached artifact matches its frozen SHA-256 and byte size; each ZIP passes CRC testing; every selected workbook sheet and MAT variable parses without non-finite values in required fields."
+    },
+    {
+      "id": "X02_CORPUS_BREADTH",
+      "required": true,
+      "criterion": "At least four direct primary-study artifact families, at least eight attributed experimental/model studies in total, at least four observation scales, and a conservative direct-artifact lower bound of 400 independent motors/cells."
+    },
+    {
+      "id": "X03_ROTATION_GATED_ASSEMBLY",
+      "required": true,
+      "criterion": "On Ito 2021 20-Hz bins, leave-one-bin-out RMSE of M_ROTATION_GATE is at least 20% lower than a constant-rate baseline, both directional slopes are positive, and the fitted stall intercept is finite and nonnegative."
+    },
+    {
+      "id": "X04_STATOR_CHEY_COUPLING",
+      "required": true,
+      "criterion": "In Antani 2021 motor-level fluorescence, MotAB expression increases CheY signal with Welch p<0.001 and a 95% motor bootstrap interval for the mean difference entirely above zero; FliM and rotating-versus-stalled controls are reported and cannot be omitted."
+    },
+    {
+      "id": "X05_TORQUE_SWITCHING_RESPONSE",
+      "required": true,
+      "criterion": "Across Antani 2021 torque conditions, Spearman rho is at least 0.8 for both directional transition rates versus torque while the coefficient of variation of CW bias remains below 0.15."
+    },
+    {
+      "id": "X06_FINITE_LATTICE_COOPERATIVITY",
+      "required": true,
+      "criterion": "The exact L=13 model jointly fitted to published 300/500/1300-nm occupancy distributions estimates 0.5<J<2.0, improves AIC by at least 10 over J=0, and has probability RMSE below 0.05. This can pass only as aggregate-source reproduction because motor heterogeneity is unavailable."
+    },
+    {
+      "id": "X07_GMC_GENERATOR_REPRODUCTION",
+      "required": true,
+      "criterion": "The ported M_GMC generator has nonnegative off-diagonal rates, column sums below 1e-10, stationary residual below 1e-9, and reproduces the published gamma=3.5 engaged-state marginal with L1 error below 0.03."
+    },
+    {
+      "id": "X08_GMC_SWITCHING_OBSERVATIONS",
+      "required": true,
+      "criterion": "For both published Yuan 2009 switching directions inside the model speed support, at least 60% of source-model interpolants fall within the digitized asymmetric error bars and mean absolute standardized residual is below 1.0."
+    },
+    {
+      "id": "X09_WHOLE_CELL_PROPULSION",
+      "required": true,
+      "criterion": "Lisevich 2025 source RFT predictions achieve cell-speed RMSE below 2.0 um/s and beat a constant-mean baseline; the 95% interval for motor-speed slope versus flagellar count includes zero."
+    },
+    {
+      "id": "X10_CROSS_STUDY_PARAMETER_TRANSFER",
+      "required": true,
+      "criterion": "At least one mechanistic parameterization frozen on one laboratory/study predicts a second laboratory's commensurate raw observations with a predeclared advantage over baselines. Source-paper predictions or unit-incompatible mappings do not count."
+    },
+    {
+      "id": "X11_STRUCTURAL_CONSISTENCY",
+      "required": true,
+      "criterion": "Every discrete mechanical state and allowed transition is mapped to published structural states or explicitly labeled phenomenological; geometry and state multiplicity conflicts are zero."
+    },
+    {
+      "id": "X12_ACTIVE_INFERENCE_CAUSAL_IDENTITY",
+      "required": true,
+      "criterion": "A preregistered intervention must distinguish an Active-Inference-specific causal prediction from matched kinetic, control, and non-equilibrium statistical-mechanics alternatives."
+    },
+    {
+      "id": "X13_LIVE_SIGNAL_CHAIN",
+      "required": true,
+      "criterion": "A calibrated instrument provides timestamped raw signal, uncertainty, prediction-before-outcome, and immutable audit linkage during the same live run."
+    },
+    {
+      "id": "X14_INDEPENDENT_WET_LAB_REPLICATION",
+      "required": true,
+      "criterion": "A laboratory independent of the model authors reproduces the predeclared effects and releases raw data, calibration, exclusions, and analysis provenance."
+    },
+    {
+      "id": "X15_PRINTED_MODEL_VALIDATION",
+      "required": true,
+      "criterion": "The exported UNI physical model is fabricated, measured against dimensional tolerances, and its sensor-to-screen math trace is tested with real inputs."
+    },
+    {
+      "id": "X16_FULL_BIOLOGICAL_PARITY",
+      "required": true,
+      "criterion": "X01 through X15 all pass without SOURCE_ONLY, NOT_ESTABLISHED, FAIL, or BLOCKED_EXTERNAL status."
+    }
+  ]
+}

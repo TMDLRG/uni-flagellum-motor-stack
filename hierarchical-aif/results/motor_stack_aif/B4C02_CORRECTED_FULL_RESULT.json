@@ -1,0 +1,119 @@
+{
+ "actual_N_sim_per_gen": 200,
+ "cell": "B4C02_MISSPECIFIED_WORLDS",
+ "claimBoundary": "Establishes no mechanism, no biological parity, no active-inference claim. Scoped to 3 misspecified generators, 6 simple competitors, motor-equal NLPD, one 19-motor cohort. M4/M7/M8 are skipped by construction. M2 is an ADVERSARIAL BASELINE, never the UNI model.",
+ "cohort": "derived_eligible_1_to_8",
+ "consumesB3ResultSha256": null,
+ "correctionApplied": [
+  "D3_HASH_SEED_NONDETERMINISM"
+ ],
+ "correctionNote": "Only the seed derivation differs from the committed cell: stable SHA-256 seed replaces process-varying hash(). No threshold, N, criterion, model set, or seed_base changed.",
+ "environment": {
+  "numpy": "2.3.5",
+  "platform": "Windows-11-10.0.26200-SP0",
+  "python": "3.12.10"
+ },
+ "frozenPredictionExpectation": "GENERATOR-ROBUST_ADVERSE",
+ "frozen_N_sim": 200,
+ "generators": [
+  "weibull_gamma_blend",
+  "three_timescale_heavy_tail",
+  "per_motor_heterogeneous_weibull"
+ ],
+ "gensWithM2overM3": 1,
+ "predictionOutcome": "REFUTED",
+ "predictionRecord": "hierarchical-aif/protocols/B4C02-CORRECTED-FULL-PREDICTION.md",
+ "protocolVersion": "PHASE-B4-IDENTIFIABILITY-ROBUSTNESS-CLAUDE-V1",
+ "resourceBoundPartial": false,
+ "results": {
+  "per_motor_heterogeneous_weibull": {
+   "completed": 200,
+   "failures": 0,
+   "m2_beats_m3_frac": 0.005,
+   "m2_beats_m3_nlpd_count": 1,
+   "n_sims": 200,
+   "runtimeS": 8916.109515428543,
+   "skippedModels": [
+    "M4_MIXTURE_K3",
+    "M7_HIERARCHICAL_MOTOR",
+    "M8_EMPIRICAL_KDE"
+   ],
+   "subModelsScored": [
+    "M0_EXPONENTIAL",
+    "M1_WEIBULL",
+    "M2_LOGNORMAL",
+    "M3_TWO_TIMESCALE",
+    "M5_GAMMA",
+    "M6_SEMI_MARKOV_STATE_DEPENDENT"
+   ],
+   "winner_freq": {
+    "M0_EXPONENTIAL": 39,
+    "M1_WEIBULL": 23,
+    "M2_LOGNORMAL": 1,
+    "M3_TWO_TIMESCALE": 82,
+    "M5_GAMMA": 30,
+    "M6_SEMI_MARKOV_STATE_DEPENDENT": 25
+   }
+  },
+  "three_timescale_heavy_tail": {
+   "completed": 200,
+   "failures": 0,
+   "m2_beats_m3_frac": 0.94,
+   "m2_beats_m3_nlpd_count": 188,
+   "n_sims": 200,
+   "runtimeS": 9266.392445325851,
+   "skippedModels": [
+    "M4_MIXTURE_K3",
+    "M7_HIERARCHICAL_MOTOR",
+    "M8_EMPIRICAL_KDE"
+   ],
+   "subModelsScored": [
+    "M0_EXPONENTIAL",
+    "M1_WEIBULL",
+    "M2_LOGNORMAL",
+    "M3_TWO_TIMESCALE",
+    "M5_GAMMA",
+    "M6_SEMI_MARKOV_STATE_DEPENDENT"
+   ],
+   "winner_freq": {
+    "M1_WEIBULL": 1,
+    "M2_LOGNORMAL": 187,
+    "M3_TWO_TIMESCALE": 12
+   }
+  },
+  "weibull_gamma_blend": {
+   "completed": 200,
+   "failures": 0,
+   "m2_beats_m3_frac": 0.005,
+   "m2_beats_m3_nlpd_count": 1,
+   "n_sims": 200,
+   "runtimeS": 11226.594656467438,
+   "skippedModels": [
+    "M4_MIXTURE_K3",
+    "M7_HIERARCHICAL_MOTOR",
+    "M8_EMPIRICAL_KDE"
+   ],
+   "subModelsScored": [
+    "M0_EXPONENTIAL",
+    "M1_WEIBULL",
+    "M2_LOGNORMAL",
+    "M3_TWO_TIMESCALE",
+    "M5_GAMMA",
+    "M6_SEMI_MARKOV_STATE_DEPENDENT"
+   ],
+   "winner_freq": {
+    "M0_EXPONENTIAL": 34,
+    "M1_WEIBULL": 27,
+    "M2_LOGNORMAL": 1,
+    "M3_TWO_TIMESCALE": 81,
+    "M5_GAMMA": 28,
+    "M6_SEMI_MARKOV_STATE_DEPENDENT": 29
+   }
+  }
+ },
+ "runStatus": "ELIGIBLE_FOR_FROZEN_VERDICT",
+ "runVariant": "CORRECTED_FULL_N",
+ "seed_base": 20260802,
+ "totalRuntimeS": 29409.096617221832,
+ "verdict": "GENERATOR-SPECIFIC"
+}

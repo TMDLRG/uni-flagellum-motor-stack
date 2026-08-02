@@ -1,0 +1,4638 @@
+{
+  "breadth": {
+    "attributedStudies": [
+      "WADHWA_2022",
+      "ITO_2021",
+      "ANTANI_2021",
+      "LISEVICH_2025",
+      "NORD_2017",
+      "PEREZ_CARRASCO_2022",
+      "YUAN_2009",
+      "BAI_2010",
+      "ZHU_2024",
+      "MATTINGLY_TU_2026",
+      "FRANCO_ONATE_2025"
+    ],
+    "directIndependentMotorCellLowerBound": 409,
+    "directPrimaryArtifactFamilies": [
+      "WADHWA_2022",
+      "ITO_2021",
+      "ANTANI_2021",
+      "LISEVICH_2025"
+    ],
+    "lowerBoundDerivation": {
+      "Antani2021": 154,
+      "Ito2021": 40,
+      "Lisevich2025": 106,
+      "Wadhwa2022": 109
+    },
+    "observationScales": [
+      "event/dwell",
+      "single motor",
+      "motor ensemble",
+      "cell propulsion",
+      "population/strain"
+    ],
+    "warning": "A lower bound is used to avoid double-counting motors/cells across multiple assays within a study. Time points and transition events are never counted as independent biological units."
+  },
+  "claimFences": [
+    "Source-paper predictions are source reproductions, not independent validation.",
+    "Published aggregate tables cannot identify motor-to-motor heterogeneity.",
+    "No cross-assay parameter is shared unless units and observation operators are commensurate.",
+    "No result in this corpus establishes biological Active Inference identity.",
+    "The world process, biological mechanism, measurement channel, and inference model remain separate objects."
+  ],
+  "compute": "CPU_ONLY_NO_LLM_NO_GPU",
+  "generatedBy": "scripts/ingest-cross-study-evidence.py",
+  "protocolId": "UNI-FLAGELLUM-XSTUDY-001",
+  "schema": "uni.flagellum.cross-study-evidence/1.0.0",
+  "sourceIntegrity": {
+    "itoRawArchive": {
+      "bytes": 4085227742,
+      "cachePath": "experiments/upstream-cache/ito-2021-raw-data.zip",
+      "cacheVerification": {
+        "artifact": {
+          "cachePath": "experiments/upstream-cache/ito-2021-raw-data.zip",
+          "declaredContents": "All manuscript rotation-rate traces",
+          "doi": "10.6084/m9.figshare.14371232.v2",
+          "downloadUrl": "https://ndownloader.figshare.com/files/27453833",
+          "license": "CC BY 4.0"
+        },
+        "claimFence": "This establishes archive identity and integrity, not correctness of every measurement or biological parity.",
+        "expected": {
+          "bytes": 4085227742,
+          "md5": "d42879e66142ff7190f256f4276db111"
+        },
+        "method": {
+          "byteCount": true,
+          "everyMemberCrc": true,
+          "normalTestSuiteRehashesArchive": false,
+          "streamingMd5": true,
+          "zipCentralDirectory": true
+        },
+        "observed": {
+          "bytes": 4085227742,
+          "md5": "d42879e66142ff7190f256f4276db111",
+          "zipCompressedMemberBytes": 4085099290,
+          "zipCrcFailure": null,
+          "zipEntryCount": 505,
+          "zipUncompressedMemberBytes": 10160270466
+        },
+        "schema": "uni.flagellum.large-source-verification/1.0.0",
+        "status": "PASS",
+        "studyId": "ITO_2021",
+        "verifiedAt": "2026-07-17T21:00:00Z"
+      },
+      "contents": "All manuscript rotation-rate traces",
+      "doi": "10.6084/m9.figshare.14371232.v2",
+      "license": "CC BY 4.0",
+      "md5": "d42879e66142ff7190f256f4276db111",
+      "url": "https://ndownloader.figshare.com/files/27453833",
+      "verificationReportPath": "experiments/results/ito-raw-archive-verification.json"
+    },
+    "localArtifacts": [
+      {
+        "bytes": 11896413,
+        "cachePath": "experiments/upstream-cache/ito-2021-source-data.xlsx",
+        "file": "ito-2021-source-data.xlsx",
+        "id": "ITO_2021_SOURCE_WORKBOOK",
+        "sha256": "33687c50a5636817889612d59d7e902b876391997bf7f6013574f8fa2bce944a",
+        "tier": "A",
+        "url": "https://static-content.springer.com/esm/art%3A10.1038%2Fs41467-021-23516-y/MediaObjects/41467_2021_23516_MOESM2_ESM.xlsx",
+        "verified": true
+      },
+      {
+        "bytes": 45271,
+        "cachePath": "experiments/upstream-cache/antani-2021-source-data.xlsx",
+        "file": "antani-2021-source-data.xlsx",
+        "id": "ANTANI_2021_SOURCE_WORKBOOK",
+        "sha256": "bee5497182be4e7b6c2f1a3bd75a24407ab965512e8652bfe9a6337ffb297abd",
+        "tier": "A",
+        "url": "https://static-content.springer.com/esm/art%3A10.1038%2Fs41467-021-25774-2/MediaObjects/41467_2021_25774_MOESM5_ESM.xlsx",
+        "verified": true
+      },
+      {
+        "bytes": 45274919,
+        "cachePath": "experiments/upstream-cache/lisevich-2025-source-data.zip",
+        "file": "lisevich-2025-source-data.zip",
+        "id": "LISEVICH_2025_SOURCE_ARCHIVE",
+        "sha256": "7e30c791be8136cc4520e7f897d2ca10d7f88cd2558447dfbe36b393eb641afd",
+        "tier": "A",
+        "url": "https://static-content.springer.com/esm/art%3A10.1038%2Fs41467-025-56980-x/MediaObjects/41467_2025_56980_MOESM7_ESM.zip",
+        "verified": true
+      },
+      {
+        "bytes": 13690,
+        "cachePath": "experiments/upstream-cache/lisevich-2025-supp-data-1.xlsx",
+        "file": "lisevich-2025-supp-data-1.xlsx",
+        "id": "LISEVICH_2025_SUPPLEMENTARY_DATA_1",
+        "sha256": "87186cdc9221ed4249231b82306250f1abe7ab66c7de905d7a88682cc9a03ce8",
+        "tier": "B",
+        "url": "https://static-content.springer.com/esm/art%3A10.1038%2Fs41467-025-56980-x/MediaObjects/41467_2025_56980_MOESM2_ESM.xlsx",
+        "verified": true
+      },
+      {
+        "bytes": 14102,
+        "cachePath": "experiments/upstream-cache/lisevich-2025-supp-data-2.xlsx",
+        "file": "lisevich-2025-supp-data-2.xlsx",
+        "id": "LISEVICH_2025_SUPPLEMENTARY_DATA_2",
+        "sha256": "3d62f6a53876d1fc5c17dfdc05c42c263b7984d1f130cfc05df7ae819cbf1d78",
+        "tier": "B",
+        "url": "https://static-content.springer.com/esm/art%3A10.1038%2Fs41467-025-56980-x/MediaObjects/41467_2025_56980_MOESM3_ESM.xlsx",
+        "verified": true
+      },
+      {
+        "bytes": 15731056,
+        "cachePath": "experiments/upstream-cache/mattingly-2026-fig2-source-data.zip",
+        "file": "mattingly-2026-fig2-source-data.zip",
+        "id": "MATTINGLY_2026_SOURCE_DATA",
+        "sha256": "6c9c7145ef8aa9485365d863ecd573e0fd4a664d61a2c46929a7a772ce8522cf",
+        "tier": "B",
+        "url": "https://static-content.springer.com/esm/art%3A10.1038%2Fs41567-025-03105-2/MediaObjects/41567_2025_3105_MOESM7_ESM.zip",
+        "verified": true
+      },
+      {
+        "bytes": 402957,
+        "cachePath": "experiments/upstream-cache/mattingly-2026-supp-code-2.zip",
+        "file": "mattingly-2026-supp-code-2.zip",
+        "id": "MATTINGLY_2026_CODE_FIG2",
+        "sha256": "ccb4ce3c3052110e1ebc345dbb7e4078da04f172efd7191918053f7d1bbaa653",
+        "tier": "B",
+        "url": "https://static-content.springer.com/esm/art%3A10.1038%2Fs41567-025-03105-2/MediaObjects/41567_2025_3105_MOESM2_ESM.zip",
+        "verified": true
+      },
+      {
+        "bytes": 439682,
+        "cachePath": "experiments/upstream-cache/mattingly-2026-supp-code-3.zip",
+        "file": "mattingly-2026-supp-code-3.zip",
+        "id": "MATTINGLY_2026_CODE_FIG3",
+        "sha256": "16f9ea44aa6ac79e59ae89225b6645c1fe23117bfeb24d1ea6749bf9ba63418a",
+        "tier": "B",
+        "url": "https://static-content.springer.com/esm/art%3A10.1038%2Fs41567-025-03105-2/MediaObjects/41567_2025_3105_MOESM3_ESM.zip",
+        "verified": true
+      },
+      {
+        "bytes": 372370,
+        "cachePath": "experiments/upstream-cache/mattingly-2026-supp-code-4.zip",
+        "file": "mattingly-2026-supp-code-4.zip",
+        "id": "MATTINGLY_2026_CODE_FIG4",
+        "sha256": "a3ddbaec26b9b5767fdd438f79d7dcea81d5c2f59a83bac804446a8d1cc76dc2",
+        "tier": "B",
+        "url": "https://static-content.springer.com/esm/art%3A10.1038%2Fs41567-025-03105-2/MediaObjects/41567_2025_3105_MOESM4_ESM.zip",
+        "verified": true
+      },
+      {
+        "bytes": 409379,
+        "cachePath": "experiments/upstream-cache/mattingly-2026-supp-code-5.zip",
+        "file": "mattingly-2026-supp-code-5.zip",
+        "id": "MATTINGLY_2026_CODE_FIG5",
+        "sha256": "b01ea374aec04dd77849181cc56a2c2663fcbe100e5f0f2b16e78e4ec4c7d53a",
+        "tier": "B",
+        "url": "https://static-content.springer.com/esm/art%3A10.1038%2Fs41567-025-03105-2/MediaObjects/41567_2025_3105_MOESM5_ESM.zip",
+        "verified": true
+      },
+      {
+        "bytes": 376804,
+        "cachePath": "experiments/upstream-cache/mattingly-2026-supp-code-6.zip",
+        "file": "mattingly-2026-supp-code-6.zip",
+        "id": "MATTINGLY_2026_CODE_FIG6",
+        "sha256": "127a3e7688ae33fdf8be1b85d47dd50faf958db5b871e860eeba6913d034fd63",
+        "tier": "B",
+        "url": "https://static-content.springer.com/esm/art%3A10.1038%2Fs41567-025-03105-2/MediaObjects/41567_2025_3105_MOESM6_ESM.zip",
+        "verified": true
+      },
+      {
+        "bytes": 25093,
+        "cachePath": "experiments/upstream-cache/perez-carrasco-2022-code.zip",
+        "file": "perez-carrasco-2022-code.zip",
+        "id": "PEREZ_CARRASCO_2022_MODEL_CODE",
+        "sha256": "23bded7d444f8c684a7aca95dae7fc9bd06bc07a9c95b42ccb58e213f0543561",
+        "tier": "B",
+        "url": "https://zenodo.org/records/5784548/files/2piruben/BFM_multistate-v1.0.0.zip?download=1",
+        "verified": true
+      }
+    ],
+    "wadhwaDerivedEventsSha256": "32ec7ebf45bf7776ebef239351d2304cc3cead6d1be7749a2478e44a323f25db"
+  },
+  "studies": {
+    "antani2021": {
+      "cheYFluorescence": {
+        "emptyVector": [
+          2.8429309075,
+          3.450157413,
+          2.337353682,
+          1.7661627825,
+          3.5724791525,
+          4.7439031205,
+          4.80332409,
+          1.5987039995,
+          2.564997879,
+          3.680970474,
+          4.078878179,
+          3.5661973375,
+          1.2423247625,
+          2.222979055,
+          2.441583487,
+          2.532716904,
+          1.5520305525,
+          3.7087764445,
+          1.405547707,
+          2.741985394,
+          2.880200432,
+          3.035132048,
+          5.16301662,
+          1.794518584,
+          1.495226316,
+          1.8788295325,
+          2.811129206,
+          2.2815653345,
+          0.4637052165,
+          1.7912817765,
+          3.867518582,
+          2.815367088,
+          0.8888749165,
+          2.3802911325,
+          3.786387921,
+          3.9806255175,
+          3.378014974,
+          1.729964359,
+          2.991342907,
+          2.2864964065,
+          1.5671802845,
+          2.707757357,
+          1.8053904,
+          3.8418134105,
+          2.704068586,
+          2.316300429,
+          2.5023459485,
+          3.3767795555,
+          1.8914691465,
+          1.594747589,
+          1.8611523965,
+          2.1109535625,
+          1.8772506865,
+          3.68574279,
+          2.329599266,
+          4.026878113,
+          2.403860947,
+          2.7059237075,
+          4.9684637735,
+          1.746802223,
+          0.99951573,
+          1.5511886945,
+          2.067095274,
+          1.626990204,
+          1.128028126,
+          0.8342856515,
+          1.232913056,
+          0.6787890985,
+          1.9012959495,
+          2.604318493,
+          1.9226040425,
+          1.203510049,
+          3.2532092605,
+          1.624697879,
+          2.4976476845,
+          2.2385569265,
+          2.37975574,
+          1.8110417825,
+          1.504819946,
+          0.8354508725,
+          1.3028178015,
+          1.422785443,
+          3.5930934125,
+          1.8441959845,
+          1.547401768,
+          1.093248739,
+          1.9056328075,
+          1.15926424,
+          1.254434456,
+          1.9631234725,
+          0.19710536125,
+          1.635227812,
+          1.482821232,
+          1.659010767,
+          2.125568476,
+          1.835962982,
+          1.3582429235,
+          5.232283385,
+          1.626107556,
+          2.1452469985,
+          5.98996149,
+          3.4619734315,
+          3.4237027305,
+          1.290358455,
+          1.740702706,
+          3.116001062,
+          2.3587920145,
+          3.0787369535
+        ],
+        "motAB": [
+          13.27215977,
+          2.2768126025,
+          2.095861131,
+          2.687442633,
+          3.6559724325,
+          3.4862506825,
+          2.707192848,
+          3.453206873,
+          5.111241935,
+          3.5060262885,
+          3.692663765,
+          3.510352192,
+          3.3551734245,
+          5.778373815,
+          3.4943271785,
+          2.6451531405,
+          3.242331316,
+          3.0077291825,
+          2.6566524815,
+          2.096668112,
+          2.6423797425,
+          5.239624525,
+          3.499300734,
+          3.547698585,
+          3.2345075385,
+          4.662918007,
+          9.66608908,
+          2.7473818625,
+          4.106576524,
+          2.658194774,
+          2.259350346,
+          1.647936933,
+          1.6733625115,
+          1.9760009895,
+          1.4073000345,
+          3.248034459,
+          5.98013342,
+          2.4903243305,
+          2.171713386,
+          3.3013233735,
+          2.7361555065,
+          2.93435458,
+          1.71643952,
+          4.796406247,
+          2.106932666,
+          2.693526061
+        ]
+      },
+      "directIndependentUnitLowerBound": 154,
+      "doi": "10.1038/s41467-021-25774-2",
+      "dynamicLoadAdaptation": [
+        {
+          "meanCwBias": 0.00277777,
+          "timeSeconds": 22.0
+        },
+        {
+          "meanCwBias": 0.157334,
+          "timeSeconds": 31.0
+        },
+        {
+          "meanCwBias": 0.143929,
+          "timeSeconds": 40.0
+        },
+        {
+          "meanCwBias": 0.148334,
+          "timeSeconds": 49.0
+        },
+        {
+          "meanCwBias": 0.188333,
+          "timeSeconds": 58.0
+        },
+        {
+          "meanCwBias": 0.268667,
+          "timeSeconds": 67.0
+        },
+        {
+          "meanCwBias": 0.27143,
+          "timeSeconds": 76.0
+        },
+        {
+          "meanCwBias": 0.261905,
+          "timeSeconds": 85.0
+        },
+        {
+          "meanCwBias": 0.296353,
+          "timeSeconds": 94.0
+        },
+        {
+          "meanCwBias": 0.360105,
+          "timeSeconds": 103.0
+        },
+        {
+          "meanCwBias": 0.442262,
+          "timeSeconds": 112.0
+        },
+        {
+          "meanCwBias": 0.468213,
+          "timeSeconds": 121.0
+        },
+        {
+          "meanCwBias": 0.495278,
+          "timeSeconds": 130.0
+        },
+        {
+          "meanCwBias": 0.439583,
+          "timeSeconds": 139.0
+        },
+        {
+          "meanCwBias": 0.435477,
+          "timeSeconds": 148.0
+        },
+        {
+          "meanCwBias": 0.45198,
+          "timeSeconds": 157.0
+        },
+        {
+          "meanCwBias": 0.504306,
+          "timeSeconds": 166.0
+        },
+        {
+          "meanCwBias": 0.519285,
+          "timeSeconds": 175.0
+        },
+        {
+          "meanCwBias": 0.624791,
+          "timeSeconds": 184.0
+        },
+        {
+          "meanCwBias": 0.619166,
+          "timeSeconds": 193.0
+        },
+        {
+          "meanCwBias": 0.584074,
+          "timeSeconds": 202.0
+        },
+        {
+          "meanCwBias": 0.583809,
+          "timeSeconds": 211.0
+        },
+        {
+          "meanCwBias": 0.641459,
+          "timeSeconds": 220.0
+        },
+        {
+          "meanCwBias": 0.644583,
+          "timeSeconds": 229.0
+        },
+        {
+          "meanCwBias": 0.649062,
+          "timeSeconds": 238.0
+        },
+        {
+          "meanCwBias": 0.624406,
+          "timeSeconds": 247.0
+        },
+        {
+          "meanCwBias": 0.614907,
+          "timeSeconds": 256.0
+        },
+        {
+          "meanCwBias": 0.596481,
+          "timeSeconds": 265.0
+        },
+        {
+          "meanCwBias": 0.569444,
+          "timeSeconds": 274.0
+        },
+        {
+          "meanCwBias": 0.580625,
+          "timeSeconds": 283.0
+        },
+        {
+          "meanCwBias": 0.572397,
+          "timeSeconds": 292.0
+        },
+        {
+          "meanCwBias": 0.538054,
+          "timeSeconds": 301.0
+        },
+        {
+          "meanCwBias": 0.592395,
+          "timeSeconds": 310.0
+        },
+        {
+          "meanCwBias": 0.608542,
+          "timeSeconds": 319.0
+        },
+        {
+          "meanCwBias": 0.578452,
+          "timeSeconds": 328.0
+        },
+        {
+          "meanCwBias": 0.651547,
+          "timeSeconds": 337.0
+        },
+        {
+          "meanCwBias": 0.646665,
+          "timeSeconds": 346.0
+        },
+        {
+          "meanCwBias": 0.697778,
+          "timeSeconds": 355.0
+        },
+        {
+          "meanCwBias": 0.622814,
+          "timeSeconds": 364.0
+        },
+        {
+          "meanCwBias": 0.691429,
+          "timeSeconds": 373.0
+        },
+        {
+          "meanCwBias": 0.658749,
+          "timeSeconds": 382.0
+        },
+        {
+          "meanCwBias": 0.62639,
+          "timeSeconds": 391.0
+        },
+        {
+          "meanCwBias": 0.689525,
+          "timeSeconds": 400.0
+        },
+        {
+          "meanCwBias": 0.66573,
+          "timeSeconds": 409.0
+        },
+        {
+          "meanCwBias": 0.701786,
+          "timeSeconds": 418.0
+        },
+        {
+          "meanCwBias": 0.719881,
+          "timeSeconds": 427.0
+        },
+        {
+          "meanCwBias": 0.727024,
+          "timeSeconds": 436.0
+        },
+        {
+          "meanCwBias": 0.677709,
+          "timeSeconds": 445.0
+        },
+        {
+          "meanCwBias": 0.642408,
+          "timeSeconds": 454.0
+        },
+        {
+          "meanCwBias": 0.539049,
+          "timeSeconds": 463.0
+        },
+        {
+          "meanCwBias": 0.620416,
+          "timeSeconds": 472.0
+        },
+        {
+          "meanCwBias": 0.676043,
+          "timeSeconds": 481.0
+        },
+        {
+          "meanCwBias": 0.614271,
+          "timeSeconds": 490.0
+        },
+        {
+          "meanCwBias": 0.614908,
+          "timeSeconds": 499.0
+        },
+        {
+          "meanCwBias": 0.619907,
+          "timeSeconds": 508.0
+        },
+        {
+          "meanCwBias": 0.655,
+          "timeSeconds": 517.0
+        },
+        {
+          "meanCwBias": 0.701147,
+          "timeSeconds": 526.0
+        },
+        {
+          "meanCwBias": 0.666666,
+          "timeSeconds": 535.0
+        },
+        {
+          "meanCwBias": 0.727708,
+          "timeSeconds": 544.0
+        },
+        {
+          "meanCwBias": 0.810477,
+          "timeSeconds": 553.0
+        },
+        {
+          "meanCwBias": 0.824062,
+          "timeSeconds": 562.0
+        },
+        {
+          "meanCwBias": 0.878055,
+          "timeSeconds": 571.0
+        },
+        {
+          "meanCwBias": 0.805833,
+          "timeSeconds": 580.0
+        },
+        {
+          "meanCwBias": 0.819881,
+          "timeSeconds": 589.0
+        },
+        {
+          "meanCwBias": 0.830476,
+          "timeSeconds": 598.0
+        }
+      ],
+      "fliMControl": {
+        "control": [
+          6.390535176,
+          3.583030195,
+          2.76929396,
+          2.990101938,
+          3.482311222,
+          5.695020837,
+          2.459731784,
+          3.604796352,
+          4.089236033,
+          3.973080758,
+          2.727065986,
+          4.947881758,
+          3.935152065,
+          2.578485409,
+          4.066600126,
+          4.884711461,
+          4.332198096,
+          3.671055432,
+          3.636434287,
+          3.834255801,
+          3.833057228,
+          4.157551354,
+          2.602553822,
+          3.315638558,
+          3.320032301,
+          3.919155244,
+          3.941667347,
+          2.108253504,
+          4.902037337,
+          3.853406171,
+          2.325662028,
+          2.892015735,
+          10.22282067,
+          2.103389713,
+          3.116428676,
+          2.870015044,
+          1.458634863,
+          1.374340723,
+          2.442192757,
+          4.704927644,
+          3.757981747,
+          2.716701573,
+          2.60315485,
+          2.965823836,
+          4.275224361,
+          5.741567579,
+          2.657264983,
+          3.592498244,
+          4.147685159,
+          4.280168593,
+          9.993471156,
+          3.117775756,
+          2.904642676,
+          5.077984852,
+          6.886963707,
+          2.852082643,
+          1.668230256,
+          3.204083401,
+          2.344693454,
+          1.561117727,
+          5.683983316,
+          11.17494336,
+          4.723193593,
+          2.134559764,
+          3.48790487,
+          5.944796541,
+          1.874398579,
+          3.23923772,
+          3.877367792,
+          5.332087961,
+          3.523623704,
+          3.534972739,
+          4.496020312,
+          3.55581722,
+          2.537063776
+        ],
+        "deltaMotAB": [
+          5.248481345,
+          2.702618486,
+          2.61514586,
+          2.634754314,
+          3.625149785,
+          3.726984373,
+          0.9291390137,
+          0.8248241734,
+          4.090660224,
+          4.372186633,
+          3.256882388,
+          4.984997111,
+          6.466533892,
+          5.123333789,
+          3.243105105,
+          4.37602455,
+          6.414339748,
+          10.97679508,
+          3.318204044,
+          7.214358117,
+          3.999337022,
+          3.620634011,
+          4.012867421,
+          6.464675581,
+          3.113139035,
+          2.62007053,
+          4.265321638,
+          3.360465176,
+          2.482013333,
+          9.933169321,
+          3.886901268,
+          5.14444566,
+          4.645368969,
+          4.795118501,
+          5.53397406,
+          6.381411974,
+          3.311709556,
+          3.492709128,
+          2.706424231,
+          7.244194032,
+          1.718557573,
+          2.66430509,
+          3.420634843,
+          2.101343013,
+          3.652005289,
+          6.875668962,
+          4.443139225,
+          3.204216054,
+          3.629248963,
+          4.504304073,
+          4.21771112,
+          6.610801318,
+          9.828634924,
+          4.926609377,
+          6.77739835,
+          4.135160332,
+          2.282467169,
+          2.943494016,
+          8.300026275,
+          5.03480554,
+          1.676398642,
+          3.491877829,
+          5.529327961,
+          3.300726315,
+          2.526417289,
+          4.292920054,
+          2.181035029,
+          2.839189704,
+          3.763469114,
+          3.95574926,
+          4.757635158,
+          3.298804166,
+          2.238125411,
+          2.188023089,
+          2.185294961,
+          1.629735606,
+          4.653061595,
+          8.424942191,
+          2.009954449,
+          5.510306148,
+          2.933639483,
+          2.623571517,
+          4.607212489,
+          2.794413843,
+          6.496980974,
+          1.213713906,
+          7.433165858,
+          6.651945957,
+          6.388577173,
+          4.363555651,
+          3.014462781,
+          3.132769406,
+          1.95634758,
+          1.244531912,
+          2.195718977,
+          1.73380445,
+          3.583204721,
+          4.536933916,
+          2.844870174,
+          2.216715374,
+          6.475656076,
+          2.79639162,
+          1.716695106,
+          1.703902204,
+          2.28311396,
+          1.479112338,
+          4.095214233,
+          6.162276782,
+          3.21145118,
+          1.920658896,
+          1.268693098,
+          3.145118552,
+          3.551864332,
+          3.54357038,
+          4.555806738
+        ]
+      },
+      "organism": "Escherichia coli",
+      "rotationControl": {
+        "rotating": [
+          1.87738452,
+          0.9157284832,
+          1.216861111,
+          0.7241139355,
+          1.256088061,
+          1.179206661,
+          1.477422427,
+          0.7777152308,
+          1.251446705,
+          1.72729834,
+          1.310130078,
+          0.4390115226,
+          1.0758371,
+          1.407978761,
+          1.010505472,
+          0.581922261,
+          0.5950093135,
+          1.495432944,
+          1.857899666,
+          1.127330154,
+          1.95723223,
+          1.640504817,
+          1.962932448,
+          1.746329234,
+          1.540642987,
+          1.623130569,
+          2.003702562,
+          2.098270094,
+          1.689988358,
+          2.285140084,
+          1.725609682,
+          1.211314425,
+          1.467014866,
+          1.177819793,
+          0.8139734982,
+          1.393738731,
+          1.069893059,
+          1.343317154,
+          1.292629902,
+          1.035843894,
+          2.170411467,
+          1.865110947,
+          1.159809125,
+          2.058874246,
+          1.235189708,
+          1.242869141,
+          1.340951121,
+          1.881350434,
+          2.627502177,
+          1.708980468,
+          3.55748715,
+          1.4702276,
+          2.106060152,
+          1.77459892,
+          1.80013967,
+          1.193717628,
+          0.8792868176,
+          1.208871738,
+          1.477639919,
+          1.426575478,
+          1.551265269,
+          0.8539195992,
+          1.56753893,
+          1.234905866,
+          1.288188192,
+          1.437468779,
+          1.036601519,
+          2.186762375,
+          1.444613154,
+          1.519006871,
+          1.322825971,
+          1.654033628,
+          1.883709281,
+          0.6679721764,
+          1.231600964,
+          1.793091693,
+          1.654076938,
+          0.7375089081,
+          0.6193204769,
+          3.335256023,
+          0.8248279115,
+          1.241546264,
+          0.8820639385,
+          1.401004085,
+          1.184970999,
+          1.369258356
+        ],
+        "stalled": [
+          0.6969941237,
+          1.85820299,
+          2.321395753,
+          1.236470261,
+          1.293637624,
+          1.499941362,
+          1.742519661,
+          2.65860731,
+          1.706901475,
+          2.556546658,
+          0.7473756151,
+          0.8535805568,
+          0.501784292,
+          1.325969323,
+          0.5363281934,
+          0.9946479942,
+          1.249471573,
+          1.074008894,
+          1.057055902,
+          1.62607305,
+          2.413142288,
+          1.168582409,
+          1.938525376,
+          1.289578224,
+          2.283516416,
+          2.166829952,
+          1.022583686,
+          2.152044028,
+          1.600136958,
+          1.730687994,
+          1.923256638,
+          2.293354264,
+          1.380124601,
+          1.186855126,
+          1.158324806,
+          1.200665378
+        ]
+      },
+      "statorClassCwBias": {
+        "high": [
+          0.843278123,
+          0.994401531,
+          0.994350822,
+          0.999696409,
+          0.998680187,
+          1.0,
+          0.999905505,
+          0.951240545,
+          0.999274485,
+          1.0,
+          0.998480913,
+          1.0,
+          0.995192216,
+          0.999798091,
+          0.009911101,
+          0.999145555,
+          0.498626387,
+          0.997314861,
+          0.967943319,
+          0.999175039,
+          0.990984679,
+          0.990617788,
+          0.999967588,
+          0.941240091,
+          0.997673237,
+          0.999098578,
+          0.000376748,
+          0.999413478,
+          0.957198468,
+          1.0,
+          0.206583741,
+          1.0,
+          0.999963963,
+          0.998475799,
+          0.99992222,
+          0.998760417,
+          1.0,
+          0.999470454,
+          0.996264081,
+          1.0,
+          0.988972985,
+          0.956453336,
+          0.993805665,
+          0.999936173
+        ],
+        "low": [
+          0.591307638,
+          0.939063297,
+          0.038525369,
+          0.469169873,
+          0.010712374,
+          0.875456868,
+          0.724137931,
+          0.642496761,
+          0.428571429,
+          0.071299784,
+          0.092684977,
+          0.036764975,
+          0.054100782,
+          0.705832381,
+          0.783087076,
+          0.456653865,
+          0.029185905,
+          0.149719471,
+          0.705882592,
+          0.031111687,
+          0.079908374,
+          0.123429264,
+          0.169121655,
+          0.4817164,
+          0.243825601,
+          0.22537769,
+          0.468360595,
+          0.857273518,
+          0.578234751,
+          0.374876896,
+          0.874081702,
+          0.406522087,
+          0.300797932,
+          0.505012451,
+          0.983661622,
+          0.197669365,
+          0.199950114,
+          0.777777778,
+          0.889397193,
+          0.259141962,
+          0.487309873,
+          0.793661281,
+          0.442294642,
+          0.162638961,
+          0.525462295,
+          0.120245499,
+          0.154510128,
+          0.296880649,
+          0.435854327,
+          0.442211889,
+          0.442211889,
+          0.821523778,
+          0.195867268,
+          0.211376011,
+          0.180495878,
+          0.300840976,
+          0.224495053,
+          0.368727461,
+          0.630264699,
+          0.180059345,
+          0.055752822,
+          0.781576152,
+          0.124724604,
+          0.219517316,
+          0.142857143,
+          0.606561431,
+          0.271300044,
+          0.197864351,
+          0.651147096,
+          0.136187656,
+          0.026964174,
+          0.446526425,
+          0.367093053,
+          0.223698257,
+          0.568801987,
+          0.013242135,
+          0.351773528,
+          0.062652536,
+          0.86690615,
+          0.515033454,
+          0.729835078
+        ],
+        "medium": [
+          0.873477074,
+          0.554573737,
+          0.988598315,
+          0.150709524,
+          0.963640164,
+          0.858146114,
+          0.864271944,
+          0.994137559,
+          0.88818472,
+          0.999927536,
+          0.958392178,
+          0.791488502,
+          0.756017932,
+          0.692956897,
+          0.89346332,
+          0.997595841,
+          0.961117251,
+          0.89173783,
+          0.937187062,
+          0.501153984,
+          0.985962081,
+          0.998289597,
+          0.50585335,
+          0.999843485,
+          0.865990671,
+          0.877145035,
+          0.995976756,
+          0.540418381,
+          0.990754841,
+          0.308891664,
+          0.998842835,
+          0.61492301,
+          0.972622579,
+          0.67154501,
+          0.880934579,
+          0.007486745,
+          0.980599943,
+          0.755586673,
+          0.732280451,
+          0.958275018
+        ]
+      },
+      "statorClassSpeedHz": {
+        "high": [
+          12.78041855,
+          12.4191479,
+          15.3300447,
+          13.02177919,
+          13.02348826,
+          11.95634675,
+          11.831231,
+          11.75045679,
+          13.14585149,
+          11.87140161,
+          11.17242798,
+          10.97827709,
+          11.46137788,
+          13.36565925,
+          11.79252087,
+          12.51996513,
+          12.20910578,
+          13.13707835,
+          14.28060211,
+          13.21210061,
+          16.24999748,
+          13.88774599,
+          11.98868903,
+          13.775591,
+          12.59360855,
+          14.93039756,
+          12.36770486,
+          13.76951425,
+          13.0788832,
+          13.03929255,
+          13.74261995,
+          13.33789726,
+          11.88892872,
+          10.87613082,
+          13.32557381,
+          14.37350629,
+          13.80353098,
+          13.04012762,
+          12.49930872,
+          12.75992997,
+          12.11108552,
+          12.0437334,
+          12.82839314,
+          12.06459926
+        ],
+        "low": [
+          2.552190731,
+          1.693257566,
+          1.883728068,
+          1.328014689,
+          1.846158472,
+          1.721075638,
+          1.112489917,
+          1.757099278,
+          1.423122133,
+          1.207244646,
+          1.556663451,
+          1.533392532,
+          0.664273334,
+          1.615400396,
+          1.518163063,
+          1.075216747,
+          1.266732378,
+          1.54369864,
+          2.171212809,
+          2.874439136,
+          1.155862266,
+          1.08363782,
+          1.400082892,
+          3.176740314,
+          1.355199235,
+          2.041724508,
+          5.101563251,
+          1.591930021,
+          1.267244209,
+          0.994857781,
+          1.596395514,
+          1.47253601,
+          0.615486314,
+          1.506258603,
+          1.160562607,
+          1.169653096,
+          1.091168064,
+          0.983370429,
+          1.111084909,
+          0.770375671,
+          4.434227179,
+          1.952884979,
+          2.029230091,
+          0.976263894,
+          2.80026732,
+          1.257368796,
+          2.408171629,
+          1.018282688,
+          1.136860106,
+          0.869720052,
+          0.869720052,
+          1.137857323,
+          1.825188589,
+          1.249550052,
+          0.834905246,
+          1.870247503,
+          1.654413855,
+          1.258306098,
+          2.798303076,
+          1.996023071,
+          1.434985008,
+          2.421902128,
+          1.345748329,
+          1.140459825,
+          1.27611426,
+          1.226380021,
+          2.927278786,
+          1.608448277,
+          3.299770268,
+          1.076029929,
+          4.939089526,
+          0.250933764,
+          5.308307899,
+          5.082213684,
+          2.780174096,
+          2.881789011,
+          3.476324288,
+          4.402427428,
+          2.148376558,
+          4.996795035,
+          5.092320297
+        ],
+        "medium": [
+          6.694563454,
+          7.520970636,
+          7.821192688,
+          9.093881479,
+          7.037372163,
+          7.583980223,
+          8.833513991,
+          10.15731701,
+          6.098476598,
+          8.589344395,
+          7.235605406,
+          7.990069548,
+          8.31991359,
+          8.356048598,
+          7.750738755,
+          8.498887828,
+          9.222110818,
+          6.383205874,
+          8.699457829,
+          5.79655426,
+          10.53176869,
+          9.902268093,
+          5.742468258,
+          10.76845179,
+          7.69298671,
+          7.875275888,
+          10.06091503,
+          6.009793874,
+          8.422451893,
+          5.760436002,
+          6.454155625,
+          7.374293929,
+          8.181742812,
+          7.569865321,
+          9.200475514,
+          8.64535907,
+          10.72334852,
+          8.957033026,
+          9.649859347,
+          8.629219009
+        ]
+      },
+      "studyId": "ANTANI_2021",
+      "tier": "A",
+      "torqueSwitching": [
+        {
+          "cwBias": 0.17285868932861,
+          "kCcwToCwPerSecond": 0.23473,
+          "kCwToCcwPerSecond": 1.1232,
+          "torquePnNm": 9.41925
+        },
+        {
+          "cwBias": 0.149284653510729,
+          "kCcwToCwPerSecond": 0.24427,
+          "kCwToCcwPerSecond": 1.392,
+          "torquePnNm": 28.25
+        },
+        {
+          "cwBias": 0.133705125690105,
+          "kCcwToCwPerSecond": 0.23855,
+          "kCwToCcwPerSecond": 1.5456,
+          "torquePnNm": 57.689
+        },
+        {
+          "cwBias": 0.1749946842441,
+          "kCcwToCwPerSecond": 0.39504,
+          "kCwToCcwPerSecond": 1.8624,
+          "torquePnNm": 131.87
+        },
+        {
+          "cwBias": 0.166378367906121,
+          "kCcwToCwPerSecond": 0.48092,
+          "kCwToCcwPerSecond": 2.4096,
+          "torquePnNm": 288.465
+        },
+        {
+          "cwBias": 0.153552678337949,
+          "kCcwToCwPerSecond": 0.45802,
+          "kCwToCcwPerSecond": 2.5248,
+          "torquePnNm": 548.695
+        },
+        {
+          "cwBias": 0.13495756912127,
+          "kCcwToCwPerSecond": 0.47328,
+          "kCwToCcwPerSecond": 3.0336,
+          "torquePnNm": 556.885
+        },
+        {
+          "cwBias": 0.163064858569845,
+          "kCcwToCwPerSecond": 0.75191,
+          "kCwToCcwPerSecond": 3.8592,
+          "torquePnNm": 933.67
+        },
+        {
+          "cwBias": 0.171075001803176,
+          "kCcwToCwPerSecond": 0.83015,
+          "kCwToCcwPerSecond": 4.0224,
+          "torquePnNm": 1293.95
+        }
+      ],
+      "unitOfIndependence": "motor/cell"
+    },
+    "francoOnate2025": {
+      "doi": "10.1038/s41598-025-14570-3",
+      "meanAndSdRows": [
+        {
+          "condition": "300nm-1",
+          "meanRelativeOccupancy": 0.29,
+          "meanSe": 0.03,
+          "sdRelativeOccupancy": 0.17,
+          "sdSe": 0.02
+        },
+        {
+          "condition": "300nm-2",
+          "meanRelativeOccupancy": 0.355,
+          "meanSe": 0.006,
+          "sdRelativeOccupancy": 0.153,
+          "sdSe": 0.011
+        },
+        {
+          "condition": "300nm-3",
+          "meanRelativeOccupancy": 0.41,
+          "meanSe": 0.02,
+          "sdRelativeOccupancy": 0.15,
+          "sdSe": 0.02
+        },
+        {
+          "condition": "300nm-glycerol",
+          "meanRelativeOccupancy": 0.461,
+          "meanSe": 0.005,
+          "sdRelativeOccupancy": 0.175,
+          "sdSe": 0.007
+        },
+        {
+          "condition": "500nm-1",
+          "meanRelativeOccupancy": 0.56,
+          "meanSe": 0.02,
+          "sdRelativeOccupancy": 0.18,
+          "sdSe": 0.02
+        },
+        {
+          "condition": "500nm-2",
+          "meanRelativeOccupancy": 0.592,
+          "meanSe": 0.011,
+          "sdRelativeOccupancy": 0.21,
+          "sdSe": 0.02
+        },
+        {
+          "condition": "500nm-3",
+          "meanRelativeOccupancy": 0.67,
+          "meanSe": 0.02,
+          "sdRelativeOccupancy": 0.18,
+          "sdSe": 0.04
+        },
+        {
+          "condition": "500nm-glycerol",
+          "meanRelativeOccupancy": 0.705,
+          "meanSe": 0.005,
+          "sdRelativeOccupancy": 0.158,
+          "sdSe": 0.005
+        },
+        {
+          "condition": "1300nm-1",
+          "meanRelativeOccupancy": 0.74,
+          "meanSe": 0.03,
+          "sdRelativeOccupancy": 0.13,
+          "sdSe": 0.02
+        },
+        {
+          "condition": "1300nm-2",
+          "meanRelativeOccupancy": 0.8,
+          "meanSe": 0.03,
+          "sdRelativeOccupancy": 0.153,
+          "sdSe": 0.012
+        },
+        {
+          "condition": "1300nm-3",
+          "meanRelativeOccupancy": 0.828,
+          "meanSe": 0.006,
+          "sdRelativeOccupancy": 0.18,
+          "sdSe": 0.04
+        },
+        {
+          "condition": "1300nm-4",
+          "meanRelativeOccupancy": 0.826,
+          "meanSe": 0.011,
+          "sdRelativeOccupancy": 0.161,
+          "sdSe": 0.009
+        }
+      ],
+      "probabilityByBead": {
+        "1300nm": [
+          0.01,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0.002,
+          0.12,
+          0.14,
+          0.28,
+          0.25,
+          0.18,
+          0.02
+        ],
+        "300nm": [
+          0.12,
+          0.09,
+          0.11,
+          0.15,
+          0.15,
+          0.22,
+          0.13,
+          0.033,
+          0,
+          0,
+          0,
+          0,
+          0,
+          0
+        ],
+        "500nm": [
+          0.005,
+          0.005,
+          0,
+          0.01,
+          0.05,
+          0.04,
+          0.17,
+          0.29,
+          0.13,
+          0.13,
+          0.05,
+          0.04,
+          0.06,
+          0.03
+        ]
+      },
+      "ringSize": 13,
+      "sourceTable": "https://www.nature.com/articles/s41598-025-14570-3/tables/2",
+      "studyId": "FRANCO_ONATE_2025",
+      "tier": "C/D",
+      "warning": "Reanalysis of earlier traces. Only aggregate distributions are available here; the paper states that J is an upper estimate and that intercellular variability was assumed insignificant."
+    },
+    "ito2021": {
+      "declaredRawArchive": {
+        "bytes": 4085227742,
+        "cachePath": "experiments/upstream-cache/ito-2021-raw-data.zip",
+        "cacheVerification": {
+          "artifact": {
+            "cachePath": "experiments/upstream-cache/ito-2021-raw-data.zip",
+            "declaredContents": "All manuscript rotation-rate traces",
+            "doi": "10.6084/m9.figshare.14371232.v2",
+            "downloadUrl": "https://ndownloader.figshare.com/files/27453833",
+            "license": "CC BY 4.0"
+          },
+          "claimFence": "This establishes archive identity and integrity, not correctness of every measurement or biological parity.",
+          "expected": {
+            "bytes": 4085227742,
+            "md5": "d42879e66142ff7190f256f4276db111"
+          },
+          "method": {
+            "byteCount": true,
+            "everyMemberCrc": true,
+            "normalTestSuiteRehashesArchive": false,
+            "streamingMd5": true,
+            "zipCentralDirectory": true
+          },
+          "observed": {
+            "bytes": 4085227742,
+            "md5": "d42879e66142ff7190f256f4276db111",
+            "zipCompressedMemberBytes": 4085099290,
+            "zipCrcFailure": null,
+            "zipEntryCount": 505,
+            "zipUncompressedMemberBytes": 10160270466
+          },
+          "schema": "uni.flagellum.large-source-verification/1.0.0",
+          "status": "PASS",
+          "studyId": "ITO_2021",
+          "verifiedAt": "2026-07-17T21:00:00Z"
+        },
+        "contents": "All manuscript rotation-rate traces",
+        "doi": "10.6084/m9.figshare.14371232.v2",
+        "license": "CC BY 4.0",
+        "md5": "d42879e66142ff7190f256f4276db111",
+        "url": "https://ndownloader.figshare.com/files/27453833",
+        "verificationReportPath": "experiments/results/ito-raw-archive-verification.json"
+      },
+      "doi": "10.1038/s41467-021-23516-y",
+      "dwellMeans": {
+        "main": [
+          {
+            "meanDwellSeconds": 12.88722222222222,
+            "standardErrorSeconds": 1.966247015597264,
+            "stateN": 0
+          },
+          {
+            "meanDwellSeconds": 1.588505747126437,
+            "standardErrorSeconds": 0.2544626807193242,
+            "stateN": 1
+          },
+          {
+            "meanDwellSeconds": 1.307500000000001,
+            "standardErrorSeconds": 0.1598390635438282,
+            "stateN": 2
+          },
+          {
+            "meanDwellSeconds": 1.336057692307693,
+            "standardErrorSeconds": 0.1551834259128703,
+            "stateN": 3
+          },
+          {
+            "meanDwellSeconds": 1.68537037037037,
+            "standardErrorSeconds": 0.1881524104914519,
+            "stateN": 4
+          }
+        ],
+        "splitCheck": [
+          {
+            "meanDwellSeconds": 9.913603333333334,
+            "standardErrorSeconds": 1.601782547485723,
+            "stateN": 0
+          },
+          {
+            "meanDwellSeconds": 1.110135135135136,
+            "standardErrorSeconds": 0.1183426773585518,
+            "stateN": 1
+          },
+          {
+            "meanDwellSeconds": 1.251844262295081,
+            "standardErrorSeconds": 0.1500901614815836,
+            "stateN": 2
+          },
+          {
+            "meanDwellSeconds": 1.467598684210525,
+            "standardErrorSeconds": 0.1673352771665523,
+            "stateN": 3
+          },
+          {
+            "meanDwellSeconds": 1.948505434782611,
+            "standardErrorSeconds": 0.2292743394010306,
+            "stateN": 4
+          }
+        ]
+      },
+      "motorCount": 40,
+      "motors": [
+        {
+          "motorId": "201201_009",
+          "rotationHz": {
+            "max": 501.7779325599986,
+            "mean": 56.74937607679867,
+            "min": -0.8610906399990199,
+            "n": 4798,
+            "sd": 131.77976423130232
+          },
+          "statorOccupancy": {
+            "max": 9.0,
+            "mean": 5.925907384230288,
+            "min": 0.0,
+            "n": 3995,
+            "sd": 2.5106716939826064
+          },
+          "stepMeanSpeedHz": {
+            "max": 24.62703941000109,
+            "mean": 16.54713694956696,
+            "min": -0.002437678181834125,
+            "n": 3995,
+            "sd": 6.66661693334072
+          },
+          "traceRows": 4798
+        },
+        {
+          "motorId": "201201_011",
+          "rotationHz": {
+            "max": 489.9957691999953,
+            "mean": 51.989070883484786,
+            "min": -0.5923623999988195,
+            "n": 4798,
+            "sd": 128.83620244507946
+          },
+          "statorOccupancy": {
+            "max": 7.0,
+            "mean": 4.643554443053818,
+            "min": 0.0,
+            "n": 3995,
+            "sd": 1.7928823224797967
+          },
+          "stepMeanSpeedHz": {
+            "max": 16.74805044000004,
+            "mean": 12.707538393331665,
+            "min": 0.1800834462991925,
+            "n": 3995,
+            "sd": 4.178536996445013
+          },
+          "traceRows": 4798
+        },
+        {
+          "motorId": "201201_012",
+          "rotationHz": {
+            "max": 536.544729039997,
+            "mean": 50.88976492420175,
+            "min": -0.9534147199956351,
+            "n": 4798,
+            "sd": 144.19879960200055
+          },
+          "statorOccupancy": {
+            "max": 8.0,
+            "mean": 2.653316645807259,
+            "min": 0.0,
+            "n": 3995,
+            "sd": 3.096141150472025
+          },
+          "stepMeanSpeedHz": {
+            "max": 18.25772370400009,
+            "mean": 6.631643221306636,
+            "min": 0.1108739610266322,
+            "n": 3995,
+            "sd": 7.309094865401371
+          },
+          "traceRows": 4798
+        },
+        {
+          "motorId": "201201_013",
+          "rotationHz": {
+            "max": 614.4529484800005,
+            "mean": 72.53672960810337,
+            "min": -2.396828719996847,
+            "n": 4798,
+            "sd": 158.65369653539364
+          },
+          "statorOccupancy": {
+            "max": 6.0,
+            "mean": 2.9892365456821026,
+            "min": 0.0,
+            "n": 3995,
+            "sd": 1.8734724822047562
+          },
+          "stepMeanSpeedHz": {
+            "max": 35.46775185777692,
+            "mean": 24.259723466413014,
+            "min": 0.01846917714284281,
+            "n": 3995,
+            "sd": 12.939418532471803
+          },
+          "traceRows": 4798
+        },
+        {
+          "motorId": "201201_017",
+          "rotationHz": {
+            "max": 506.0446039200033,
+            "mean": 46.34293528496874,
+            "min": -0.6744009600006393,
+            "n": 4798,
+            "sd": 136.0905408313217
+          },
+          "statorOccupancy": {
+            "max": 6.0,
+            "mean": 1.5501877346683355,
+            "min": 0.0,
+            "n": 3995,
+            "sd": 1.9577847740832488
+          },
+          "stepMeanSpeedHz": {
+            "max": 15.36182767428545,
+            "mean": 4.275698136630788,
+            "min": 0.1138889496696656,
+            "n": 3995,
+            "sd": 5.284743762423082
+          },
+          "traceRows": 4798
+        },
+        {
+          "motorId": "201201_018",
+          "rotationHz": {
+            "max": 549.9238478400002,
+            "mean": 51.96377160977074,
+            "min": -1.948017520000576,
+            "n": 4798,
+            "sd": 146.0382486561212
+          },
+          "statorOccupancy": {
+            "max": 7.0,
+            "mean": 2.4245306633291617,
+            "min": 0.0,
+            "n": 3995,
+            "sd": 2.2027885542808554
+          },
+          "stepMeanSpeedHz": {
+            "max": 17.82180533217394,
+            "mean": 7.339494532285358,
+            "min": 0.01009553144230652,
+            "n": 3995,
+            "sd": 6.810040355238438
+          },
+          "traceRows": 4798
+        },
+        {
+          "motorId": "201201_021",
+          "rotationHz": {
+            "max": 431.1952152000013,
+            "mean": 45.17693625882451,
+            "min": -0.8615170400007628,
+            "n": 4798,
+            "sd": 113.80542364959972
+          },
+          "statorOccupancy": {
+            "max": 9.0,
+            "mean": 5.711639549436796,
+            "min": 0.0,
+            "n": 3995,
+            "sd": 3.411437974493824
+          },
+          "stepMeanSpeedHz": {
+            "max": 15.57087711689655,
+            "mean": 10.571760874352943,
+            "min": 0.07677643168511605,
+            "n": 3995,
+            "sd": 6.156877861449084
+          },
+          "traceRows": 4798
+        },
+        {
+          "motorId": "201207_006",
+          "rotationHz": {
+            "max": 474.0834863199998,
+            "mean": 58.504122425610674,
+            "min": -0.234271279994573,
+            "n": 4798,
+            "sd": 118.75782743523109
+          },
+          "statorOccupancy": {
+            "max": 9.0,
+            "mean": 6.832540675844806,
+            "min": 0.0,
+            "n": 3995,
+            "sd": 2.4816285274507606
+          },
+          "stepMeanSpeedHz": {
+            "max": 27.27484814744729,
+            "mean": 22.127510163324157,
+            "min": 0.06614217468495927,
+            "n": 3995,
+            "sd": 7.719750000570677
+          },
+          "traceRows": 4798
+        },
+        {
+          "motorId": "201207_007",
+          "rotationHz": {
+            "max": 525.8892500800002,
+            "mean": 60.70037994714465,
+            "min": -1.521275680002873,
+            "n": 4798,
+            "sd": 134.14173429277614
+          },
+          "statorOccupancy": {
+            "max": 7.0,
+            "mean": 4.875594493116395,
+            "min": 0.0,
+            "n": 3995,
+            "sd": 2.4417690246467414
+          },
+          "stepMeanSpeedHz": {
+            "max": 29.03830345111096,
+            "mean": 19.35813085348686,
+            "min": 0.01133117929411502,
+            "n": 3995,
+            "sd": 9.778320152153583
+          },
+          "traceRows": 4798
+        },
+        {
+          "motorId": "201207_008",
+          "rotationHz": {
+            "max": 396.0830926400013,
+            "mean": 43.55121443271363,
+            "min": -1.016019119997509,
+            "n": 4798,
+            "sd": 103.60244744099454
+          },
+          "statorOccupancy": {
+            "max": 8.0,
+            "mean": 6.549687108886108,
+            "min": 0.0,
+            "n": 3995,
+            "sd": 2.1781501979084226
+          },
+          "stepMeanSpeedHz": {
+            "max": 14.93339108612903,
+            "mean": 11.974011886097621,
+            "min": 0.1455892231471974,
+            "n": 3995,
+            "sd": 4.204329912468952
+          },
+          "traceRows": 4798
+        },
+        {
+          "motorId": "201207_009",
+          "rotationHz": {
+            "max": 441.2731743999975,
+            "mean": 46.46559790442685,
+            "min": -0.7790679200043087,
+            "n": 4798,
+            "sd": 116.01343115127757
+          },
+          "statorOccupancy": {
+            "max": 9.0,
+            "mean": 6.17622027534418,
+            "min": 0.0,
+            "n": 3995,
+            "sd": 2.9054513768249617
+          },
+          "stepMeanSpeedHz": {
+            "max": 14.54195611319727,
+            "mean": 11.075117659914893,
+            "min": 0.63466219380534,
+            "n": 3995,
+            "sd": 4.842509209099035
+          },
+          "traceRows": 4798
+        },
+        {
+          "motorId": "201208_001",
+          "rotationHz": {
+            "max": 417.0868388799972,
+            "mean": 41.03280810469362,
+            "min": -4.278022559999954,
+            "n": 4798,
+            "sd": 108.53110653367587
+          },
+          "statorOccupancy": {
+            "max": 10.0,
+            "mean": 6.177722152690864,
+            "min": 0.0,
+            "n": 3995,
+            "sd": 2.7698307279126833
+          },
+          "stepMeanSpeedHz": {
+            "max": 14.00196286545443,
+            "mean": 8.203285246918647,
+            "min": -3.563210320000508,
+            "n": 3995,
+            "sd": 4.475908471224592
+          },
+          "traceRows": 4798
+        },
+        {
+          "motorId": "201208_003",
+          "rotationHz": {
+            "max": 447.0264477600067,
+            "mean": 50.07429577563985,
+            "min": -1.293580879995716,
+            "n": 4798,
+            "sd": 116.35931379059373
+          },
+          "statorOccupancy": {
+            "max": 10.0,
+            "mean": 6.799499374217772,
+            "min": 0.0,
+            "n": 3995,
+            "sd": 3.4108724435144153
+          },
+          "stepMeanSpeedHz": {
+            "max": 21.21627970441562,
+            "mean": 14.522553411123905,
+            "min": 0.05651722822719097,
+            "n": 3995,
+            "sd": 7.147961441783133
+          },
+          "traceRows": 4798
+        },
+        {
+          "motorId": "201208_004",
+          "rotationHz": {
+            "max": 462.6161559200009,
+            "mean": 49.729061219791575,
+            "min": -0.8298755200012238,
+            "n": 4798,
+            "sd": 120.88405285204254
+          },
+          "statorOccupancy": {
+            "max": 8.0,
+            "mean": 5.005256570713391,
+            "min": 0.0,
+            "n": 3995,
+            "sd": 3.123596915342641
+          },
+          "stepMeanSpeedHz": {
+            "max": 20.49174235789472,
+            "mean": 12.540636129902376,
+            "min": -0.00687996985222611,
+            "n": 3995,
+            "sd": 7.966939484165752
+          },
+          "traceRows": 4798
+        },
+        {
+          "motorId": "201208_006",
+          "rotationHz": {
+            "max": 719.3994587199995,
+            "mean": 79.49248396003335,
+            "min": -1.327882559999125,
+            "n": 4798,
+            "sd": 184.684894601046
+          },
+          "statorOccupancy": {
+            "max": 11.0,
+            "mean": 6.896871088861077,
+            "min": 0.0,
+            "n": 3995,
+            "sd": 3.036726903688257
+          },
+          "stepMeanSpeedHz": {
+            "max": 33.57490314857188,
+            "mean": 22.80434075952941,
+            "min": -0.06515919480516144,
+            "n": 3995,
+            "sd": 9.077524691998471
+          },
+          "traceRows": 4798
+        },
+        {
+          "motorId": "201208_007",
+          "rotationHz": {
+            "max": 798.7125486399964,
+            "mean": 86.81199751704877,
+            "min": -1.028555680000864,
+            "n": 4798,
+            "sd": 205.69036442539664
+          },
+          "statorOccupancy": {
+            "max": 9.0,
+            "mean": 6.747434292866083,
+            "min": 0.0,
+            "n": 3995,
+            "sd": 2.4230863214828946
+          },
+          "stepMeanSpeedHz": {
+            "max": 30.86418628251747,
+            "mean": 24.05246684305381,
+            "min": -0.01166065064038946,
+            "n": 3995,
+            "sd": 8.276943009568486
+          },
+          "traceRows": 4798
+        },
+        {
+          "motorId": "210120_009",
+          "rotationHz": {
+            "max": 500.0963173599994,
+            "mean": 48.60416162957899,
+            "min": -0.7840366400050698,
+            "n": 4798,
+            "sd": 132.8643502173817
+          },
+          "statorOccupancy": {
+            "max": 8.0,
+            "mean": 3.7053817271589486,
+            "min": 0.0,
+            "n": 3995,
+            "sd": 2.743601574138078
+          },
+          "stepMeanSpeedHz": {
+            "max": 17.4190810479999,
+            "mean": 7.739165658252812,
+            "min": 0.01112113079364621,
+            "n": 3995,
+            "sd": 5.7165186165713475
+          },
+          "traceRows": 4798
+        },
+        {
+          "motorId": "210120_012",
+          "rotationHz": {
+            "max": 364.5962128800002,
+            "mean": 38.72961483132972,
+            "min": -0.4592672799990396,
+            "n": 4798,
+            "sd": 95.18662299221083
+          },
+          "statorOccupancy": {
+            "max": 6.0,
+            "mean": 3.858573216520651,
+            "min": 0.0,
+            "n": 3995,
+            "sd": 1.8775145960607533
+          },
+          "stepMeanSpeedHz": {
+            "max": 14.15889654854271,
+            "mean": 9.838792110638297,
+            "min": 0.01314652633486298,
+            "n": 3995,
+            "sd": 4.882431149910764
+          },
+          "traceRows": 4798
+        },
+        {
+          "motorId": "210122_054",
+          "rotationHz": {
+            "max": 635.2887275200001,
+            "mean": 70.9135465618341,
+            "min": -1.249325680000766,
+            "n": 4798,
+            "sd": 166.96537104344287
+          },
+          "statorOccupancy": {
+            "max": 8.0,
+            "mean": 6.442803504380476,
+            "min": 0.0,
+            "n": 3995,
+            "sd": 1.8879265213489518
+          },
+          "stepMeanSpeedHz": {
+            "max": 24.85322686285664,
+            "mean": 20.149011683364204,
+            "min": -0.003561125827790546,
+            "n": 3995,
+            "sd": 5.221993130632087
+          },
+          "traceRows": 4798
+        },
+        {
+          "motorId": "210122_055",
+          "rotationHz": {
+            "max": 439.8401080800031,
+            "mean": 46.968807345727384,
+            "min": -0.4647325599944452,
+            "n": 4798,
+            "sd": 115.28863146237019
+          },
+          "statorOccupancy": {
+            "max": 8.0,
+            "mean": 5.8570713391739675,
+            "min": 0.0,
+            "n": 3995,
+            "sd": 2.5164151986198244
+          },
+          "stepMeanSpeedHz": {
+            "max": 15.52092096923074,
+            "mean": 11.86306311012766,
+            "min": 0.00600839091977526,
+            "n": 3995,
+            "sd": 5.106640435104702
+          },
+          "traceRows": 4798
+        },
+        {
+          "motorId": "210122_056",
+          "rotationHz": {
+            "max": 449.6752059999999,
+            "mean": 47.89447574249271,
+            "min": -0.6275117599943769,
+            "n": 4798,
+            "sd": 119.28882793870542
+          },
+          "statorOccupancy": {
+            "max": 10.0,
+            "mean": 6.9401752190237795,
+            "min": 0.0,
+            "n": 3995,
+            "sd": 2.514689038584659
+          },
+          "stepMeanSpeedHz": {
+            "max": 14.86501900478872,
+            "mean": 11.814707101036293,
+            "min": 0.6449843052101,
+            "n": 3995,
+            "sd": 3.1630986632373537
+          },
+          "traceRows": 4798
+        },
+        {
+          "motorId": "210122_058",
+          "rotationHz": {
+            "max": 458.3507389599981,
+            "mean": 43.345539225310546,
+            "min": -0.5995272000000114,
+            "n": 4798,
+            "sd": 122.05842341287051
+          },
+          "statorOccupancy": {
+            "max": 9.0,
+            "mean": 2.7521902377972465,
+            "min": 0.0,
+            "n": 3995,
+            "sd": 3.350672707867435
+          },
+          "stepMeanSpeedHz": {
+            "max": 15.57499488571427,
+            "mean": 5.279291460986233,
+            "min": 0.005862313298671479,
+            "n": 3995,
+            "sd": 6.115041475678438
+          },
+          "traceRows": 4798
+        },
+        {
+          "motorId": "210128_008",
+          "rotationHz": {
+            "max": 521.0669806400001,
+            "mean": 57.82157949140475,
+            "min": -1.021154640002351,
+            "n": 4798,
+            "sd": 137.1928060998149
+          },
+          "statorOccupancy": {
+            "max": 9.0,
+            "mean": 6.527158948685857,
+            "min": 0.0,
+            "n": 3995,
+            "sd": 1.8767616163924608
+          },
+          "stepMeanSpeedHz": {
+            "max": 21.06221445285714,
+            "mean": 16.17884336132165,
+            "min": -0.007185197629668336,
+            "n": 3995,
+            "sd": 4.561474589379928
+          },
+          "traceRows": 4798
+        },
+        {
+          "motorId": "210128_015",
+          "rotationHz": {
+            "max": 452.4806342400007,
+            "mean": 41.66433809707378,
+            "min": -0.8580464800033951,
+            "n": 4798,
+            "sd": 119.55555085706399
+          },
+          "statorOccupancy": {
+            "max": 7.0,
+            "mean": 3.8297872340425534,
+            "min": 0.0,
+            "n": 3995,
+            "sd": 2.1236356967818666
+          },
+          "stepMeanSpeedHz": {
+            "max": 9.362209746923117,
+            "mean": 5.328628750558196,
+            "min": 0.08355413264121091,
+            "n": 3995,
+            "sd": 3.0810519474984916
+          },
+          "traceRows": 4798
+        },
+        {
+          "motorId": "210202_011",
+          "rotationHz": {
+            "max": 404.2598224799985,
+            "mean": 51.47779603698208,
+            "min": -0.5668044000049122,
+            "n": 4798,
+            "sd": 102.4642679873062
+          },
+          "statorOccupancy": {
+            "max": 10.0,
+            "mean": 7.857321652065082,
+            "min": 0.0,
+            "n": 3995,
+            "sd": 2.8372951381501945
+          },
+          "stepMeanSpeedHz": {
+            "max": 24.26205106468576,
+            "mean": 20.227185949496874,
+            "min": -0.005403561000033127,
+            "n": 3995,
+            "sd": 6.9418185444658524
+          },
+          "traceRows": 4798
+        },
+        {
+          "motorId": "210202_012",
+          "rotationHz": {
+            "max": 391.6816348800021,
+            "mean": 35.842762250104215,
+            "min": -0.6841573599995172,
+            "n": 4798,
+            "sd": 104.36647484723684
+          },
+          "statorOccupancy": {
+            "max": 8.0,
+            "mean": 1.2563204005006259,
+            "min": 0.0,
+            "n": 3995,
+            "sd": 2.4309970377126935
+          },
+          "stepMeanSpeedHz": {
+            "max": 16.61400578181797,
+            "mean": 2.474017006938672,
+            "min": 0.01602872751879764,
+            "n": 3995,
+            "sd": 4.9780768591230675
+          },
+          "traceRows": 4798
+        },
+        {
+          "motorId": "210203_001",
+          "rotationHz": {
+            "max": 465.255622800003,
+            "mean": 47.76748901092122,
+            "min": -1.460828479997872,
+            "n": 4798,
+            "sd": 118.7113033598593
+          },
+          "statorOccupancy": {
+            "max": 9.0,
+            "mean": 4.271088861076345,
+            "min": 0.0,
+            "n": 3995,
+            "sd": 2.8572010933771486
+          },
+          "stepMeanSpeedHz": {
+            "max": 21.26470353894719,
+            "mean": 10.877364433501876,
+            "min": 0.001451525960788679,
+            "n": 3995,
+            "sd": 7.230719220842605
+          },
+          "traceRows": 4798
+        },
+        {
+          "motorId": "210203_002",
+          "rotationHz": {
+            "max": 469.0228233599992,
+            "mean": 53.440162255022926,
+            "min": -0.5549576799967326,
+            "n": 4798,
+            "sd": 122.65244178273176
+          },
+          "statorOccupancy": {
+            "max": 12.0,
+            "mean": 7.722903629536921,
+            "min": 0.0,
+            "n": 3995,
+            "sd": 2.74579180536908
+          },
+          "stepMeanSpeedHz": {
+            "max": 25.00951608262296,
+            "mean": 16.333821929431792,
+            "min": 0.1260205702013832,
+            "n": 3995,
+            "sd": 6.177970338255075
+          },
+          "traceRows": 4798
+        },
+        {
+          "motorId": "210203_003",
+          "rotationHz": {
+            "max": 509.3026755199971,
+            "mean": 51.50768441724052,
+            "min": -1.113340079995396,
+            "n": 4798,
+            "sd": 126.64529291687478
+          },
+          "statorOccupancy": {
+            "max": 7.0,
+            "mean": 4.327909887359199,
+            "min": 0.0,
+            "n": 3995,
+            "sd": 3.1050880615039573
+          },
+          "stepMeanSpeedHz": {
+            "max": 21.04453261351722,
+            "mean": 12.413310811314146,
+            "min": 0.0008564785059487802,
+            "n": 3995,
+            "sd": 9.08961705705004
+          },
+          "traceRows": 4798
+        },
+        {
+          "motorId": "210203_004",
+          "rotationHz": {
+            "max": 478.9688564800017,
+            "mean": 50.60942906757816,
+            "min": -0.8593039199986379,
+            "n": 4798,
+            "sd": 126.02523661786593
+          },
+          "statorOccupancy": {
+            "max": 9.0,
+            "mean": 5.329411764705882,
+            "min": 0.0,
+            "n": 3995,
+            "sd": 3.2231516547155685
+          },
+          "stepMeanSpeedHz": {
+            "max": 18.95013425739133,
+            "mean": 11.825676269436796,
+            "min": 0.106757858735646,
+            "n": 3995,
+            "sd": 6.750784737622114
+          },
+          "traceRows": 4798
+        },
+        {
+          "motorId": "210203_005",
+          "rotationHz": {
+            "max": 431.2110104000021,
+            "mean": 47.348700526352644,
+            "min": -0.5894423999998253,
+            "n": 4798,
+            "sd": 112.37076122898313
+          },
+          "statorOccupancy": {
+            "max": 10.0,
+            "mean": 5.629036295369212,
+            "min": 0.0,
+            "n": 3995,
+            "sd": 3.8450923330928357
+          },
+          "stepMeanSpeedHz": {
+            "max": 22.76276747955052,
+            "mean": 12.390986701356693,
+            "min": 0.003353067443372767,
+            "n": 3995,
+            "sd": 8.651291653707927
+          },
+          "traceRows": 4798
+        },
+        {
+          "motorId": "210203_007",
+          "rotationHz": {
+            "max": 443.2621571199998,
+            "mean": 45.66051871356398,
+            "min": -0.7645789599991986,
+            "n": 4798,
+            "sd": 116.83736146880206
+          },
+          "statorOccupancy": {
+            "max": 7.0,
+            "mean": 3.488610763454318,
+            "min": 0.0,
+            "n": 3995,
+            "sd": 2.971582642723924
+          },
+          "stepMeanSpeedHz": {
+            "max": 19.92808668432436,
+            "mean": 9.442012381156443,
+            "min": 0.002084217310804112,
+            "n": 3995,
+            "sd": 8.265368928464149
+          },
+          "traceRows": 4798
+        },
+        {
+          "motorId": "210204_001",
+          "rotationHz": {
+            "max": 607.2493600000016,
+            "mean": 70.3421529067945,
+            "min": -0.7692587999990792,
+            "n": 4798,
+            "sd": 156.21681445279285
+          },
+          "statorOccupancy": {
+            "max": 7.0,
+            "mean": 5.739173967459324,
+            "min": 0.0,
+            "n": 3995,
+            "sd": 1.678774029429209
+          },
+          "stepMeanSpeedHz": {
+            "max": 26.15653995276995,
+            "mean": 22.99535902225782,
+            "min": 0.342808998571432,
+            "n": 3995,
+            "sd": 6.265061763635232
+          },
+          "traceRows": 4798
+        },
+        {
+          "motorId": "210204_005",
+          "rotationHz": {
+            "max": 507.6306484800007,
+            "mean": 50.08314910599416,
+            "min": -0.629914880002616,
+            "n": 4798,
+            "sd": 133.45726408123613
+          },
+          "statorOccupancy": {
+            "max": 12.0,
+            "mean": 6.851814768460576,
+            "min": 0.0,
+            "n": 3995,
+            "sd": 3.4279286205628137
+          },
+          "stepMeanSpeedHz": {
+            "max": 14.0648733828566,
+            "mean": 9.414829706092618,
+            "min": 0.005579604717954331,
+            "n": 3995,
+            "sd": 4.153015643348794
+          },
+          "traceRows": 4798
+        },
+        {
+          "motorId": "210204_006",
+          "rotationHz": {
+            "max": 512.3809130399968,
+            "mean": 49.62413629067111,
+            "min": -0.7196726399997715,
+            "n": 4798,
+            "sd": 135.11845239010634
+          },
+          "statorOccupancy": {
+            "max": 8.0,
+            "mean": 5.091614518147685,
+            "min": 0.0,
+            "n": 3995,
+            "sd": 2.8246389414071063
+          },
+          "stepMeanSpeedHz": {
+            "max": 12.70319370016806,
+            "mean": 8.558644277066332,
+            "min": 0.2703375530627354,
+            "n": 3995,
+            "sd": 4.449359353905776
+          },
+          "traceRows": 4798
+        },
+        {
+          "motorId": "210204_007",
+          "rotationHz": {
+            "max": 459.0084889600002,
+            "mean": 45.07850700403502,
+            "min": -0.5609093599996413,
+            "n": 4798,
+            "sd": 119.03775976972256
+          },
+          "statorOccupancy": {
+            "max": 9.0,
+            "mean": 5.514893617021277,
+            "min": 0.0,
+            "n": 3995,
+            "sd": 2.634459436436658
+          },
+          "stepMeanSpeedHz": {
+            "max": 14.16731530666827,
+            "mean": 8.706240930543183,
+            "min": 0.05238751525179422,
+            "n": 3995,
+            "sd": 4.260276333777913
+          },
+          "traceRows": 4798
+        },
+        {
+          "motorId": "210204_008",
+          "rotationHz": {
+            "max": 482.443373119997,
+            "mean": 47.165468372872034,
+            "min": -0.7019202399969799,
+            "n": 4798,
+            "sd": 127.1115274894305
+          },
+          "statorOccupancy": {
+            "max": 8.0,
+            "mean": 5.096871088861076,
+            "min": 0.0,
+            "n": 3995,
+            "sd": 3.1361809847178863
+          },
+          "stepMeanSpeedHz": {
+            "max": 13.66955359454944,
+            "mean": 8.49746878818523,
+            "min": 0.02798664178174868,
+            "n": 3995,
+            "sd": 5.313963039964237
+          },
+          "traceRows": 4798
+        },
+        {
+          "motorId": "210204_009",
+          "rotationHz": {
+            "max": 509.1055423200014,
+            "mean": 44.43572750594414,
+            "min": -0.7270856800023466,
+            "n": 4798,
+            "sd": 135.7275045309905
+          },
+          "statorOccupancy": {
+            "max": 8.0,
+            "mean": 1.9619524405506883,
+            "min": 0.0,
+            "n": 3995,
+            "sd": 3.0944980319666864
+          },
+          "stepMeanSpeedHz": {
+            "max": 11.54842576806198,
+            "mean": 2.7420409344680836,
+            "min": 0.008250791397820707,
+            "n": 3995,
+            "sd": 4.3249671738679805
+          },
+          "traceRows": 4798
+        },
+        {
+          "motorId": "210204_010",
+          "rotationHz": {
+            "max": 471.5083469599995,
+            "mean": 45.9046114893539,
+            "min": -0.7813759999989998,
+            "n": 4798,
+            "sd": 124.15727878428244
+          },
+          "statorOccupancy": {
+            "max": 9.0,
+            "mean": 5.463829787234043,
+            "min": 0.0,
+            "n": 3995,
+            "sd": 3.2718401945161544
+          },
+          "stepMeanSpeedHz": {
+            "max": 12.15312419168787,
+            "mean": 8.134320500105131,
+            "min": -0.001024173224921957,
+            "n": 3995,
+            "sd": 4.525372157569637
+          },
+          "traceRows": 4798
+        },
+        {
+          "motorId": "210204_011",
+          "rotationHz": {
+            "max": 500.2456108000042,
+            "mean": 46.86307693684035,
+            "min": -0.6435677600020426,
+            "n": 4798,
+            "sd": 131.66874935010617
+          },
+          "statorOccupancy": {
+            "max": 9.0,
+            "mean": 4.160200250312891,
+            "min": 0.0,
+            "n": 3995,
+            "sd": 3.6816708177082975
+          },
+          "stepMeanSpeedHz": {
+            "max": 13.17913902769214,
+            "mean": 6.595420971514391,
+            "min": 0.02978232529322237,
+            "n": 3995,
+            "sd": 5.5518492198647955
+          },
+          "traceRows": 4798
+        }
+      ],
+      "organism": "Escherichia coli",
+      "rawWorkbookRows": 4865,
+      "rotationBindingBins": {
+        "10Hz": [
+          {
+            "assemblyProbability": 0.6153846153846154,
+            "assemblyProbabilitySe": 0.09541133429939111,
+            "binWidthHz": 10,
+            "bindingRatePerSecond": 1.911022890054873,
+            "bindingRateSe": 0.4961389383568338,
+            "leftHz": -100.0,
+            "meanSpeedHz": -93.33099043055527,
+            "nPlus": 16.0,
+            "nZero": 10.0,
+            "rightHz": -90.0
+          },
+          {
+            "assemblyProbability": 0.75,
+            "assemblyProbabilitySe": 0.1082531754730548,
+            "binWidthHz": 10,
+            "bindingRatePerSecond": 2.772588722239781,
+            "bindingRateSe": 0.8660254037844386,
+            "leftHz": -90.0,
+            "meanSpeedHz": -84.52030854999998,
+            "nPlus": 12.0,
+            "nZero": 4.0,
+            "rightHz": -80.0
+          },
+          {
+            "assemblyProbability": 0.66,
+            "assemblyProbabilitySe": 0.0669925368977769,
+            "binWidthHz": 10,
+            "bindingRatePerSecond": 2.15761932274386,
+            "bindingRateSe": 0.3940737464575112,
+            "leftHz": -80.0,
+            "meanSpeedHz": -75.53867651234742,
+            "nPlus": 33.0,
+            "nZero": 17.0,
+            "rightHz": -70.0
+          },
+          {
+            "assemblyProbability": 0.6538461538461539,
+            "assemblyProbabilitySe": 0.06597367787271526,
+            "binWidthHz": 10,
+            "bindingRatePerSecond": 2.121743921370526,
+            "bindingRateSe": 0.3811812499312437,
+            "leftHz": -70.0,
+            "meanSpeedHz": -65.13909204000059,
+            "nPlus": 34.0,
+            "nZero": 18.0,
+            "rightHz": -60.0
+          },
+          {
+            "assemblyProbability": 0.7666666666666667,
+            "assemblyProbabilitySe": 0.07722022379508468,
+            "binWidthHz": 10,
+            "bindingRatePerSecond": 2.910574465213684,
+            "bindingRateSe": 0.6618876325292974,
+            "leftHz": -60.0,
+            "meanSpeedHz": -54.55797078809577,
+            "nPlus": 23.0,
+            "nZero": 7.0,
+            "rightHz": -50.0
+          },
+          {
+            "assemblyProbability": 0.5769230769230769,
+            "assemblyProbabilitySe": 0.06851204838407936,
+            "binWidthHz": 10,
+            "bindingRatePerSecond": 1.720402530446223,
+            "bindingRateSe": 0.3238751378156478,
+            "leftHz": -50.0,
+            "meanSpeedHz": -46.41776306190412,
+            "nPlus": 30.0,
+            "nZero": 22.0,
+            "rightHz": -40.0
+          },
+          {
+            "assemblyProbability": 0.52,
+            "assemblyProbabilitySe": 0.07065408693062278,
+            "binWidthHz": 10,
+            "bindingRatePerSecond": 1.467938350160401,
+            "bindingRateSe": 0.2943920288775949,
+            "leftHz": -40.0,
+            "meanSpeedHz": -35.49880186666707,
+            "nPlus": 26.0,
+            "nZero": 24.0,
+            "rightHz": -30.0
+          },
+          {
+            "assemblyProbability": 0.6571428571428571,
+            "assemblyProbabilitySe": 0.080232897144853,
+            "binWidthHz": 10,
+            "bindingRatePerSecond": 2.140882823402827,
+            "bindingRateSe": 0.4680252333449759,
+            "leftHz": -30.0,
+            "meanSpeedHz": -25.46146170888763,
+            "nPlus": 23.0,
+            "nZero": 12.0,
+            "rightHz": -20.0
+          },
+          {
+            "assemblyProbability": 0.56,
+            "assemblyProbabilitySe": 0.09927738916792685,
+            "binWidthHz": 10,
+            "bindingRatePerSecond": 1.641961104139661,
+            "bindingRateSe": 0.451260859854213,
+            "leftHz": -20.0,
+            "meanSpeedHz": -14.55853377777708,
+            "nPlus": 14.0,
+            "nZero": 11.0,
+            "rightHz": -10.0
+          },
+          {
+            "assemblyProbability": 0.6097560975609756,
+            "assemblyProbabilitySe": 0.05386903710968124,
+            "binWidthHz": 10,
+            "bindingRatePerSecond": 1.881966688929053,
+            "bindingRateSe": 0.2760788151871164,
+            "leftHz": -10.0,
+            "meanSpeedHz": -4.139353685896787,
+            "nPlus": 50.0,
+            "nZero": 32.0,
+            "rightHz": 0.0
+          },
+          {
+            "assemblyProbability": 0.118628359,
+            "assemblyProbabilitySe": 0.009843806,
+            "binWidthHz": 10,
+            "bindingRatePerSecond": 0.126275902,
+            "bindingRateSe": 0.018812608,
+            "leftHz": 0.0,
+            "meanSpeedHz": 0.0,
+            "nPlus": 128.0,
+            "nZero": 951.0,
+            "rightHz": 0.0
+          },
+          {
+            "assemblyProbability": 0.423728813559322,
+            "assemblyProbabilitySe": 0.04549005349644675,
+            "binWidthHz": 10,
+            "bindingRatePerSecond": 1.102353838579116,
+            "bindingRateSe": 0.1578772444876682,
+            "leftHz": 0.0,
+            "meanSpeedHz": 4.616735927776837,
+            "nPlus": 50.0,
+            "nZero": 68.0,
+            "rightHz": 10.0
+          },
+          {
+            "assemblyProbability": 0.46875,
+            "assemblyProbabilitySe": 0.08821554523934542,
+            "binWidthHz": 10,
+            "bindingRatePerSecond": 1.265045117487021,
+            "bindingRateSe": 0.3321055820775357,
+            "leftHz": 10.0,
+            "meanSpeedHz": 16.33808302222506,
+            "nPlus": 15.0,
+            "nZero": 17.0,
+            "rightHz": 20.0
+          },
+          {
+            "assemblyProbability": 0.5769230769230769,
+            "assemblyProbabilitySe": 0.09689066801072671,
+            "binWidthHz": 10,
+            "bindingRatePerSecond": 1.720402530446223,
+            "bindingRateSe": 0.4580286124143444,
+            "leftHz": 20.0,
+            "meanSpeedHz": 24.0495230350009,
+            "nPlus": 15.0,
+            "nZero": 11.0,
+            "rightHz": 30.0
+          },
+          {
+            "assemblyProbability": 0.4444444444444444,
+            "assemblyProbabilitySe": 0.08281733249999221,
+            "binWidthHz": 10,
+            "bindingRatePerSecond": 1.175573329804238,
+            "bindingRateSe": 0.2981423969999719,
+            "leftHz": 30.0,
+            "meanSpeedHz": 35.39423669394017,
+            "nPlus": 16.0,
+            "nZero": 20.0,
+            "rightHz": 40.0
+          },
+          {
+            "assemblyProbability": 0.4571428571428571,
+            "assemblyProbabilitySe": 0.05954149397162602,
+            "binWidthHz": 10,
+            "bindingRatePerSecond": 1.221818164645946,
+            "bindingRateSe": 0.2193633988428327,
+            "leftHz": 40.0,
+            "meanSpeedHz": 46.13142725059432,
+            "nPlus": 32.0,
+            "nZero": 38.0,
+            "rightHz": 50.0
+          },
+          {
+            "assemblyProbability": 0.5074626865671642,
+            "assemblyProbabilitySe": 0.06107791797627373,
+            "binWidthHz": 10,
+            "bindingRatePerSecond": 1.416370115848972,
+            "bindingRateSe": 0.248013363903657,
+            "leftHz": 50.0,
+            "meanSpeedHz": 54.56382585332919,
+            "nPlus": 34.0,
+            "nZero": 33.0,
+            "rightHz": 60.0
+          },
+          {
+            "assemblyProbability": 0.4539007092198581,
+            "assemblyProbabilitySe": 0.04192824463053938,
+            "binWidthHz": 10,
+            "bindingRatePerSecond": 1.209908937048969,
+            "bindingRateSe": 0.1535553894261312,
+            "leftHz": 60.0,
+            "meanSpeedHz": 65.61336475113602,
+            "nPlus": 64.0,
+            "nZero": 77.0,
+            "rightHz": 70.0
+          },
+          {
+            "assemblyProbability": 0.5357142857142857,
+            "assemblyProbabilitySe": 0.06664464529394455,
+            "binWidthHz": 10,
+            "bindingRatePerSecond": 1.534510305427334,
+            "bindingRateSe": 0.2870846258816073,
+            "leftHz": 70.0,
+            "meanSpeedHz": 74.87389249824581,
+            "nPlus": 30.0,
+            "nZero": 26.0,
+            "rightHz": 80.0
+          },
+          {
+            "assemblyProbability": 0.4242424242424243,
+            "assemblyProbabilitySe": 0.06083519586795918,
+            "binWidthHz": 10,
+            "bindingRatePerSecond": 1.10413716460008,
+            "bindingRateSe": 0.2113222593308056,
+            "leftHz": 80.0,
+            "meanSpeedHz": 84.55756542611259,
+            "nPlus": 28.0,
+            "nZero": 38.0,
+            "rightHz": 90.0
+          },
+          {
+            "assemblyProbability": 0.65,
+            "assemblyProbabilitySe": 0.1066536450385077,
+            "binWidthHz": 10,
+            "bindingRatePerSecond": 2.099644248997356,
+            "bindingRateSe": 0.609449400220044,
+            "leftHz": 90.0,
+            "meanSpeedHz": 94.06454479444568,
+            "nPlus": 13.0,
+            "nZero": 7.0,
+            "rightHz": 100.0
+          }
+        ],
+        "20Hz": [
+          {
+            "assemblyProbability": 0.6666666666666666,
+            "assemblyProbabilitySe": 0.07273929674533079,
+            "binWidthHz": 20,
+            "bindingRatePerSecond": 2.197224577336219,
+            "bindingRateSe": 0.4364357804719847,
+            "leftHz": -100.0,
+            "meanSpeedHz": -90.08494973771911,
+            "nPlus": 28.0,
+            "nZero": 14.0,
+            "rightHz": -80.0
+          },
+          {
+            "assemblyProbability": 0.6568627450980392,
+            "assemblyProbabilitySe": 0.04700793416555145,
+            "binWidthHz": 20,
+            "bindingRatePerSecond": 2.139249503589715,
+            "bindingRateSe": 0.2739891019934999,
+            "leftHz": -80.0,
+            "meanSpeedHz": -70.43699356364898,
+            "nPlus": 67.0,
+            "nZero": 35.0,
+            "rightHz": -60.0
+          },
+          {
+            "assemblyProbability": 0.6463414634146342,
+            "assemblyProbabilitySe": 0.05279783995092695,
+            "binWidthHz": 20,
+            "bindingRatePerSecond": 2.078846834555558,
+            "bindingRateSe": 0.2985808879983455,
+            "leftHz": -60.0,
+            "meanSpeedHz": -49.67384615238078,
+            "nPlus": 53.0,
+            "nZero": 29.0,
+            "rightHz": -40.0
+          },
+          {
+            "assemblyProbability": 0.5764705882352941,
+            "assemblyProbabilitySe": 0.05359458369637388,
+            "binWidthHz": 20,
+            "bindingRatePerSecond": 1.718264636068413,
+            "bindingRateSe": 0.2530855341217655,
+            "leftHz": -40.0,
+            "meanSpeedHz": -30.64202437096734,
+            "nPlus": 49.0,
+            "nZero": 36.0,
+            "rightHz": -20.0
+          },
+          {
+            "assemblyProbability": 0.5981308411214953,
+            "assemblyProbabilitySe": 0.04739674838217939,
+            "binWidthHz": 20,
+            "bindingRatePerSecond": 1.823257437536687,
+            "bindingRateSe": 0.2358814919485207,
+            "leftHz": -20.0,
+            "meanSpeedHz": -6.818571423808862,
+            "nPlus": 64.0,
+            "nZero": 43.0,
+            "rightHz": 0.0
+          },
+          {
+            "assemblyProbability": 0.118628359,
+            "assemblyProbabilitySe": 0.009843806,
+            "binWidthHz": 20,
+            "bindingRatePerSecond": 0.126275902,
+            "bindingRateSe": 0.018812608,
+            "leftHz": 0.0,
+            "meanSpeedHz": 0.0,
+            "nPlus": 128.0,
+            "nZero": 951.0,
+            "rightHz": 0.0
+          },
+          {
+            "assemblyProbability": 0.4333333333333333,
+            "assemblyProbabilitySe": 0.04046031434674028,
+            "binWidthHz": 20,
+            "bindingRatePerSecond": 1.135968075211879,
+            "bindingRateSe": 0.1428011094590833,
+            "leftHz": 0.0,
+            "meanSpeedHz": 7.547072701388895,
+            "nPlus": 65.0,
+            "nZero": 85.0,
+            "rightHz": 20.0
+          },
+          {
+            "assemblyProbability": 0.5,
+            "assemblyProbabilitySe": 0.06350006350009525,
+            "binWidthHz": 20,
+            "bindingRatePerSecond": 1.386294361119891,
+            "bindingRateSe": 0.254000254000381,
+            "leftHz": 20.0,
+            "meanSpeedHz": 29.99199209444528,
+            "nPlus": 31.0,
+            "nZero": 31.0,
+            "rightHz": 40.0
+          },
+          {
+            "assemblyProbability": 0.4817518248175183,
+            "assemblyProbabilitySe": 0.04268942364636928,
+            "binWidthHz": 20,
+            "bindingRatePerSecond": 1.314602097573619,
+            "bindingRateSe": 0.1647450997057068,
+            "leftHz": 40.0,
+            "meanSpeedHz": 50.34762655196175,
+            "nPlus": 66.0,
+            "nZero": 71.0,
+            "rightHz": 60.0
+          },
+          {
+            "assemblyProbability": 0.4771573604060914,
+            "assemblyProbabilitySe": 0.03558632984959786,
+            "binWidthHz": 20,
+            "bindingRatePerSecond": 1.296949481016705,
+            "bindingRateSe": 0.1361263491334132,
+            "leftHz": 60.0,
+            "meanSpeedHz": 68.40622232566119,
+            "nPlus": 94.0,
+            "nZero": 103.0,
+            "rightHz": 80.0
+          },
+          {
+            "assemblyProbability": 0.4767441860465116,
+            "assemblyProbabilitySe": 0.05385803551687299,
+            "binWidthHz": 20,
+            "bindingRatePerSecond": 1.295369612966376,
+            "bindingRateSe": 0.2058573801978257,
+            "leftHz": 80.0,
+            "meanSpeedHz": 88.63198515539821,
+            "nPlus": 41.0,
+            "nZero": 45.0,
+            "rightHz": 100.0
+          }
+        ],
+        "5Hz": [
+          {
+            "assemblyProbability": 1.0,
+            "assemblyProbabilitySe": 0.0,
+            "binWidthHz": 5,
+            "bindingRatePerSecond": null,
+            "bindingRateSe": null,
+            "leftHz": -100.0,
+            "meanSpeedHz": -96.40520065000146,
+            "nPlus": 3.0,
+            "nZero": 0.0,
+            "rightHz": -95.0
+          },
+          {
+            "assemblyProbability": 0.5652173913043478,
+            "assemblyProbabilitySe": 0.1033665263855752,
+            "binWidthHz": 5,
+            "bindingRatePerSecond": 1.665818245870208,
+            "bindingRateSe": 0.4754860213736457,
+            "leftHz": -95.0,
+            "meanSpeedHz": -92.71614838666603,
+            "nPlus": 13.0,
+            "nZero": 10.0,
+            "rightHz": -90.0
+          },
+          {
+            "assemblyProbability": 1.0,
+            "assemblyProbabilitySe": 0.0,
+            "binWidthHz": 5,
+            "bindingRatePerSecond": null,
+            "bindingRateSe": null,
+            "leftHz": -90.0,
+            "meanSpeedHz": -87.87786460000311,
+            "nPlus": 4.0,
+            "nZero": 0.0,
+            "rightHz": -85.0
+          },
+          {
+            "assemblyProbability": 0.6666666666666666,
+            "assemblyProbabilitySe": 0.1360827634879543,
+            "binWidthHz": 5,
+            "bindingRatePerSecond": 2.197224577336219,
+            "bindingRateSe": 0.8164965809277259,
+            "leftHz": -85.0,
+            "meanSpeedHz": -83.17728612999872,
+            "nPlus": 8.0,
+            "nZero": 4.0,
+            "rightHz": -80.0
+          },
+          {
+            "assemblyProbability": 0.6956521739130435,
+            "assemblyProbabilitySe": 0.09594387554215139,
+            "binWidthHz": 5,
+            "bindingRatePerSecond": 2.379168133747672,
+            "bindingRateSe": 0.6304883249912805,
+            "leftHz": -80.0,
+            "meanSpeedHz": -78.01097903571645,
+            "nPlus": 16.0,
+            "nZero": 7.0,
+            "rightHz": -75.0
+          },
+          {
+            "assemblyProbability": 0.6296296296296297,
+            "assemblyProbabilitySe": 0.09293489539618284,
+            "binWidthHz": 5,
+            "bindingRatePerSecond": 1.986503546020567,
+            "bindingRateSe": 0.5018484351393874,
+            "leftHz": -75.0,
+            "meanSpeedHz": -72.87619687179614,
+            "nPlus": 17.0,
+            "nZero": 10.0,
+            "rightHz": -70.0
+          },
+          {
+            "assemblyProbability": 0.6774193548387096,
+            "assemblyProbabilitySe": 0.08395897088010118,
+            "binWidthHz": 5,
+            "bindingRatePerSecond": 2.262804222982201,
+            "bindingRateSe": 0.5205456194566273,
+            "leftHz": -70.0,
+            "meanSpeedHz": -66.85459069600074,
+            "nPlus": 21.0,
+            "nZero": 10.0,
+            "rightHz": -65.0
+          },
+          {
+            "assemblyProbability": 0.6190476190476191,
+            "assemblyProbabilitySe": 0.1059711695741308,
+            "binWidthHz": 5,
+            "bindingRatePerSecond": 1.930161792087174,
+            "bindingRateSe": 0.5563486402641868,
+            "leftHz": -65.0,
+            "meanSpeedHz": -62.79977569090947,
+            "nPlus": 13.0,
+            "nZero": 8.0,
+            "rightHz": -60.0
+          },
+          {
+            "assemblyProbability": 0.7333333333333333,
+            "assemblyProbabilitySe": 0.11417984514369,
+            "binWidthHz": 5,
+            "bindingRatePerSecond": 2.643511679964639,
+            "bindingRateSe": 0.8563488385776752,
+            "leftHz": -60.0,
+            "meanSpeedHz": -57.21637375714441,
+            "nPlus": 11.0,
+            "nZero": 4.0,
+            "rightHz": -55.0
+          },
+          {
+            "assemblyProbability": 0.8,
+            "assemblyProbabilitySe": 0.1032795558988644,
+            "binWidthHz": 5,
+            "bindingRatePerSecond": 3.218875824868201,
+            "bindingRateSe": 1.032795558988645,
+            "leftHz": -55.0,
+            "meanSpeedHz": -51.89956781904714,
+            "nPlus": 12.0,
+            "nZero": 3.0,
+            "rightHz": -50.0
+          },
+          {
+            "assemblyProbability": 0.6176470588235294,
+            "assemblyProbabilitySe": 0.08334181380283408,
+            "binWidthHz": 5,
+            "bindingRatePerSecond": 1.922822334309249,
+            "bindingRateSe": 0.4359417952763629,
+            "leftHz": -50.0,
+            "meanSpeedHz": -47.83356199333366,
+            "nPlus": 21.0,
+            "nZero": 13.0,
+            "rightHz": -45.0
+          },
+          {
+            "assemblyProbability": 0.5,
+            "assemblyProbabilitySe": 0.1178511301977579,
+            "binWidthHz": 5,
+            "bindingRatePerSecond": 1.386294361119891,
+            "bindingRateSe": 0.4714045207910317,
+            "leftHz": -45.0,
+            "meanSpeedHz": -42.87826573333026,
+            "nPlus": 9.0,
+            "nZero": 9.0,
+            "rightHz": -40.0
+          },
+          {
+            "assemblyProbability": 0.4722222222222222,
+            "assemblyProbabilitySe": 0.08320463312783069,
+            "binWidthHz": 5,
+            "bindingRatePerSecond": 1.278159918579339,
+            "bindingRateSe": 0.3153017676423058,
+            "leftHz": -40.0,
+            "meanSpeedHz": -36.79286655757578,
+            "nPlus": 17.0,
+            "nZero": 19.0,
+            "rightHz": -35.0
+          },
+          {
+            "assemblyProbability": 0.6428571428571429,
+            "assemblyProbabilitySe": 0.1280602081429707,
+            "binWidthHz": 5,
+            "bindingRatePerSecond": 2.059238834362317,
+            "bindingRateSe": 0.7171371656006361,
+            "leftHz": -35.0,
+            "meanSpeedHz": -32.65185954666791,
+            "nPlus": 9.0,
+            "nZero": 5.0,
+            "rightHz": -30.0
+          },
+          {
+            "assemblyProbability": 0.6666666666666666,
+            "assemblyProbabilitySe": 0.102868899974728,
+            "binWidthHz": 5,
+            "bindingRatePerSecond": 2.197224577336219,
+            "bindingRateSe": 0.6172133998483676,
+            "leftHz": -30.0,
+            "meanSpeedHz": -27.7940926370347,
+            "nPlus": 14.0,
+            "nZero": 7.0,
+            "rightHz": -25.0
+          },
+          {
+            "assemblyProbability": 0.6428571428571429,
+            "assemblyProbabilitySe": 0.1280602081429707,
+            "binWidthHz": 5,
+            "bindingRatePerSecond": 2.059238834362317,
+            "bindingRateSe": 0.7171371656006361,
+            "leftHz": -25.0,
+            "meanSpeedHz": -21.96251531666702,
+            "nPlus": 9.0,
+            "nZero": 5.0,
+            "rightHz": -20.0
+          },
+          {
+            "assemblyProbability": 0.4545454545454545,
+            "assemblyProbabilitySe": 0.150131422517231,
+            "binWidthHz": 5,
+            "bindingRatePerSecond": 1.212271607140631,
+            "bindingRateSe": 0.5504818825631803,
+            "leftHz": -20.0,
+            "meanSpeedHz": -17.748432274999,
+            "nPlus": 5.0,
+            "nZero": 6.0,
+            "rightHz": -15.0
+          },
+          {
+            "assemblyProbability": 0.6428571428571429,
+            "assemblyProbabilitySe": 0.1280602081429707,
+            "binWidthHz": 5,
+            "bindingRatePerSecond": 2.059238834362317,
+            "bindingRateSe": 0.7171371656006361,
+            "leftHz": -15.0,
+            "meanSpeedHz": -12.00661497999954,
+            "nPlus": 9.0,
+            "nZero": 5.0,
+            "rightHz": -10.0
+          },
+          {
+            "assemblyProbability": 0.4642857142857143,
+            "assemblyProbabilitySe": 0.09424976123424064,
+            "binWidthHz": 5,
+            "bindingRatePerSecond": 1.248308618145988,
+            "bindingRateSe": 0.3518657752744984,
+            "leftHz": -10.0,
+            "meanSpeedHz": -7.080603011110422,
+            "nPlus": 13.0,
+            "nZero": 15.0,
+            "rightHz": -5.0
+          },
+          {
+            "assemblyProbability": 0.6851851851851852,
+            "assemblyProbabilitySe": 0.0632025619481797,
+            "binWidthHz": 5,
+            "bindingRatePerSecond": 2.311541405016117,
+            "bindingRateSe": 0.4015221582590241,
+            "leftHz": -5.0,
+            "meanSpeedHz": -2.582221690195451,
+            "nPlus": 37.0,
+            "nZero": 17.0,
+            "rightHz": 0.0
+          },
+          {
+            "assemblyProbability": 0.118628359,
+            "assemblyProbabilitySe": 0.009843806,
+            "binWidthHz": 5,
+            "bindingRatePerSecond": 0.126275902,
+            "bindingRateSe": 0.018812608,
+            "leftHz": 0.0,
+            "meanSpeedHz": 0.0,
+            "nPlus": 128.0,
+            "nZero": 951.0,
+            "rightHz": 0.0
+          },
+          {
+            "assemblyProbability": 0.4833333333333333,
+            "assemblyProbabilitySe": 0.06451385151296608,
+            "binWidthHz": 5,
+            "bindingRatePerSecond": 1.320714715473909,
+            "bindingRateSe": 0.2497310381147075,
+            "leftHz": 0.0,
+            "meanSpeedHz": 2.94608288555537,
+            "nPlus": 29.0,
+            "nZero": 31.0,
+            "rightHz": 5.0
+          },
+          {
+            "assemblyProbability": 0.3620689655172414,
+            "assemblyProbabilitySe": 0.0631056899077495,
+            "binWidthHz": 5,
+            "bindingRatePerSecond": 0.8990501958043896,
+            "bindingRateSe": 0.1978448656567281,
+            "leftHz": 5.0,
+            "meanSpeedHz": 6.705052230553671,
+            "nPlus": 21.0,
+            "nZero": 37.0,
+            "rightHz": 10.0
+          },
+          {
+            "assemblyProbability": 0.5714285714285714,
+            "assemblyProbabilitySe": 0.1870439059165649,
+            "binWidthHz": 5,
+            "bindingRatePerSecond": 1.694595720774407,
+            "bindingRateSe": 0.8728715609439694,
+            "leftHz": 10.0,
+            "meanSpeedHz": 12.18843640000159,
+            "nPlus": 4.0,
+            "nZero": 3.0,
+            "rightHz": 15.0
+          },
+          {
+            "assemblyProbability": 0.44,
+            "assemblyProbabilitySe": 0.09927738916792686,
+            "binWidthHz": 5,
+            "bindingRatePerSecond": 1.159636990505884,
+            "bindingRateSe": 0.3545621041711673,
+            "leftHz": 15.0,
+            "meanSpeedHz": 18.4129063333368,
+            "nPlus": 11.0,
+            "nZero": 14.0,
+            "rightHz": 20.0
+          },
+          {
+            "assemblyProbability": 0.6428571428571429,
+            "assemblyProbabilitySe": 0.1280602081429707,
+            "binWidthHz": 5,
+            "bindingRatePerSecond": 2.059238834362317,
+            "bindingRateSe": 0.7171371656006361,
+            "leftHz": 20.0,
+            "meanSpeedHz": 22.47299801428523,
+            "nPlus": 9.0,
+            "nZero": 5.0,
+            "rightHz": 25.0
+          },
+          {
+            "assemblyProbability": 0.5,
+            "assemblyProbabilitySe": 0.1443375672974064,
+            "binWidthHz": 5,
+            "bindingRatePerSecond": 1.386294361119891,
+            "bindingRateSe": 0.5773502691896257,
+            "leftHz": 25.0,
+            "meanSpeedHz": 27.7280814166708,
+            "nPlus": 6.0,
+            "nZero": 6.0,
+            "rightHz": 30.0
+          },
+          {
+            "assemblyProbability": 0.3684210526315789,
+            "assemblyProbabilitySe": 0.1106647332711256,
+            "binWidthHz": 5,
+            "bindingRatePerSecond": 0.9190646587568804,
+            "bindingRateSe": 0.3504383220252312,
+            "leftHz": 30.0,
+            "meanSpeedHz": 32.45985277333541,
+            "nPlus": 7.0,
+            "nZero": 12.0,
+            "rightHz": 35.0
+          },
+          {
+            "assemblyProbability": 0.5294117647058824,
+            "assemblyProbabilitySe": 0.1210578248064768,
+            "binWidthHz": 5,
+            "bindingRatePerSecond": 1.50754360475276,
+            "bindingRateSe": 0.5144957554275265,
+            "leftHz": 35.0,
+            "meanSpeedHz": 37.83955662777745,
+            "nPlus": 9.0,
+            "nZero": 8.0,
+            "rightHz": 40.0
+          },
+          {
+            "assemblyProbability": 0.3636363636363636,
+            "assemblyProbabilitySe": 0.1025592863305029,
+            "binWidthHz": 5,
+            "bindingRatePerSecond": 0.9039702474861145,
+            "bindingRateSe": 0.3223291856101521,
+            "leftHz": 40.0,
+            "meanSpeedHz": 43.54287004999946,
+            "nPlus": 8.0,
+            "nZero": 14.0,
+            "rightHz": 45.0
+          },
+          {
+            "assemblyProbability": 0.5,
+            "assemblyProbabilitySe": 0.07216878364870322,
+            "binWidthHz": 5,
+            "bindingRatePerSecond": 1.386294361119891,
+            "bindingRateSe": 0.2886751345948129,
+            "leftHz": 45.0,
+            "meanSpeedHz": 46.99427965079261,
+            "nPlus": 24.0,
+            "nZero": 24.0,
+            "rightHz": 50.0
+          },
+          {
+            "assemblyProbability": 0.4782608695652174,
+            "assemblyProbabilitySe": 0.07365126555303651,
+            "binWidthHz": 5,
+            "bindingRatePerSecond": 1.301175132282299,
+            "bindingRateSe": 0.28232985128664,
+            "leftHz": 50.0,
+            "meanSpeedHz": 52.80989775533266,
+            "nPlus": 22.0,
+            "nZero": 24.0,
+            "rightHz": 55.0
+          },
+          {
+            "assemblyProbability": 0.5714285714285714,
+            "assemblyProbabilitySe": 0.1079898494312078,
+            "binWidthHz": 5,
+            "bindingRatePerSecond": 1.694595720774407,
+            "bindingRateSe": 0.5039526306789696,
+            "leftHz": 55.0,
+            "meanSpeedHz": 57.48703934999008,
+            "nPlus": 12.0,
+            "nZero": 9.0,
+            "rightHz": 60.0
+          },
+          {
+            "assemblyProbability": 0.3809523809523809,
+            "assemblyProbabilitySe": 0.05298558478706541,
+            "binWidthHz": 5,
+            "bindingRatePerSecond": 0.9591461605237724,
+            "bindingRateSe": 0.1711841970043652,
+            "leftHz": 60.0,
+            "meanSpeedHz": 62.93568461416582,
+            "nPlus": 32.0,
+            "nZero": 52.0,
+            "rightHz": 65.0
+          },
+          {
+            "assemblyProbability": 0.5614035087719298,
+            "assemblyProbabilitySe": 0.06572532011099606,
+            "binWidthHz": 5,
+            "bindingRatePerSecond": 1.648350885932699,
+            "bindingRateSe": 0.299707459706142,
+            "leftHz": 65.0,
+            "meanSpeedHz": 67.84476486527782,
+            "nPlus": 32.0,
+            "nZero": 25.0,
+            "rightHz": 70.0
+          },
+          {
+            "assemblyProbability": 0.6923076923076923,
+            "assemblyProbabilitySe": 0.09051513929454648,
+            "binWidthHz": 5,
+            "bindingRatePerSecond": 2.357309992683292,
+            "bindingRateSe": 0.5883484054145521,
+            "leftHz": 70.0,
+            "meanSpeedHz": 72.61381192121324,
+            "nPlus": 18.0,
+            "nZero": 8.0,
+            "rightHz": 75.0
+          },
+          {
+            "assemblyProbability": 0.4,
+            "assemblyProbabilitySe": 0.08944271909999159,
+            "binWidthHz": 5,
+            "bindingRatePerSecond": 1.021651247531981,
+            "bindingRateSe": 0.298142396999972,
+            "leftHz": 75.0,
+            "meanSpeedHz": 77.9815032916656,
+            "nPlus": 12.0,
+            "nZero": 18.0,
+            "rightHz": 80.0
+          },
+          {
+            "assemblyProbability": 0.5714285714285714,
+            "assemblyProbabilitySe": 0.09352195295828244,
+            "binWidthHz": 5,
+            "bindingRatePerSecond": 1.694595720774407,
+            "bindingRateSe": 0.4364357804719847,
+            "leftHz": 80.0,
+            "meanSpeedHz": 81.5609679633343,
+            "nPlus": 16.0,
+            "nZero": 12.0,
+            "rightHz": 85.0
+          },
+          {
+            "assemblyProbability": 0.3157894736842105,
+            "assemblyProbabilitySe": 0.07540530520119779,
+            "binWidthHz": 5,
+            "bindingRatePerSecond": 0.7589792434098074,
+            "bindingRateSe": 0.2204155075111935,
+            "leftHz": 85.0,
+            "meanSpeedHz": 87.55416288889086,
+            "nPlus": 12.0,
+            "nZero": 26.0,
+            "rightHz": 90.0
+          },
+          {
+            "assemblyProbability": 0.6666666666666666,
+            "assemblyProbabilitySe": 0.1217161238900369,
+            "binWidthHz": 5,
+            "bindingRatePerSecond": 2.197224577336219,
+            "bindingRateSe": 0.7302967433402214,
+            "leftHz": 90.0,
+            "meanSpeedHz": 92.39608795833267,
+            "nPlus": 10.0,
+            "nZero": 5.0,
+            "rightHz": 95.0
+          },
+          {
+            "assemblyProbability": 0.6,
+            "assemblyProbabilitySe": 0.2190890230020665,
+            "binWidthHz": 5,
+            "bindingRatePerSecond": 1.83258146374831,
+            "bindingRateSe": 1.095445115010332,
+            "leftHz": 95.0,
+            "meanSpeedHz": 97.40145846667171,
+            "nPlus": 3.0,
+            "nZero": 2.0,
+            "rightHz": 100.0
+          }
+        ]
+      },
+      "rotationSampleCount": 191920,
+      "statorSampleCount": 159800,
+      "studyId": "ITO_2021",
+      "tier": "A",
+      "unitOfIndependence": "motor/cell"
+    },
+    "lisevich2025": {
+      "declaredCounts": {
+        "biologicalReplicates": 3,
+        "flagellaCountCells": 106,
+        "flagellaLengthFilaments": [
+          35,
+          46,
+          47
+        ]
+      },
+      "directIndependentUnitLowerBound": 106,
+      "doi": "10.1038/s41467-025-56980-x",
+      "experimentalCellSpeeds": [
+        {
+          "flagellaCount": 2.12,
+          "speedUmPerSecond": 23.806,
+          "strain": "Patc0"
+        },
+        {
+          "flagellaCount": 2.12,
+          "speedUmPerSecond": 20.273,
+          "strain": "Patc0"
+        },
+        {
+          "flagellaCount": 2.12,
+          "speedUmPerSecond": 23.244,
+          "strain": "Patc0"
+        },
+        {
+          "flagellaCount": 4.76,
+          "speedUmPerSecond": 27.847,
+          "strain": "MG1655_WT"
+        },
+        {
+          "flagellaCount": 4.76,
+          "speedUmPerSecond": 25.911,
+          "strain": "MG1655_WT"
+        },
+        {
+          "flagellaCount": 4.76,
+          "speedUmPerSecond": 25.911,
+          "strain": "MG1655_WT"
+        },
+        {
+          "flagellaCount": 7.57,
+          "speedUmPerSecond": 26.327,
+          "strain": "Ptac50"
+        },
+        {
+          "flagellaCount": 7.57,
+          "speedUmPerSecond": 22.637,
+          "strain": "Ptac50"
+        },
+        {
+          "flagellaCount": 7.57,
+          "speedUmPerSecond": 24.896,
+          "strain": "Ptac50"
+        },
+        {
+          "flagellaCount": 7.57,
+          "speedUmPerSecond": 24.896,
+          "strain": "Ptac50"
+        }
+      ],
+      "flagellaCounts": [
+        {
+          "expressionMean": 8071.75,
+          "expressionSd": 1060.259233799519,
+          "flagellaMean": 4.764150943396227,
+          "flagellaSd": 1.32054741024826,
+          "strain": "MG1655_WT"
+        },
+        {
+          "expressionMean": 3014.0,
+          "expressionSd": 816.3317680670988,
+          "flagellaMean": 1.481132075471698,
+          "flagellaSd": 1.332603124396698,
+          "strain": "Ptac0"
+        },
+        {
+          "expressionMean": 13515.14285714286,
+          "expressionSd": 1071.976434531318,
+          "flagellaMean": 7.571428571428571,
+          "flagellaSd": 2.265362693227761,
+          "strain": "Ptac50"
+        }
+      ],
+      "organism": "Escherichia coli K-12 and natural isolates",
+      "rftSourcePredictions": [
+        {
+          "flagellaCount": 1,
+          "meanSpeedUmPerSecond": 21.062375223742606,
+          "sdSpeedUmPerSecond": 0.2483558795353318
+        },
+        {
+          "flagellaCount": 2,
+          "meanSpeedUmPerSecond": 23.028838520066092,
+          "sdSpeedUmPerSecond": 0.1627933389377806
+        },
+        {
+          "flagellaCount": 3,
+          "meanSpeedUmPerSecond": 23.920907030736693,
+          "sdSpeedUmPerSecond": 0.19626217983710686
+        },
+        {
+          "flagellaCount": 4,
+          "meanSpeedUmPerSecond": 24.44483958957674,
+          "sdSpeedUmPerSecond": 0.2578741231445375
+        },
+        {
+          "flagellaCount": 5,
+          "meanSpeedUmPerSecond": 24.790825012161726,
+          "sdSpeedUmPerSecond": 0.31765992322589587
+        },
+        {
+          "flagellaCount": 6,
+          "meanSpeedUmPerSecond": 25.034785501561874,
+          "sdSpeedUmPerSecond": 0.3711867246492945
+        },
+        {
+          "flagellaCount": 7,
+          "meanSpeedUmPerSecond": 25.214308108809494,
+          "sdSpeedUmPerSecond": 0.41889147090792533
+        },
+        {
+          "flagellaCount": 8,
+          "meanSpeedUmPerSecond": 25.35011842825891,
+          "sdSpeedUmPerSecond": 0.4617436963217981
+        }
+      ],
+      "rotationRates": [
+        {
+          "bodyRotationHz": 36.0,
+          "filamentRotationHz": 184.0,
+          "flagellaCount": 2.12,
+          "motorRotationHz": 220.0,
+          "strain": "Patc0"
+        },
+        {
+          "bodyRotationHz": 26.0,
+          "filamentRotationHz": 195.0,
+          "flagellaCount": 2.12,
+          "motorRotationHz": 221.0,
+          "strain": "Patc0"
+        },
+        {
+          "bodyRotationHz": 29.0,
+          "filamentRotationHz": 191.0,
+          "flagellaCount": 2.12,
+          "motorRotationHz": 220.0,
+          "strain": "Patc0"
+        },
+        {
+          "bodyRotationHz": 33.0,
+          "filamentRotationHz": 184.0,
+          "flagellaCount": 4.76,
+          "motorRotationHz": 217.0,
+          "strain": "MG1655_WT"
+        },
+        {
+          "bodyRotationHz": 35.0,
+          "filamentRotationHz": 185.0,
+          "flagellaCount": 4.76,
+          "motorRotationHz": 220.0,
+          "strain": "MG1655_WT"
+        },
+        {
+          "bodyRotationHz": 42.0,
+          "filamentRotationHz": 184.0,
+          "flagellaCount": 4.76,
+          "motorRotationHz": 226.0,
+          "strain": "MG1655_WT"
+        },
+        {
+          "bodyRotationHz": 40.0,
+          "filamentRotationHz": 180.0,
+          "flagellaCount": 7.57,
+          "motorRotationHz": 220.0,
+          "strain": "Ptac50"
+        },
+        {
+          "bodyRotationHz": 42.0,
+          "filamentRotationHz": 184.0,
+          "flagellaCount": 7.57,
+          "motorRotationHz": 226.0,
+          "strain": "Ptac50"
+        },
+        {
+          "bodyRotationHz": 34.0,
+          "filamentRotationHz": 174.0,
+          "flagellaCount": 7.57,
+          "motorRotationHz": 208.0,
+          "strain": "Ptac50"
+        },
+        {
+          "bodyRotationHz": 37.0,
+          "filamentRotationHz": 180.0,
+          "flagellaCount": 7.57,
+          "motorRotationHz": 217.0,
+          "strain": "Ptac50"
+        }
+      ],
+      "studyId": "LISEVICH_2025",
+      "tier": "A",
+      "unitOfIndependence": "cell, filament, or biological replicate as declared per assay"
+    },
+    "mattingly2026": {
+      "bai2010DigitizedIntervals": [
+        {
+          "ccwIntervalSe": 0.1499999999999999,
+          "cwBias": 0.1,
+          "cwIntervalSe": 0.04899999999999999,
+          "meanCcwIntervalSeconds": 2.59,
+          "meanCwIntervalSeconds": 0.379
+        },
+        {
+          "ccwIntervalSe": 0.08000000000000007,
+          "cwBias": 0.2,
+          "cwIntervalSe": 0.05300000000000005,
+          "meanCcwIntervalSeconds": 1.53,
+          "meanCwIntervalSeconds": 0.464
+        },
+        {
+          "ccwIntervalSe": 0.07999999999999985,
+          "cwBias": 0.30000000000000004,
+          "cwIntervalSe": 0.05800000000000005,
+          "meanCcwIntervalSeconds": 1.18,
+          "meanCwIntervalSeconds": 0.558
+        },
+        {
+          "ccwIntervalSe": 0.07999999999999996,
+          "cwBias": 0.4,
+          "cwIntervalSe": 0.06700000000000006,
+          "meanCcwIntervalSeconds": 0.839,
+          "meanCwIntervalSeconds": 0.683
+        },
+        {
+          "ccwIntervalSe": 0.05799999999999994,
+          "cwBias": 0.5,
+          "cwIntervalSe": 0.08999999999999997,
+          "meanCcwIntervalSeconds": 0.741,
+          "meanCwIntervalSeconds": 0.746
+        },
+        {
+          "ccwIntervalSe": 0.17000000000000004,
+          "cwBias": 0.6,
+          "cwIntervalSe": 0.31000000000000005,
+          "meanCcwIntervalSeconds": 0.884,
+          "meanCwIntervalSeconds": 1.61
+        },
+        {
+          "ccwIntervalSe": 0.09800000000000003,
+          "cwBias": 0.7,
+          "cwIntervalSe": 0.17400000000000004,
+          "meanCcwIntervalSeconds": 0.549,
+          "meanCwIntervalSeconds": 0.933
+        },
+        {
+          "ccwIntervalSe": 0.067,
+          "cwBias": 0.8,
+          "cwIntervalSe": 0.24,
+          "meanCcwIntervalSeconds": 0.464,
+          "meanCwIntervalSeconds": 1.72
+        },
+        {
+          "ccwIntervalSe": 0.04999999999999999,
+          "cwBias": 0.9,
+          "cwIntervalSe": 0.29000000000000004,
+          "meanCcwIntervalSeconds": 0.304,
+          "meanCwIntervalSeconds": 2.16
+        }
+      ],
+      "doi": "10.1038/s41567-025-03105-2",
+      "fig2PublishedEngagedMarginal": [
+        0.47176770183571165,
+        0.02470896969182546,
+        0.002742786142706564,
+        0.0012410874189894548,
+        0.0027225471710583624,
+        0.02497314679681356,
+        0.4718437609428948
+      ],
+      "modelCode": {
+        "commit": "c3bb92455804fe26e7b99b22c18c2d786be0db71",
+        "parameters": {
+          "F": 0,
+          "J": 0,
+          "M": 6,
+          "N": 30,
+          "beta": 0,
+          "gamma": 3.5,
+          "k0": 1
+        },
+        "repository": "https://github.com/hhmattingly/GMC_motor_Gillespie"
+      },
+      "sourceSimulationScale": {
+        "gamma0DimensionlessDuration": 2500.01718,
+        "gamma0Transitions": 82308,
+        "gamma3_5DimensionlessDuration": 42453.9359,
+        "gamma3_5Transitions": 2582155
+      },
+      "sourceSwitchingPrediction": {
+        "kCcwToCw": [
+          0.37221536380949977,
+          0.43579697131239725,
+          0.6106162418266484,
+          0.7976667058813132,
+          0.9661204141105875,
+          0.9971746717633357,
+          0.4890374113619694,
+          0.12060903403254226,
+          0.11268375904005457
+        ],
+        "kCwToCcw": [
+          1.575771997690037,
+          2.0158314990941375,
+          2.2694558559315645,
+          3.628263431670788,
+          4.085187927355092,
+          3.704597056248023,
+          1.4408273901944781,
+          0.560397914179967,
+          0.3354383956205164
+        ],
+        "speedHz": [
+          300.0,
+          267.8049498537428,
+          241.85033738687707,
+          174.2858967562142,
+          121.98816407631321,
+          65.13229511256183,
+          22.739279963368737,
+          6.936801181597073,
+          4.6356997208219815
+        ]
+      },
+      "studyId": "MATTINGLY_TU_2026",
+      "tier": "B/C",
+      "yuan2009DigitizedSwitching": [
+        {
+          "kCcwToCw": 0.6315789473684209,
+          "kCcwToCwLower": 0.1355789473684209,
+          "kCcwToCwUpper": 0.1384210526315791,
+          "kCwToCcw": 0.8720768955609661,
+          "kCwToCcwLower": 0.11007689556096611,
+          "kCwToCcwUpper": 0.4079231044390339,
+          "speedCcwHz": 3.703703703703689,
+          "speedCwHz": 4.131867117454972
+        },
+        {
+          "kCcwToCw": 0.5745614035087719,
+          "kCcwToCwLower": 0.14456140350877195,
+          "kCcwToCwUpper": 0.10943859649122811,
+          "kCwToCcw": 1.0223324832973706,
+          "kCwToCcwLower": 0.2713324832973706,
+          "kCwToCcwUpper": 0.38766751670262933,
+          "speedCcwHz": 8.148148148148133,
+          "speedCwHz": 8.933916434926093
+        },
+        {
+          "kCcwToCw": 0.45614035087719296,
+          "kCcwToCwLower": 0.16214035087719297,
+          "kCcwToCwUpper": 0.113859649122807,
+          "kCwToCcw": 1.3731719418898498,
+          "kCwToCcwLower": 0.4711719418898498,
+          "kCwToCcwUpper": 0.9768280581101503,
+          "speedCcwHz": 10.370370370370358,
+          "speedCwHz": 10.439518595017487
+        },
+        {
+          "kCcwToCw": 0.49561403508771923,
+          "kCcwToCwLower": 0.10061403508771921,
+          "kCcwToCwUpper": 0.2723859649122808,
+          "kCwToCcw": 1.743775313570959,
+          "kCwToCcwLower": 0.433775313570959,
+          "kCwToCcwUpper": 0.6462246864290411,
+          "speedCcwHz": 22.96296296296297,
+          "speedCwHz": 23.364988518745022
+        },
+        {
+          "kCcwToCw": 0.7587719298245613,
+          "kCcwToCwLower": 0.27677192982456134,
+          "kCcwToCwUpper": 0.47122807017543866,
+          "kCwToCcw": 2.7960444480343405,
+          "kCwToCcwLower": 0.7560444480343405,
+          "kCwToCcwUpper": 0.14395555196565946,
+          "speedCcwHz": 37.03703703703704,
+          "speedCwHz": 37.82652342983742
+        },
+        {
+          "kCcwToCw": 0.7412280701754387,
+          "kCcwToCwLower": 0.21022807017543865,
+          "kCcwToCwUpper": 0.12277192982456131,
+          "kCwToCcw": 3.5769913342487563,
+          "kCwToCcwLower": 0.7769913342487564,
+          "kCwToCcwUpper": 0.42300866575124374,
+          "speedCcwHz": 77.03703703703704,
+          "speedCwHz": 78.04576347460853
+        },
+        {
+          "kCcwToCw": 0.8333333333333331,
+          "kCcwToCwLower": 0.035333333333333106,
+          "kCcwToCwUpper": 0.24666666666666692,
+          "kCwToCcw": 4.0070156814326765,
+          "kCwToCcwLower": 0.14701568143267663,
+          "kCwToCcwUpper": 0.3529843185673238,
+          "speedCcwHz": 120.00000000000001,
+          "speedCwHz": 120.0743108362277
+        },
+        {
+          "kCcwToCw": 0.7543859649122808,
+          "kCcwToCwLower": 0.07038596491228077,
+          "kCcwToCwUpper": 0.23661403508771917,
+          "kCwToCcw": 3.85516310305436,
+          "kCwToCcwLower": 0.51516310305436,
+          "kCwToCcwUpper": 0.3848368969456404,
+          "speedCcwHz": 178.51851851851853,
+          "speedCwHz": 178.99218813103627
+        },
+        {
+          "kCcwToCw": 0.4605263157894738,
+          "kCcwToCwLower": 0.2455263157894738,
+          "kCcwToCwUpper": 0.23247368421052617,
+          "kCwToCcw": 3.012404370954155,
+          "kCwToCcwLower": 0.8124043709541549,
+          "kCwToCcwUpper": 0.5575956290458448,
+          "speedCcwHz": 204.44444444444446,
+          "speedCwHz": 205.06559892918543
+        },
+        {
+          "kCcwToCw": 0.47807017543859615,
+          "kCcwToCwLower": 0.15307017543859613,
+          "kCcwToCwUpper": 0.2239298245614038,
+          "kCwToCcw": 2.5399259199427653,
+          "kCwToCcwLower": 0.22992591994276523,
+          "kCwToCcwUpper": 0.7800740800572346,
+          "speedCcwHz": 257.03703703703707,
+          "speedCwHz": 256.95579428360423
+        },
+        {
+          "kCcwToCw": 0.4868421052631578,
+          "kCcwToCwLower": 0.10084210526315779,
+          "kCcwToCwUpper": 0.15315789473684221,
+          "kCwToCcw": 2.3792021970160273,
+          "kCwToCcwLower": 0.28920219701602745,
+          "kCwToCcwUpper": 0.32079780298397287,
+          "speedCcwHz": 270.37037037037044,
+          "speedCwHz": 269.83233906049867
+        },
+        {
+          "kCcwToCw": 0.394736842105263,
+          "kCcwToCwLower": 0.170736842105263,
+          "kCcwToCwUpper": 0.04826315789473701,
+          "kCwToCcw": 1.8475520118158841,
+          "kCwToCcwLower": 0.15755201181588419,
+          "kCwToCcwUpper": 0.4524479881841157,
+          "speedCcwHz": 282.962962962963,
+          "speedCwHz": 282.6747285462078
+        },
+        {
+          "kCcwToCw": 0.24122807017543862,
+          "kCcwToCwLower": 0.07022807017543861,
+          "kCcwToCwUpper": 0.05677192982456136,
+          "kCwToCcw": 1.5661308747677787,
+          "kCwToCcwLower": 0.3361308747677787,
+          "kCwToCcwUpper": 0.3038691252322214,
+          "speedCcwHz": 311.8518518518519,
+          "speedCwHz": 311.37809676563234
+        },
+        {
+          "kCcwToCw": 0.24122807017543862,
+          "kCcwToCwLower": 0.07922807017543862,
+          "kCcwToCwUpper": 0.06577192982456137,
+          "kCwToCcw": 1.3752858774794305,
+          "kCwToCcwLower": 0.40128587747943056,
+          "kCwToCcwUpper": 0.4247141225205695,
+          "speedCcwHz": 325.925925925926,
+          "speedCwHz": 326.0934885706702
+        },
+        {
+          "kCcwToCw": 0.2412280701754385,
+          "kCcwToCwLower": 0.08722807017543852,
+          "kCcwToCwUpper": 0.0917719298245615,
+          "kCwToCcw": 1.1044436495390184,
+          "kCwToCcwLower": 0.2004436495390184,
+          "kCwToCcwUpper": 0.7755563504609815,
+          "speedCcwHz": 333.3333333333334,
+          "speedCwHz": 332.6983833931435
+        }
+      ],
+      "zhu2024PairedCells": [
+        {
+          "cellIndex": 22,
+          "condition": 0,
+          "cwBias": 0.48279449693264,
+          "cwBiasSe": 0.0386829932114542,
+          "inferredCheYpUm": 3.0975265340170206
+        },
+        {
+          "cellIndex": 25,
+          "condition": 0,
+          "cwBias": 0.422723385342662,
+          "cwBiasSe": 0.0231121600960067,
+          "inferredCheYpUm": 3.115031705379018
+        },
+        {
+          "cellIndex": 40,
+          "condition": 0,
+          "cwBias": 0.514252621229772,
+          "cwBiasSe": 0.0128118479291933,
+          "inferredCheYpUm": 3.3935731158559808
+        },
+        {
+          "cellIndex": 29,
+          "condition": 0,
+          "cwBias": 0.647112101764996,
+          "cwBiasSe": 0.0252902600579486,
+          "inferredCheYpUm": 3.4882062952319566
+        },
+        {
+          "cellIndex": 37,
+          "condition": 0,
+          "cwBias": 0.550350507410825,
+          "cwBiasSe": 0.0207026145268249,
+          "inferredCheYpUm": 3.4353556338340394
+        },
+        {
+          "cellIndex": 32,
+          "condition": 0,
+          "cwBias": 0.508848544434643,
+          "cwBiasSe": 0.0174689722511421,
+          "inferredCheYpUm": 3.3055547233183584
+        },
+        {
+          "cellIndex": 35,
+          "condition": 0,
+          "cwBias": 0.597923218338171,
+          "cwBiasSe": 0.0536171071066362,
+          "inferredCheYpUm": 3.446221704759679
+        },
+        {
+          "cellIndex": 28,
+          "condition": 0,
+          "cwBias": 0.7325672226749,
+          "cwBiasSe": 0.0601846204875843,
+          "inferredCheYpUm": 3.246472604121262
+        },
+        {
+          "cellIndex": 5,
+          "condition": 0,
+          "cwBias": 0.0511136740911595,
+          "cwBiasSe": 0.0343098582694915,
+          "inferredCheYpUm": 2.1589381581538554
+        },
+        {
+          "cellIndex": 9,
+          "condition": 0,
+          "cwBias": 0.20382802552017,
+          "cwBiasSe": 0.0363944610189652,
+          "inferredCheYpUm": 2.7375616425957743
+        },
+        {
+          "cellIndex": 7,
+          "condition": 0,
+          "cwBias": 0.18661124407496,
+          "cwBiasSe": 0.0503285878608217,
+          "inferredCheYpUm": 2.6060652873464782
+        },
+        {
+          "cellIndex": 18,
+          "condition": 0,
+          "cwBias": 0.462026413509423,
+          "cwBiasSe": 0.0464909585360216,
+          "inferredCheYpUm": 2.9875151240620426
+        },
+        {
+          "cellIndex": 2,
+          "condition": 0,
+          "cwBias": 0.165467769785133,
+          "cwBiasSe": 0.0300521542813271,
+          "inferredCheYpUm": 2.4716803464457247
+        },
+        {
+          "cellIndex": 27,
+          "condition": 0,
+          "cwBias": 0.530408502269457,
+          "cwBiasSe": 0.0212199146896857,
+          "inferredCheYpUm": 3.260309140040102
+        },
+        {
+          "cellIndex": 38,
+          "condition": 0,
+          "cwBias": 0.670151134340896,
+          "cwBiasSe": 0.0195223304192683,
+          "inferredCheYpUm": 3.653748138311683
+        },
+        {
+          "cellIndex": 39,
+          "condition": 0,
+          "cwBias": 0.511860079067194,
+          "cwBiasSe": 0.0138521594979607,
+          "inferredCheYpUm": 3.4273879886749032
+        },
+        {
+          "cellIndex": 31,
+          "condition": 0,
+          "cwBias": 0.377022513483426,
+          "cwBiasSe": 0.0220393956763638,
+          "inferredCheYpUm": 3.234022644923144
+        },
+        {
+          "cellIndex": 36,
+          "condition": 0,
+          "cwBias": 0.540943606290709,
+          "cwBiasSe": 0.0265461043579302,
+          "inferredCheYpUm": 3.374132076437943
+        },
+        {
+          "cellIndex": 23,
+          "condition": 0,
+          "cwBias": 0.649267661784413,
+          "cwBiasSe": 0.0288274249778215,
+          "inferredCheYpUm": 3.1705568700292215
+        },
+        {
+          "cellIndex": 26,
+          "condition": 0,
+          "cwBias": 0.630107534050227,
+          "cwBiasSe": 0.0119306935893441,
+          "inferredCheYpUm": 3.4268775536066958
+        },
+        {
+          "cellIndex": 20,
+          "condition": 0,
+          "cwBias": 0.671281141874278,
+          "cwBiasSe": 0.0405048999532088,
+          "inferredCheYpUm": 3.020244379622187
+        },
+        {
+          "cellIndex": 21,
+          "condition": 0,
+          "cwBias": 0.632804218694792,
+          "cwBiasSe": 0.0251254134072418,
+          "inferredCheYpUm": 3.064265814807632
+        },
+        {
+          "cellIndex": 34,
+          "condition": 0,
+          "cwBias": 0.647470983139887,
+          "cwBiasSe": 0.0208786111484867,
+          "inferredCheYpUm": 3.4749350634411353
+        },
+        {
+          "cellIndex": 24,
+          "condition": 0,
+          "cwBias": 0.439029593530623,
+          "cwBiasSe": 0.0342158630561942,
+          "inferredCheYpUm": 3.1350225322238083
+        },
+        {
+          "cellIndex": 30,
+          "condition": 0,
+          "cwBias": 0.412416082773885,
+          "cwBiasSe": 0.0330029928881583,
+          "inferredCheYpUm": 3.18503216194796
+        },
+        {
+          "cellIndex": 8,
+          "condition": 0,
+          "cwBias": 0.236267584293497,
+          "cwBiasSe": 0.0194197379095182,
+          "inferredCheYpUm": 2.643147271129371
+        },
+        {
+          "cellIndex": 1,
+          "condition": 0,
+          "cwBias": 0.0617411565061046,
+          "cwBiasSe": 0.0176207535734629,
+          "inferredCheYpUm": 2.144708712568754
+        },
+        {
+          "cellIndex": 33,
+          "condition": 0,
+          "cwBias": 0.476592434965892,
+          "cwBiasSe": 0.0199924970800787,
+          "inferredCheYpUm": 3.245364996232696
+        },
+        {
+          "cellIndex": 14,
+          "condition": 0,
+          "cwBias": 0.301119872861097,
+          "cwBiasSe": 0.0381674754887967,
+          "inferredCheYpUm": 2.905952104182183
+        },
+        {
+          "cellIndex": 11,
+          "condition": 0,
+          "cwBias": 0.294587842342373,
+          "cwBiasSe": 0.0271086580788869,
+          "inferredCheYpUm": 2.836766122531463
+        },
+        {
+          "cellIndex": 13,
+          "condition": 0,
+          "cwBias": 0.578434871615297,
+          "cwBiasSe": 0.0246904885972205,
+          "inferredCheYpUm": 3.0281492925048585
+        },
+        {
+          "cellIndex": 12,
+          "condition": 0,
+          "cwBias": 0.258984908989286,
+          "cwBiasSe": 0.0670377008998409,
+          "inferredCheYpUm": 2.8604248652374427
+        },
+        {
+          "cellIndex": 16,
+          "condition": 0,
+          "cwBias": 0.286480043636657,
+          "cwBiasSe": 0.066621540610695,
+          "inferredCheYpUm": 2.926271572699816
+        },
+        {
+          "cellIndex": 4,
+          "condition": 0,
+          "cwBias": 0.0681486070613276,
+          "cwBiasSe": 0.0299774791872012,
+          "inferredCheYpUm": 2.2952448279926134
+        },
+        {
+          "cellIndex": 19,
+          "condition": 0,
+          "cwBias": 0.0563101435026502,
+          "cwBiasSe": 0.023190335978118,
+          "inferredCheYpUm": 2.796034569443074
+        },
+        {
+          "cellIndex": 10,
+          "condition": 0,
+          "cwBias": 0.148223220358385,
+          "cwBiasSe": 0.0548153809498145,
+          "inferredCheYpUm": 2.8310449154506365
+        },
+        {
+          "cellIndex": 17,
+          "condition": 0,
+          "cwBias": 0.454942457524967,
+          "cwBiasSe": 0.0663391496331134,
+          "inferredCheYpUm": 2.9811871506617953
+        },
+        {
+          "cellIndex": 6,
+          "condition": 0,
+          "cwBias": 0.326961797722545,
+          "cwBiasSe": 0.0343288471893358,
+          "inferredCheYpUm": 2.6424609993950563
+        },
+        {
+          "cellIndex": 3,
+          "condition": 0,
+          "cwBias": 0.099879460467747,
+          "cwBiasSe": 0.0299775684619202,
+          "inferredCheYpUm": 2.3268899392607545
+        },
+        {
+          "cellIndex": 15,
+          "condition": 0,
+          "cwBias": 0.378750025252695,
+          "cwBiasSe": 0.0236383579388333,
+          "inferredCheYpUm": 2.9371134098720604
+        },
+        {
+          "cellIndex": 22,
+          "condition": 19,
+          "cwBias": 0.492666931910165,
+          "cwBiasSe": 0.0162690397086762,
+          "inferredCheYpUm": 3.0975265340170206
+        },
+        {
+          "cellIndex": 25,
+          "condition": 19,
+          "cwBias": 0.553218440614687,
+          "cwBiasSe": 0.047627424726087,
+          "inferredCheYpUm": 3.115031705379018
+        },
+        {
+          "cellIndex": 40,
+          "condition": 19,
+          "cwBias": 0.923321061317761,
+          "cwBiasSe": 0.0297692489064346,
+          "inferredCheYpUm": 3.3935731158559808
+        },
+        {
+          "cellIndex": 29,
+          "condition": 19,
+          "cwBias": 0.648950638683699,
+          "cwBiasSe": 0.0503443338323678,
+          "inferredCheYpUm": 3.4882062952319566
+        },
+        {
+          "cellIndex": 37,
+          "condition": 19,
+          "cwBias": 0.780779138543899,
+          "cwBiasSe": 0.0249381317410188,
+          "inferredCheYpUm": 3.4353556338340394
+        },
+        {
+          "cellIndex": 32,
+          "condition": 19,
+          "cwBias": 0.715659084242247,
+          "cwBiasSe": 0.0364488843288391,
+          "inferredCheYpUm": 3.3055547233183584
+        },
+        {
+          "cellIndex": 35,
+          "condition": 19,
+          "cwBias": 0.742073121949918,
+          "cwBiasSe": 0.0577988225077464,
+          "inferredCheYpUm": 3.446221704759679
+        },
+        {
+          "cellIndex": 28,
+          "condition": 19,
+          "cwBias": 0.605496146563909,
+          "cwBiasSe": 0.0168135730293149,
+          "inferredCheYpUm": 3.246472604121262
+        },
+        {
+          "cellIndex": 5,
+          "condition": 19,
+          "cwBias": 0.140270407210859,
+          "cwBiasSe": 0.0517904103052818,
+          "inferredCheYpUm": 2.1589381581538554
+        },
+        {
+          "cellIndex": 9,
+          "condition": 19,
+          "cwBias": 0.22345744858162,
+          "cwBiasSe": 0.014035257381808,
+          "inferredCheYpUm": 2.7375616425957743
+        },
+        {
+          "cellIndex": 7,
+          "condition": 19,
+          "cwBias": 0.153655121837395,
+          "cwBiasSe": 0.0370507100788698,
+          "inferredCheYpUm": 2.6060652873464782
+        },
+        {
+          "cellIndex": 18,
+          "condition": 19,
+          "cwBias": 0.398896629887664,
+          "cwBiasSe": 0.017860175681388,
+          "inferredCheYpUm": 2.9875151240620426
+        },
+        {
+          "cellIndex": 2,
+          "condition": 19,
+          "cwBias": 0.0860362012067071,
+          "cwBiasSe": 0.0261008818142274,
+          "inferredCheYpUm": 2.4716803464457247
+        },
+        {
+          "cellIndex": 27,
+          "condition": 19,
+          "cwBias": 0.601058362732297,
+          "cwBiasSe": 0.0287389815640428,
+          "inferredCheYpUm": 3.260309140040102
+        },
+        {
+          "cellIndex": 38,
+          "condition": 19,
+          "cwBias": 0.856214248569944,
+          "cwBiasSe": 0.0433453275260406,
+          "inferredCheYpUm": 3.653748138311683
+        },
+        {
+          "cellIndex": 39,
+          "condition": 19,
+          "cwBias": 0.899635985439419,
+          "cwBiasSe": 0.0244125377324417,
+          "inferredCheYpUm": 3.4273879886749032
+        },
+        {
+          "cellIndex": 31,
+          "condition": 19,
+          "cwBias": 0.693706456881896,
+          "cwBiasSe": 0.0239885359402802,
+          "inferredCheYpUm": 3.234022644923144
+        },
+        {
+          "cellIndex": 36,
+          "condition": 19,
+          "cwBias": 0.756875229174306,
+          "cwBiasSe": 0.0531808878095613,
+          "inferredCheYpUm": 3.374132076437943
+        },
+        {
+          "cellIndex": 23,
+          "condition": 19,
+          "cwBias": 0.520567352245075,
+          "cwBiasSe": 0.016853929524399,
+          "inferredCheYpUm": 3.1705568700292215
+        },
+        {
+          "cellIndex": 26,
+          "condition": 19,
+          "cwBias": 0.5795693189773,
+          "cwBiasSe": 0.0252689062294191,
+          "inferredCheYpUm": 3.4268775536066958
+        },
+        {
+          "cellIndex": 20,
+          "condition": 19,
+          "cwBias": 0.407096283851354,
+          "cwBiasSe": 0.0164802418361417,
+          "inferredCheYpUm": 3.020244379622187
+        },
+        {
+          "cellIndex": 21,
+          "condition": 19,
+          "cwBias": 0.446297851914077,
+          "cwBiasSe": 0.0110035565769392,
+          "inferredCheYpUm": 3.064265814807632
+        },
+        {
+          "cellIndex": 34,
+          "condition": 19,
+          "cwBias": 0.741258041934731,
+          "cwBiasSe": 0.0169296833507325,
+          "inferredCheYpUm": 3.4749350634411353
+        },
+        {
+          "cellIndex": 24,
+          "condition": 19,
+          "cwBias": 0.531067702256742,
+          "cwBiasSe": 0.021071520226133,
+          "inferredCheYpUm": 3.1350225322238083
+        },
+        {
+          "cellIndex": 30,
+          "condition": 19,
+          "cwBias": 0.64972165738858,
+          "cwBiasSe": 0.0494183984918317,
+          "inferredCheYpUm": 3.18503216194796
+        },
+        {
+          "cellIndex": 8,
+          "condition": 19,
+          "cwBias": 0.158208569477008,
+          "cwBiasSe": 0.0133229337375244,
+          "inferredCheYpUm": 2.643147271129371
+        },
+        {
+          "cellIndex": 1,
+          "condition": 19,
+          "cwBias": 0.0596686556218541,
+          "cwBiasSe": 0.0207549764915211,
+          "inferredCheYpUm": 2.144708712568754
+        },
+        {
+          "cellIndex": 33,
+          "condition": 19,
+          "cwBias": 0.722657421914064,
+          "cwBiasSe": 0.0531968179912877,
+          "inferredCheYpUm": 3.245364996232696
+        },
+        {
+          "cellIndex": 14,
+          "condition": 19,
+          "cwBias": 0.346009226912719,
+          "cwBiasSe": 0.0205007920170722,
+          "inferredCheYpUm": 2.905952104182183
+        },
+        {
+          "cellIndex": 11,
+          "condition": 19,
+          "cwBias": 0.303888103682765,
+          "cwBiasSe": 0.0397257220797086,
+          "inferredCheYpUm": 2.836766122531463
+        },
+        {
+          "cellIndex": 13,
+          "condition": 19,
+          "cwBias": 0.324288647697272,
+          "cwBiasSe": 0.0261514828488938,
+          "inferredCheYpUm": 3.0281492925048585
+        },
+        {
+          "cellIndex": 12,
+          "condition": 19,
+          "cwBias": 0.319035174271314,
+          "cwBiasSe": 0.0433289675871289,
+          "inferredCheYpUm": 2.8604248652374427
+        },
+        {
+          "cellIndex": 16,
+          "condition": 19,
+          "cwBias": 0.371552127162226,
+          "cwBiasSe": 0.0438112920410576,
+          "inferredCheYpUm": 2.926271572699816
+        },
+        {
+          "cellIndex": 4,
+          "condition": 19,
+          "cwBias": 0.112816341769113,
+          "cwBiasSe": 0.0327355999524517,
+          "inferredCheYpUm": 2.2952448279926134
+        },
+        {
+          "cellIndex": 19,
+          "condition": 19,
+          "cwBias": 0.402490733086216,
+          "cwBiasSe": 0.0230362122795816,
+          "inferredCheYpUm": 2.796034569443074
+        },
+        {
+          "cellIndex": 10,
+          "condition": 19,
+          "cwBias": 0.300976699223306,
+          "cwBiasSe": 0.024316247258596,
+          "inferredCheYpUm": 2.8310449154506365
+        },
+        {
+          "cellIndex": 17,
+          "condition": 19,
+          "cwBias": 0.398046601553385,
+          "cwBiasSe": 0.0160202760947831,
+          "inferredCheYpUm": 2.9811871506617953
+        },
+        {
+          "cellIndex": 6,
+          "condition": 19,
+          "cwBias": 0.142571419047302,
+          "cwBiasSe": 0.0171599680610673,
+          "inferredCheYpUm": 2.6424609993950563
+        },
+        {
+          "cellIndex": 3,
+          "condition": 19,
+          "cwBias": 0.10970365678856,
+          "cwBiasSe": 0.0471715422834527,
+          "inferredCheYpUm": 2.3268899392607545
+        },
+        {
+          "cellIndex": 15,
+          "condition": 19,
+          "cwBias": 0.349011633721125,
+          "cwBiasSe": 0.0248156859235349,
+          "inferredCheYpUm": 2.9371134098720604
+        }
+      ]
+    },
+    "nord2017": {
+      "beadConditions": [
+        {
+          "beadNm": 1364,
+          "dragPnNmS": 11.4,
+          "label": "gamma1300",
+          "recruitedAtStallMean": -0.3,
+          "recruitedAtStallSd": 1.1
+        },
+        {
+          "beadNm": 543,
+          "dragPnNmS": 1.67,
+          "label": "gamma500g",
+          "recruitedAtStallMean": 1.0,
+          "recruitedAtStallSd": 1.3
+        },
+        {
+          "beadNm": 543,
+          "dragPnNmS": 0.77,
+          "label": "gamma500",
+          "recruitedAtStallMean": 1.7,
+          "recruitedAtStallSd": 1.1
+        },
+        {
+          "beadNm": 302,
+          "dragPnNmS": 0.39,
+          "label": "gamma300g",
+          "recruitedAtStallMean": 2.0,
+          "recruitedAtStallSd": 1.4
+        },
+        {
+          "beadNm": 302,
+          "dragPnNmS": 0.21,
+          "label": "gamma300",
+          "recruitedAtStallMean": 2.3,
+          "recruitedAtStallSd": 1.8
+        }
+      ],
+      "doi": "10.1073/pnas.1716007114",
+      "source": "https://pmc.ncbi.nlm.nih.gov/articles/PMC5724282/",
+      "studyId": "NORD_2017",
+      "tier": "D"
+    },
+    "perezCarrasco2022": {
+      "availableArtifact": "Model-comparison code only; raw traces are not present in the archived ZIP.",
+      "conditions": {
+        "beadDiametersNm": [
+          300,
+          500,
+          1300
+        ],
+        "sameMotorAssays": [
+          "steady",
+          "release-from-stall",
+          "resurrection"
+        ]
+      },
+      "doi": "10.1126/sciadv.abm0535",
+      "source": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8942351/",
+      "studyId": "PEREZ_CARRASCO_2022",
+      "tier": "B/D"
+    },
+    "wadhwa2022": {
+      "dataPath": "experiments/data/wadhwa-2022-events.json",
+      "doi": "10.1038/s41467-022-33075-5",
+      "eventCount": 1349,
+      "motorCount": 109,
+      "studyId": "WADHWA_2022",
+      "tier": "A"
+    }
+  }
+}

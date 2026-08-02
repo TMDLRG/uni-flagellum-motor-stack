@@ -1,0 +1,36 @@
+{
+  "schema": "uni.flagellum.prediction-record/1.0.0",
+  "recordId": "PHASE-D1-SEMANTIC-REMEDIATION-CLAUDE",
+  "claim": "After the D1 implementation commit adds the declared independent scientific invariants to tests/semantic/, all twenty-two frozen corruptions -- the ten exact Phase-C survivors, ten structurally different alternate forms of the same ten properties, and two adverse-record laundering attacks -- will be classified DETECTED_SEMANTIC by the unchanged gate command 'node --test tests/semantic/*.mjs', each by a diagnostic attributable to its declared intended test. This is TARGET COVERAGE over ten named properties, not evidence of general or future robustness.",
+  "falsifier": "Falsified if any of the twenty-two receives SURVIVED, DETECTED_BY_HASH_ONLY, INCONCLUSIVE, or NOT_RUN, or if any detection has attributionSatisfied=false. Additionally, an alternate form surviving while its paired exact replay is detected would specifically falsify the claim that the D1 gates are scientific invariants rather than hard-coded matches to the Phase-C patch text. Per-cell falsifiers are frozen in audits/phase-d/d1-semantic-remediation-predictions.v1.json.",
+  "madeAgainstCommit": "a9caabc67d09dbdacfde677b77e711b6aae772d1",
+  "predictionPath": "audits/phase-d/d1-semantic-remediation-predictions.v1.json",
+  "resultPaths": [
+    "audits/phase-d/d1-semantic-remediation-result.v1.json"
+  ],
+  "prospectivity": "PROSPECTIVE",
+  "note": "This record, the frozen protocol, all twenty-two exact patches, the declared tolerances and their pre-measured clean-code justification, the gate and baseline commands, the per-cell predicted classifications, and the diagnostic patterns were committed in 0a460a66 BEFORE the semantic tests they govern were written (6e5c6839) and BEFORE any replay was executed. The prediction is deliberately LOW RISK: these corruptions are known and the gates are designed for them. The Phase-C 0/10 adverse result is preserved byte-identically and is not restated. B3 remains PENDING and is not part of this phase.",
+  "outcome": {
+    "resultCounts": { "DETECTED_SEMANTIC": 22, "DETECTED_BY_HASH_ONLY": 0, "SURVIVED": 1, "NOT_RUN": 0, "INCONCLUSIVE": 0 },
+    "cellCount": 23,
+    "confirmed": [
+      "P-D1-1 all ten exact Phase-C replays DETECTED_SEMANTIC",
+      "P-D1-3 both adverse-record laundering attacks detected",
+      "P-D1-4 zero DETECTED_BY_HASH_ONLY",
+      "P-D1-5 primary checkout unchanged and all 64 Phase-C evidence files byte-identical before and after",
+      "P-D1-6 D1P07, D1P08 and D1P10 measured as SUITE MEMBERSHIP MIGRATION",
+      "P-D1-8 the primary periodic recomputation fired for D1X10, not the anti-vacuity control",
+      "P-D1-9 semantic suite 33 -> 55 with zero failures and no pre-existing test changing outcome",
+      "P-D1-10 no production mutation target changed; every preMutationSha256 verified at the replay base commit",
+      "P-D1-11 integrality sub-property recorded NOT_ESTABLISHED; production unchanged"
+    ],
+    "falsified": [
+      "P-D1-2 is FALSIFIED for D1A10_LATTICE_NEXT_NEAREST_NEIGHBOUR_RING, which SURVIVED. The cell was proven a null mutation before execution (prime-ring relabelling isomorphism) and its predicted classification was revised to SURVIVED by append-only addendum. The original DETECTED_SEMANTIC prediction is recorded as falsified, not rewritten. All other alternate forms, including the replacement D1A10B, were detected.",
+      "P-D1-7 is REFUTED AS LITERALLY STATED. It predicted the baseline ordinary suite would NOT detect D1X09. The baseline exited nonzero, so the frozen coverageProvenance field records SUITE_MEMBERSHIP_MIGRATION. A labelled post-hoc analysis (audits/phase-d/d1-coverage-provenance-posthoc.v1.json) finds that baseline failure was an artifact-identity change rather than a semantic detection, which is consistent with the underlying claim that normalizedVariance has no reader in the JavaScript codebase. The literal prediction is nonetheless recorded as refuted."
+    ],
+    "adverseFindings": [
+      "AC4 FAILED as literally specified: attributionSatisfied is false for 2 of 23 cells (D1A02, D1P02_ADVERSE_EVIDENCE_COPY_DIVERGED). In both cases the frozen expectedFailingTest named the wrong sibling test within the correct property; detection was produced by the intended property's gate. These are protocol labelling errors and are not corrected retroactively.",
+      "The frozen coverageProvenance field is binary on baseline exit code and therefore conflates semantic detection with artifact-identity change. Declared as a measurement-design limitation."
+    ]
+  }
+}

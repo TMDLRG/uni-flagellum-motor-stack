@@ -1,0 +1,105 @@
+{
+  "schema": "uni.flagellum.audit-artifact/1.0.0",
+  "purpose": "C2f: execution of the four required cache states against the cross-study source-integrity gate, in isolated worktrees, with the prediction committed before execution.",
+  "auditedCommit": "9c3a644e4b57e8ac27f925dcec84222463063aa1",
+  "auditPhase": "A-addendum",
+  "auditorModel": "claude-fable-5",
+  "operatingSystem": "Microsoft Windows 11 Pro 10.0.26200 build 26200 (x64)",
+  "appendOnly": true,
+  "note": "Timestamps are deliberately omitted: this package must be byte-reproducible. Ordering is established by git history.",
+
+  "isolation": {
+    "method": "one dedicated `git clone --no-hardlinks` per cache state, each checked out at the audited commit",
+    "sharedOutputPaths": "none; no cell writes to a path another cell reads",
+    "seedsAndEnvironmentFrozen": true,
+    "runtime": "Node v25.0.0, Python 3.12.10, numpy 2.3.5, scipy 1.16.3",
+    "command": "python scripts/run-cross-study-parity.py"
+  },
+
+  "mechanismUnderTest": "scripts/run-cross-study-parity.py:360-363 computes X01_SOURCE_INTEGRITY from all(item['verified']) and cacheVerification['status'] == 'PASS', both JSON literals read out of experiments/data/cross-study-motor-evidence.json. The gate performs zero filesystem reads of the artifacts it names.",
+
+  "prediction": "All four cache states produce a BYTE-IDENTICAL cross-study report with X01_SOURCE_INTEGRITY = PASS, equal to the Phase A value observed for both the empty and the complete cache: bd3838c40b8d256342427e59c615679e0b004d757f21093ef640079a591ee384. Committed before execution.",
+  "observed": "PREDICTION CONFIRMED. All four states produced exactly that digest with X01 = PASS.",
+
+  "cells": [
+    {
+      "cell": "empty",
+      "definition": "experiments/upstream-cache/ absent entirely",
+      "artifactsPresent": 0,
+      "generatorExitStatus": 0,
+      "reportSha256": "bd3838c40b8d256342427e59c615679e0b004d757f21093ef640079a591ee384",
+      "x01Status": "PASS",
+      "testSuiteExitStatus": 0,
+      "testSuiteDetected": false,
+      "testSuiteReason": "no failure - tests/cross-study-parity.test.mjs:45 explicitly accepts checkedArtifacts === 0"
+    },
+    {
+      "cell": "partial",
+      "definition": "6 of 12 tier-1 artifacts present, each with correct bytes",
+      "artifactsPresent": 6,
+      "artifactsHeld": [
+        "antani-2021-source-data.xlsx",
+        "ito-2021-source-data.xlsx",
+        "lisevich-2025-source-data.zip",
+        "lisevich-2025-supp-data-1.xlsx",
+        "lisevich-2025-supp-data-2.xlsx",
+        "mattingly-2026-fig2-source-data.zip"
+      ],
+      "generatorExitStatus": 0,
+      "reportSha256": "bd3838c40b8d256342427e59c615679e0b004d757f21093ef640079a591ee384",
+      "x01Status": "PASS",
+      "testSuiteExitStatus": 1,
+      "testSuiteDetected": true,
+      "testSuiteReason": "AssertionError: source cache must be complete or absent"
+    },
+    {
+      "cell": "corrupted",
+      "definition": "12 of 12 present, antani-2021-source-data.xlsx byte-flipped to a wrong size and wrong digest",
+      "artifactsPresent": 12,
+      "mutatedArtifact": {
+        "name": "antani-2021-source-data.xlsx",
+        "declaredSha256": "bee5497182be4e7b6c2f1a3bd75a24407ab965512e8652bfe9a6337ffb297abd",
+        "declaredBytes": 45271,
+        "observedSha256": "4dab2888c7e3755e363d6891a6db4457f6c03b51944bbdb114d6b7a6a59fc7c1",
+        "observedBytes": 18
+      },
+      "generatorExitStatus": 0,
+      "reportSha256": "bd3838c40b8d256342427e59c615679e0b004d757f21093ef640079a591ee384",
+      "x01Status": "PASS",
+      "testSuiteExitStatus": 1,
+      "testSuiteDetected": true,
+      "testSuiteReason": "AssertionError: ANTANI_2021_SOURCE_WORKBOOK - actual 18 bytes"
+    },
+    {
+      "cell": "substituted",
+      "definition": "12 of 12 present, antani-2021-source-data.xlsx replaced with a DIFFERENT genuine artifact from the same corpus (a valid file carrying the wrong identity)",
+      "artifactsPresent": 12,
+      "mutatedArtifact": {
+        "name": "antani-2021-source-data.xlsx",
+        "declaredSha256": "bee5497182be4e7b6c2f1a3bd75a24407ab965512e8652bfe9a6337ffb297abd",
+        "declaredBytes": 45271,
+        "observedSha256": "87186cdc9221ed4249231b82306250f1abe7ab66c7de905d7a88682cc9a03ce8",
+        "observedBytes": 13690,
+        "substitutedWith": "lisevich-2025-supp-data-1.xlsx (a genuine, digest-verified artifact of the same corpus)"
+      },
+      "generatorExitStatus": 0,
+      "reportSha256": "bd3838c40b8d256342427e59c615679e0b004d757f21093ef640079a591ee384",
+      "x01Status": "PASS",
+      "testSuiteExitStatus": 1,
+      "testSuiteDetected": true,
+      "testSuiteReason": "AssertionError: ANTANI_2021_SOURCE_WORKBOOK - actual 13690 bytes"
+    }
+  ],
+
+  "conclusion": {
+    "generatedGate": "X01_SOURCE_INTEGRITY reported PASS in ALL FOUR states, including corrupted and substituted bytes. The generated report is provably independent of the filesystem.",
+    "testSuite": "tests/cross-study-parity.test.mjs detected 3 of 4 states (partial, corrupted, substituted) by hashing real bytes when present. It did NOT detect the empty state.",
+    "sharpestStatement": "The single undetected state is `empty`, and `empty` is the DEFAULT state: experiments/upstream-cache/ is gitignored at .gitignore:46 and is absent from any fresh clone. In the state that every clean clone and every CI run would encounter, BOTH the generated gate and the test suite report success while zero external bytes have been verified.",
+    "creditWhereDue": "The test's all-or-none rule ('source cache must be complete or absent') and its per-artifact byte check are sound design. The defect is not that the test is weak when files are present; it is that absence is accepted as success."
+  },
+
+  "uncertainty": "These cells vary only the 12 tier-1 artifacts. The 4,085,227,742-byte Ito archive was not copied per cell; it is verified by scripts/verify-ito-raw-archive.py, which does read bytes and hard-exits when absent. Its honesty was established separately in Phase A and is not under test here.",
+  "alternativeExplanation": "None surviving. Byte-identity of the report across a corrupted and a substituted artifact admits no reading other than that the gate never opened the file.",
+  "independentlyReproduced": "Each cell was executed once in its own clone. The empty and complete states additionally reproduce the Phase A result, giving two independent observations of the invariance.",
+  "remediationConstraint": "Per directive: X01 must NOT be corrected until all four red cases exist. They now exist and are recorded here."
+}

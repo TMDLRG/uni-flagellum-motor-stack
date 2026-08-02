@@ -1,0 +1,118 @@
+{
+  "schema": "uni.flagellum.audit-artifact/1.0.0",
+  "purpose": "Phase B / B2: independent rederivation of the four held-out duration models, to determine whether the two-timescale mixture is globally fitted before any wider model competition is attempted.",
+  "auditedCommit": "9c3a644e4b57e8ac27f925dcec84222463063aa1",
+  "auditPhase": "B",
+  "auditorModel": "claude-fable-5",
+  "operatingSystem": "Microsoft Windows 11 Pro 10.0.26200 build 26200 (x64)",
+  "toolchain": { "python": "3.12.10", "numpy": "2.3.5", "scipy": "1.16.3" },
+  "appendOnly": true,
+  "note": "Timestamps are deliberately omitted: this package must be byte-reproducible. Ordering is established by git history.",
+
+  "independence": {
+    "condition": "The oracle must not import or read repository model code.",
+    "filesRead": [
+      "experiments/data/wadhwa-2022-events.json (data)",
+      "experiments/preregistration.v1.json (protocol)"
+    ],
+    "filesNotRead": [
+      "lib/observed-experiment.js and all of lib/",
+      "scripts/run-observed-experiments.mjs",
+      "scripts/independent-statistical-check.py and all of scripts/",
+      "experiments/results/* for the purpose of deriving the implementation"
+    ],
+    "modelEquationsDerivedFrom": "The protocol's prose specification of M0-M3 and their mean-one constraints, not from any implementation.",
+    "committedValuesUse": "The committed fitted parameters and held-out scores WERE read, but only AFTER the independent implementation was written, and only as comparison targets. They did not inform the implementation.",
+    "disclosedContaminationRisk": "One of four blind implementer cells proactively disclosed that it read a pre-existing scratch file named oracle.py in the shared session scratchpad, apparently written by a sibling cell of the same parallel run, while checking whether its target filename was free. The file contained an implementation of the same specification with no fitted values and no results. This is a real breach of MUTUAL blindness between cells and is recorded rather than hidden. It does not affect the decisive result below, which was computed by a separate implementation written by the lead auditor.",
+    "mutualBlindnessAssessment": "PARTIALLY COMPROMISED between the four parallel cells, because they shared one scratchpad directory. Evidence that copying did NOT occur: the four cells' converged parameters agree to roughly eight significant figures but DIFFER in their trailing digits (e.g. mixture NLL 677.4983530130236 / ...0237 / ...0238 / ...0235). Copied values would be bit-identical. The observed pattern is the signature of four different algorithms converging on one optimum by different numerical paths."
+  },
+
+  "specificationAmbiguityFoundInTheAuditsOwnInstructions": {
+    "problem": "The frozen specification handed to the four blind cells mentioned that the protocol's eligible primary states are N in 1..8, but did not make that a hard filtering instruction. All four cells therefore fitted and scored over all observed states 0..11.",
+    "detection": "The parameter-free exponential model scored -3.3923374 in the independent cells versus -3.2599380 in the committed report. A model with ZERO free parameters cannot score differently unless the event set or the per-state scale differs. That impossibility is what exposed the ambiguity.",
+    "consequence": "The four cells' fitted parameters (e.g. mixture w = 0.5792656, lf = 5.3186880) are fits of a DIFFERENT dataset (959 training events) than the committed fits (793 training events). Their disagreement with the committed values is fully explained by this instruction defect and is NOT evidence of any repository defect.",
+    "attribution": "This was a defect in the AUDIT'S OWN specification, not in the cells' work and not in the repository. The cells implemented what they were given, faithfully and in agreement with each other.",
+    "resolution": "The lead auditor re-derived the comparison under all four combinations of (restrict events to eligible states) x (compute per-state scale from eligible states only) and identified which interpretation reproduces the committed quantity."
+  },
+
+  "calibration": {
+    "purpose": "Before comparing fits, prove that the independent implementation computes the SAME quantity as the repository.",
+    "method": "Evaluate the committed parameters under each candidate interpretation and compare the resulting held-out mean log scores against the committed held-out scores.",
+    "interpretations": [
+      { "eligibleOnly": false, "scaleFromEligibleOnly": false, "trainEvents": 959, "holdoutEvents": 281, "maxAbsErrorVsCommitted": 1.696e-1 },
+      { "eligibleOnly": false, "scaleFromEligibleOnly": true, "trainEvents": 793, "holdoutEvents": 233, "maxAbsErrorVsCommitted": 1.776e-15 },
+      { "eligibleOnly": true, "scaleFromEligibleOnly": false, "trainEvents": 793, "holdoutEvents": 233, "maxAbsErrorVsCommitted": 1.776e-15 },
+      { "eligibleOnly": true, "scaleFromEligibleOnly": true, "trainEvents": 793, "holdoutEvents": 233, "maxAbsErrorVsCommitted": 1.776e-15 }
+    ],
+    "adopted": "Restriction to eligible states N in 1..8, giving 793 training and 233 holdout uncensored events.",
+    "agreement": "The independent implementation reproduces all four committed held-out scores to a maximum absolute error of 1.776e-15, i.e. machine precision. This is what licenses the fit comparison that follows."
+  },
+
+  "predictionsCommittedBeforeExecution": {
+    "P_B1": { "statement": "An independent fit will find a training NLL no worse than the committed mixture fit.", "outcome": "CONFIRMED" },
+    "P_B2": { "statement": "It will find a STRICTLY BETTER training NLL, i.e. the committed mixture is NOT the global optimum.", "outcome": "REFUTED" },
+    "P_B3": { "statement": "The single-parameter models will be recovered to within optimizer tolerance, because golden-section is adequate on a unimodal one-dimensional surface.", "outcome": "CONFIRMED" },
+    "motivationForP_B2": "The committed values weightFast = 0.6066448974609373 and rateFast = 5.239865393555934 carry the numeric signature of a grid-then-refine bisection rather than a converged multivariate optimum, and a one-dimensional golden-section routine cannot search a two-parameter surface.",
+    "whyTheMotivationWasWrong": "The signature was correctly identified - these ARE grid-refined values - but the inference did not follow. The refinement grid was fine enough to land on the optimum, and the surface turns out to be unimodal, so a coarse method was sufficient here. Identifying an algorithm's fingerprint is not the same as demonstrating that the algorithm failed."
+  },
+
+  "decisiveResult": {
+    "method": "Evaluate the committed parameters and the independently located optimum under the SAME likelihood on the SAME 793-event training set. 320 optimizer runs (Nelder-Mead and L-BFGS-B) from 100 grid starts plus 200 seeded random starts.",
+    "mixture": {
+      "committedParameters": { "weightFast": 0.6066448974609373, "rateFast": 5.239865393555934 },
+      "committedTrainingNll": 537.0211284012928,
+      "independentOptimum": { "weightFast": 0.6066439960698439, "rateFast": 5.2398794860915565 },
+      "independentTrainingNll": 537.0211284007614,
+      "deltaNats": 5.313722795108333e-10,
+      "verdict": "THE COMMITTED MIXTURE IS AT THE GLOBAL OPTIMUM, to within 5.3e-10 nats."
+    },
+    "weibull": {
+      "committedShape": 0.625088844276203,
+      "independentShape": 0.6250888449434251,
+      "committedTrainingNll": 583.5856062645819,
+      "independentTrainingNll": 583.5856062645817,
+      "deltaNats": 2.2737367544323206e-13,
+      "verdict": "AT OPTIMUM"
+    },
+    "lognormal": {
+      "committedSigma": 1.5783076021679734,
+      "independentSigma": 1.5783076168349195,
+      "committedTrainingNll": 509.28782032664856,
+      "independentTrainingNll": 509.28782032664856,
+      "deltaNats": 0.0,
+      "verdict": "AT OPTIMUM"
+    }
+  },
+
+  "surfaceGeometry": {
+    "method": "144 Nelder-Mead starts over a grid of w in (0.05..0.95) x lf in logspace(0.1..200), on the corrected 793-event training set.",
+    "distinctConvergedNllValues": 2,
+    "values": [537.021128, 793.0],
+    "interpretation": "Exactly ONE non-trivial optimum at 537.021128, plus a degenerate boundary attractor at 793.0 where w -> 0 and the mixture collapses exactly onto the memoryless model M0 (whose training NLL on 793 mean-one normalized events is exactly 793.0). The surface is unimodal in the interior.",
+    "corroboration": "The four blind cells independently reported the same structure on their (larger) event set: one non-trivial optimum, its exact label-swap mirror at identical NLL, and a w -> 0 boundary attractor collapsing onto M0. One cell reported a positive-definite numerical Hessian with eigenvalues [3.827, 2561.4], condition number 669.2 - mildly ill-conditioned along lf but non-degenerate."
+  },
+
+  "adverseResultStatus": {
+    "question": "Does a better mixture fit overturn the published finding that a lognormal baseline out-scores the project's own two-timescale model?",
+    "heldoutMeanLogScoreNatsPerEvent": {
+      "withCommittedMixtureFit": { "lognormal": -3.0128901709465548, "mixture": -3.049756569544135, "weibull": -3.096284176837812, "exponential": -3.2599380237315465 },
+      "withIndependentOptimumMixtureFit": { "lognormal": -3.0128901709465548, "mixture": -3.049756691603303, "weibull": -3.096284176837812, "exponential": -3.2599380237315465 }
+    },
+    "lognormalMinusMixture": { "committedFit": 0.03686639859758012, "bestFit": 0.036866520656748225 },
+    "verdict": "THE ADVERSE RESULT SURVIVES. The lognormal baseline out-scores the two-timescale mixture by 0.0369 nats per held-out event, and the gap is unchanged to five decimal places under the independently located optimum. It is NOT an artifact of a sub-optimal fit.",
+    "ranking": ["lognormal", "mixture", "weibull", "exponential"],
+    "rankingCorroboration": "All four blind cells independently produced this identical ranking on their own event set as well, so the ordering is robust to the eligible-state question.",
+    "integrityFrameNotRequired": "The reporting rule committed in advance was that if a better fit overturned the lognormal result, that would be an integrity finding to be reported in the integrity frame first. It did not overturn it, so that frame does not apply."
+  },
+
+  "consequenceForWiderModelCompetition": {
+    "gate": "Codex required determining whether the mixture is globally fitted BEFORE wider model competition.",
+    "answer": "It is. All three fitted models sit at their maximum-likelihood optima on the frozen training partition.",
+    "clearance": "Wider model competition (B3) may proceed. Comparisons against M3 are comparisons against a correctly fitted M3, so any subsequent result cannot be dismissed as an artifact of M3's fit.",
+    "caveat": "This establishes optimality of the fit WITHIN each declared model family under the mean-one constraint. It says nothing about whether the model families themselves are adequate, nor about identifiability of the latent labels, which the protocol itself already disclaims."
+  },
+
+  "uncertainty": "Optimality is established for the frozen training partition, the mean-one parameterization, and the uncensored-events-only likelihood specified by the protocol. A different censoring treatment, a different normalization, or per-state rather than common shape parameters would define a different optimization problem that has NOT been examined. The held-out scores were not accompanied by an independent recomputation of the motor-cluster bootstrap interval; that remains single-implementation.",
+  "alternativeExplanation": "The one alternative worth stating: agreement to 1e-15 in the calibration step could in principle indicate that the independent implementation accidentally reproduces an error present in the original. This is not excluded by agreement alone. It is however constrained by the fact that the implementation was written from the protocol's prose and closed-form mean-one constraints, which were verified numerically by quadrature before any fitting.",
+  "independentlyReproduced": "The optimum was located by six distinct routes: four blind cells (Nelder-Mead multistart, L-BFGS-B, differential evolution, basinhopping, hand-rolled EM, dense grid) on the uncorrected event set, and Nelder-Mead plus L-BFGS-B multistart and differential evolution by the lead auditor on the corrected event set."
+}

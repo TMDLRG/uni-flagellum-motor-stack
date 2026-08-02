@@ -1,0 +1,495 @@
+{
+ "cohort": {
+  "nTrainEvents": 793,
+  "nTrainMotors": 80,
+  "name": "derived_eligible_1_to_8"
+ },
+ "flatnessDESIGN_ONLY": {
+  "c11U2FireRule_DESIGN_ONLY_here": "normalized logspan >= 0.50",
+  "flatLogspan_normalized": 0.06666666666666665,
+  "flatLogspan_raw_natural_log": 0.7213185522940186,
+  "flatSetTauRange": [
+   0.11332624602040679,
+   0.2331283928719889
+  ],
+  "flatThreshold": 577.6274888179371,
+  "logspanNormalizationDenominator": 10.819778284410281,
+  "nllStar": 575.7067888179371,
+  "offsetProvenance": "frozen for the B4C11 M7 U2 cell (a DIFFERENT model and a DIFFERENT likelihood). Reuse here is DESIGN_ONLY and is not evidential.",
+  "offsetUsed": 1.9207
+ },
+ "grid": {
+  "hi": 5.0,
+  "lo": 0.0001,
+  "n": 61,
+  "provenance": "transcribed verbatim from frozen B4C11 cell_C11 U2 tau grid"
+ },
+ "llCalls": 687,
+ "muOptimiser": {
+  "bounds": [
+   -3.0,
+   3.0
+  ],
+  "method": "bounded Brent",
+  "xatol": 1e-05
+ },
+ "pooledSingleShapeCheck": {
+  "k": 0.6250888368122796,
+  "nFreeParams": 1,
+  "nll": 583.5856062645817,
+  "note": "no-pooling-free single shared shape; the tau -> 0 limit of the hierarchy"
+ },
+ "probe": "PROBE5_TAU_PROFILE",
+ "profile": [
+  {
+   "muAtBound": false,
+   "muHat": -0.4698628003423365,
+   "profileNLL": 583.5855952300938,
+   "profileNLLStatus": "OK",
+   "tau": 0.00010000000000000009
+  },
+  {
+   "muAtBound": false,
+   "muHat": -0.46986277773932544,
+   "profileNLL": 583.5855904375034,
+   "profileNLLStatus": "OK",
+   "tau": 0.00011976120765996791
+  },
+  {
+   "muAtBound": false,
+   "muHat": -0.46986274532088146,
+   "profileNLL": 583.5855835636196,
+   "profileNLLStatus": "OK",
+   "tau": 0.0001434274686017392
+  },
+  {
+   "muAtBound": false,
+   "muHat": -0.4698626988235912,
+   "profileNLL": 583.5855737045979,
+   "profileNLLStatus": "OK",
+   "tau": 0.000171770468513564
+  },
+  {
+   "muAtBound": false,
+   "muHat": -0.4698626321342348,
+   "profileNLL": 583.5855595640844,
+   "profileNLLStatus": "OK",
+   "tau": 0.00020571438749502865
+  },
+  {
+   "muAtBound": false,
+   "muHat": -0.4698625364835117,
+   "profileNLL": 583.58553928277,
+   "profileNLLStatus": "OK",
+   "tau": 0.0002463660347943521
+  },
+  {
+   "muAtBound": false,
+   "muHat": -0.4698623992947037,
+   "profileNLL": 583.5855101939296,
+   "profileNLLStatus": "OK",
+   "tau": 0.00029505093853369205
+  },
+  {
+   "muAtBound": false,
+   "muHat": -0.46986220252914207,
+   "profileNLL": 583.5854684728215,
+   "profileNLLStatus": "OK",
+   "tau": 0.0003533565672000186
+  },
+  {
+   "muAtBound": false,
+   "muHat": -0.4698619203161303,
+   "profileNLL": 583.5854086338659,
+   "profileNLLStatus": "OK",
+   "tau": 0.00042318409222454756
+  },
+  {
+   "muAtBound": false,
+   "muHat": -0.4698615155504374,
+   "profileNLL": 583.5853228095482,
+   "profileNLLStatus": "OK",
+   "tau": 0.0005068103794729896
+  },
+  {
+   "muAtBound": false,
+   "muHat": -0.46986093501612314,
+   "profileNLL": 583.5851997163297,
+   "profileNLLStatus": "OK",
+   "tau": 0.0006069622310029175
+  },
+  {
+   "muAtBound": false,
+   "muHat": -0.4698601023918306,
+   "profileNLL": 583.5850231718395,
+   "profileNLLStatus": "OK",
+   "tau": 0.0007269052978889769
+  },
+  {
+   "muAtBound": false,
+   "muHat": -0.46985890822541676,
+   "profileNLL": 583.5847699688237,
+   "profileNLLStatus": "OK",
+   "tau": 0.0008705505632961244
+  },
+  {
+   "muAtBound": false,
+   "muHat": -0.4698571955564431,
+   "profileNLL": 583.5844068272893,
+   "profileNLLStatus": "OK",
+   "tau": 0.001042581867894091
+  },
+  {
+   "muAtBound": false,
+   "muHat": -0.4698547393099096,
+   "profileNLL": 583.5838860260636,
+   "profileNLLStatus": "OK",
+   "tau": 0.0012486086358338112
+  },
+  {
+   "muAtBound": false,
+   "muHat": -0.46985121677171565,
+   "profileNLL": 583.5831391434884,
+   "profileNLLStatus": "OK",
+   "tau": 0.001495348781221222
+  },
+  {
+   "muAtBound": false,
+   "muHat": -0.46984616529402756,
+   "profileNLL": 583.5820680926582,
+   "profileNLLStatus": "OK",
+   "tau": 0.001790847759119142
+  },
+  {
+   "muAtBound": false,
+   "muHat": -0.46983892175133174,
+   "profileNLL": 583.580532289822,
+   "profileNLLStatus": "OK",
+   "tau": 0.002144740903672556
+  },
+  {
+   "muAtBound": false,
+   "muHat": -0.4698285359381796,
+   "profileNLL": 583.5783303044133,
+   "profileNLLStatus": "OK",
+   "tau": 0.0025685676074155553
+  },
+  {
+   "muAtBound": false,
+   "muHat": -0.4698136468429149,
+   "profileNLL": 583.5751736511697,
+   "profileNLLStatus": "OK",
+   "tau": 0.0030761475862036095
+  },
+  {
+   "muAtBound": false,
+   "muHat": -0.46979230617744966,
+   "profileNLL": 583.5706494285297,
+   "profileNLLStatus": "OK",
+   "tau": 0.003684031498640386
+  },
+  {
+   "muAtBound": false,
+   "muHat": -0.469761727291215,
+   "profileNLL": 583.564167198254,
+   "profileNLLStatus": "OK",
+   "tau": 0.004412040613345336
+  },
+  {
+   "muAtBound": false,
+   "muHat": -0.46971792916384875,
+   "profileNLL": 583.5548837499284,
+   "profileNLLStatus": "OK",
+   "tau": 0.005283913120990616
+  },
+  {
+   "muAtBound": false,
+   "muHat": -0.46965523417688293,
+   "profileNLL": 583.5415971375186,
+   "profileNLLStatus": "OK",
+   "tau": 0.006328078165401858
+  },
+  {
+   "muAtBound": false,
+   "muHat": -0.46956556480105244,
+   "profileNLL": 583.5225986501008,
+   "profileNLLStatus": "OK",
+   "tau": 0.007578582832551994
+  },
+  {
+   "muAtBound": false,
+   "muHat": -0.46943746912998296,
+   "profileNLL": 583.4954684816734,
+   "profileNLLStatus": "OK",
+   "tau": 0.009076202323775255
+  },
+  {
+   "muAtBound": false,
+   "muHat": -0.4692547917721563,
+   "profileNLL": 583.4567986743269,
+   "profileNLLStatus": "OK",
+   "tau": 0.010869769512615297
+  },
+  {
+   "muAtBound": false,
+   "muHat": -0.46899490323524695,
+   "profileNLL": 583.4018274835063,
+   "profileNLLStatus": "OK",
+   "tau": 0.013017767238163065
+  },
+  {
+   "muAtBound": false,
+   "muHat": -0.4686264240574565,
+   "profileNLL": 583.3239768876738,
+   "profileNLLStatus": "OK",
+   "tau": 0.015590235254787711
+  },
+  {
+   "muAtBound": false,
+   "muHat": -0.4681064601172933,
+   "profileNLL": 583.2143073213113,
+   "profileNLLStatus": "OK",
+   "tau": 0.018671054018163807
+  },
+  {
+   "muAtBound": false,
+   "muHat": -0.4673775505189122,
+   "profileNLL": 583.060953320718,
+   "profileNLLStatus": "OK",
+   "tau": 0.022360679774997897
+  },
+  {
+   "muAtBound": false,
+   "muHat": -0.46636487477005184,
+   "profileNLL": 582.8486964743643,
+   "profileNLLStatus": "OK",
+   "tau": 0.026779420139515633
+  },
+  {
+   "muAtBound": false,
+   "muHat": -0.4649747943833555,
+   "profileNLL": 582.5589781186358,
+   "profileNLLStatus": "OK",
+   "tau": 0.032071356963420526
+  },
+  {
+   "muAtBound": false,
+   "muHat": -0.46309640660336265,
+   "profileNLL": 582.170834269264,
+   "profileNLLStatus": "OK",
+   "tau": 0.03840904441233157
+  },
+  {
+   "muAtBound": false,
+   "muHat": -0.46060804021168783,
+   "profileNLL": 581.6633617382734,
+   "profileNLLStatus": "OK",
+   "tau": 0.04599913543886163
+  },
+  {
+   "muAtBound": false,
+   "muHat": -0.45739028104551027,
+   "profileNLL": 581.0202245589393,
+   "profileNLLStatus": "OK",
+   "tau": 0.055089120114724874
+  },
+  {
+   "muAtBound": false,
+   "muHat": -0.4533443503013567,
+   "profileNLL": 580.2362259292888,
+   "profileNLLStatus": "OK",
+   "tau": 0.06597539553864469
+  },
+  {
+   "muAtBound": false,
+   "muHat": -0.4484131695479107,
+   "profileNLL": 579.325238710648,
+   "profileNLLStatus": "OK",
+   "tau": 0.07901293045552134
+  },
+  {
+   "muAtBound": false,
+   "muHat": -0.44260111161399757,
+   "profileNLL": 578.3284306703551,
+   "profileNLLStatus": "OK",
+   "tau": 0.09462683972106277
+  },
+  {
+   "muAtBound": false,
+   "muHat": -0.43599142445613875,
+   "profileNLL": 577.3223109309125,
+   "profileNLLStatus": "OK",
+   "tau": 0.11332624602040679
+  },
+  {
+   "muAtBound": false,
+   "muHat": -0.4287638741432161,
+   "profileNLL": 576.4269314019374,
+   "profileNLLStatus": "OK",
+   "tau": 0.13572088082974526
+  },
+  {
+   "muAtBound": false,
+   "muHat": -0.42120108103173276,
+   "profileNLL": 575.8134903100411,
+   "profileNLLStatus": "OK",
+   "tau": 0.16254096592844852
+  },
+  {
+   "muAtBound": false,
+   "muHat": -0.4136969677540446,
+   "profileNLL": 575.7067888179371,
+   "profileNLLStatus": "OK",
+   "tau": 0.19466102373808658
+  },
+  {
+   "muAtBound": false,
+   "muHat": -0.4067422401967013,
+   "profileNLL": 576.3750515294315,
+   "profileNLLStatus": "OK",
+   "tau": 0.2331283928719889
+  },
+  {
+   "muAtBound": false,
+   "muHat": -0.4010602846998252,
+   "profileNLL": 578.0929239966238,
+   "profileNLLStatus": "OK",
+   "tau": 0.279197378701768
+  },
+  {
+   "muAtBound": false,
+   "muHat": -0.39426440901411575,
+   "profileNLL": 581.1004234654762,
+   "profileNLLStatus": "OK",
+   "tau": 0.3343701524882107
+  },
+  {
+   "muAtBound": false,
+   "muHat": -0.3844185519971017,
+   "profileNLL": 585.6711547566746,
+   "profileNLLStatus": "OK",
+   "tau": 0.40044573267435707
+  },
+  {
+   "muAtBound": false,
+   "muHat": -0.3952618450871144,
+   "profileNLL": 591.7404627291642,
+   "profileNLLStatus": "OK",
+   "tau": 0.4795786454736155
+  },
+  {
+   "muAtBound": false,
+   "muHat": -0.3801858269494621,
+   "profileNLL": 598.980018753887,
+   "profileNLLStatus": "OK",
+   "tau": 0.5743491774985174
+  },
+  {
+   "muAtBound": false,
+   "muHat": -0.33943387606846714,
+   "profileNLL": 607.9482906306101,
+   "profileNLLStatus": "OK",
+   "tau": 0.6878475111573153
+  },
+  {
+   "muAtBound": false,
+   "muHat": -0.45242646330270286,
+   "profileNLL": 620.2451219944606,
+   "profileNLLStatus": "OK",
+   "tau": 0.8237744862210327
+  },
+  {
+   "muAtBound": false,
+   "muHat": -0.6129980254660292,
+   "profileNLL": 629.4998553590349,
+   "profileNLLStatus": "OK",
+   "tau": 0.9865622730930022
+  },
+  {
+   "muAtBound": false,
+   "muHat": -0.6138001049114986,
+   "profileNLL": 639.6258312096228,
+   "profileNLLStatus": "OK",
+   "tau": 1.181518892573809
+  },
+  {
+   "muAtBound": false,
+   "muHat": -0.6406069261713387,
+   "profileNLL": 651.9675282835007,
+   "profileNLLStatus": "OK",
+   "tau": 1.415001294477069
+  },
+  {
+   "muAtBound": false,
+   "muHat": -0.6741629503936925,
+   "profileNLL": 669.8607370245833,
+   "profileNLLStatus": "OK",
+   "tau": 1.694622638669915
+  },
+  {
+   "muAtBound": false,
+   "muHat": -0.5259896296555652,
+   "profileNLL": 686.3971164000377,
+   "profileNLLStatus": "OK",
+   "tau": 2.029500537350299
+  },
+  {
+   "muAtBound": false,
+   "muHat": 0.8277294862572149,
+   "profileNLL": 707.2075064915997,
+   "profileNLLStatus": "OK",
+   "tau": 2.4305543529962543
+  },
+  {
+   "muAtBound": false,
+   "muHat": -0.47206580586218494,
+   "profileNLL": 700.6773632391296,
+   "profileNLLStatus": "OK",
+   "tau": 2.910861245980226
+  },
+  {
+   "muAtBound": false,
+   "muHat": -0.4711637533440707,
+   "profileNLL": 702.5403963124854,
+   "profileNLLStatus": "OK",
+   "tau": 3.4860825814919045
+  },
+  {
+   "muAtBound": false,
+   "muHat": -0.4705111042566713,
+   "profileNLL": 703.3245490289178,
+   "profileNLLStatus": "OK",
+   "tau": 4.174974599618479
+  },
+  {
+   "muAtBound": false,
+   "muHat": -0.4702248202116958,
+   "profileNLL": 703.5863539048954,
+   "profileNLLStatus": "OK",
+   "tau": 4.999999999999999
+  }
+ ],
+ "profileMax": {
+  "muHat": -0.4136969677540446,
+  "nll": 575.7067888179371,
+  "tau": 0.19466102373808658
+ },
+ "recordedFit": {
+  "mu": -0.41607215987582913,
+  "source": "results/motor_stack_aif/F_SIDE_MOTOR_STACK_SCORING_RESULT.json",
+  "tau": 0.18372082607308418,
+  "trainNLL": 575.6701064153622
+ },
+ "splitBoundary": "TRAIN_ONLY (duration-only). No holdout field read.",
+ "tauBoundsFromFit": [
+  0.0001,
+  5.0
+ ],
+ "tauMinLimit": {
+  "dropFromMax": 7.878806412156678,
+  "muHat": -0.4698628003423365,
+  "nll": 583.5855952300938,
+  "tau": 0.00010000000000000009
+ },
+ "wallSeconds": 119.49148654937744
+}

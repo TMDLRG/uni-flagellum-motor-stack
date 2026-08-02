@@ -1,0 +1,114 @@
+{
+  "schema": "uni.flagellum.audit-artifact/1.0.0",
+  "purpose": "Frozen, machine-readable definition of the remaining Phase B programme. B1, B3, B4 and B5 were named in the directive but were not defined anywhere in the repository. This file defines them BEFORE any of them is executed.",
+  "auditedCommit": "9c3a644e4b57e8ac27f925dcec84222463063aa1",
+  "auditPhase": "B",
+  "auditorModel": "claude-fable-5",
+  "appendOnly": true,
+  "frozenBeforeExecution": true,
+  "note": "Timestamps are deliberately omitted: this package must be byte-reproducible. Ordering is established by git history.",
+
+  "globalRules": {
+    "isolation": "Every cell runs in its own dedicated clone or worktree with its own input and output directories. No cell writes to a path another cell reads. The primary checkout is never written.",
+    "seeds": "All stochastic procedures take their seed from experiments/preregistration.v1.json uncertainty.seed unless a cell declares otherwise in advance.",
+    "predictionDiscipline": "Each cell commits its prediction and falsifier to the audit package BEFORE the cell is executed. A result produced without a committed prediction is labelled RETROSPECTIVE CORROBORATION and may not be described as a test.",
+    "adverseResultRetention": "Null, negative and adverse results are retained and reported with the same prominence as favourable ones. No gate may be weakened, no threshold retuned, and no adverse finding removed.",
+    "eligibilityDeclaration": "Every cell MUST declare which eligible-state set it uses, and MUST report results under both [0..8] and [1..8] whenever the choice could move a ranking or an interval crossing. See finding F-B2-NEW-1.",
+    "independenceRule": "Any oracle claimed to be independent must not import repository model code, must derive its root from __file__, and must load the protocol rather than hard-code it. Mutual blindness between parallel cells requires one scratch directory per cell.",
+    "claimStrength": "Finite numerical search yields 'no better solution found over the declared domain', never 'proved global optimum'. Search domains are declared in advance."
+  },
+
+  "stages": [
+    {
+      "id": "B1",
+      "title": "Mutation battery",
+      "status": "NOT STARTED",
+      "goal": "Establish which false scientific claims the existing test suite and gate ledger can actually detect. A surviving mutation is a region where the repository could publish a wrong result and stay green.",
+      "mutations": [
+        { "id": "M01", "target": "CW/CCW direction semantics", "expectedDetector": "direction metrics and H4 gate" },
+        { "id": "M02", "target": "species label swap between E. coli behavioural and Salmonella/Bacillus structural evidence", "expectedDetector": "lib/walkthrough.js species validator and tests/walkthrough.test.mjs" },
+        { "id": "M03", "target": "truth class - relabel a synthetic or reconstructed source as OBSERVED", "expectedDetector": "export validator; NOTE this is already known weak, see Phase A finding on truthClassForMode" },
+        { "id": "M04", "target": "likelihood or posterior normalization broken", "expectedDetector": "model tests and normalization assertions" },
+        { "id": "M05", "target": "residual sign inversion", "expectedDetector": "unknown - candidate surviving mutation" },
+        { "id": "M06", "target": "censoring treatment - include right-censored dwells in the uncensored likelihood", "expectedDetector": "unknown - candidate surviving mutation" },
+        { "id": "M07", "target": "train/holdout motor identity leak", "expectedDetector": "hard throw at lib/observed-experiment.js motor-leakage check" },
+        { "id": "M08", "target": "experimental-unit count inflation - count events as independent units", "expectedDetector": "X02; NOTE the X02A/X02B/X02S contract bears directly on this" },
+        { "id": "M09", "target": "source hash alteration", "expectedDetector": "tests/walkthrough.test.mjs hash pins; C2f showed the cross-study report gate will NOT detect this" },
+        { "id": "M10", "target": "adverse-result removal - delete the lognormal advantage from the report", "expectedDetector": "tests/observed-experiment.test.mjs adverse-result assertions" },
+        { "id": "M11", "target": "prospective prediction ordering - compute a prediction after revealing the outcome", "expectedDetector": "unknown - candidate surviving mutation" },
+        { "id": "M12", "target": "physical work vs variational free energy conflation, including unit mixing", "expectedDetector": "unknown - candidate surviving mutation" }
+      ],
+      "method": "Apply each mutation in a dedicated disposable clone. Run the full declared gate set. Record DETECTED or SURVIVED with the detecting file and line, or the absence of one. Revert by force checkout and confirm restoration by raw on-disk hash before the next mutation.",
+      "prediction": "TO BE COMMITTED PER MUTATION BEFORE EXECUTION.",
+      "deliverable": "audits/phase-b/b1-mutation-ledger.json with one row per mutation and a programmatic count of detectors fired."
+    },
+    {
+      "id": "B3",
+      "title": "Serious model competition",
+      "status": "CLEARED TO PROCEED, NOT STARTED",
+      "precondition": "B2 established that M3 is fitted to the best located optimum, so comparisons against M3 are not comparisons against a mis-fit model. This precondition is now SATISFIED.",
+      "goal": "Compare the UNI two-timescale mixture against serious alternatives on identical motor-level splits and identical scoring rules, separating predictive superiority from mechanistic identity.",
+      "baselines": ["exponential", "Weibull", "lognormal", "flexible finite mixture with k > 2 components", "semi-Markov", "conventional parametric survival model", "hidden Markov model where identifiable", "hierarchical motor-level model", "at least one credible non-UNI mechanistic alternative"],
+      "scoringRules": ["held-out mean log predictive density per event, in nats", "at least one strictly proper alternative scoring rule to check rank stability"],
+      "uncertainty": "Motor-cluster nonparametric bootstrap, seed from the protocol, percentile 95 percent interval. Report interval crossings explicitly.",
+      "mandatoryConstraint": "The current adverse lognormal result must remain visible in the output whether it is confirmed or overturned. If a richer model overtakes the lognormal, that must be reported alongside, not instead of, the existing finding.",
+      "prediction": "TO BE COMMITTED BEFORE EXECUTION.",
+      "deliverable": "audits/phase-b/b3-model-competition.json with a full leaderboard, intervals, and an explicit statement of what predictive superiority does and does not establish about mechanism."
+    },
+    {
+      "id": "B4",
+      "title": "Identifiability and robustness",
+      "status": "NOT STARTED",
+      "goal": "Determine which conclusions are properties of the data and which are artifacts of specification choices.",
+      "components": [
+        "parameter recovery in a correctly specified synthetic world with known ground truth",
+        "parameter recovery in misspecified synthetic worlds",
+        "sensitivity to alternative priors where any are used",
+        "sensitivity to seed across many bootstrap seeds",
+        "sensitivity to censoring assumptions, including treating right-censored dwells as observed and as fully censored",
+        "sensitivity to outlier rules and to the analysisStartIndex 3500 boundary",
+        "sensitivity to binning and to the eligible-state choice [0..8] versus [1..8] per F-B2-NEW-1",
+        "leave-one-motor-out, leave-one-study-out and leave-one-condition-out splits",
+        "measurement-uncertainty propagation from the 0.02 s sampling interval"
+      ],
+      "prediction": "TO BE COMMITTED BEFORE EXECUTION.",
+      "deliverable": "audits/phase-b/b4-identifiability-robustness.json with a sensitivity table naming every conclusion that moves and every conclusion that does not."
+    },
+    {
+      "id": "B5",
+      "title": "Prospective experimental design",
+      "status": "NOT STARTED",
+      "criticalRule": "REPLAY IS NOT PROSPECTIVE. Nothing in this repository is currently prospective, because every preregistration entered version control in the same commit as its results and there are no signed tags or external timestamps. B5 produces a FUTURE contract, not a claim about existing evidence.",
+      "goal": "Produce a frozen, externally anchorable contract for an experiment that could discriminate between UNI and its serious alternatives, prioritising designs that could make UNI FAIL.",
+      "requiredContents": [
+        "the competing models and their point of maximum disagreement",
+        "the intervention and the physical variable manipulated",
+        "the experimental unit and why it is independent",
+        "sample-size and power rationale",
+        "frozen predictions with uncertainty, committed before observation",
+        "explicit acceptance and rejection thresholds",
+        "the preregistered analysis, including the exact scoring rule",
+        "an independent replication plan",
+        "an external timestamping mechanism, since git history alone cannot establish prospectivity"
+      ],
+      "prediction": "Not applicable. B5 produces predictions; it does not test one.",
+      "deliverable": "audits/phase-b/b5-prospective-contract.v1.json, externally timestamped by a mechanism outside this repository before any corresponding observation is revealed."
+    }
+  ],
+
+  "orderingConstraints": [
+    "B1 is independent of B3/B4/B5 and may run at any time.",
+    "B3 required B2 to establish that M3 is correctly fitted. That precondition is satisfied.",
+    "B4 should follow B3, because its sensitivity table is most informative when applied to a leaderboard rather than to a single model.",
+    "B5 should follow B3 and B4, because the region of maximum model disagreement is an output of those stages, not an input."
+  ],
+
+  "openItemsCarriedFromEarlierPhases": [
+    { "id": "X01", "item": "X01 source-integrity gate remains UNFIXED by instruction, now that all four C2f red cases exist.", "status": "awaiting decision" },
+    { "id": "C1", "item": "Cross-runtime artifact identity: Model A versus Model B remediation not yet chosen.", "status": "awaiting decision" },
+    { "id": "C3", "item": "CRLF generator defect not yet corrected; the failing test already exists.", "status": "awaiting decision" },
+    { "id": "X02", "item": "X02A/X02B/X02S contract recorded but not implemented in the gate code.", "status": "awaiting Phase C" },
+    { "id": "F-B2-NEW-1", "item": "Protocol declares primaryStates [0..8]; implementation uses [1..8] with no authorizing rule.", "status": "newly reported, awaiting decision" },
+    { "id": "154-40-106", "item": "The Antani, Ito and Lisevich motor counts have never been verified in either counting convention, so both the 409 and 399 totals rest on three unverified components.", "status": "unverified" }
+  ]
+}

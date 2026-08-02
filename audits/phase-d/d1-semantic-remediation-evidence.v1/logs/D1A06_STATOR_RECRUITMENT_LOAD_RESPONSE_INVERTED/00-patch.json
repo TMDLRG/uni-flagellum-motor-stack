@@ -1,0 +1,9 @@
+{
+  "id": "D1A06_STATOR_RECRUITMENT_LOAD_RESPONSE_INVERTED",
+  "class": "ALTERNATE_FORM",
+  "propertyId": "D1P06_LOAD_DEPENDENT_STATOR_RECRUITMENT",
+  "targetPath": "lib/uni-motor.js",
+  "preMutationSha256": "852b38d14e1de9e1baae9bda7c37fb2426911fb1b04b4f594d026373d4b50313",
+  "postMutationSha256": "939a2cf8eeec0408feeb101f7f9f54b58b2f4fb25d32a1a05b1ce2dad76b9bf2",
+  "diff": "diff --git a/lib/uni-motor.js b/lib/uni-motor.js\nindex 6f206b6..75ce088 100644\n--- a/lib/uni-motor.js\n+++ b/lib/uni-motor.js\n@@ -173,7 +173,7 @@ export function stepWorld(world, action, controls, dtS) {\n   next.cheYpUm = world.cheYpUm + (cheYTarget - world.cheYpUm) * dt / 0.35;\n \n   const loadFraction = controls.loadPnNm / (controls.loadPnNm + 420);\n-  const statorTarget = 1 + 10 * loadFraction;\n+  const statorTarget = 11 - 10 * loadFraction;\n   const remodelingTauS = statorTarget > world.stators ? 6.5 : 3.2;\n   next.stators = clamp(\n     world.stators + (statorTarget - world.stators) * dt / remodelingTauS,\n"
+}

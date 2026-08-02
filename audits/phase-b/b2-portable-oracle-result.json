@@ -1,0 +1,245 @@
+{
+  "schema": "uni.flagellum.audit-artifact/1.0.0",
+  "purpose": "Clone-reproducible B2 oracle: refits all claimed models, counts optimizer attempts programmatically, and reports the protocol/implementation eligibility discrepancy.",
+  "auditedCommit": "9c3a644e4b57e8ac27f925dcec84222463063aa1",
+  "repoRootDerivedFrom": "__file__",
+  "protocolId": "UNI-FLAGELLUM-OBS-001",
+  "splitVerification": {
+    "mismatches": 0,
+    "motorsSpanningPartitions": 0
+  },
+  "eligibilityDiscrepancy": {
+    "protocolPrimaryStates": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "committedEligibleStates": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "statesInProtocolButNotImplemented": [
+      0
+    ],
+    "authorizedByAFrozenRule": false,
+    "explanation": "scope.primaryStates in the frozen protocol is [0..8]. The committed report uses eligibleStates [1..8]. State 0 is NOT dropped for want of data - it has training and holdout uncensored events - so its exclusion is an implementation choice with no authorizing rule in the frozen protocol."
+  },
+  "scenarios": [
+    {
+      "label": "committed_eligible_states_1_to_8",
+      "eligibleStates": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "statesWithTrainingScale": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "trainUncensoredEvents": 793,
+      "holdoutUncensoredEvents": 233,
+      "holdoutMotors": 19,
+      "optimizerAttempts": {
+        "attempted": 720,
+        "feasibleAfterDomainCheck": 608,
+        "reportedSuccess": 728,
+        "finiteObjective": 728,
+        "note": "Counted programmatically by this script, not asserted in prose."
+      },
+      "independentFits": {
+        "weibullShape": 0.625088835945566,
+        "weibullTrainingNll": 583.5856062645817,
+        "lognormalSigma": 1.5783076163628234,
+        "lognormalTrainingNll": 509.28782032664844,
+        "mixtureWeightFast": 0.6066439960698439,
+        "mixtureRateFast": 5.2398794860915565,
+        "mixtureRateSlow": 0.444859334295334,
+        "mixtureTrainingNll": 537.0211284007614
+      },
+      "committedComparison": {
+        "mixtureTrainingNllAtCommitted": 537.0211284012928,
+        "mixtureTrainingNllAtBestFound": 537.0211284007614,
+        "deltaNats": 5.313722795108333e-10,
+        "heldoutScoresAtCommittedParams": {
+          "exponential": -3.2599380237315465,
+          "weibull": -3.096284176837812,
+          "lognormal": -3.0128901709465548,
+          "mixture": -3.049756569544135
+        },
+        "maxAbsErrorVsCommittedReport": 1.7763568394002505e-15
+      },
+      "heldoutScoresAtIndependentFits": {
+        "exponential": -3.2599380237315465,
+        "weibull": -3.0962841788243387,
+        "lognormal": -3.012890173553255,
+        "mixture": -3.049756691603303
+      },
+      "ranking": [
+        "lognormal",
+        "mixture",
+        "weibull",
+        "exponential"
+      ],
+      "lognormalMinusMixture": 0.036866518050048036,
+      "adverseLognormalResultSurvives": true,
+      "distinctConvergedNllValues": [
+        537.021128,
+        537.021129,
+        537.02113,
+        537.021131,
+        537.021137,
+        541.162524,
+        543.06176,
+        545.27299,
+        546.643179,
+        546.802204,
+        552.738483,
+        562.704694,
+        566.095404,
+        595.136649,
+        793.0,
+        793.000001
+      ],
+      "searchDomain": {
+        "w": [
+          1e-09,
+          0.999999999
+        ],
+        "lf": [
+          1e-09,
+          10000.0
+        ],
+        "constraint": "lf > w  (from the mean-one feasibility 1 - w/lf > 0)"
+      },
+      "conclusionStrength": "No better solution was found over the declared search domain. The committed fit is numerically indistinguishable from the best located optimum. This is a finite-multistart numerical result, NOT a proof of global optimality."
+    },
+    {
+      "label": "protocol_primary_states_0_to_8",
+      "eligibleStates": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "statesWithTrainingScale": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "trainUncensoredEvents": 818,
+      "holdoutUncensoredEvents": 251,
+      "holdoutMotors": 19,
+      "optimizerAttempts": {
+        "attempted": 720,
+        "feasibleAfterDomainCheck": 608,
+        "reportedSuccess": 728,
+        "finiteObjective": 728,
+        "note": "Counted programmatically by this script, not asserted in prose."
+      },
+      "independentFits": {
+        "weibullShape": 0.630674993278865,
+        "weibullTrainingNll": 611.417075954779,
+        "lognormalSigma": 1.5693195464946323,
+        "lognormalTrainingNll": 537.7356731394123,
+        "mixtureWeightFast": 0.5933983992356323,
+        "mixtureRateFast": 5.241334028650817,
+        "mixtureRateSlow": 0.4585121172296268,
+        "mixtureTrainingNll": 567.7912635401843
+      },
+      "committedComparison": {
+        "mixtureTrainingNllAtCommitted": 567.990201993354,
+        "mixtureTrainingNllAtBestFound": 567.7912635401843,
+        "deltaNats": 0.19893845316971692,
+        "heldoutScoresAtCommittedParams": {
+          "exponential": -3.2350364534950153,
+          "weibull": -3.0828557226443527,
+          "lognormal": -2.9962073165308993,
+          "mixture": -3.0351995463037578
+        },
+        "maxAbsErrorVsCommittedReport": 0.02490157023653161
+      },
+      "heldoutScoresAtIndependentFits": {
+        "exponential": -3.2350364534950153,
+        "weibull": -3.0814837366334116,
+        "lognormal": -2.9944960688038096,
+        "mixture": -3.033215444824975
+      },
+      "ranking": [
+        "lognormal",
+        "mixture",
+        "weibull",
+        "exponential"
+      ],
+      "lognormalMinusMixture": 0.038719376021165264,
+      "adverseLognormalResultSurvives": true,
+      "distinctConvergedNllValues": [
+        567.791264,
+        567.791265,
+        567.791266,
+        567.791267,
+        567.79127,
+        567.813128,
+        569.978585,
+        576.171403,
+        593.200384,
+        605.293949,
+        818.0,
+        818.000001
+      ],
+      "searchDomain": {
+        "w": [
+          1e-09,
+          0.999999999
+        ],
+        "lf": [
+          1e-09,
+          10000.0
+        ],
+        "constraint": "lf > w  (from the mean-one feasibility 1 - w/lf > 0)"
+      },
+      "conclusionStrength": "No better solution was found over the declared search domain. The committed fit is numerically indistinguishable from the best located optimum. This is a finite-multistart numerical result, NOT a proof of global optimality."
+    }
+  ],
+  "selfChecks": {
+    "splitRecomputedWithZeroMismatches": true,
+    "noMotorSpansPartitions": true,
+    "committedScoresReproduced": true,
+    "committedMixtureNotBeatenUnderCommittedStates": true,
+    "adverseLognormalSurvivesUnderBothEligibilitySets": true
+  },
+  "allSelfChecksPassed": true
+}

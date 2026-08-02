@@ -1,0 +1,86 @@
+✔ cross-study protocol has one result for every ordered gate (2.2986ms)
+✔ source corpus expands biological units without counting time points as replicates (0.4546ms)
+✔ all frozen cached upstream artifacts remain byte-identical when present (2.1777ms)
+✔ expanded mechanistic gates preserve passes and falsifiers (0.4227ms)
+✔ GMC generator satisfies stochastic-matrix and source-marginal tolerances (0.2921ms)
+✖ audit binds report, corpus, protocol, structure map, and runner bytes (10.0753ms)
+✔ categorical posterior normalizes and free-energy identity is exact (2.1564ms)
+✔ log posterior odds equal log prior odds plus log likelihood ratio (0.3235ms)
+✔ Markov observation excludes hidden world truth (0.4641ms)
+✔ same initial state and controls replay deterministically (2.5832ms)
+✔ policy posterior normalizes after a real observation record (0.6543ms)
+✔ physical encoder angles drive the exact log-odds calculation (0.4245ms)
+✔ instrument validation rejects incomplete or non-finite frames (0.6763ms)
+✔ Hellinger distance is symmetric and bounded (0.3691ms)
+✔ CAD export names the model, boundary and explicit non-claim (1.8453ms)
+✔ observed event artifact retains the pinned raw-data identity (1.2082ms)
+✔ motor-level partition prevents train/holdout leakage (1.0158ms)
+✔ frozen observed analysis replays byte-for-value deterministically (1750.7458ms)
+✔ held-out analysis reports the adverse flexible-baseline comparison (0.3838ms)
+✔ overdispersion gate is evaluated only on eligible held-out stator states (0.2093ms)
+✔ survival evidence monotonically increases the slow-timescale posterior (0.2307ms)
+✔ observed report cannot be confused with a live instrument run (0.1548ms)
+✖ first-passage coefficients and competing risks are normalized (7.1103ms)
+✔ analytic density equals the negative survival derivative (1.8425ms)
+✔ right-censored observations contribute survival, never an invented direction (0.3256ms)
+✔ science ledger preserves failed and external gates (0.2236ms)
+✔ audit manifest binds the science report to its inputs and implementations (8.6046ms)
+✔ walkthrough has 13 ordered, evidence-bound, gate-bound lessons (2.3436ms)
+✔ truth contract retains species and evidence-class separation (0.6996ms)
+✔ all local evidence assets match pinned SHA-256 identities (184.0026ms)
+✔ recorded replay is deterministic, frozen, and exposes missing fields (0.4429ms)
+✔ every pencil-and-paper numerical anchor reproduces independently (0.3148ms)
+✔ observer notebook exports, imports, and rejects truth laundering (3.3297ms)
+✔ walkthrough application contains no LLM or GPU runtime (4.9395ms)
+ℹ tests 34
+ℹ suites 0
+ℹ pass 32
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1936.6211
+
+✖ failing tests:
+
+test at tests\cross-study-parity.test.mjs:76:1
+✖ audit binds report, corpus, protocol, structure map, and runner bytes (10.0753ms)
+  AssertionError [ERR_ASSERTION]: experiments/results/science-gates-report.json
+  + actual - expected
+  
+  + '6f3b4775eaf281834135e97d41dff3762b54e1188562e64f13d24ba145f2d972'
+  - 'd7a35acab4cfb2b4055be5095466057c8fada7c1de3edc41fd6719207426d667'
+  
+      at TestContext.<anonymous> (file:///C:/Users/mpolz/AppData/Local/Temp/uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85/clones/d1x07_first_passage_weights_not_normalized/tests/cross-study-parity.test.mjs:79:12)
+      at Test.runInAsyncScope (node:async_hooks:213:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '6f3b4775eaf281834135e97d41dff3762b54e1188562e64f13d24ba145f2d972',
+    expected: 'd7a35acab4cfb2b4055be5095466057c8fada7c1de3edc41fd6719207426d667',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }
+
+test at tests\science-gates.test.mjs:23:1
+✖ first-passage coefficients and competing risks are normalized (7.1103ms)
+  AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:
+  
+    assert.ok(Math.abs(weights.reduce((sum, value) => sum + value, 0) - 1) < 1e-12)
+  
+      at TestContext.<anonymous> (file:///C:/Users/mpolz/AppData/Local/Temp/uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85/clones/d1x07_first_passage_weights_not_normalized/tests/science-gates.test.mjs:27:12)
+      at Test.runInAsyncScope (node:async_hooks:213:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.start (node:internal/test_runner/test:1003:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:358:17) {
+    generatedMessage: true,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

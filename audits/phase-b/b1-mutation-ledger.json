@@ -1,0 +1,472 @@
+{
+  "schema": "uni.flagellum.audit-artifact/1.0.0",
+  "purpose": "B1 mutation ledger, final. Observed verdicts against predictions frozen before execution, classified under the frozen rule in full.",
+  "auditedCommit": "9c3a644e4b57e8ac27f925dcec84222463063aa1",
+  "auditPhase": "B",
+  "appendOnly": true,
+  "baseline": {
+    "npmCiExit": 0,
+    "npmTestExit": 0,
+    "node": "v25.0.0",
+    "requirement": "baseline green before any mutation"
+  },
+  "isolationDeviation": "The frozen protocol said one dedicated clone per mutation. Execution used ONE clone with verified restoration between mutations instead: every pinned digest is re-checked before and after each mutation, and the run HALTS if restoration fails. This is declared rather than silently substituted. Restoration was verified for every row below.",
+  "driverClassificationCorrection": "The execution driver classified any non-zero gate exit as DETECTED. The frozen protocol requires more: DETECTED holds only if the failure NAMES the mutated quantity, otherwise INCONCLUSIVE. The driver under-implemented this audit's own rule. Every row was reclassified by inspecting the actual failure text; driverVerdict is retained beside the corrected verdict so the correction is auditable.",
+  "summary": {
+    "DETECTED_SEMANTIC": 6,
+    "DETECTED_BY_HASH_ONLY": 5,
+    "SURVIVED": 3,
+    "NOT_RUN": 1,
+    "INCONCLUSIVE": 1,
+    "total": 16
+  },
+  "headlineFindings": [
+    "NO SEMANTIC DISCRIMINATION ACROSS THE OBSERVED-EXPERIMENT PIPELINE. Five structurally different mutations - inverted CW/CCW semantics, inverted score sign, admitting censored dwells, removing the leakage guard, and falsifying the protocol freeze date - produce BYTE-IDENTICAL failure signatures: a report SHA-256 mismatch plus the CRLF hash failure. The suite detects that something in the pipeline changed; it cannot say what.",
+    "THE C3 CRLF DEFECT CONFOUNDS THE ENTIRE BATTERY. Every mutation whose regeneration runs scripts/run-observed-experiments.mjs triggers the WADHWA_2022_EVENTS hash failure regardless of what was mutated, because copyFileSync corrupts the served mirror. Until C3 is fixed, mutation testing of this pipeline cannot attribute a failure to the mutation.",
+    "DETECTION IS DRIVEN BY A SOURCE-HASH CHAIN, NOT BY SEMANTICS. run-observed-experiments.mjs embeds sha256(lib/observed-experiment.js) into the report, so ANY edit to that file is detected irrespective of meaning. This is why M07a was detected despite the prediction that it would survive.",
+    "CONFIRMED: the adverse lognormal result is defended by exactly ONE assertion. M10a-corrected shows the assertion fires when the result is genuinely removed. M10b shows that commenting it out leaves npm test, science:verify AND cross-study:verify all green. The protection works, and it is a single point of failure.",
+    "CONFIRMED: the derived-labelled-OBSERVED route is live and unguarded (M03b SURVIVED) while the structural route is guarded (M03a DETECTED_SEMANTIC). The matched pair isolates exactly which relabelling the suite resists.",
+    "CONFIRMED: M08 cannot run. scripts/ingest-cross-study-evidence.py requires EXTRACTED upstream directories that no repository document specifies. Recorded NOT RUN, never SURVIVED. This is a reproduction blocker independent of the mutation."
+  ],
+  "auditSelfCriticism": [
+    "M10a was MIS-TARGETED. The frozen patch inverted mixtureVsWeibull, a paired-delta field, while the adverse-result assertion reads meanLogScoreNatsPerEvent. The mutation left the ordering unchanged and therefore tested nothing. It was caught only because the evidence was inspected rather than the exit code trusted. Superseded by M10a-corrected, which was verified to have the intended effect before its verdict was recorded.",
+    "The execution driver applied a weaker classification rule than the frozen protocol required. Corrected by manual reclassification of every row, with the driver verdict retained for audit.",
+    "Evidence capture truncated at six failure lines per gate, which was too narrow to classify M10a. Widened by targeted re-runs."
+  ],
+  "predictionAccuracy": {
+    "matched": 10,
+    "total": 16,
+    "note": "Predictions used a coarse DETECTED label while the corrected classification splits DETECTED into SEMANTIC and HASH_ONLY. Where the frozen predictedDetectorKind matched the observed kind, the mechanism prediction was correct even where the coarse label differed. M07a is the one genuine mechanism failure: SURVIVED was predicted, DETECTED_BY_HASH_ONLY observed, because the audit did not account for the source file's own hash being embedded in the report."
+  },
+  "mutations": [
+    {
+      "id": "M01",
+      "theme": "CW/CCW direction semantics inverted",
+      "target": "lib/observed-experiment.js",
+      "line": 276,
+      "applied": "lib/observed-experiment.js:276 substituted",
+      "regenerationExit": 0,
+      "gates": [
+        {
+          "command": "npm test",
+          "exit": 1,
+          "failures": [
+            "AssertionError [ERR_ASSERTION]: SHA-256 mismatch for experiments/results/observed-experiment-report.json",
+            "AssertionError [ERR_ASSERTION]: WADHWA_2022_EVENTS hash"
+          ]
+        }
+      ],
+      "crlfConfoundPresent": true,
+      "driverVerdict": "DETECTED",
+      "verdict": "DETECTED_BY_HASH_ONLY",
+      "classificationBasis": "no gate names the mutated quantity. Failures are the embedded source-hash chain plus the CRLF regeneration confound.",
+      "predicted": "DETECTED",
+      "predictedDetectorKind": "REGRESSION_LOCK",
+      "restorationVerified": true,
+      "durationSeconds": 4.3
+    },
+    {
+      "id": "M02",
+      "theme": "Species label swapped between E. coli behavioural and Salmonella structural evidence",
+      "target": "lib/walkthrough.js",
+      "line": 13,
+      "applied": "lib/walkthrough.js:13 substituted",
+      "regenerationExit": null,
+      "gates": [
+        {
+          "command": "node --test tests/walkthrough.test.mjs",
+          "exit": 1,
+          "failures": [
+            "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:"
+          ]
+        }
+      ],
+      "crlfConfoundPresent": false,
+      "driverVerdict": "DETECTED",
+      "verdict": "DETECTED_SEMANTIC",
+      "classificationBasis": "species assertion names the swapped value",
+      "predicted": "DETECTED",
+      "predictedDetectorKind": "SEMANTIC",
+      "restorationVerified": true,
+      "durationSeconds": 1.3
+    },
+    {
+      "id": "M03a",
+      "theme": "Truth laundering: a structural reconstruction relabelled OBSERVED",
+      "target": "lib/walkthrough.js",
+      "line": 27,
+      "applied": "lib/walkthrough.js:27 substituted",
+      "regenerationExit": null,
+      "gates": [
+        {
+          "command": "node --test tests/walkthrough.test.mjs",
+          "exit": 1,
+          "failures": [
+            "AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:"
+          ]
+        }
+      ],
+      "crlfConfoundPresent": false,
+      "driverVerdict": "DETECTED",
+      "verdict": "DETECTED_SEMANTIC",
+      "classificationBasis": "the kind==='structure' guard at lib/walkthrough.js:470 fires",
+      "predicted": "DETECTED",
+      "predictedDetectorKind": "SEMANTIC",
+      "restorationVerified": true,
+      "durationSeconds": 1.2
+    },
+    {
+      "id": "M03b",
+      "theme": "Truth laundering: a DERIVED product labelled OBSERVED — the control for M03a",
+      "target": "none; this is an OBSERVATION of the unmutated tree",
+      "line": 72,
+      "applied": "no mutation applied; observes the unmutated tree by design",
+      "regenerationExit": null,
+      "gates": [
+        {
+          "command": "node --test tests/walkthrough.test.mjs",
+          "exit": 0,
+          "failures": []
+        }
+      ],
+      "crlfConfoundPresent": false,
+      "driverVerdict": "SURVIVED",
+      "verdict": "SURVIVED",
+      "classificationBasis": "every declared gate exited zero",
+      "predicted": "SURVIVED",
+      "predictedDetectorKind": "NONE",
+      "restorationVerified": true,
+      "durationSeconds": 1.2
+    },
+    {
+      "id": "M04",
+      "theme": "Categorical normalization broken",
+      "target": "lib/uni-motor.js",
+      "line": 21,
+      "applied": "lib/uni-motor.js:21 substituted",
+      "regenerationExit": null,
+      "gates": [
+        {
+          "command": "node --test tests/model.test.mjs",
+          "exit": 0,
+          "failures": []
+        },
+        {
+          "command": "npm test",
+          "exit": 0,
+          "failures": []
+        }
+      ],
+      "crlfConfoundPresent": false,
+      "driverVerdict": "SURVIVED",
+      "verdict": "SURVIVED",
+      "classificationBasis": "every declared gate exited zero",
+      "predicted": "SURVIVED",
+      "predictedDetectorKind": "SEMANTIC",
+      "restorationVerified": true,
+      "durationSeconds": 9
+    },
+    {
+      "id": "M05",
+      "theme": "Sign inversion on a paired model-comparison difference",
+      "target": "lib/observed-experiment.js",
+      "line": 327,
+      "applied": "lib/observed-experiment.js:327 substituted",
+      "regenerationExit": 0,
+      "gates": [
+        {
+          "command": "npm test",
+          "exit": 1,
+          "failures": [
+            "AssertionError [ERR_ASSERTION]: SHA-256 mismatch for experiments/results/observed-experiment-report.json",
+            "AssertionError [ERR_ASSERTION]: WADHWA_2022_EVENTS hash"
+          ]
+        }
+      ],
+      "crlfConfoundPresent": true,
+      "driverVerdict": "DETECTED",
+      "verdict": "DETECTED_BY_HASH_ONLY",
+      "classificationBasis": "no gate names the mutated quantity. Failures are the embedded source-hash chain plus the CRLF regeneration confound.",
+      "predicted": "DETECTED",
+      "predictedDetectorKind": "REGRESSION_LOCK",
+      "restorationVerified": true,
+      "durationSeconds": 4.3
+    },
+    {
+      "id": "M06",
+      "theme": "Censoring treatment: right-censored dwells admitted to the uncensored likelihood",
+      "target": "lib/observed-experiment.js",
+      "line": 295,
+      "applied": "lib/observed-experiment.js:295 substituted",
+      "regenerationExit": 0,
+      "gates": [
+        {
+          "command": "npm test",
+          "exit": 1,
+          "failures": [
+            "AssertionError [ERR_ASSERTION]: SHA-256 mismatch for experiments/results/observed-experiment-report.json",
+            "AssertionError [ERR_ASSERTION]: WADHWA_2022_EVENTS hash"
+          ]
+        }
+      ],
+      "crlfConfoundPresent": true,
+      "driverVerdict": "DETECTED",
+      "verdict": "DETECTED_BY_HASH_ONLY",
+      "classificationBasis": "no gate names the mutated quantity. Failures are the embedded source-hash chain plus the CRLF regeneration confound.",
+      "predicted": "DETECTED",
+      "predictedDetectorKind": "REGRESSION_LOCK",
+      "restorationVerified": true,
+      "durationSeconds": 4.4
+    },
+    {
+      "id": "M07a",
+      "theme": "Motor-leakage guard removed, with no leak actually injected",
+      "target": "lib/observed-experiment.js",
+      "line": 300,
+      "applied": "lib/observed-experiment.js:300 substituted",
+      "regenerationExit": 0,
+      "gates": [
+        {
+          "command": "npm test",
+          "exit": 1,
+          "failures": [
+            "AssertionError [ERR_ASSERTION]: SHA-256 mismatch for experiments/results/observed-experiment-report.json",
+            "AssertionError [ERR_ASSERTION]: WADHWA_2022_EVENTS hash"
+          ]
+        }
+      ],
+      "crlfConfoundPresent": true,
+      "driverVerdict": "DETECTED",
+      "verdict": "DETECTED_BY_HASH_ONLY",
+      "classificationBasis": "no gate names the mutated quantity. Failures are the embedded source-hash chain plus the CRLF regeneration confound.",
+      "predicted": "SURVIVED",
+      "predictedDetectorKind": "NONE",
+      "restorationVerified": true,
+      "durationSeconds": 4.4
+    },
+    {
+      "id": "M07b",
+      "theme": "Actual train/holdout motor identity leak injected, guard intact",
+      "target": "scripts/ingest-cross-study-evidence.py",
+      "line": "n/a — see method",
+      "applied": "one holdout event reassigned to train, creating a motor that spans partitions",
+      "regenerationExit": 0,
+      "gates": [
+        {
+          "command": "npm test",
+          "exit": 1,
+          "failures": [
+            "AssertionError [ERR_ASSERTION]: Expected values to be strictly equal:",
+            "AssertionError [ERR_ASSERTION]: SHA-256 mismatch for experiments/data/wadhwa-2022-events.json",
+            "AssertionError [ERR_ASSERTION]: WADHWA_2022_EVENTS hash"
+          ]
+        }
+      ],
+      "crlfConfoundPresent": true,
+      "driverVerdict": "DETECTED",
+      "verdict": "DETECTED_SEMANTIC",
+      "classificationBasis": "cohort assertion plus the data digest",
+      "predicted": "DETECTED",
+      "predictedDetectorKind": "SEMANTIC",
+      "restorationVerified": true,
+      "durationSeconds": 4.4
+    },
+    {
+      "id": "M08",
+      "theme": "Experimental-unit inflation: events counted as independent units",
+      "target": "scripts/ingest-cross-study-evidence.py",
+      "line": 608,
+      "applied": "scripts/ingest-cross-study-evidence.py:608 substituted",
+      "regenerationExit": 1,
+      "gates": [
+        {
+          "command": "npm test",
+          "exit": 1,
+          "failures": [
+            "AssertionError [ERR_ASSERTION]: scripts/ingest-cross-study-evidence.py"
+          ]
+        },
+        {
+          "command": "npm run cross-study:verify",
+          "exit": 1,
+          "failures": []
+        }
+      ],
+      "crlfConfoundPresent": false,
+      "driverVerdict": "DETECTED",
+      "verdict": "NOT_RUN",
+      "classificationBasis": "regeneration failed with FileNotFoundError on experiments/upstream-cache/lisevich-2025-source-data/Fig.2.xlsx: the ingest script requires EXTRACTED directories, not the archives. The mutation never propagated. Per the frozen protocol this is NOT RUN, never SURVIVED.",
+      "predicted": "DETECTED_BY_HASH_ONLY",
+      "predictedDetectorKind": "REGRESSION_LOCK",
+      "restorationVerified": true,
+      "durationSeconds": 10.6
+    },
+    {
+      "id": "M09",
+      "theme": "Evidence source hash altered",
+      "target": "lib/walkthrough.js",
+      "line": 19,
+      "applied": "lib/walkthrough.js:19 substituted",
+      "regenerationExit": null,
+      "gates": [
+        {
+          "command": "node --test tests/walkthrough.test.mjs",
+          "exit": 1,
+          "failures": [
+            "AssertionError [ERR_ASSERTION]: MEARS_2014_VIDEO_1 hash"
+          ]
+        }
+      ],
+      "crlfConfoundPresent": false,
+      "driverVerdict": "DETECTED",
+      "verdict": "DETECTED_SEMANTIC",
+      "classificationBasis": "names the exact asset MEARS_2014_VIDEO_1",
+      "predicted": "DETECTED",
+      "predictedDetectorKind": "SEMANTIC",
+      "restorationVerified": true,
+      "durationSeconds": 1
+    },
+    {
+      "id": "M10a",
+      "theme": "Adverse result removed from the report",
+      "target": "lib/observed-experiment.js",
+      "line": 327,
+      "applied": "lib/observed-experiment.js:327 substituted",
+      "regenerationExit": 0,
+      "gates": [
+        {
+          "command": "npm test",
+          "exit": 1,
+          "failures": [
+            "AssertionError [ERR_ASSERTION]: SHA-256 mismatch for experiments/results/observed-experiment-report.json",
+            "AssertionError [ERR_ASSERTION]: WADHWA_2022_EVENTS hash"
+          ]
+        }
+      ],
+      "crlfConfoundPresent": true,
+      "driverVerdict": "DETECTED",
+      "verdict": "INCONCLUSIVE",
+      "classificationBasis": "MIS-TARGETED PATCH, a defect in this audit's own patch set. Inverting mixtureVsWeibull changes a paired-delta field but NOT meanLogScoreNatsPerEvent, which the adverse-result assertion reads. Verified after mutation: lognormal>mixture remained true, so the assertion correctly did not fire. The mutation did not test what it claimed. Superseded by M10a-corrected.",
+      "predicted": "DETECTED",
+      "predictedDetectorKind": "SEMANTIC",
+      "restorationVerified": true,
+      "durationSeconds": 4.3
+    },
+    {
+      "id": "M10a-corrected",
+      "theme": "Adverse result removed from the report - CORRECTED PATCH",
+      "target": "lib/observed-experiment.js",
+      "line": "249-250",
+      "applied": "lognormal and mixture log-score sources swapped in the logScores block",
+      "regenerationExit": 0,
+      "gates": [
+        {
+          "command": "npm test",
+          "exit": 1,
+          "failures": [
+            "X held-out analysis reports the adverse flexible-baseline comparison",
+            "AssertionError: assert.ok(results.pairedMixtureAdvantageNatsPerEvent.mixtureVsLognormal < 0) at tests/observed-experiment.test.mjs:47",
+            "X audit manifest binds the science report to its inputs and implementations",
+            "X all local evidence assets match pinned SHA-256 identities"
+          ]
+        }
+      ],
+      "crlfConfoundPresent": true,
+      "driverVerdict": "(manual re-run)",
+      "verdict": "DETECTED_SEMANTIC",
+      "classificationBasis": "The adverse-result assertion at tests/observed-experiment.test.mjs:47 fires and names the mixtureVsLognormal quantity. The mutation was verified to have the intended effect before the verdict was recorded: reported ordering flipped to lognormal>mixture false.",
+      "predicted": "DETECTED",
+      "predictedDetectorKind": "SEMANTIC",
+      "restorationVerified": true
+    },
+    {
+      "id": "M10b",
+      "theme": "The adverse-result PROTECTION removed — the control for M10a",
+      "target": "tests/observed-experiment.test.mjs",
+      "line": 48,
+      "applied": "tests/observed-experiment.test.mjs:48 substituted",
+      "regenerationExit": null,
+      "gates": [
+        {
+          "command": "npm test",
+          "exit": 0,
+          "failures": []
+        },
+        {
+          "command": "npm run science:verify",
+          "exit": 0,
+          "failures": []
+        },
+        {
+          "command": "npm run cross-study:verify",
+          "exit": 0,
+          "failures": []
+        }
+      ],
+      "crlfConfoundPresent": false,
+      "driverVerdict": "SURVIVED",
+      "verdict": "SURVIVED",
+      "classificationBasis": "every declared gate exited zero",
+      "predicted": "SURVIVED",
+      "predictedDetectorKind": "NONE",
+      "restorationVerified": true,
+      "durationSeconds": 10.6
+    },
+    {
+      "id": "M11",
+      "theme": "Prospective prediction ordering falsified",
+      "target": "experiments/preregistration.v1.json",
+      "line": 5,
+      "applied": "experiments/preregistration.v1.json:5 substituted",
+      "regenerationExit": 0,
+      "gates": [
+        {
+          "command": "npm test",
+          "exit": 1,
+          "failures": [
+            "AssertionError [ERR_ASSERTION]: SHA-256 mismatch for experiments/results/observed-experiment-report.json",
+            "AssertionError [ERR_ASSERTION]: WADHWA_2022_EVENTS hash"
+          ]
+        },
+        {
+          "command": "npm run science:verify",
+          "exit": 0,
+          "failures": []
+        }
+      ],
+      "crlfConfoundPresent": true,
+      "driverVerdict": "DETECTED",
+      "verdict": "DETECTED_BY_HASH_ONLY",
+      "classificationBasis": "no gate names the mutated quantity. Failures are the embedded source-hash chain plus the CRLF regeneration confound.",
+      "predicted": "DETECTED_BY_HASH_ONLY",
+      "predictedDetectorKind": "REGRESSION_LOCK",
+      "restorationVerified": true,
+      "durationSeconds": 5.1
+    },
+    {
+      "id": "M12",
+      "theme": "Physical work conflated with variational free energy",
+      "target": "lib/walkthrough.js",
+      "line": 363,
+      "applied": "lib/walkthrough.js:363 substituted",
+      "regenerationExit": null,
+      "gates": [
+        {
+          "command": "node --test tests/walkthrough.test.mjs",
+          "exit": 1,
+          "failures": [
+            "AssertionError [ERR_ASSERTION]: The expression evaluated to a falsy value:"
+          ]
+        }
+      ],
+      "crlfConfoundPresent": false,
+      "driverVerdict": "DETECTED",
+      "verdict": "DETECTED_SEMANTIC",
+      "classificationBasis": "numerical-anchor assertion fires",
+      "predicted": "DETECTED",
+      "predictedDetectorKind": "SEMANTIC",
+      "restorationVerified": true,
+      "durationSeconds": 1.2
+    }
+  ]
+}

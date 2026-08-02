@@ -1,0 +1,25 @@
+started_utc=2026-07-22T01:40:03Z
+HEAD=b9b5670602a2afde158b53ea5e8135180f8c02f5
+branch=hierarchical-aif/motor-stack
+cell=B4C11_M7_STRUCTURAL_IDENTIFIABILITY
+harness=hierarchical-aif/scripts/run_c11_corrected_full.py (sha256 ae5d919bc6ba860b25d3e6d38079688f8ab088cef8a2433ecab316c674853945)
+frozen_runner_consumed=audits/phase-b/b4-identifiability-robustness-runner.py (FROZEN, UNMODIFIED, READ-ONLY, sha256 3e21edac97a2b68faec087e73de307439348e89e778b6e97d84809bbf1e135a7)
+predictionRecord=hierarchical-aif/protocols/B4C11-CORRECTED-FULL-PREDICTION.md (sha256 5d0a1170b78a860ca971cb9227ab86d90d60665a3345d28dc1a56ce437526ea1)
+correctionApplied=D1_C11_CLUSTER_COLLAPSE (bootstrap train_by_motor: one group per DRAW, not per motorId)
+correctionNotApplied=D3 - C11 seeding is arithmetic (seed_base + b), no hash(); stable_seed deliberately NOT substituted
+onlyChangeFromRecordedRun=bootstrap cohort GROUPING + replicate count 30 -> 2000 (frozen N = 2000)
+n_boot=2000
+n_paired_legacy_comparison=25
+seed_base=20260717
+python=3.12.10
+numpy=2.3.5
+scipy=1.16.3
+platform=Windows-11-10.0.26200-SP0
+cpu_count=16
+PYTHONHASHSEED=<unset>
+note=C11 U4 does not use hash(); PYTHONHASHSEED is irrelevant to this run's determinism
+note=U1/U2/U3 are CARRIED_FORWARD_FROM_FROZEN_ARTIFACT, not recomputed (see prediction record section 5)
+note=PROGRESS.json is a crash-recovery checkpoint and is NOT a result
+ended_utc=2026-07-22T22:47:14Z
+exit_code=0
+result_sha256=564a5b0f4461c83fe2c8792a2304dc136799b0923d887a27a60572361a851b53

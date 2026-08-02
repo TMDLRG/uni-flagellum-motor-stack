@@ -1,0 +1,1 @@
+python hierarchical-aif/scripts/run_c02_corrected_full.py 200 hierarchical-aif/results/motor_stack_aif/B4C02_CORRECTED_FULL_RESULT.json

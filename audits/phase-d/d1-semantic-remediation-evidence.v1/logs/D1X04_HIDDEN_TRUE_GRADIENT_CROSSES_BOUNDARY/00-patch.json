@@ -1,0 +1,9 @@
+{
+  "id": "D1X04_HIDDEN_TRUE_GRADIENT_CROSSES_BOUNDARY",
+  "class": "EXACT_PHASE_C_REPLAY",
+  "propertyId": "D1P04_HIDDEN_WORLD_OBSERVATION_BOUNDARY",
+  "targetPath": "lib/uni-motor.js",
+  "preMutationSha256": "852b38d14e1de9e1baae9bda7c37fb2426911fb1b04b4f594d026373d4b50313",
+  "postMutationSha256": "4fbadc8b2e73626b1768fb8a10e3baf72fa922a38f89b851e3ce87b0b7e932f1",
+  "diff": "diff --git a/lib/uni-motor.js b/lib/uni-motor.js\nindex 6f206b6..69b3f5a 100644\n--- a/lib/uni-motor.js\n+++ b/lib/uni-motor.js\n@@ -213,6 +213,7 @@ export function observeWorld(world, controls, receivedAtMs) {\n     rotation: world.rotation,\n     loadPnNm: controls.loadPnNm,\n     pmfMv: controls.pmfMv,\n+    trueGradient: world.trueGradient,\n   };\n }\n \n"
+}

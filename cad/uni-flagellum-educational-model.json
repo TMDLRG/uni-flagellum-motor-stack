@@ -1,0 +1,190 @@
+{
+  "schema": "uni.flagellum.educational-cad/1.0.0",
+  "identity": "UNI-FLAGELLUM physical mathematical model",
+  "explicitNonClaim": "This printable mechanism represents the UNI generative model and Markov boundary. It is not a scale model, structural model, or functional replica of a bacterial flagellar motor.",
+  "units": "millimetres",
+  "printProfile": {
+    "nozzleMm": 0.4,
+    "layerHeightMm": 0.2,
+    "walls": 3,
+    "infillPercent": 20,
+    "fitNote": "Print the tolerance coupon first. Increase clearance for printers that over-extrude."
+  },
+  "electronicsInterface": {
+    "controller": "Any local microcontroller that emits newline-delimited JSON at 115200 baud",
+    "encoders": "Rotary encoder or magnetic angle sensor on WORLD-ROTOR, SIGNAL-CAM, PRIOR-GEAR, EVIDENCE-GEAR, POSTERIOR-DIFFERENTIAL, POLICY-GEAR, and PREDICTION-GEAR",
+    "protocol": {
+      "required": [
+        "t_ms",
+        "ligand_uM",
+        "motor_rpm",
+        "rotation",
+        "load_pNnm",
+        "pmf_mV"
+      ],
+      "optional": [
+        "cheyp_uM",
+        "stators",
+        "receptor_activity",
+        "prior_angle_deg",
+        "evidence_angle_deg"
+      ],
+      "example": {
+        "t_ms": 1250,
+        "ligand_uM": 1.12,
+        "motor_rpm": 6430,
+        "rotation": "CCW",
+        "load_pNnm": 700,
+        "pmf_mV": 150,
+        "cheyp_uM": 3.4,
+        "stators": 5
+      }
+    }
+  },
+  "mathematicalTransmission": {
+    "encoding": "theta = scale * ln(odds)",
+    "identity": "theta_posterior = theta_prior + theta_likelihood",
+    "physicalImplementation": "The v1 print exposes encoder-ready input gears and a visible posterior differential. The screen is authoritative for calculation; mechanical ratio and backlash are calibration observations, not hidden corrections.",
+    "falsifier": "If encoder angles plus declared calibration cannot reproduce posterior log-odds within the printed tolerance band, the physical-model claim fails until corrected."
+  },
+  "parts": [
+    {
+      "id": "WORLD-ROTOR",
+      "label": "external world rotor",
+      "teeth": 48,
+      "role": "world process; physically outside the UNI enclosure",
+      "x": -95,
+      "y": 0,
+      "encoder": true,
+      "moduleMm": 2,
+      "pitchDiameterMm": 96,
+      "outerDiameterMm": 100,
+      "thicknessMm": 6,
+      "boreMm": 6.2,
+      "clearanceMm": 0.28,
+      "material": "PLA or PETG; classroom prototype only"
+    },
+    {
+      "id": "SIGNAL-CAM",
+      "label": "observed signal cam",
+      "teeth": 16,
+      "role": "timestamped observation crossing inward",
+      "x": -10,
+      "y": -45,
+      "encoder": true,
+      "moduleMm": 2,
+      "pitchDiameterMm": 32,
+      "outerDiameterMm": 36,
+      "thicknessMm": 6,
+      "boreMm": 6.2,
+      "clearanceMm": 0.28,
+      "material": "PLA or PETG; classroom prototype only"
+    },
+    {
+      "id": "PRIOR-GEAR",
+      "label": "prior log-odds dial",
+      "teeth": 32,
+      "role": "ln prior odds",
+      "x": 50,
+      "y": -70,
+      "encoder": true,
+      "moduleMm": 2,
+      "pitchDiameterMm": 64,
+      "outerDiameterMm": 68,
+      "thicknessMm": 6,
+      "boreMm": 6.2,
+      "clearanceMm": 0.28,
+      "material": "PLA or PETG; classroom prototype only"
+    },
+    {
+      "id": "EVIDENCE-GEAR",
+      "label": "likelihood-ratio dial",
+      "teeth": 32,
+      "role": "ln likelihood ratio",
+      "x": 50,
+      "y": 70,
+      "encoder": true,
+      "moduleMm": 2,
+      "pitchDiameterMm": 64,
+      "outerDiameterMm": 68,
+      "thicknessMm": 6,
+      "boreMm": 6.2,
+      "clearanceMm": 0.28,
+      "material": "PLA or PETG; classroom prototype only"
+    },
+    {
+      "id": "POSTERIOR-DIFFERENTIAL",
+      "label": "posterior differential",
+      "teeth": 48,
+      "role": "ln posterior odds = ln prior odds + ln likelihood ratio",
+      "x": 130,
+      "y": 0,
+      "encoder": true,
+      "moduleMm": 2,
+      "pitchDiameterMm": 96,
+      "outerDiameterMm": 100,
+      "thicknessMm": 6,
+      "boreMm": 6.2,
+      "clearanceMm": 0.28,
+      "material": "PLA or PETG; classroom prototype only"
+    },
+    {
+      "id": "POLICY-GEAR",
+      "label": "policy selector",
+      "teeth": 24,
+      "role": "softmax of negative expected free energy",
+      "x": 210,
+      "y": -50,
+      "encoder": true,
+      "moduleMm": 2,
+      "pitchDiameterMm": 48,
+      "outerDiameterMm": 52,
+      "thicknessMm": 6,
+      "boreMm": 6.2,
+      "clearanceMm": 0.28,
+      "material": "PLA or PETG; classroom prototype only"
+    },
+    {
+      "id": "PREDICTION-GEAR",
+      "label": "prediction output",
+      "teeth": 24,
+      "role": "predicted observation sent to Verum display",
+      "x": 210,
+      "y": 50,
+      "encoder": true,
+      "moduleMm": 2,
+      "pitchDiameterMm": 48,
+      "outerDiameterMm": 52,
+      "thicknessMm": 6,
+      "boreMm": 6.2,
+      "clearanceMm": 0.28,
+      "material": "PLA or PETG; classroom prototype only"
+    },
+    {
+      "id": "ACTION-CLUTCH",
+      "label": "bounded action clutch",
+      "teeth": 20,
+      "role": "RUN or TUMBLE action crossing outward",
+      "x": -10,
+      "y": 45,
+      "encoder": false,
+      "moduleMm": 2,
+      "pitchDiameterMm": 40,
+      "outerDiameterMm": 44,
+      "thicknessMm": 6,
+      "boreMm": 5.2,
+      "clearanceMm": 0.28,
+      "material": "PLA or PETG; classroom prototype only"
+    }
+  ],
+  "assembly": [
+    "Print one tolerance coupon and verify shaft and gear clearances.",
+    "Print gears flat; deburr tooth flanks without changing tooth count.",
+    "Mount WORLD-ROTOR on the world side of the boundary plate.",
+    "Mount SIGNAL-CAM through the observation aperture; it must not directly drive internal belief gears.",
+    "Mount PRIOR-GEAR and EVIDENCE-GEAR as independent encoder inputs.",
+    "Mount POSTERIOR-DIFFERENTIAL, POLICY-GEAR, and PREDICTION-GEAR inside the UNI side.",
+    "Mount ACTION-CLUTCH through the action aperture; no other mechanical crossing is permitted.",
+    "Calibrate every encoder with the exported zero marks before accepting measurements."
+  ]
+}

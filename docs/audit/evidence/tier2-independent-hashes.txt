@@ -1,0 +1,5 @@
+﻿bytes=4085227742
+md5_observed=d42879e66142ff7190f256f4276db111
+md5_declared=d42879e66142ff7190f256f4276db111
+sha256_computed=4b266cdedc0242ad3cb6bd2022fde761b06ec275a46ccf8bead56b60f5b5efac
+note=repo pins MD5 only for this tier; SHA-256 computed by this audit and does not exist upstream in-repo

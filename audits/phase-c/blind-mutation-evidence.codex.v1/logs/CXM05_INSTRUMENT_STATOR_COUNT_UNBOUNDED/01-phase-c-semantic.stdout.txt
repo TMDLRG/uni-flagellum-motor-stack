@@ -1,0 +1,47 @@
+✔ right-censored dwells are excluded from the uncensored duration likelihood (hand-calculated mean) (1.7637ms)
+✔ the fixture discriminates: admitting censored dwells changes the mean to a different hand-calculated value (0.2129ms)
+✔ censored dwells exert zero influence on the likelihood: flagged-present run equals censored-absent run (0.217ms)
+✔ likelihood cohort sizes equal the independently counted uncensored eligible events (0.2465ms)
+✔ right-censored dwells are RETAINED in the record for provenance (0.6301ms)
+✔ the frozen protocol still declares both halves of the censoring rule (2.5356ms)
+✔ fixture guard: both synthetic stator states are eligible and fully scored (2.5915ms)
+✔ direction semantics: "on" is the positive outcome in the training-fitted probabilities (0.3906ms)
+✔ direction semantics: held-out outcome 1 is "on" (hand-calculated log loss and Brier score) (0.2856ms)
+✔ direction semantics: stateSummary.onFraction counts "on", not "off" (0.295ms)
+✔ anchoring identity: state-conditioned direction predictor was constructed to beat the pooled baseline (0.2801ms)
+✔ anchoring identity: the generating model outscores every mis-specified baseline (0.2664ms)
+✔ paired advantage sign convention: mixture was constructed to beat every baseline (0.3317ms)
+✔ paired advantage sign convention: bootstrap intervals agree in sign with the point estimate (0.256ms)
+✔ independent recomputation: paired advantages match an oracle written from the density definitions (0.914ms)
+✔ internal orientation identity: paired advantage equals the difference of the reported mean log scores (0.4057ms)
+✔ determinism: a second run of the same fixture reproduces every orientation-bearing value (108.1475ms)
+PROSPECTIVITY GATE: 4/4 anchors verified against commit ancestry.
+PROSPECTIVITY GATE: class ledger
+  B1-MUTATION-BATTERY-V1: declared=PROSPECTIVE measured=PROSPECTIVE (STRICT_ANCESTRY_PROVEN)
+  B1-RERUN-ON-C3-FIXED-TREE: declared=TIMING_UNVERIFIED measured=TIMING_UNVERIFIED (SAME_COMMIT:audits/phase-b/b1-mutation-ledger-rerun.json)
+  C3-CANONICAL-WRITE-FIX: declared=TIMING_UNVERIFIED measured=TIMING_UNVERIFIED (SAME_COMMIT:1630a68f)
+  B3-MODEL-COMPETITION-V1: declared=PENDING measured=PENDING (RESULT_DOES_NOT_EXIST_YET)
+✔ SYNTHETIC: prediction committed one commit before its result => PROSPECTIVE (1166.1265ms)
+✔ SYNTHETIC: prediction and result in the SAME commit => TIMING_UNVERIFIED, never upgraded (754.4355ms)
+✔ SYNTHETIC: result committed BEFORE the prediction => TIMING_UNVERIFIED (1332.924ms)
+✔ SYNTHETIC: prediction committed, result does not exist => PENDING (778.4851ms)
+✔ SYNTHETIC: result written but NOT committed cannot make a prediction PROSPECTIVE (746.2851ms)
+✔ SYNTHETIC: prospectivity is decided by ancestry, NOT by commit timestamps (1112.4136ms)
+✔ SYNTHETIC: a fabricated anchor commit is not accepted as an anchor (682.1666ms)
+✔ Every prediction record is well formed and carries claim, falsifier and anchor (0.5449ms)
+✔ Every prediction anchor commit exists and precedes the prediction it anchors (1169.9596ms)
+✔ Declared prospectivity equals prospectivity measured from commit ancestry (771.7184ms)
+✔ The known same-commit provenance defect remains declared and visible (407.3179ms)
+✔ G1 a motor present in both partitions is refused, and the refusal names motor leakage (3.9037ms)
+✔ G2 the frozen dataset's partitions are disjoint at motor granularity (7.1708ms)
+✔ G2 every motor's partition equals the preregistered sha256(motorName) mod 5 rule, recomputed here (8.8558ms)
+✔ G3 fitted parameters equal HAND-CALCULATED training-only values, not pooled values (36.5221ms)
+✔ G3 corrupting every holdout observation leaves the real dataset's fitted parameters unmoved (1219.7773ms)
+ℹ tests 33
+ℹ suites 0
+ℹ pass 33
+ℹ fail 0
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 9466.5672

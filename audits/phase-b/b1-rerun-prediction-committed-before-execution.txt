@@ -1,0 +1,59 @@
+B1 RE-RUN AGAINST THE C3-FIXED TREE — PREDICTIONS COMMITTED BEFORE EXECUTION
+============================================================================
+Base: 1630a68 (fix/c3-crlf-canonical-write). Original B1 run: 1fc6758 at 9c3a644.
+
+WHY RE-RUN
+The original battery was confounded: every mutation whose regeneration ran
+scripts/run-observed-experiments.mjs triggered the WADHWA_2022_EVENTS hash
+failure regardless of what was mutated, because copyFileSync corrupted the
+served mirror. Five mutations were therefore classified DETECTED_BY_HASH_ONLY
+with the CRLF noise masking whatever else fired. C3 is now fixed, so the
+measurement can finally be clean.
+
+DECLARED PROTOCOL CHANGE
+The frozen patch set is used unchanged EXCEPT that M10a is replaced by the
+M10a-corrected patch (swap the lognormal and mixture log-score sources), because
+the original M10a was established in the first run to be MIS-TARGETED: it
+inverted a paired-delta field while the adverse-result assertion reads
+meanLogScoreNatsPerEvent, so it tested nothing. This substitution is declared,
+not silent, and the original M10a verdict of INCONCLUSIVE stands in the first
+ledger.
+
+Evidence capture is widened from 6 failure lines per gate to 40, because 6 was
+too narrow to classify M10a in the first run.
+
+PREDICTIONS
+
+P-R1  The WADHWA_2022_EVENTS hash failure disappears from EVERY row. If it
+      appears anywhere, the C3 fix is incomplete.
+
+P-R2  M01, M05, M06, M07a and M11 remain DETECTED, but now fail on the
+      source-hash chain ALONE - the audit-manifest binding test - rather than on
+      two failures. Their classification stays DETECTED_BY_HASH_ONLY.
+
+P-R3  No mutation flips from DETECTED to SURVIVED. Each of the five above also
+      trips the source-hash chain independently of the CRLF defect, so removing
+      the confound should not remove their detection entirely. If one DOES flip
+      to SURVIVED, its only detector was the CRLF accident, which would be a
+      significant new finding.
+
+P-R4  The six semantic detections are unchanged: M02, M03a, M07b, M09, M12 and
+      M10a-corrected.
+
+P-R5  The three survivors are unchanged: M03b, M04, M10b.
+
+P-R6  M08 remains NOT_RUN. The C3 fix does not touch the undocumented
+      extraction requirement in scripts/ingest-cross-study-evidence.py.
+
+P-R7  THE HONEST ONE: the SEMANTIC detector count does NOT increase. It stays at
+      6 of 15. Fixing C3 removes noise; it does not make the suite understand
+      the science any better. The improvement is in ATTRIBUTION CLARITY, not in
+      discriminating power. If the semantic count rises, this prediction was
+      wrong and the fix delivered more than expected.
+
+FALSIFIER
+Any WADHWA_2022_EVENTS hash failure surviving; or the semantic count changing
+from 6; or a mutation flipping to SURVIVED.
+
+BASELINE REQUIREMENT
+npm ci exit 0 and npm test exit 0 at 1630a68 before any mutation is applied.

@@ -1,0 +1,427 @@
+{
+  "schema": "uni.flagellum.audit-artifact/1.0.0",
+  "purpose": "Clone-reproducible B2 oracle v2. Eligibility derived from frozen rules; symmetric delta check; coherent telemetry; canonical LF output.",
+  "auditedCommit": "9c3a644e4b57e8ac27f925dcec84222463063aa1",
+  "repoRootDerivedFrom": "__file__",
+  "protocolId": "UNI-FLAGELLUM-OBS-001",
+  "identityValidation": {
+    "checks": {
+      "reportProtocolIdMatchesProtocol": true,
+      "datasetSourceCommitMatchesProtocol": true,
+      "datasetRawSha256MatchesProtocol": true,
+      "reportProtocolSha256MatchesFileOnDisk": true,
+      "reportDerivedEventsSha256MatchesFileOnDisk": true
+    },
+    "allPassed": true
+  },
+  "mathematicalChecks": {
+    "families": [
+      {
+        "family": "exponential",
+        "integral": 1.0000000000000002,
+        "mean": 0.9999999999999998,
+        "unitIntegralAndMeanOne": true
+      },
+      {
+        "family": "weibull(k=0.35)",
+        "integral": 1.0000000000864349,
+        "mean": 0.9999999999983579,
+        "unitIntegralAndMeanOne": true
+      },
+      {
+        "family": "weibull(k=0.625088844276203)",
+        "integral": 1.0000000000050182,
+        "mean": 1.0000000000000264,
+        "unitIntegralAndMeanOne": true
+      },
+      {
+        "family": "weibull(k=1.0)",
+        "integral": 1.0000000000000002,
+        "mean": 0.9999999999999998,
+        "unitIntegralAndMeanOne": true
+      },
+      {
+        "family": "weibull(k=2.7)",
+        "integral": 0.9999999999962746,
+        "mean": 0.9999999999994551,
+        "unitIntegralAndMeanOne": true
+      },
+      {
+        "family": "lognormal(s=0.4)",
+        "integral": 1.0000000000000004,
+        "mean": 1.0000000000000004,
+        "unitIntegralAndMeanOne": true
+      },
+      {
+        "family": "lognormal(s=1.5783076021679734)",
+        "integral": 1.0000000000190636,
+        "mean": 1.0000000000190634,
+        "unitIntegralAndMeanOne": true
+      },
+      {
+        "family": "lognormal(s=2.6)",
+        "integral": 0.9999999999799704,
+        "mean": 0.9999999999800189,
+        "unitIntegralAndMeanOne": true
+      },
+      {
+        "family": "mixture(w=0.3,lf=2.0)",
+        "integral": 1.0000000000000002,
+        "mean": 0.9999999999999954,
+        "unitIntegralAndMeanOne": true
+      },
+      {
+        "family": "mixture(w=0.6066448974609373,lf=5.239865393555934)",
+        "integral": 1.0000000000000002,
+        "mean": 1.0000000000000042,
+        "unitIntegralAndMeanOne": true
+      },
+      {
+        "family": "mixture(w=0.85,lf=40.0)",
+        "integral": 1.000000000000003,
+        "mean": 0.9999999999999997,
+        "unitIntegralAndMeanOne": true
+      }
+    ],
+    "domainAssertions": {
+      "mixtureInfeasibleWhen_lf_le_w": true,
+      "mixtureFeasibleWhen_lf_gt_w": true,
+      "mixtureSlowRatePositive": true
+    },
+    "allPassed": true
+  },
+  "eligibilityDerivation": {
+    "ruleText": "Primary N with at least 20 uncensored holdout events from at least 5 holdout motors.",
+    "minHoldoutEvents": 20,
+    "minHoldoutMotors": 5,
+    "primaryStates": [
+      0,
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "perState": {
+      "0": {
+        "holdoutUncensoredEvents": 18,
+        "holdoutMotors": 7,
+        "meetsH1Thresholds": false,
+        "inPrimaryStates": true
+      },
+      "1": {
+        "holdoutUncensoredEvents": 25,
+        "holdoutMotors": 9,
+        "meetsH1Thresholds": true,
+        "inPrimaryStates": true
+      },
+      "2": {
+        "holdoutUncensoredEvents": 22,
+        "holdoutMotors": 12,
+        "meetsH1Thresholds": true,
+        "inPrimaryStates": true
+      },
+      "3": {
+        "holdoutUncensoredEvents": 27,
+        "holdoutMotors": 12,
+        "meetsH1Thresholds": true,
+        "inPrimaryStates": true
+      },
+      "4": {
+        "holdoutUncensoredEvents": 22,
+        "holdoutMotors": 12,
+        "meetsH1Thresholds": true,
+        "inPrimaryStates": true
+      },
+      "5": {
+        "holdoutUncensoredEvents": 27,
+        "holdoutMotors": 13,
+        "meetsH1Thresholds": true,
+        "inPrimaryStates": true
+      },
+      "6": {
+        "holdoutUncensoredEvents": 32,
+        "holdoutMotors": 13,
+        "meetsH1Thresholds": true,
+        "inPrimaryStates": true
+      },
+      "7": {
+        "holdoutUncensoredEvents": 45,
+        "holdoutMotors": 16,
+        "meetsH1Thresholds": true,
+        "inPrimaryStates": true
+      },
+      "8": {
+        "holdoutUncensoredEvents": 33,
+        "holdoutMotors": 12,
+        "meetsH1Thresholds": true,
+        "inPrimaryStates": true
+      },
+      "9": {
+        "holdoutUncensoredEvents": 21,
+        "holdoutMotors": 10,
+        "meetsH1Thresholds": true,
+        "inPrimaryStates": false
+      },
+      "10": {
+        "holdoutUncensoredEvents": 7,
+        "holdoutMotors": 5,
+        "meetsH1Thresholds": false,
+        "inPrimaryStates": false
+      },
+      "11": {
+        "holdoutUncensoredEvents": 2,
+        "holdoutMotors": 2,
+        "meetsH1Thresholds": false,
+        "inPrimaryStates": false
+      }
+    },
+    "derivedEligibleStates": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ]
+  },
+  "committedEligibleStates": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8
+  ],
+  "splitVerification": {
+    "mismatches": 0,
+    "motorsSpanningPartitions": 0
+  },
+  "scenarios": [
+    {
+      "label": "derived_eligible_H1_rule_applied",
+      "note": "primaryStates INTERSECT the frozen H1 eligibility rule. Reproduces the committed cohort.",
+      "eligibleStates": [
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "trainUncensoredEvents": 793,
+      "holdoutUncensoredEvents": 233,
+      "holdoutMotors": 19,
+      "telemetry": {
+        "startsDeclared": 421,
+        "methodStartPairsConsidered": 842,
+        "domainFeasibleOptimizerCalls": 730,
+        "successfulOptimizerCalls": 730,
+        "finiteTerminalResults": 730,
+        "coherent": true
+      },
+      "independentFits": {
+        "weibullShape": 0.625088835945566,
+        "weibullTrainingNll": 583.5856062645817,
+        "weibullOptimizerSucceeded": true,
+        "lognormalSigma": 1.5783076163628234,
+        "lognormalTrainingNll": 509.28782032664844,
+        "lognormalOptimizerSucceeded": true,
+        "mixtureWeightFast": 0.6066439989171127,
+        "mixtureRateFast": 5.239879335282435,
+        "mixtureRateSlow": 0.4448593330250469,
+        "mixtureTrainingNll": 537.0211284007614,
+        "mixtureOptimizerSucceeded": true
+      },
+      "committedComparison": {
+        "mixtureTrainingNllAtCommitted": 537.0211284012928,
+        "mixtureTrainingNllAtBestFound": 537.0211284007614,
+        "deltaNats": 5.313722795108333e-10,
+        "absDeltaNats": 5.313722795108333e-10,
+        "committedNotBeaten": true,
+        "sign": "committed worse",
+        "heldoutScoresAtCommittedParams": {
+          "exponential": -3.2599380237315465,
+          "weibull": -3.096284176837812,
+          "lognormal": -3.0128901709465548,
+          "mixture": -3.049756569544135
+        },
+        "maxAbsErrorVsCommittedReport": 1.7763568394002505e-15
+      },
+      "heldoutScoresAtIndependentFits": {
+        "exponential": -3.2599380237315465,
+        "weibull": -3.0962841788243387,
+        "lognormal": -3.012890173553255,
+        "mixture": -3.049756689212432
+      },
+      "ranking": [
+        "lognormal",
+        "mixture",
+        "weibull",
+        "exponential"
+      ],
+      "lognormalMinusMixture": 0.03686651565917698,
+      "adverseLognormalResultSurvives": true,
+      "distinctFiniteTerminalNllValues": [
+        537.021128,
+        537.021129,
+        537.02113,
+        537.021131,
+        537.021137,
+        546.643179,
+        566.095404,
+        793.0,
+        793.000001
+      ],
+      "distinctSuccessfulNllValues": [
+        537.021128,
+        537.021129,
+        537.02113,
+        537.021131,
+        537.021137,
+        546.643179,
+        566.095404,
+        793.0,
+        793.000001
+      ],
+      "searchDomain": {
+        "w": [
+          1e-09,
+          0.999999999
+        ],
+        "lf": [
+          1e-09,
+          10000.0
+        ],
+        "constraint": "lf > w, from the mean-one feasibility 1 - w/lf > 0"
+      },
+      "conclusionStrength": "No better solution was found over the declared search domain. The committed fit is numerically indistinguishable from the best located optimum. This is a finite-multistart numerical result, NOT a proof of global optimality."
+    },
+    {
+      "label": "primary_states_H1_rule_not_applied",
+      "note": "All primaryStates, i.e. the H1 eligibility filter NOT reused for model fitting. Robustness probe for the PROTOCOL_SCOPE_AMBIGUITY: the protocol nests the eligibility rule under H1 and does not state whether H2/model fitting reuses it.",
+      "eligibleStates": [
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8
+      ],
+      "trainUncensoredEvents": 818,
+      "holdoutUncensoredEvents": 251,
+      "holdoutMotors": 19,
+      "telemetry": {
+        "startsDeclared": 421,
+        "methodStartPairsConsidered": 842,
+        "domainFeasibleOptimizerCalls": 730,
+        "successfulOptimizerCalls": 730,
+        "finiteTerminalResults": 730,
+        "coherent": true
+      },
+      "independentFits": {
+        "weibullShape": 0.630674993278865,
+        "weibullTrainingNll": 611.417075954779,
+        "weibullOptimizerSucceeded": true,
+        "lognormalSigma": 1.5693195464946323,
+        "lognormalTrainingNll": 537.7356731394123,
+        "lognormalOptimizerSucceeded": true,
+        "mixtureWeightFast": 0.5933983992356323,
+        "mixtureRateFast": 5.241334028650817,
+        "mixtureRateSlow": 0.4585121172296268,
+        "mixtureTrainingNll": 567.7912635401843,
+        "mixtureOptimizerSucceeded": true
+      },
+      "committedComparison": {
+        "mixtureTrainingNllAtCommitted": 567.990201993354,
+        "mixtureTrainingNllAtBestFound": 567.7912635401843,
+        "deltaNats": 0.19893845316971692,
+        "absDeltaNats": 0.19893845316971692,
+        "committedNotBeaten": false,
+        "sign": "committed worse",
+        "heldoutScoresAtCommittedParams": {
+          "exponential": -3.2350364534950153,
+          "weibull": -3.0828557226443527,
+          "lognormal": -2.9962073165308993,
+          "mixture": -3.0351995463037578
+        },
+        "maxAbsErrorVsCommittedReport": 0.02490157023653161
+      },
+      "heldoutScoresAtIndependentFits": {
+        "exponential": -3.2350364534950153,
+        "weibull": -3.0814837366334116,
+        "lognormal": -2.9944960688038096,
+        "mixture": -3.033215444824975
+      },
+      "ranking": [
+        "lognormal",
+        "mixture",
+        "weibull",
+        "exponential"
+      ],
+      "lognormalMinusMixture": 0.038719376021165264,
+      "adverseLognormalResultSurvives": true,
+      "distinctFiniteTerminalNllValues": [
+        567.791264,
+        567.791265,
+        567.791266,
+        567.791267,
+        567.79127,
+        593.20038,
+        605.293808,
+        619.411091,
+        818.0,
+        818.000001
+      ],
+      "distinctSuccessfulNllValues": [
+        567.791264,
+        567.791265,
+        567.791266,
+        567.791267,
+        567.79127,
+        593.20038,
+        605.293808,
+        619.411091,
+        818.0,
+        818.000001
+      ],
+      "searchDomain": {
+        "w": [
+          1e-09,
+          0.999999999
+        ],
+        "lf": [
+          1e-09,
+          10000.0
+        ],
+        "constraint": "lf > w, from the mean-one feasibility 1 - w/lf > 0"
+      },
+      "conclusionStrength": "No better solution was found over the declared search domain. The committed fit is numerically indistinguishable from the best located optimum. This is a finite-multistart numerical result, NOT a proof of global optimality."
+    }
+  ],
+  "selfChecks": {
+    "protocolValidated": true,
+    "identityChecksPassed": true,
+    "mathematicalChecksPassed": true,
+    "splitRecomputedWithZeroMismatches": true,
+    "noMotorSpansPartitions": true,
+    "derivedEligibilityMatchesCommittedCohort": true,
+    "committedScoresReproduced": true,
+    "committedMixtureNotBeatenAndNotBeating": true,
+    "telemetryCoherentInEveryScenario": true,
+    "adverseLognormalSurvivesUnderBothCohorts": true
+  },
+  "allSelfChecksPassed": true
+}

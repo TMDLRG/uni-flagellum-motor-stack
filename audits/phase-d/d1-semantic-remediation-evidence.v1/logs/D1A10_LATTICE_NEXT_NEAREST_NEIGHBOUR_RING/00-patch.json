@@ -1,0 +1,9 @@
+{
+  "id": "D1A10_LATTICE_NEXT_NEAREST_NEIGHBOUR_RING",
+  "class": "ALTERNATE_FORM",
+  "propertyId": "D1P10_PERIODIC_LATTICE_TOPOLOGY",
+  "targetPath": "scripts/run-cross-study-parity.py",
+  "preMutationSha256": "89e0c0ae11cb01fb7a829f34308d63c6ce19da79f12496f24f78a4876c55d777",
+  "postMutationSha256": "c4f9ec625d223b248faf60d82bfba3f437ec3331b2e8a9b3a6372b282115d5fe",
+  "diff": "diff --git a/scripts/run-cross-study-parity.py b/scripts/run-cross-study-parity.py\nindex fdc19f0..c92bc36 100644\n--- a/scripts/run-cross-study-parity.py\n+++ b/scripts/run-cross-study-parity.py\n@@ -130,7 +130,7 @@ def lattice_features(length: int = 13) -> tuple[np.ndarray, np.ndarray]:\n     for encoded in range(2**length):\n         state = np.asarray([(encoded >> index) & 1 for index in range(length)], dtype=float)\n         count[encoded] = np.sum(state)\n-        adjacent[encoded] = np.sum(state * np.roll(state, -1))\n+        adjacent[encoded] = np.sum(state * np.roll(state, -2))\n     return count, adjacent\n \n \n"
+}

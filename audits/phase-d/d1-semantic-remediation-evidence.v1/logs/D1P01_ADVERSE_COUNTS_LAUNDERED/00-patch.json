@@ -1,0 +1,9 @@
+{
+  "id": "D1P01_ADVERSE_COUNTS_LAUNDERED",
+  "class": "ADVERSE_RECORD_ATTACK",
+  "propertyId": "D1P11_ADVERSE_RECORD_PRESERVATION",
+  "targetPath": "audits/phase-c/blind-mutation-result.codex.v1.json",
+  "preMutationSha256": "e36bdfb01fd51a4acb078762da1edff9deef4ff0844cf8f80d00c68d400be7d1",
+  "postMutationSha256": "28300588c539fc1001e16f95f81b7c6666b438951c9798124bc6ad9bebe336f5",
+  "diff": "diff --git a/audits/phase-c/blind-mutation-result.codex.v1.json b/audits/phase-c/blind-mutation-result.codex.v1.json\nindex cb9a65d..47eed3d 100644\n--- a/audits/phase-c/blind-mutation-result.codex.v1.json\n+++ b/audits/phase-c/blind-mutation-result.codex.v1.json\n@@ -14,9 +14,9 @@\n     \"statusPorcelain\": \"\"\n   },\n   \"classificationCounts\": {\n-    \"DETECTED_SEMANTIC\": 0,\n+    \"DETECTED_SEMANTIC\": 10,\n     \"DETECTED_BY_HASH_ONLY\": 0,\n-    \"SURVIVED\": 10,\n+    \"SURVIVED\": 0,\n     \"NOT_RUN\": 0,\n     \"INCONCLUSIVE\": 0\n   },\n"
+}

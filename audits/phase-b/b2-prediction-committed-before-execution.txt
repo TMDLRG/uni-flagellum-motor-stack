@@ -1,0 +1,58 @@
+PHASE B / B2 PREDICTION — committed BEFORE any independent fit is run
+=====================================================================
+Audited commit: 9c3a644e4b57e8ac27f925dcec84222463063aa1
+
+COMMITTED FITS (fittedOnTrainingOnly.normalizedDurationModels)
+  weibull  : shape 0.625088844276203      scale 0.6996038164387606
+  lognormal: sigma 1.5783076021679734     mu    -1.245527443530609
+  mixture  : weightFast 0.6066448974609373  rateFast 5.239865393555934  rateSlow 0.44485855808292624
+
+COMMITTED HELD-OUT MEAN LOG SCORE PER EVENT
+  exponential -3.259938023731547
+  weibull     -3.0962841768378104
+  lognormal   -3.012890170946554     <-- BEST (adverse to the project's own model)
+  mixture     -3.0497565695441344
+
+OBSERVATION MOTIVATING THE PREDICTION
+weightFast = 0.6066448974609373 and rateFast = 5.239865393555934 carry the
+numeric signature of a grid-then-refine / bisection search rather than a
+converged simplex or gradient optimum. The one-dimensional golden-section
+routine used for the single-parameter models cannot search a two-parameter
+surface, so the mixture (free: weightFast, rateFast; rateSlow constrained by the
+mean-one condition) is the model most at risk of being sub-optimally fitted.
+
+PREDICTION
+P-B1. An independent fit of the SAME likelihood on the SAME training partition,
+      using genuine multivariate optimizers with multiple starts, will find a
+      training negative log-likelihood NO WORSE than the committed mixture fit.
+P-B2. It will find a STRICTLY BETTER training NLL for the mixture, i.e. the
+      committed mixture parameters are NOT the global optimum.
+P-B3. The three single-parameter models (exponential fixed, Weibull shape,
+      lognormal sigma) WILL be recovered to within optimizer tolerance, because
+      golden-section is adequate on a unimodal one-dimensional surface.
+
+IF P-B2 HOLDS, THE CONSEQUENCE IS SCIENTIFIC, NOT COSMETIC
+Every model comparison involving M3 — including the headline adverse result that
+the lognormal baseline out-scores the two-timescale mixture — would be a
+comparison against a sub-optimally fitted M3. The adverse result could then be
+an artifact of the fit rather than a property of the model class.
+
+BOTH DIRECTIONS ARE ADVERSE AND BOTH MUST BE REPORTED
+  - If the better fit does NOT overturn the lognormal result: the adverse
+    finding is strengthened and survives a fairer comparison.
+  - If the better fit DOES overturn it: the repository published an unreliable
+    self-criticism. That is an integrity finding and must be reported in the
+    integrity frame FIRST, before any scientific reframing.
+
+FALSIFIER
+If independent global optimization recovers the committed mixture parameters to
+within tolerance and no better training NLL exists anywhere in the feasible
+region, then the mixture IS globally fitted, P-B2 is refuted, and the lognormal
+result rests on a fair comparison.
+
+INDEPENDENCE CONDITION
+The oracle must not import or read lib/observed-experiment.js,
+scripts/run-observed-experiments.mjs, or scripts/independent-statistical-check.py.
+It reads only: experiments/data/wadhwa-2022-events.json (data) and
+experiments/preregistration.v1.json (protocol). The model equations are taken
+from the protocol's prose specification, not from any implementation.

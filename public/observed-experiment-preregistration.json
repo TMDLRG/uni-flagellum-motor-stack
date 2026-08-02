@@ -1,0 +1,121 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "protocolId": "UNI-FLAGELLUM-OBS-001",
+  "version": "1.0.0",
+  "frozenAt": "2026-07-17T17:00:00Z",
+  "registrationClass": "LOCAL_PROTOCOL_FROZEN_BEFORE_OUTCOME_COMPUTATION",
+  "registrationCaveat": "The source paper's published result was known before this protocol was written. This is a reproducibility and held-out prediction protocol, not a blind discovery or a third-party time-stamped preregistration.",
+  "title": "Single-motor stator-remodeling reproduction and held-out hidden-timescale test",
+  "source": {
+    "article": "Wadhwa et al., A multi-state dynamic process confers mechano-adaptation to a biological nanomachine, Nature Communications 13, 5327 (2022)",
+    "doi": "10.1038/s41467-022-33075-5",
+    "repository": "https://github.com/navishwadhwa/multi-state-remodeling",
+    "commit": "c83119131c3ce3742460a2e3b6bd6c6e44bef4d5",
+    "rawPath": "data/remodeling_data.mat",
+    "rawSha256": "c14de12cc11df8af2ab87f1ec94629eebc249c0e1475c24f850f5a28ddd1ea22",
+    "license": "MIT",
+    "sourceRole": "OBSERVED_SINGLE_MOTOR_DATA"
+  },
+  "scope": {
+    "organism": "Escherichia coli",
+    "intervention": "Electrorotation removed after low-load adaptation, producing a sudden high-load condition",
+    "observation": "Step-fitted stator occupancy sampled every 0.02 s in individual tethered-cell motor traces",
+    "primaryStates": [0, 1, 2, 3, 4, 5, 6, 7, 8],
+    "unitOfIndependence": "motor/cell",
+    "forbiddenClaim": "The experiment cannot establish that the bacterium implements Active Inference, that inferred latent states are molecular identities, or that UNI is a universal biological law."
+  },
+  "extraction": {
+    "analysisStartIndex": 3500,
+    "analysisStartSeconds": 70,
+    "reason": "Matches the source authors' public extraction code and excludes the early field-switch interval.",
+    "rules": [
+      "Reject non-finite time or stator samples.",
+      "Require strictly increasing timestamps and a median sample interval within 1e-6 s of 0.02 s.",
+      "Round stator values only when within 1e-9 of an integer; otherwise fail ingestion.",
+      "Reject stator states outside 0..11 from primary analysis.",
+      "Discard the first dwell after the analysis boundary because it is left-truncated.",
+      "Retain the last dwell as right-censored for provenance but exclude it from uncensored duration likelihoods.",
+      "Treat every observed change as an event and record its signed jump; primary direction uses the sign, not jump magnitude."
+    ]
+  },
+  "split": {
+    "method": "sha256(motorName) interpreted as an unsigned integer; remainder modulo 5",
+    "trainingRemainders": [1, 2, 3, 4],
+    "holdoutRemainders": [0],
+    "leakageControl": "All events from one motor remain in one partition. Holdout outcomes are not used for fitting, state means, model selection, or thresholds."
+  },
+  "models": [
+    {
+      "id": "M0_MEMORYLESS",
+      "family": "Exponential competing-event baseline",
+      "parameters": "One training mean dwell time per N; normalized duration density exp(-y).",
+      "biologicalInterpretation": "A homogeneous memoryless count-state process."
+    },
+    {
+      "id": "M1_WEIBULL",
+      "family": "Mean-one Weibull survival baseline",
+      "parameters": "One common held-out-frozen shape plus one training mean per N.",
+      "biologicalInterpretation": "Flexible duration dependence without a discrete hidden-state claim."
+    },
+    {
+      "id": "M2_LOGNORMAL",
+      "family": "Mean-one lognormal survival baseline",
+      "parameters": "One common held-out-frozen sigma plus one training mean per N.",
+      "biologicalInterpretation": "Flexible positive-duration baseline without a discrete hidden-state claim."
+    },
+    {
+      "id": "M3_UNI_TWO_TIMESCALE",
+      "family": "Mean-one two-exponential hidden-timescale mixture",
+      "parameters": "Training-only fast-state weight and rate; slow rate constrained so normalized mean is one; one training mean per N.",
+      "inference": "q(z | T > t, N) is updated exactly from the prior mixture weight and the survival likelihood exp(-lambda_z t).",
+      "biologicalInterpretation": "A deliberately minimal hidden-timescale generative model. Its latent labels are predictive constructs, not identified molecular states."
+    }
+  ],
+  "hypotheses": [
+    {
+      "id": "H1_OVERDISPERSION",
+      "question": "Are held-out dwell times incompatible with a homogeneous memoryless process?",
+      "statistic": "Mean across eligible N of CV^2_N = sampleVariance(T|N) / sampleMean(T|N)^2.",
+      "eligibility": "Primary N with at least 20 uncensored holdout events from at least 5 holdout motors.",
+      "null": "CV^2 = 1.",
+      "success": "The 95% motor-cluster bootstrap confidence interval for mean CV^2 lies entirely above 1.",
+      "limitation": "Rejection does not uniquely identify hidden molecular states; motor heterogeneity and nonstationarity are alternative explanations."
+    },
+    {
+      "id": "H2_HELDOUT_LOG_SCORE",
+      "question": "Does a training-fitted hidden-timescale model predict held-out event durations better than the memoryless baseline?",
+      "statistic": "Per-event natural-log predictive density difference, M3 minus M0, with motor-cluster bootstrap confidence interval.",
+      "success": "The 95% confidence interval for the mean paired log-score difference lies entirely above zero.",
+      "secondaryComparisons": ["M3 versus M1", "M3 versus M2"],
+      "multiplicity": "The primary comparison is M3 versus M0. Secondary comparisons are reported descriptively and cannot rescue a failed primary result."
+    },
+    {
+      "id": "H3_SURVIVAL_POSTERIOR",
+      "question": "Does survival without an event move posterior mass toward the slower latent timescale in the frozen M3 model?",
+      "statistic": "q(slow | T > t, N) at t=0 and at the 90th percentile of held-out normalized duration.",
+      "success": "Posterior slow-state probability increases monotonically over the displayed survival interval.",
+      "classification": "Mathematical model consequence demonstrated on observed timing; not an independent biological discovery."
+    },
+    {
+      "id": "H4_DIRECTION",
+      "question": "Can training-only state-conditioned transition direction frequencies predict held-out on/off events?",
+      "statistic": "Held-out log loss and Brier score using a Jeffreys-prior Bernoulli estimate for each N, compared with one global training-only probability.",
+      "success": "State-conditioned mean log loss is lower than the global baseline.",
+      "classification": "Secondary predictive check."
+    }
+  ],
+  "uncertainty": {
+    "bootstrap": "Motor-cluster nonparametric bootstrap",
+    "replicates": 2000,
+    "seed": 20260717,
+    "interval": "Percentile 95%",
+    "pointEstimatePolicy": "Never substitute event-level resampling for motor-level resampling."
+  },
+  "qualityGates": [
+    "Raw SHA-256 must match before extraction.",
+    "No motor may appear in both train and holdout partitions.",
+    "Every fitted probability and density parameter must be finite and within its declared bounds.",
+    "The frozen report must include exclusions, counts, source identity, software identity, parameters, predictions, residuals, uncertainty, and falsifiers.",
+    "A failed hypothesis remains failed in the rendered laboratory."
+  ]
+}

@@ -1,0 +1,137 @@
+{
+  "schema": "uni.flagellum.d1-semantic-remediation-predictions/1.0.0",
+  "protocolId": "PHASE-D1-SEMANTIC-REMEDIATION-CLAUDE-V1",
+  "protocolPath": "audits/phase-d/d1-semantic-remediation-protocol.v1.json",
+  "frozenBeforeImplementation": true,
+  "frozenBeforeExecution": true,
+
+  "primaryClaim": "After the D1 implementation commit adds the declared semantic invariants to tests/semantic/, every one of the twenty-two frozen corruptions will be classified DETECTED_SEMANTIC by the unchanged gate command 'node --test tests/semantic/*.mjs', each by a diagnostic produced by its declared intended test.",
+
+  "primaryFalsifier": "The primary claim is falsified if ANY of the twenty-two receives SURVIVED, DETECTED_BY_HASH_ONLY, INCONCLUSIVE, or NOT_RUN, or if any detection has attributionSatisfied=false. Per-cell falsifiers are frozen in the protocol.",
+
+  "evidentialWeightDisclosure": "This is a LOW-RISK prediction. The corruptions were authored with complete knowledge of the production source and of the Phase-C battery, and the gates were designed specifically to detect them. Confirmation therefore establishes TARGET COVERAGE over ten named properties. It does NOT establish that the suite detects unseen defects, and it must not be reported as evidence of general or future robustness. The only genuinely risky predictions in this record are P-D1-6 through P-D1-9 below.",
+
+  "predictions": [
+    {
+      "id": "P-D1-1",
+      "statement": "All ten EXACT Phase-C replays (D1X01..D1X10) are classified DETECTED_SEMANTIC.",
+      "risk": "LOW",
+      "falsifier": "Any of the ten receiving a classification other than DETECTED_SEMANTIC."
+    },
+    {
+      "id": "P-D1-2",
+      "statement": "All ten ALTERNATE-FORM corruptions (D1A01..D1A10) are classified DETECTED_SEMANTIC, demonstrating the gates are invariant checks rather than exact-patch matchers.",
+      "risk": "MEDIUM",
+      "rationale": "Each alternate was deliberately constructed to defeat a plausible weak implementation of the same gate: sign inversion rather than deletion, a corruption invisible at the origin, an opposite-direction denominator, a leak under a different field name, a widened rather than removed clamp, an inverted rather than erased load response, a corrupted retain branch rather than shift branch, a dropped component term rather than dropped multiplicity, an inflated rather than deleted factor, and a next-nearest-neighbour ring that preserves both periodicity and bond count.",
+      "falsifier": "Any alternate surviving while its paired exact replay is detected. That specific pattern would prove the corresponding gate is a hard-coded match to the Phase-C patch text rather than a scientific invariant."
+    },
+    {
+      "id": "P-D1-3",
+      "statement": "Both adverse-record laundering attacks (D1P01_ADVERSE_COUNTS_LAUNDERED, D1P02_ADVERSE_EVIDENCE_COPY_DIVERGED) are classified DETECTED_SEMANTIC.",
+      "risk": "LOW",
+      "falsifier": "Either surviving. Survival of D1P02 specifically would prove the gate inspects only one of the two preserved copies of the adverse Phase-C record."
+    },
+    {
+      "id": "P-D1-4",
+      "statement": "Zero mutations are classified DETECTED_BY_HASH_ONLY.",
+      "risk": "LOW",
+      "rationale": "No D1 assertion consults a sha256, runId, snapshot, or committed report digest as its criterion. The lattice gate deliberately recomputes physics rather than comparing the audit artifact's recorded Python runner digest.",
+      "falsifier": "Any hash-only classification, which would show a D1 gate is an identity check wearing a semantic label."
+    },
+    {
+      "id": "P-D1-5",
+      "statement": "The primary checkout is unchanged by execution, and every file under audits/phase-c/ remains byte-identical to audits/phase-d/phase-c-preservation-baseline.v1.json across the entire phase.",
+      "risk": "LOW",
+      "falsifier": "Any primary-checkout drift or any Phase-C digest change."
+    },
+    {
+      "id": "P-D1-6",
+      "statement": "RISKY. The coverage-provenance measurement will show that D1P07, D1P08 and D1P10 were ALREADY detected before D1 by a command outside the semantic gate, so that D1 for those three properties is SUITE MEMBERSHIP MIGRATION rather than genuinely new coverage.",
+      "risk": "HIGH",
+      "rationale": "tests/science-gates.test.mjs asserts the first-passage coefficient sum at 1e-12 and the density/negative-survival-derivative identity at 2e-8. scripts/independent-cross-study-check.mjs recomputes the periodic lattice SSE at 1e-10. All three live outside 'node --test tests/semantic/*.mjs' and were therefore excluded from Phase-C per-mutation classification.",
+      "falsifier": "The baseline command exiting zero for D1X07, D1X08 or D1X10 would refute this and would mean those properties WERE genuinely uncovered."
+    },
+    {
+      "id": "P-D1-7",
+      "statement": "RISKY. The coverage-provenance measurement will show D1X09 was NOT detected by any pre-existing command, making D1P09 the clearest case of genuinely new coverage.",
+      "risk": "HIGH",
+      "rationale": "normalizedVariance has no reader anywhere in the JavaScript codebase outside its own definition. sourceMoments callers read only meanDwellSeconds and fractionPlus.",
+      "falsifier": "The baseline command exiting nonzero for D1X09."
+    },
+    {
+      "id": "P-D1-8",
+      "statement": "RISKY. Under D1X10 the open-chain refit will NOT drive the fitted J to approximately zero, so the primary periodic-SSE recomputation, not the anti-vacuity control, will be the assertion that fires.",
+      "risk": "HIGH",
+      "rationale": "The committed periodic fit gives J = 0.2106 with a shallow SSE profile minimum near J = 0.2. Removing one of thirteen bonds is expected to shift the compensating J upward rather than collapse it to zero.",
+      "falsifier": "The result showing the anti-vacuity control as the firing assertion, or showing a refitted J within 0.02 of zero."
+    },
+    {
+      "id": "P-D1-9",
+      "statement": "RISKY. The clean-tree semantic suite count will rise from the frozen Phase-C baseline of 33 passing tests to a larger number with zero failures, and no pre-existing semantic test will change its outcome.",
+      "risk": "MEDIUM",
+      "rationale": "D1 adds test files and does not modify existing ones. However the new prediction record d1-semantic-remediation.prediction.json is auto-discovered by tests/semantic/prospectivity-provenance.test.mjs, which independently measures declared prospectivity against git topology. If the three-commit ordering is executed incorrectly, that pre-existing gate will fail.",
+      "falsifier": "Any pre-existing semantic test failing on a clean tree, or the prospectivity gate rejecting the D1 record's declared class."
+    },
+    {
+      "id": "P-D1-10",
+      "statement": "Production source is NOT modified by the D1 implementation commit. Every mutation target file at the replay base commit hashes to the preMutationSha256 frozen in the protocol.",
+      "risk": "LOW",
+      "rationale": "D1 adds tests and audit artifacts only. The runner enforces this by digest verification and refuses to execute on mismatch.",
+      "falsifier": "Any preMutationSha256 mismatch at the replay base commit, which would mean production behaviour was altered to satisfy a test."
+    },
+    {
+      "id": "P-D1-11",
+      "statement": "The integrality sub-property of D1P05 is recorded NOT_ESTABLISHED and production continues to accept non-integral live stator occupancy such as 7.5.",
+      "risk": "LOW",
+      "rationale": "Production uses clamp(Number(frame.stators), 0, 11), which bounds but does not quantize. No repository document declares integral occupancy. Changing production to satisfy the plan's illustrative wording would be altering behaviour to satisfy a test.",
+      "falsifier": "Discovery of a repository document that does declare integral live stator occupancy, which would upgrade this from a wording gap to a genuine production defect."
+    }
+  ],
+
+  "perCellPredictions": [
+    { "id": "D1X01_SECONDS_DENSITY_JACOBIAN_OMITTED", "predicted": "DETECTED_SEMANTIC", "expectedDiagnosticTerm": "jacobian" },
+    { "id": "D1A01_SECONDS_DENSITY_JACOBIAN_SIGN_INVERTED", "predicted": "DETECTED_SEMANTIC", "expectedDiagnosticTerm": "jacobian" },
+    { "id": "D1X02_SURVIVAL_POSTERIOR_USES_EVENT_DENSITY", "predicted": "DETECTED_SEMANTIC", "expectedDiagnosticTerm": "survivor mass" },
+    { "id": "D1A02_SURVIVAL_POSTERIOR_SLOW_USES_FAST_RATE", "predicted": "DETECTED_SEMANTIC", "expectedDiagnosticTerm": "survivor mass" },
+    { "id": "D1X03_SAMPLE_VARIANCE_BESSEL_CORRECTION_DROPPED", "predicted": "DETECTED_SEMANTIC", "expectedDiagnosticTerm": "sample variance" },
+    { "id": "D1A03_SAMPLE_VARIANCE_DENOMINATOR_N_PLUS_ONE", "predicted": "DETECTED_SEMANTIC", "expectedDiagnosticTerm": "sample variance" },
+    { "id": "D1X04_HIDDEN_TRUE_GRADIENT_CROSSES_BOUNDARY", "predicted": "DETECTED_SEMANTIC", "expectedDiagnosticTerm": "hidden world" },
+    { "id": "D1A04_HIDDEN_METHYLATION_LEAKS_UNDER_DIFFERENT_NAME", "predicted": "DETECTED_SEMANTIC", "expectedDiagnosticTerm": "hidden world" },
+    { "id": "D1X05_INSTRUMENT_STATOR_COUNT_UNBOUNDED", "predicted": "DETECTED_SEMANTIC", "expectedDiagnosticTerm": "instrument stator" },
+    { "id": "D1A05_INSTRUMENT_STATOR_RANGE_WIDENED_TO_TWENTY", "predicted": "DETECTED_SEMANTIC", "expectedDiagnosticTerm": "instrument stator" },
+    { "id": "D1X06_STATOR_RECRUITMENT_ERASES_LOAD_RESPONSE", "predicted": "DETECTED_SEMANTIC", "expectedDiagnosticTerm": "mechanosensitive" },
+    { "id": "D1A06_STATOR_RECRUITMENT_LOAD_RESPONSE_INVERTED", "predicted": "DETECTED_SEMANTIC", "expectedDiagnosticTerm": "mechanosensitive" },
+    { "id": "D1X07_FIRST_PASSAGE_WEIGHTS_NOT_NORMALIZED", "predicted": "DETECTED_SEMANTIC", "expectedDiagnosticTerm": "bernoulli convolution" },
+    { "id": "D1A07_FIRST_PASSAGE_RETAIN_FACTOR_DROPPED", "predicted": "DETECTED_SEMANTIC", "expectedDiagnosticTerm": "bernoulli convolution" },
+    { "id": "D1X08_OFF_HAZARD_OMITS_STATOR_MULTIPLICITY", "predicted": "DETECTED_SEMANTIC", "expectedDiagnosticTerm": "stator multiplicity" },
+    { "id": "D1A08_OFF_HAZARD_DROPS_COMPONENT_TERM", "predicted": "DETECTED_SEMANTIC", "expectedDiagnosticTerm": "stator multiplicity" },
+    { "id": "D1X09_EXPONENTIAL_SECOND_MOMENT_FACTOR_DROPPED", "predicted": "DETECTED_SEMANTIC", "expectedDiagnosticTerm": "second moment" },
+    { "id": "D1A09_EXPONENTIAL_SECOND_MOMENT_FACTOR_THREE", "predicted": "DETECTED_SEMANTIC", "expectedDiagnosticTerm": "second moment" },
+    { "id": "D1X10_PERIODIC_LATTICE_OPENED", "predicted": "DETECTED_SEMANTIC", "expectedDiagnosticTerm": "wraparound" },
+    { "id": "D1A10_LATTICE_NEXT_NEAREST_NEIGHBOUR_RING", "predicted": "DETECTED_SEMANTIC", "expectedDiagnosticTerm": "wraparound" },
+    { "id": "D1P01_ADVERSE_COUNTS_LAUNDERED", "predicted": "DETECTED_SEMANTIC", "expectedDiagnosticTerm": "adverse" },
+    { "id": "D1P02_ADVERSE_EVIDENCE_COPY_DIVERGED", "predicted": "DETECTED_SEMANTIC", "expectedDiagnosticTerm": "adverse" }
+  ],
+
+  "predictedCounts": {
+    "DETECTED_SEMANTIC": 22,
+    "DETECTED_BY_HASH_ONLY": 0,
+    "SURVIVED": 0,
+    "NOT_RUN": 0,
+    "INCONCLUSIVE": 0
+  },
+
+  "whatAConfirmedResultWouldAndWouldNotLicense": {
+    "licensed": [
+      "Target coverage established over the ten named Phase-C survivor properties, verified by exact and alternate-form replay.",
+      "The historical Phase-C 0/10 adverse result is protected against deletion, count laundering, and evidence-copy divergence.",
+      "P0 computational-integrity and P1 equation/implementation-parity evidence is strengthened for these ten properties."
+    ],
+    "forbidden": [
+      "Any claim of general or future robustness of the semantic suite.",
+      "Any claim that the motor model is biologically correct, or that any parity level above P1 has moved.",
+      "Any restatement or weakening of the Phase-C 0/10 result.",
+      "Any implication that migrating an existing check into the semantic gate is the same as newly discovering that invariant."
+    ]
+  }
+}

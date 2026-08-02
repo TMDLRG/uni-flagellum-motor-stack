@@ -1,0 +1,59 @@
+{
+  "schema": "uni.flagellum.audit-artifact/1.0.0",
+  "purpose": "Resolution of the Phase A STOP CONDITION on the ambiguous experimental unit for corpus breadth, as a three-part gate contract.",
+  "auditedCommit": "9c3a644e4b57e8ac27f925dcec84222463063aa1",
+  "auditPhase": "A-addendum",
+  "auditorModel": "claude-fable-5",
+  "appendOnly": true,
+  "contractOrigin": "Specified by Codex/Michael in response to the Phase A stop condition. Recorded here verbatim in intent, with the audit's independent verification of each number.",
+  "note": "Timestamps are deliberately omitted: this package must be byte-reproducible. Ordering is established by git history.",
+
+  "stopConditionRaised": "X02_CORPUS_BREADTH requires 'a conservative direct-artifact lower bound of 400 independent motors/cells' and reports 409 using Wadhwa = 109. Under the repository's own frozen model-eligible cohort (Wadhwa = 99) the total is 399. The convention was undeclared, and 109 is the less conservative of two defensible counts. The audit declined to resolve this unilaterally.",
+
+  "contract": {
+    "X02A": {
+      "name": "corpus breadth",
+      "definition": "Counts distinct units contributing AT LEAST ONE integrity-verified usable observation.",
+      "wadhwaCount": 109,
+      "otherContributions": { "Antani2021": 154, "Ito2021": 40, "Lisevich2025": 106 },
+      "total": 409,
+      "threshold": 400,
+      "impliedStatus": "PASS",
+      "auditVerification": "Independently confirmed. scripts/ingest-cross-study-evidence.py:608 computes len({event['motorId'] for event in wadhwa['events']}); direct measurement of experiments/data/wadhwa-2022-events.json yields exactly 109 distinct motorIds across 1349 events, partitioned 89 train + 20 holdout.",
+      "justification": "A motor that produced at least one usable, integrity-verified observation is an independently observed unit. This is a defensible definition of breadth and does not constitute pseudoreplication: measurements of one motor remain one unit, consistent with docs/CROSS-STUDY-PARITY.md:38."
+    },
+    "X02B": {
+      "name": "common-analysis breadth",
+      "definition": "Breadth under a comparable eligibility rule applied uniformly across every contributing study.",
+      "status": "NOT_ESTABLISHED",
+      "reason": "Whether the Antani (154), Ito (40) and Lisevich (106) contributions are counted as event-producing units or as model-eligible analysed units has NOT been determined. Until every study is evaluated under a comparable eligibility rule, no uniform cross-study breadth figure can be asserted.",
+      "auditVerification": "Confirmed as not established. Phase A did not measure the counting convention used for the three non-Wadhwa contributions. This is an explicit gap, not an inference.",
+      "whatWouldSettleIt": "For each of Antani2021, Ito2021 and Lisevich2025, determine from the ingestion code and source artifacts whether the recorded count is (a) units contributing at least one usable observation, or (b) units surviving that study's model-eligibility filtering, and recompute both totals."
+    },
+    "X02S": {
+      "name": "mandatory disclosure",
+      "definition": "The gate must disclose the more conservative count alongside the reported one.",
+      "requiredDisclosure": "Under the frozen model-eligible cohort, Wadhwa = 99 (80 train + 19 holdout), yielding a total of 399.",
+      "total": 399,
+      "threshold": 400,
+      "auditVerification": "Independently confirmed. experiments/results/observed-experiment-report.json cohort reports trainMotors 80 and holdoutMotors 19. Eligibility filtering drops 9 train and 1 holdout motor relative to the 89 + 20 event-producing partition.",
+      "significance": "399 is below the 400 threshold. The disclosure is therefore material: under the model-eligible convention the breadth criterion would not be met. Publishing 409 without this disclosure would present a knife-edge result as unqualified."
+    }
+  },
+
+  "threeMotorCounts": {
+    "sourceMotors": 129,
+    "eventProducingMotors": 109,
+    "eventProducingByPartition": { "train": 89, "holdout": 20 },
+    "frozenModelEligibleMotors": 99,
+    "frozenModelEligibleByPartition": { "train": 80, "holdout": 19 },
+    "droppedByEligibilityFiltering": { "train": 9, "holdout": 1 }
+  },
+
+  "auditPositionOnTheContract": "This contract is accepted as a sound resolution. It does not manufacture resonance: it neither weakens the 400 threshold nor suppresses the 399 figure. X02A states what is measured, X02B honestly refuses to assert what has not been measured, and X02S forces the adverse number into view. The audit notes that X02B being NOT_ESTABLISHED is the load-bearing part - it prevents the 409 figure from being read as a uniform cross-study quantity when only one of four contributions has had its convention verified.",
+
+  "uncertainty": "The audit verified the Wadhwa figures (109 and 99) directly from repository artifacts. It did NOT verify the 154, 40 and 106 figures against their source artifacts at all, in either convention. Both the 409 and the 399 totals therefore rest on three unverified components.",
+  "alternativeExplanation": "n/a - this is a definitional contract, not an empirical claim.",
+  "independentlyReproduced": "The Wadhwa counts were derived twice by different routes: from the events file's partition tags, and from the frozen report's cohort block. They disagree by exactly the eligibility-filtering delta, as expected.",
+  "remediationStatus": "NOT IMPLEMENTED. No gate code has been changed. This artifact records the contract only; implementing X02A/X02B/X02S in scripts/run-cross-study-parity.py is Phase C work and must be preceded by a failing test."
+}

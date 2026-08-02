@@ -1,0 +1,227 @@
+{
+  "schema": "uni.flagellum.b4-oracle-result/1.0.0",
+  "b3ResultAudited": "b3-model-competition-result.json",
+  "b4ResultAudited": "b4-identifiability-robustness-result.v1.json",
+  "checksPassed": 43,
+  "checksTotal": 43,
+  "allPassed": true,
+  "toleranceScore": 1e-08,
+  "toleranceFrac": 1e-09,
+  "checks": [
+    {
+      "check": "C03:derived_eligible_1_to_8:M8_rank@offset-1",
+      "passed": true,
+      "detail": "oracle=2 recorded=2"
+    },
+    {
+      "check": "C03:derived_eligible_1_to_8:M8_nlpd@offset-1",
+      "passed": true,
+      "detail": "oracle=3.421736555 recorded=3.421736555"
+    },
+    {
+      "check": "C03:derived_eligible_1_to_8:M8_rank@offset0",
+      "passed": true,
+      "detail": "oracle=2 recorded=2"
+    },
+    {
+      "check": "C03:derived_eligible_1_to_8:M8_nlpd@offset0",
+      "passed": true,
+      "detail": "oracle=3.422523618 recorded=3.422523618"
+    },
+    {
+      "check": "C03:derived_eligible_1_to_8:M8_rank@offset+1",
+      "passed": true,
+      "detail": "oracle=3 recorded=3"
+    },
+    {
+      "check": "C03:derived_eligible_1_to_8:M8_nlpd@offset+1",
+      "passed": true,
+      "detail": "oracle=3.424340035 recorded=3.424340035"
+    },
+    {
+      "check": "C03:primary_states_0_to_8:M8_rank@offset-1",
+      "passed": true,
+      "detail": "oracle=2 recorded=2"
+    },
+    {
+      "check": "C03:primary_states_0_to_8:M8_nlpd@offset-1",
+      "passed": true,
+      "detail": "oracle=3.39076983 recorded=3.39076983"
+    },
+    {
+      "check": "C03:primary_states_0_to_8:M8_rank@offset0",
+      "passed": true,
+      "detail": "oracle=2 recorded=2"
+    },
+    {
+      "check": "C03:primary_states_0_to_8:M8_nlpd@offset0",
+      "passed": true,
+      "detail": "oracle=3.391580441 recorded=3.391580441"
+    },
+    {
+      "check": "C03:primary_states_0_to_8:M8_rank@offset+1",
+      "passed": true,
+      "detail": "oracle=3 recorded=3"
+    },
+    {
+      "check": "C03:primary_states_0_to_8:M8_nlpd@offset+1",
+      "passed": true,
+      "detail": "oracle=3.393318878 recorded=3.393318878"
+    },
+    {
+      "check": "C04:derived_eligible_1_to_8:NLPD:M0_EXPONENTIAL:seed20260717:2000",
+      "passed": true,
+      "detail": "oraclePercentile=INCONCLUSIVE recorded=INCONCLUSIVE"
+    },
+    {
+      "check": "C04:derived_eligible_1_to_8:NLPD:M1_WEIBULL:seed20260717:2000",
+      "passed": true,
+      "detail": "oraclePercentile=INCONCLUSIVE recorded=INCONCLUSIVE"
+    },
+    {
+      "check": "C04:derived_eligible_1_to_8:NLPD:M2_LOGNORMAL:seed20260717:2000",
+      "passed": true,
+      "detail": "oraclePercentile=INCONCLUSIVE recorded=INCONCLUSIVE"
+    },
+    {
+      "check": "C04:derived_eligible_1_to_8:NLPD:M4_MIXTURE_K3:seed20260717:2000",
+      "passed": true,
+      "detail": "oraclePercentile=INCONCLUSIVE recorded=INCONCLUSIVE"
+    },
+    {
+      "check": "C04:derived_eligible_1_to_8:NLPD:M5_GAMMA:seed20260717:2000",
+      "passed": true,
+      "detail": "oraclePercentile=INCONCLUSIVE recorded=INCONCLUSIVE"
+    },
+    {
+      "check": "C04:derived_eligible_1_to_8:NLPD:M6_SEMI_MARKOV_STATE_DEPENDENT:seed20260717:2000",
+      "passed": true,
+      "detail": "oraclePercentile=INCONCLUSIVE recorded=INCONCLUSIVE"
+    },
+    {
+      "check": "C04:derived_eligible_1_to_8:NLPD:M7_HIERARCHICAL_MOTOR:seed20260717:2000",
+      "passed": true,
+      "detail": "oraclePercentile=INCONCLUSIVE recorded=INCONCLUSIVE"
+    },
+    {
+      "check": "C04:derived_eligible_1_to_8:NLPD:M8_EMPIRICAL_KDE:seed20260717:2000",
+      "passed": true,
+      "detail": "oraclePercentile=INCONCLUSIVE recorded=INCONCLUSIVE"
+    },
+    {
+      "check": "C05:a_reproduces_B3:M1_WEIBULL",
+      "passed": true,
+      "detail": "|\u0394|max=0.000e+00 tol=0.02"
+    },
+    {
+      "check": "C05:a_reproduces_B3:M2_LOGNORMAL",
+      "passed": true,
+      "detail": "|\u0394|max=0.000e+00 tol=0.02"
+    },
+    {
+      "check": "C05:a_reproduces_B3:M5_GAMMA",
+      "passed": true,
+      "detail": "|\u0394|max=0.000e+00 tol=0.02"
+    },
+    {
+      "check": "C05:a_reproduces_B3:M3_TWO_TIMESCALE",
+      "passed": true,
+      "detail": "|\u0394|max=0.000e+00"
+    },
+    {
+      "check": "C05:censoring_load_bearing",
+      "passed": true,
+      "detail": "verdict=PASS_censoring_load_bearing"
+    },
+    {
+      "check": "C06:analysisStartIndex_3400_is_blocked_external",
+      "passed": true,
+      "detail": "status=BLOCKED_EXTERNAL"
+    },
+    {
+      "check": "C06:analysisStartIndex_3600_is_blocked_external",
+      "passed": true,
+      "detail": "status=BLOCKED_EXTERNAL"
+    },
+    {
+      "check": "C06:drop_longest_per_state:has_leader",
+      "passed": true,
+      "detail": "leader=M2_LOGNORMAL"
+    },
+    {
+      "check": "C06:drop_shortest_per_state:has_leader",
+      "passed": true,
+      "detail": "leader=M2_LOGNORMAL"
+    },
+    {
+      "check": "C07:eligibility_set",
+      "passed": true,
+      "detail": "oracle=[1, 2, 3, 4, 5, 6, 7, 8] recorded=[1, 2, 3, 4, 5, 6, 7, 8]"
+    },
+    {
+      "check": "C07:state0_count_lt_20",
+      "passed": true,
+      "detail": "state0Ev=18"
+    },
+    {
+      "check": "C08:derived_eligible_1_to_8:fullLeaderNLPD",
+      "passed": true,
+      "detail": "oracle=M2_LOGNORMAL recorded=M2_LOGNORMAL"
+    },
+    {
+      "check": "C08:primary_states_0_to_8:fullLeaderNLPD",
+      "passed": true,
+      "detail": "oracle=M2_LOGNORMAL recorded=M2_LOGNORMAL"
+    },
+    {
+      "check": "C09:not_run_labelled",
+      "passed": true,
+      "detail": "Frozen M_jitter=100 replicates \u00d7 1 full B3 refit each \u2248 100 refits \u00d7 ~15-25 min "
+    },
+    {
+      "check": "C10:U2_frac_in_unit_interval",
+      "passed": true,
+      "detail": "frac=0"
+    },
+    {
+      "check": "C10:U2_verdict_matches_frac",
+      "passed": true,
+      "detail": "verdict=U2_OK expected=U2_OK"
+    },
+    {
+      "check": "C11:U2_logspan_normalized_in_unit_interval",
+      "passed": true,
+      "detail": "logspan=0.06666666666666665"
+    },
+    {
+      "check": "C11:U2_verdict_matches",
+      "passed": true,
+      "detail": "verdict=U2_OK expected=U2_OK"
+    },
+    {
+      "check": "C11:U4_frac_in_unit_interval",
+      "passed": true,
+      "detail": "frac=0"
+    },
+    {
+      "check": "C12:adverse_M2_over_M3_NLPD:verdict_in_set",
+      "passed": true,
+      "detail": "verdict=SPECIFICATION-DEPENDENT"
+    },
+    {
+      "check": "C12:all_motor_equal_contrasts_inconclusive:verdict_in_set",
+      "passed": true,
+      "detail": "verdict=SPECIFICATION-DEPENDENT"
+    },
+    {
+      "check": "C12:cohort_dependence_1to8_vs_0to8:verdict_in_set",
+      "passed": true,
+      "detail": "verdict=STABLE"
+    },
+    {
+      "check": "C12:rule_disagreement_NLPD_vs_CRPS:verdict_in_set",
+      "passed": true,
+      "detail": "verdict=STABLE"
+    }
+  ]
+}

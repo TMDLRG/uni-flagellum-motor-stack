@@ -1,0 +1,4 @@
+__pycache__/
+*.pyc
+# D12 successor-archive build scratch (regenerable via scripts/build_d5_safe_successor_archive.py)
+scripts/_d5safe_build/

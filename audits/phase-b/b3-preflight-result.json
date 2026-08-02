@@ -1,0 +1,241 @@
+{
+  "schema": "uni.flagellum.audit-artifact/1.0.0",
+  "purpose": "B3 preflight integration check result.",
+  "auditedCommit": "9c3a644e4b57e8ac27f925dcec84222463063aa1",
+  "governingDocument": "b3-integration-addendum-v3.json",
+  "checksPassed": 46,
+  "checksTotal": 46,
+  "allPassed": true,
+  "checks": [
+    {
+      "check": "modelList_is_the_nine_declared_models",
+      "passed": true,
+      "detail": "declared=['M0_EXPONENTIAL', 'M1_WEIBULL', 'M2_LOGNORMAL', 'M3_TWO_TIMESCALE', 'M4_MIXTURE_K3', 'M5_GAMMA', 'M6_SEMI_MARKOV_STATE_DEPENDENT', 'M7_HIERARCHICAL_MOTOR', 'M8_EMPIRICAL_KDE']"
+    },
+    {
+      "check": "modelCount_is_9",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "totalUnorderedPairs_is_36",
+      "passed": true,
+      "detail": "n*(n-1)/2 = 36"
+    },
+    {
+      "check": "aggregation_primary_is_motor_equal",
+      "passed": true,
+      "detail": "MOTOR-EQUAL. The primary statistic is the unweighted mean ov"
+    },
+    {
+      "check": "aggregation_event_pooled_retained_as_continuity_bridge",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "aggregation_supersedes_v1_event_equal",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "aggregation_m8_cv_switched_to_motor_equal",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "floor_policy_is_no_floor",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "floor_policy_halts_on_nonfinite",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "floor_policy_supersedes_both_floor_mandates",
+      "passed": true,
+      "detail": "2 superseded"
+    },
+    {
+      "check": "m8_infeasible_bandwidth_eliminated_during_training_cv",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "optimizer_contract_present_differentialEvolution",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "optimizer_contract_present_nelderMead",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "optimizer_contract_present_lbfgsb",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "de_maxiter_single_value_5000",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "de_init_single_value_sobol",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "m5_contract_specified",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "m6_contract_specified",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "m4_conflicting_de_settings_superseded",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "restart_contract_covers_all_fitted_models",
+      "passed": true,
+      "detail": "7 fitted models"
+    },
+    {
+      "check": "primary_contrasts_are_eight_against_M3",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "bonferroni_level_matches_eight_contrasts",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "all_36_pairs_reported_secondary",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "crps_checkpoints_rescaled_for_nine_models",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "crps_closed_forms_exactly_M0_and_M2",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "m4_closed_form_crps_superseded",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "bootstrap_uses_frozen_fits",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "bootstrap_frozen_justified_by_leakage",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "bootstrap_primary_2000",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "bootstrap_sensitivity_50000",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "bootstrap_2000_is_strict_prefix_of_50000",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "bootstrap_absolute_interval_limitation_declared",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "underpowered_nlpd_has_no_denominator",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "underpowered_nlpd_threshold_anchored_to_reference_effect",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "underpowered_crps_uses_scale_free_ratio",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "no_clipping_policy",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "m4_clip_superseded",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "m8_cv_recomputes_from_fold_complement",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "m8_h_independence_argument_withdrawn",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "superseded_registry_is_non_empty",
+      "passed": true,
+      "detail": "['phase-b-roadmap.v1.json', 'phase-b-roadmap.v1.json B1 stage definition, which listed twelve mutation THEMES and left enough implementer discretion to change whether a mutation survives.']"
+    },
+    {
+      "check": "no_live_reference_to_a_retracted_finding",
+      "passed": true,
+      "detail": ""
+    },
+    {
+      "check": "manifest_lists_every_file_on_disk",
+      "passed": true,
+      "detail": "missing=[] extra=[]"
+    },
+    {
+      "check": "run_outputs_excluded_from_manifest",
+      "passed": true,
+      "detail": "manifest must not list []"
+    },
+    {
+      "check": "every_manifest_digest_verifies",
+      "passed": true,
+      "detail": "failures=[]"
+    },
+    {
+      "check": "all_post_policy_json_artifacts_are_LF",
+      "passed": true,
+      "detail": "CRLF in []"
+    },
+    {
+      "check": "pre_policy_crlf_exemption_still_applies_b2-portable-oracle-result.json",
+      "passed": true,
+      "detail": "exemption is inert if the file stops being CRLF; remove it then"
+    }
+  ]
+}

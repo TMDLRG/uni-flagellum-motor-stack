@@ -1,0 +1,10 @@
+started_utc=2026-07-21T17:51:02Z
+HEAD=17a2f0e18c09c762ab1cefe854c0d68698803eac
+branch=hierarchical-aif/motor-stack
+python=3.12.10
+numpy=2.3.5
+scipy=1.16.3
+platform=Windows-11-10.0.26200-SP0
+cpu_count=16
+PYTHONHASHSEED=<unset>
+note=stable_seed makes this run independent of PYTHONHASHSEED (D3 fix)

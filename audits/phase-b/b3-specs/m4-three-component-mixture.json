@@ -1,0 +1,299 @@
+{
+  "schema": "uni.flagellum.audit-artifact/1.0.0",
+  "purpose": "Frozen B3 component specification, written before execution. Derived independently from the frozen protocol prose by a specialist with no access to sibling specifications.",
+  "auditedCommit": "9c3a644e4b57e8ac27f925dcec84222463063aa1",
+  "auditPhase": "B",
+  "component": "M4_MIXTURE_K3",
+  "appendOnly": true,
+  "frozenBeforeExecution": true,
+  "summary": "M4 is a three-component exponential mixture on the normalized dwell variable y, with free parameters (w1, w2, l1, l2) and the third rate l3 forced in closed form by the mean-one constraint: l3 = (1 - w1 - w2) / (1 - w1/l1 - w2/l2). Its role in B3 is to decide whether M3's advantage over the memoryless baseline is a genuine two-timescale claim or merely a flexibility claim. The hardest specification decision was label switching versus collapse detection: I enforce a strict scale-free log-rate ordering floor (ln l1 - ln l2 >= 1e-4 and ln l2 - ln l3 >= 1e-4) as a hard feasibility constraint, which selects exactly one of the 3! permutation copies AND makes degenerate rate collapse observable as boundary parking rather than as an interior optimum that an implementer would have to judge after the fact. Collapse is declared by prespecified observable thresholds evaluated on the training-only canonical point estimate: weight collapse at omega_(min) < 5/793, rate collapse at adjacent log-rate ratio <= 0.01. Infeasible proposals receive a hard finite penalty of 1e7 + 1e3*V, which strictly exceeds the maximum attainable feasible objective of 793*745 = 590785 nats (guaranteed by a -745.0 per-event log-density floor in the training objective only), so no unbounded simplex can terminate outside the declared domain. The interpretive mapping from {collapsed, not collapsed} x {beats M3, does not beat M3} to a B3 conclusion is fixed here, before execution, with an explicit INCONCLUSIVE cell.",
+  "specification": {
+    "modelId": "M4_MIXTURE_K3",
+    "modelName": "Three-component exponential mixture, mean-one constrained",
+    "purposeInCompetition": "Test whether M3's advantage over M0 is a TWO-TIMESCALE claim or merely a FLEXIBILITY claim that any richer mixture also delivers. M4 nests M3 (a weight to zero) and M0 (rates coinciding).",
+    "freeParameterCount": 4,
+    "informationCriteria": "NONE. Ranking is by held-out score only, per the frozen B3 scoring section. No AIC/BIC/DIC/WAIC may be introduced for M4.",
+    "floatingPoint": "numpy float64 throughout. float32 is forbidden anywhere in the M4 fit, score, or bootstrap.",
+    "section1_density": {
+      "support": "y > 0",
+      "weights": "w1, w2 free; w3 := 1 - w1 - w2 (derived, never free)",
+      "rates": "l1, l2 free; l3 derived in closed form (never free)",
+      "densityNormalized": "f(y) = w1*l1*exp(-l1*y) + w2*l2*exp(-l2*y) + w3*l3*exp(-l3*y)",
+      "survivalNormalized": "S(y) = w1*exp(-l1*y) + w2*exp(-l2*y) + w3*exp(-l3*y)",
+      "densitySeconds": "logDensitySeconds(t) = logDensityNormalized(t/scale_N) - log(scale_N), scale_N = mean(durationS) over UNCENSORED TRAINING events with that stateN. The Jacobian term -log(scale_N) is a parameter-free additive constant: it is OMITTED from the training objective (it cannot change the argmin) and is MANDATORY in every reported score.",
+      "numericalEvaluation": "log f(y) MUST be computed as scipy.special.logsumexp(a=[log(w1)+log(l1)-l1*y, log(w2)+log(l2)-l2*y, log(w3)+log(l3)-l3*y]). Direct summation of exponentials is forbidden. No floor is applied when scoring holdout events."
+    },
+    "section2_meanOneAlgebra": {
+      "constraint": "E[y] = w1/l1 + w2/l2 + w3/l3 = 1",
+      "step1": "Isolate the derived component: w3/l3 = 1 - w1/l1 - w2/l2",
+      "step2": "Define the residual mean budget D := 1 - w1/l1 - w2/l2",
+      "step3": "w3/l3 = D  =>  l3 = w3 / D",
+      "closedForm": "l3 = (1 - w1 - w2) / (1 - w1/l1 - w2/l2)",
+      "positivityAndFiniteness": "The numerator w3 = 1 - w1 - w2 is strictly positive by the weight constraint w1 + w2 < 1. Therefore l3 is strictly positive AND finite if and only if D > 0, i.e. if and only if w1/l1 + w2/l2 < 1. If D = 0 the required third-component mean is unbounded (l3 -> 0+, mass at infinite mean) and l3 is undefined; if D < 0 the first two components already consume more than the entire unit mean budget and l3 would be negative, which is not a valid rate. Both are INFEASIBLE.",
+      "interpretation": "D is the share of the unit mean not yet spent by components 1 and 2. The mean-one constraint therefore prices flexibility: fast components with large weight are cheap in mean budget, slow components with large weight are expensive."
+    },
+    "section3_feasibleRegion": {
+      "optimizationVector": "p = (w1, w2, u1, u2) with u1 = log10(l1), u2 = log10(l2). Rate-like parameters are searched in base-10 log space; weights in linear space.",
+      "constants": {
+        "W_MIN": 1e-9,
+        "W_MAX": 0.999999999,
+        "W_SUM_MAX": 0.999999999,
+        "U_MIN": -9,
+        "U_MAX": 4,
+        "L_MIN": 1e-9,
+        "L_MAX": 10000,
+        "D_MIN": 1e-12,
+        "EPS_SEP": 0.0001,
+        "LOG_DENSITY_FLOOR": -745
+      },
+      "explicitInequalities": [
+        "C1: w1 >= 1e-9",
+        "C2: w1 <= 0.999999999",
+        "C3: w2 >= 1e-9",
+        "C4: w2 <= 0.999999999",
+        "C5: w1 + w2 <= 0.999999999   (equivalently w3 >= 1e-9)",
+        "C6: u1 >= -9.0",
+        "C7: u1 <= 4.0",
+        "C8: u2 >= -9.0",
+        "C9: u2 <= 4.0",
+        "C10: D = 1 - w1/l1 - w2/l2 >= 1e-12   (mean-one induced; this is the inequality the constraint creates)",
+        "C11: l3 = (1-w1-w2)/D >= 1e-9",
+        "C12: l3 <= 1e4",
+        "C13: ln(l1) - ln(l2) >= 1e-4   (ordering, scale-free)",
+        "C14: ln(l2) - ln(l3) >= 1e-4   (ordering, scale-free)"
+      ],
+      "evaluationOrder": "C1..C9 first; then compute D and test C10; only if C10 holds compute l3 and test C11..C14. If C10 fails, C11..C14 contribute zero violation (they are undefined) and C10 alone carries the penalty.",
+      "note_C10_vs_C12": "C12 subsumes most of C10's role (small D makes l3 large), but C10 is retained as an explicit guard so no division by a non-positive or near-zero D can produce inf/NaN.",
+      "attainability": "All inequalities are non-strict (>=, <=), so the feasible set is closed and every optimum is attained. This is deliberate: an optimum sitting ON C13 or C14 is the observable signature of rate collapse (see section 5).",
+      "surjectivity": "Every mean-one three-component exponential mixture with distinct rates a > b > c is representable in this parameterization with l1 = a, l2 = b, and the derived l3 equal to c exactly, because mean-one holds for the target mixture and the closed form inverts the constraint uniquely. The ordering restriction therefore loses no distinct mixture, only redundant permutation copies."
+    },
+    "section4_labelSwitching": {
+      "symmetry": "A k=3 mixture is invariant under all 3! = 6 permutations of its (weight, rate) pairs, so the unrestricted likelihood has 6 equivalent optima.",
+      "orderingConstraint": "Strictly decreasing rates, enforced on the natural-log scale with a separation floor: ln(l1) - ln(l2) >= EPS_SEP and ln(l2) - ln(l3) >= EPS_SEP, EPS_SEP = 1e-4 exactly. Equivalently l1/l2 >= exp(1e-4) and l2/l3 >= exp(1e-4).",
+      "whyLogScale": "Rates span 13 decades (1e-9 to 1e4). An absolute separation floor would be vacuous at large rates and prohibitive at small rates. A log-ratio floor is scale-free and treats every decade identically.",
+      "whyWeightsAreNotOrdered": "Ordering the rates alone already selects exactly one permutation copy generically. Additionally ordering the weights would over-constrain and would exclude valid mixtures (e.g. a fast component with small weight).",
+      "enforcementDuringOptimization": "C13 and C14 are part of the feasibility test. Any proposal violating them is infeasible and receives the section 7 penalty. differential_evolution and L-BFGS-B additionally receive the box bounds on (w1, w2, u1, u2); C5, C10, C11, C12, C13, C14 are NOT box constraints and are enforced solely by the penalty, for all three optimizers identically.",
+      "startFiltering": "Every declared start is tested for feasibility before use. Infeasible starts are recorded as DROPPED_INFEASIBLE with their index and are NOT replaced, resampled, or nudged into the domain.",
+      "canonicalizationOfAReportedOptimum": "Given a terminal (w1, w2, u1, u2): (a) set l1 = 10**u1, l2 = 10**u2, w3 = 1 - w1 - w2, D = 1 - w1/l1 - w2/l2, l3 = w3/D; (b) form the three pairs [(l1,w1),(l2,w2),(l3,w3)]; (c) sort by rate DESCENDING to obtain (lambda_(1) > lambda_(2) > lambda_(3)) with weights (omega_(1), omega_(2), omega_(3)); (d) report ONLY this canonical form.",
+      "canonicalizationInvariant": "Because the search domain already enforces l1 > l2 > l3, step (c) MUST be an identity permutation. If sorting reorders anything, that is an implementation defect: the run is flagged CANONICALIZATION_INVARIANT_VIOLATED and the result is rejected, NOT silently sorted. This invariant is machine-checked and reported.",
+      "meanOneVerification": "assert abs(omega_(1)/lambda_(1) + omega_(2)/lambda_(2) + omega_(3)/lambda_(3) - 1.0) <= 1e-10. Failure rejects the fit as NUMERICAL_FAILURE. The tolerance 1e-10 is chosen because the quantity is an O(1) sum of at most three float64 quotients, whose accumulated relative error is bounded well below 1e-12; 1e-10 leaves two orders of headroom without admitting a genuine constraint violation.",
+      "tieBreakAcrossTerminalResults": "The reported optimum is the feasible finite terminal result with the smallest training NLL. Among results whose training NLL is within 1e-9 nats (total, not per event) of the minimum, select the one with the smallest lexicographic key (round(lambda_(1),12), round(lambda_(2),12), round(lambda_(3),12), round(omega_(1),12), round(omega_(2),12)). This rule is deterministic and is fixed before execution."
+    },
+    "section5_degenerateCollapse": {
+      "evaluatedOn": "The canonical training-only point estimate. Holdout data may NEVER enter a collapse determination.",
+      "criteria": [
+        {
+          "id": "COLLAPSE_WEIGHT",
+          "test": "min(omega_(1), omega_(2), omega_(3)) < 5/793 = 0.00630517023959646...",
+          "justification": "793 is the frozen count of uncensored training events. A component whose weight implies fewer than 5 expected training events is not supported by the data; 5 is the conventional minimum expected-count threshold and is fixed here before execution, not chosen after seeing a fit.",
+          "declares": "COLLAPSED_TO_M3"
+        },
+        {
+          "id": "COLLAPSE_RATE_ADJACENT",
+          "test": "ln(lambda_(1)/lambda_(2)) <= 0.01 OR ln(lambda_(2)/lambda_(3)) <= 0.01",
+          "justification": "Two rates within 1 percent of each other are not two timescales. The hard feasibility floor is EPS_SEP = 1e-4, two orders below this threshold, so an optimizer that wants coincident rates parks on the floor and trips this test unambiguously.",
+          "declares": "COLLAPSED_TO_M3"
+        },
+        {
+          "id": "COLLAPSE_RATE_TOTAL",
+          "test": "ln(lambda_(1)/lambda_(3)) <= 0.01",
+          "justification": "All three rates within 1 percent: the mixture is a single exponential, and mean-one forces that exponential to be the M0 unit-rate exponential.",
+          "declares": "COLLAPSED_TO_M0"
+        },
+        {
+          "id": "COLLAPSE_BOUNDARY",
+          "test": "lambda_(1) >= 1e4*(1-1e-6) OR lambda_(3) <= 1e-9*(1+1e-6) OR omega_(1) >= 0.999999999*(1-1e-6) OR (omega_(1)+omega_(2)) >= 0.999999999*(1-1e-6)",
+          "justification": "An optimum pressed against a declared box bound is a bound artefact, not a fit.",
+          "declares": "COLLAPSED_AT_BOUND"
+        }
+      ],
+      "precedence": "If COLLAPSE_RATE_TOTAL fires, the label is COLLAPSED_TO_M0 regardless of the others. Otherwise, if COLLAPSE_BOUNDARY fires the label is COLLAPSED_AT_BOUND. Otherwise, if COLLAPSE_WEIGHT or COLLAPSE_RATE_ADJACENT fires the label is COLLAPSED_TO_M3. Otherwise the label is DISTINCT.",
+      "mandatoryReporting": "A collapsed fit MUST be reported in the leaderboard carrying its collapse label. Its held-out score is still computed and reported (it is a legitimate score under the frozen scoring rules), but a collapsed M4 may NOT be described as evidence that a three-timescale process is supported, and may NOT be presented as a distinct model. The collapse label is part of the result, not a footnote.",
+      "prespecifiedInterpretation": {
+        "caseA": "M4 label in {COLLAPSED_TO_M3} AND the M4-minus-M3 held-out difference interval crosses zero under BOTH scoring rules => the extra component buys nothing; M3's advantage over M0 is NOT explained away as generic flexibility on this cohort.",
+        "caseB": "M4 label = DISTINCT AND M4 beats M3 under BOTH scoring rules with the 95 percent motor-cluster bootstrap interval excluding zero => M3's advantage over M0 is at least partly a flexibility effect, not specifically a two-timescale effect.",
+        "caseC": "M4 label = COLLAPSED_TO_M0 => the exponential-mixture family is not supported at all on this cohort; report as an adverse result for M3 as well as M4.",
+        "caseD": "M4 label = COLLAPSED_AT_BOUND => report as UNIDENTIFIED_AT_BOUND; no inference about flexibility-versus-two-timescales may be drawn from M4.",
+        "caseE": "Any other combination, including disagreement between the log score and CRPS rankings => INCONCLUSIVE, reported as INCONCLUSIVE. No threshold, tie-break, or auxiliary rule may be introduced after seeing the result."
+      }
+    },
+    "section6_optimization": {
+      "bounds": {
+        "w1": [
+          1e-9,
+          0.999999999
+        ],
+        "w2": [
+          1e-9,
+          0.999999999
+        ],
+        "u1_log10_l1": [
+          -9,
+          4
+        ],
+        "u2_log10_l2": [
+          -9,
+          4
+        ],
+        "derived_w3": "[1e-9, 1-2e-9], implied by C5",
+        "derived_l3": "[1e-9, 1e4], enforced by C11/C12 via penalty"
+      },
+      "trainingObjective": "NLL(p) = - sum over the 793 uncensored training events of max(logDensityNormalized(y_i; p), -745.0). The -745.0 floor exists ONLY to bound the feasible objective (max feasible NLL = 793 * 745 = 590785) so that the section 7 penalty can be strictly larger. It is applied ONLY in the training objective, NEVER in any reported score.",
+      "optimizers": [
+        "scipy.optimize.differential_evolution",
+        "scipy.optimize.minimize(method='Nelder-Mead')",
+        "scipy.optimize.minimize(method='L-BFGS-B')"
+      ],
+      "allThreeAreMandatory": "All three are run. The best feasible finite terminal result across all three is taken. Running only two is not permitted for M4.",
+      "differential_evolution": {
+        "runs": 1,
+        "strategy": "best1bin",
+        "maxiter": 2000,
+        "popsize": 60,
+        "tol": 1e-10,
+        "atol": 0,
+        "mutation": [
+          0.5,
+          1
+        ],
+        "recombination": 0.7,
+        "init": "latinhypercube",
+        "updating": "deferred",
+        "workers": 1,
+        "polish": true,
+        "polishMethod": "L-BFGS-B (scipy internal default for polish)",
+        "seed": 20260717,
+        "bounds": "[(1e-9, 0.999999999), (1e-9, 0.999999999), (-9.0, 4.0), (-9.0, 4.0)]",
+        "note": "workers=-1 is FORBIDDEN: it makes the result depend on core count."
+      },
+      "nelderMead": {
+        "maxiter": 20000,
+        "maxfev": 40000,
+        "xatol": 1e-10,
+        "fatol": 1e-12,
+        "adaptive": true,
+        "initial_simplex": null,
+        "runs": "one per feasible declared start"
+      },
+      "lbfgsb": {
+        "maxiter": 20000,
+        "maxfun": 40000,
+        "ftol": 1e-15,
+        "gtol": 1e-10,
+        "eps": 1e-8,
+        "maxls": 100,
+        "maxcor": 10,
+        "jac": null,
+        "jacNote": "jac=None, so scipy uses 2-point forward finite differences with step eps=1e-8 in the (w1, w2, u1, u2) coordinates.",
+        "bounds": "same box as differential_evolution",
+        "runs": "one per feasible declared start"
+      },
+      "startsGrid": {
+        "construction": "Full factorial over W1 x W2 x U1 x U2 with W1 = [0.05, 0.15, 0.30, 0.50], W2 = [0.05, 0.15, 0.30, 0.50], U1 = [0.0, 0.5, 1.0, 1.5, 2.0], U2 = [-0.5, 0.0, 0.5, 1.0]. Enumeration order is itertools.product(W1, W2, U1, U2), which fixes indices deterministically.",
+        "count": 320,
+        "perFreeParameter": "4 levels for w1, 4 for w2, 5 for u1, 4 for u2 — the factorial product gives 320 declared starts, far above the protocol floor of 10 per free parameter.",
+        "filtering": "Each of the 320 is feasibility-tested; infeasible ones are recorded as DROPPED_INFEASIBLE and not replaced."
+      },
+      "startsRandom": {
+        "count": 500,
+        "rng": "numpy.random.default_rng(20260717)",
+        "drawProcedure": "Repeat: a = rng.dirichlet([1.0, 1.0, 1.0]); w1 = a[0]; w2 = a[1]; u1 = rng.uniform(-2.0, 3.0); u2 = rng.uniform(-3.0, 2.0). Accept the draw iff it is feasible (V(p) == 0.0 under the full section 3 test, including C13 and C14). Continue until exactly 500 draws are accepted.",
+        "drawCap": 100000,
+        "capBehaviour": "If 500 feasible draws are not accepted within 100000 total draws, the M4 entry is reported as START_CONSTRUCTION_FAILED. The count is NOT silently reduced and the domain is NOT widened.",
+        "noCanonicalization": "Draws violating the rate ordering are REJECTED, not permuted into order. Permuting would distort the start distribution in a way that depends on the draw."
+      },
+      "startsNesting": {
+        "count": 3,
+        "rationale": "The protocol requires published parameters as an explicit start. M4 has no published parameters; M3 does, and M4 nests M3. These three starts place the optimizer at the nesting boundary from three directions.",
+        "definitions": [
+          "N1 SPLIT_SLOW: w1 = w_star, u1 = log10(lf_star), w2 = (1 - w_star)/2, u2 = log10(1.5 * ls_star)",
+          "N2 SPLIT_FAST: w1 = w_star/2, u1 = log10(1.5 * lf_star), w2 = w_star/2, u2 = log10(lf_star / 1.5)",
+          "N3 NEAR_M0: w1 = 1.0/3.0, u1 = log10(1.5), w2 = 1.0/3.0, u2 = log10(1.0)"
+        ],
+        "m3Source": "(w_star, lf_star) are the committed M3 parameters read from the repository; ls_star = (1 - w_star)/(1 - w_star/lf_star).",
+        "feasibility": "Each nesting start is feasibility-tested. An infeasible nesting start is recorded as DROPPED_INFEASIBLE and is NOT adjusted, nudged, or replaced."
+      },
+      "startsTotalDeclared": 823,
+      "methodStartPairsConsidered": "2 * 823 + 1 = 1647 (Nelder-Mead and L-BFGS-B from each declared start, plus one differential_evolution run).",
+      "telemetryReported": [
+        "startsDeclared = 823",
+        "startsDroppedInfeasible",
+        "methodStartPairsConsidered = 1647",
+        "domainFeasibleOptimizerCalls",
+        "successfulOptimizerCalls (result.success is True)",
+        "finiteTerminalResults",
+        "feasibleTerminalResults",
+        "coherence invariant machine-checked: feasibleTerminalResults <= finiteTerminalResults <= methodStartPairsConsidered"
+      ],
+      "claimStrength": "Report 'no better solution found over the declared search domain'. The phrase 'global optimum' is forbidden.",
+      "selectionOfReportedFit": "Minimum training NLL over terminal results that are BOTH feasible (V == 0.0) and finite, with the section 4 lexicographic tie-break. An infeasible terminal result is discarded even if its penalized objective happens to be low."
+    },
+    "section7_infeasibilityPenalty": {
+      "purpose": "Nelder-Mead is unbounded and would otherwise terminate outside the declared domain. The penalty makes every infeasible point strictly worse than every feasible point while still supplying a descent direction back into the domain.",
+      "violationTerms": "Each v_k is 0 when its inequality holds and is the signed shortfall otherwise: v1 = max(0, 1e-9 - w1); v2 = max(0, w1 - 0.999999999); v3 = max(0, 1e-9 - w2); v4 = max(0, w2 - 0.999999999); v5 = max(0, (w1 + w2) - 0.999999999); v6 = max(0, -9.0 - u1); v7 = max(0, u1 - 4.0); v8 = max(0, -9.0 - u2); v9 = max(0, u2 - 4.0); v10 = max(0, 1e-12 - D). If D > 0: v11 = max(0, -9.0 - log10(l3)); v12 = max(0, log10(l3) - 4.0); v13 = max(0, 1e-4 - (log(l1) - log(l2))); v14 = max(0, 1e-4 - (log(l2) - log(l3))). If D <= 0: v11 = v12 = v13 = v14 = 0.0.",
+      "aggregate": "V(p) = sum over k in 1..14 of v_k**2",
+      "feasibilityTest": "p is FEASIBLE iff V(p) == 0.0 exactly.",
+      "penalizedObjective": "If V(p) > 0: J(p) = 1e7 + 1e3 * V(p). If V(p) == 0: J(p) = NLL(p) as defined in section 6.",
+      "strictDominanceProof": "With the -745.0 per-event log-density floor, the largest attainable feasible NLL is 793 * 745 = 590785 < 1e7. Therefore every infeasible point scores strictly worse than every feasible point by at least 9409215 nats, and no optimizer can prefer an infeasible terminal point.",
+      "nanGuard": "If J(p) evaluates to NaN or +/-inf for any reason, return 1e12 instead. Reliance on numpy inf semantics to absorb a degenerate parameter is forbidden.",
+      "continuity": "J is continuous and strictly increasing in each violation on the infeasible side, so the simplex is pushed monotonically back toward the domain. The jump at the boundary is intentional and is the mechanism that forbids out-of-domain termination.",
+      "postTerminationCheck": "Every terminal point is re-tested with the same feasibility function. Any terminal point with V > 0 is recorded as INFEASIBLE_TERMINATION and excluded from selection. It is not projected, clipped, or repaired."
+    },
+    "section8_identifiability": {
+      "honestStatement": "M4 has 4 free parameters. The experimental unit is the MOTOR, and the holdout contains only 19 motors. The third (slowest) component is expected to be supported by a small number of long dwells, so M4 may be WEAKLY IDENTIFIED on this cohort. The criteria below are declared here, before execution, so that no implementer decides after seeing the fit.",
+      "bootstrap": {
+        "resampling": "motor-cluster nonparametric bootstrap over TRAINING motors only, resampling motors with replacement and carrying all of each drawn motor's uncensored events. Holdout motors are never resampled and never enter identifiability assessment.",
+        "replicates": 2000,
+        "seedPerReplicate": "20260717 + replicate_index, replicate_index in 0..1999",
+        "reducedRefitProtocol": "differential_evolution ONLY, strategy='best1bin', maxiter=400, popsize=30, tol=1e-10, atol=0.0, mutation=(0.5,1.0), recombination=0.7, init='latinhypercube', updating='deferred', workers=1, polish=True, seed as above. Same bounds, same penalty, same canonicalization, same collapse tests.",
+        "reducedBudgetCalibrationRun": "The reduced protocol is ALSO run once on the full unresampled training set with seed 20260717. If its training NLL exceeds the full-protocol optimum by more than 0.05 nats total, criterion U2 is reported as UNRELIABLE and the reduced-budget shortfall is reported as a limitation rather than being fixed by enlarging the budget after the fact."
+      },
+      "unidentifiedCriteria": [
+        "U1: any collapse label other than DISTINCT at the full-protocol point estimate.",
+        "U2: the fraction of the 2000 bootstrap replicates whose canonical fit carries any collapse label is >= 0.25.",
+        "U3: the 95 percent percentile bootstrap interval of log10(lambda_(3)) spans >= 2.0 decades.",
+        "U4: the 95 percent percentile bootstrap interval of omega_(3) contains both a value below 5/793 and a value above 0.25."
+      ],
+      "declaration": "M4 is declared UNIDENTIFIED if ANY of U1, U2, U3, U4 holds. The declaration names which criteria fired. An UNIDENTIFIED M4 still reports its held-out score, but section 5 caseD applies: no flexibility-versus-two-timescales inference may be drawn from it.",
+      "flatLikelihoodCriterion": "Separately, M4_FLAT_LIKELIHOOD is declared TRUE if, among all feasible finite terminal results whose training NLL is within 0.5 nats (total) of the best, the range of log10(lambda_(3)) exceeds 1.0 decade. This is a ridge diagnostic and is reported whether or not it fires.",
+      "noPostHocSelection": "None of these thresholds, and no bound, start count, tolerance, optimizer setting, collapse threshold or scoring rule in this specification may be changed after any M4 result is seen. A change requires withdrawing the M4 entry and recording the withdrawal, not adjusting the entry."
+    },
+    "section9_scoring": {
+      "logScore": "mean held-out log predictive density per event in nats on the seconds scale: logDensityNormalized(t/scale_N) - log(scale_N), evaluated via scipy.special.logsumexp, with NO floor. If any holdout event yields a non-finite value, the M4 entry is reported as SCORE_UNDEFINED for that cohort; it is not floored, clipped, or dropped.",
+      "crps": "Computed by the protocol's common numerical-integration routine from S_sec(t) = omega_(1)*exp(-a1*t) + omega_(2)*exp(-a2*t) + omega_(3)*exp(-a3*t), with a_i = lambda_(i)/scale_N (units 1/seconds), identically to every other model.",
+      "crpsIndependentCheck": "M4 admits a closed form that MUST be used as an independent rederivation: CRPS(t_obs) = t_obs - 2 * sum_i omega_i * (1 - exp(-a_i * t_obs)) / a_i + sum_i sum_j omega_i * omega_j / (a_i + a_j). Derivation: CRPS = integral_0^x (1-S)^2 dt + integral_x^inf S^2 dt = x - 2*integral_0^x S dt + integral_0^inf S^2 dt, with integral_0^x S dt = sum_i omega_i (1 - exp(-a_i x))/a_i and integral_0^inf S^2 dt = sum_i sum_j omega_i omega_j/(a_i + a_j). Required agreement with the numerical routine: relative difference <= 1e-6 on the mean holdout CRPS. Disagreement above tolerance is reported as a numerical-integration defect and blocks the M4 entry until resolved; the closed form does not silently replace the common routine.",
+      "dualCohort": "Reported under BOTH the H1-filtered cohort [1..8] and the unfiltered cohort [0..8], per the frozen protocol. The M4 fit is performed SEPARATELY per cohort using that cohort's training events and per-state scales.",
+      "dualRule": "Reported under BOTH the log score and CRPS. M4 is described as better than M3 without qualification only if it wins under both."
+    }
+  },
+  "ambiguitiesEliminated": [
+    "'The third rate is implied' -> exact closed form l3 = (1 - w1 - w2) / (1 - w1/l1 - w2/l2), with the positivity/finiteness condition stated as the single explicit inequality D = 1 - w1/l1 - w2/l2 > 0.",
+    "'The implied third rate must be strictly positive' (protocol wording) -> replaced by a numerically enforceable pair: D >= 1e-12 (guard against division blowup) AND 1e-9 <= l3 <= 1e4 (same box as the free rates, so the derived component cannot escape the domain the free components are held to).",
+    "'An ordering on the rates' -> exact scale-free constraint ln(l1) - ln(l2) >= 1e-4 and ln(l2) - ln(l3) >= 1e-4, chosen over an absolute-difference floor because rates span 13 decades and an absolute floor would be vacuous at 1e4 and prohibitive at 1e-9.",
+    "'Canonicalize before comparison' -> exact procedure (compute derived l3 and w3, sort pairs by rate descending), PLUS a machine-checked invariant that the sort must be the identity permutation, so a reordering is reported as an implementation defect rather than silently absorbed.",
+    "'Weight goes to zero' -> exact threshold omega_(min) < 5/793 = 0.00630517023959646..., tied to the frozen training event count and the conventional minimum expected count of 5, fixed before execution.",
+    "'All rates coincide' -> exact thresholds: adjacent ln-ratio <= 0.01 declares COLLAPSED_TO_M3, total ln(lambda_(1)/lambda_(3)) <= 0.01 declares COLLAPSED_TO_M0. The hard feasibility floor of 1e-4 sits two orders below the detection threshold so boundary parking is unambiguously detectable.",
+    "Overlapping collapse labels -> exact precedence: COLLAPSE_RATE_TOTAL > COLLAPSE_BOUNDARY > COLLAPSE_WEIGHT/COLLAPSE_RATE_ADJACENT > DISTINCT.",
+    "'At least two of the three optimizers' -> all three are mandatory for M4, each with exact settings (differential_evolution: 1 run, maxiter=2000, popsize=60, tol=1e-10, seed=20260717, workers=1; Nelder-Mead: maxiter=20000, maxfev=40000, xatol=1e-10, fatol=1e-12, adaptive=True; L-BFGS-B: maxiter=20000, maxfun=40000, ftol=1e-15, gtol=1e-10, eps=1e-8, maxls=100).",
+    "'At least 10 grid starts per free parameter' -> exact 320-point full factorial with named levels and a named enumeration order (itertools.product).",
+    "'At least 200 random starts' -> exactly 500, from numpy.random.default_rng(20260717), with a named draw distribution (Dirichlet(1,1,1) for weights, uniform for log10 rates over stated ranges), rejection rather than permutation for ordering violations, a draw cap of 100000, and an explicit failure mode instead of a silent reduction.",
+    "'Published parameters must be supplied as a start' where M4 has none -> exactly 3 named nesting starts derived from the committed M3 fit, each defined by formula.",
+    "'Explicit finite penalty' -> J = 1e7 + 1e3 * V with V the sum of 14 named squared violations, plus a proof that 1e7 strictly exceeds the maximum attainable feasible objective of 793*745 = 590785, the bound being guaranteed by a -745.0 per-event log-density floor applied to the TRAINING objective only.",
+    "Whether the -745 floor contaminates scoring -> explicitly no: floored in training only, never in any reported score; a non-finite holdout log density yields SCORE_UNDEFINED rather than a floored value.",
+    "Tie-breaking among near-equal optima -> exact rule: within 1e-9 nats total, smallest lexicographic key on (lambda_(1), lambda_(2), lambda_(3), omega_(1), omega_(2)) rounded to 12 decimals.",
+    "'May be weakly identified' -> four observable prespecified criteria U1-U4 with exact numeric thresholds (collapse at the point estimate; bootstrap collapse fraction >= 0.25; log10(lambda_(3)) 95 percent interval spanning >= 2.0 decades; omega_(3) interval straddling 5/793 and 0.25).",
+    "The reduced bootstrap refit budget -> made auditable by a mandatory reduced-budget calibration run on the full training set with a 0.05 nat agreement threshold, which declares U2 UNRELIABLE rather than permitting a post-hoc budget increase.",
+    "Numerical evaluation of the mixture density -> mandated scipy.special.logsumexp; direct exponential summation forbidden; float64 mandated, float32 forbidden.",
+    "CRPS computation -> common protocol routine, plus a mandatory independent closed-form rederivation with the formula written out and a 1e-6 relative agreement tolerance.",
+    "What the result means -> a prespecified five-cell mapping (caseA..caseE) from {collapse label} x {held-out comparison against M3} to the B3 conclusion, including an explicit INCONCLUSIVE cell, so the flexibility-versus-two-timescales verdict cannot be chosen after seeing the leaderboard."
+  ],
+  "residualRisks": [
+    "The hard log-separation floor EPS_SEP = 1e-4 means an exact M0 collapse is not attainable in the interior; the optimizer parks on the C13/C14 boundary instead. This is intentional (it makes collapse observable) but it means the reported M4 training NLL at a collapsed optimum is very slightly worse than the true nested M0 value. The difference is bounded by the effect of a 0.01 percent rate perturbation and is far below the 1e-9 tie-break tolerance, but a reviewer should confirm it is not being read as evidence that M4 fits worse than M0 for a substantive reason.",
+    "The weight-collapse threshold 5/793 encodes a judgement that a component supported by fewer than 5 expected training events is not a component. It is defensible and frozen before execution, but it is a convention, not a derivation. A component with weight just above 5/793 will be reported as DISTINCT while being barely supported; criteria U3/U4 are the intended backstop.",
+    "The bootstrap refit uses a reduced differential_evolution budget (maxiter=400, popsize=30) for tractability across 2000 replicates. A reduced budget can fail to escape a collapse basin and thereby INFLATE the U2 collapse fraction, biasing toward declaring M4 UNIDENTIFIED. The mandated reduced-budget calibration run detects gross budget inadequacy but does not fully rule out this bias in resampled datasets.",
+    "Feasibility is tested as V(p) == 0.0 exactly. This is a float64 equality test on a sum of squared max(0, .) terms, so it is exact by construction (every term is either exactly 0.0 or strictly positive), but it does mean a point violating a constraint by 1e-300 is classified infeasible and penalized by ~1e7. Starts and terminal points sitting exactly on a bound may therefore be discarded due to last-bit arithmetic. The declared bounds are deliberately offset from the mathematical limits (1e-9 rather than 0, 0.999999999 rather than 1) to keep the interior generously reachable.",
+    "The random-start draw distribution (Dirichlet(1,1,1) weights, uniform log10 rates on [-2,3] and [-3,2]) has a rejection rate that depends on how often the drawn configuration violates the rate ordering and the D > 0 budget constraint. I have not run the sampler, so I cannot state the acceptance rate. The 100000-draw cap is generous relative to 500 acceptances, but if the acceptance rate were below 0.5 percent the run would fail construction. That failure is loud, not silent, but it would block the M4 entry.",
+    "Fitting M4 separately per cohort ([1..8] and [0..8]) means the two entries can carry different collapse labels. The prespecified interpretation cells apply per cohort; a disagreement between cohorts falls into caseE (INCONCLUSIVE) under the protocol's mandatoryDualReporting rule, which states that a cohort-dependent difference is itself the headline result. A reviewer should confirm this is the intended reading rather than a gap.",
+    "M4 shares the frozen cohort's exclusion of right-censored events. Because the slowest component is the one most affected by censoring, M4's third component is the parameter most exposed to that frozen decision. This is a limitation inherited from the protocol, not introduced here, but it bears directly on M4's specific purpose and should be restated in the M4 limitations section."
+  ]
+}

@@ -1,0 +1,69 @@
+{
+  "schema": "uni.flagellum.structural-state-map/1.0.0",
+  "version": "1.0.0",
+  "scope": "Escherichia coli flagellar motor model states used by UNI-FLAGELLUM",
+  "sources": [
+    {
+      "id": "JOHNSON_2024",
+      "doi": "10.1038/s41564-024-01674-1",
+      "url": "https://www.nature.com/articles/s41564-024-01674-1",
+      "role": "Cryo-EM structural constraint on directional switching"
+    },
+    {
+      "id": "MATTINGLY_TU_2026",
+      "doi": "10.1038/s41567-025-03105-2",
+      "url": "https://www.nature.com/articles/s41567-025-03105-2",
+      "role": "Published interpretation connecting local stator torque, motor-subunit conformations, and switching"
+    },
+    {
+      "id": "REID_2006",
+      "doi": "10.1073/pnas.0509932103",
+      "role": "E. coli torque-generating-unit count constraint"
+    }
+  ],
+  "mappings": [
+    {
+      "modelState": "M_GMC.s_i in {-1,+1}",
+      "structuralMeaning": "Two switch-compatible conformational families of one C-ring subunit",
+      "status": "PHENOMENOLOGICAL_FAMILY_MAPPING",
+      "notClaimed": "A one-to-one assignment to a uniquely resolved atomic microstate"
+    },
+    {
+      "modelState": "M_GMC.e_i in {0,1}",
+      "structuralMeaning": "Whether a modeled C-ring subunit is in a stator-contact sector at that instant",
+      "status": "PHENOMENOLOGICAL_CONTACT_MAPPING",
+      "notClaimed": "A directly imaged dynamic engagement variable"
+    },
+    {
+      "modelState": "M_GMC.(N_e_plus,N_u_plus)",
+      "structuralMeaning": "Coarse counts of plus-family engaged and unengaged subunits",
+      "status": "COARSE_GRAINED_NOT_MOLECULAR_IDENTITY",
+      "notClaimed": "Distinct chemical species"
+    },
+    {
+      "modelState": "M_DLT hidden weak/strong occupancy components",
+      "structuralMeaning": null,
+      "status": "UNIDENTIFIED_LATENT_STATE",
+      "notClaimed": "A known stator conformation, catch-bond state, or molecular intermediate"
+    },
+    {
+      "modelState": "M_LATTICE13 phi_i in {0,1}",
+      "structuralMeaning": "Occupied versus unoccupied candidate stator slot on a periodic 13-site abstraction",
+      "status": "GEOMETRIC_ABSTRACTION",
+      "notClaimed": "A resolved 13-site E. coli stator ring"
+    }
+  ],
+  "knownConflicts": [
+    {
+      "id": "STRUCT-CONFLICT-01",
+      "issue": "The finite-lattice reanalysis fixes L=13, whereas the currently ingested E. coli single-motor remodeling data use lower observed occupancies and classic measurements establish at least 11 torque-generating units rather than a universally resolved 13-slot ring.",
+      "consequence": "L=13 remains an assay-specific statistical lattice size and cannot be treated as CAD-ready molecular geometry."
+    },
+    {
+      "id": "STRUCT-CONFLICT-02",
+      "issue": "The DLT hidden timescales are not molecularly identified by the dwell-time observations.",
+      "consequence": "A physical gear or printed state labeled as a molecular weak/strong state would exceed the evidence."
+    }
+  ],
+  "cadRule": "Only dimensions and state multiplicities with direct structural provenance may drive CAD. Phenomenological states must be rendered as transparent mathematical layers, not literal molecular geometry."
+}

@@ -1,0 +1,338 @@
+{
+  "schema": "uni.flagellum.phase-c-preservation-baseline/1.0.0",
+  "purpose": "Byte-identity baseline for every file of the immutable Phase-C blind mutation battery. The D1 replay runner verifies this baseline before executing and after executing, and refuses to run if any Phase-C evidence file has changed. Phase-C is historical adverse evidence: it is preserved, never overwritten and never relabelled.",
+  "capturedAtCommit": "a9caabc67d09dbdacfde677b77e711b6aae772d1",
+  "phaseCResultCommit": "cc9ba769f580367d75441325ca967aed7bd738c8",
+  "phaseCPredictionCommit": "b95e714d6f4f07b02eb369eb43fed1d1567b1acd",
+  "preservedAdverseOutcome": {
+    "DETECTED_SEMANTIC": 0,
+    "DETECTED_BY_HASH_ONLY": 0,
+    "SURVIVED": 10,
+    "NOT_RUN": 0,
+    "INCONCLUSIVE": 0
+  },
+  "fileCount": 64,
+  "totalBytes": 237338,
+  "files": [
+    {
+      "path": "audits/phase-c/blind-mutation-evidence.codex.v1/blind-mutation-evidence-manifest.codex.v1.json",
+      "sha256": "c1dc09c18ab72f760976808f5becef9903871aba9e826d2268d5dda76cc03309",
+      "bytes": 11774
+    },
+    {
+      "path": "audits/phase-c/blind-mutation-evidence.codex.v1/blind-mutation-result.codex.v1.json",
+      "sha256": "e36bdfb01fd51a4acb078762da1edff9deef4ff0844cf8f80d00c68d400be7d1",
+      "bytes": 25761
+    },
+    {
+      "path": "audits/phase-c/blind-mutation-evidence.codex.v1/logs/CXM01_SECONDS_DENSITY_JACOBIAN_OMITTED/00-patch.json",
+      "sha256": "98b2f5e9080aab2ef80a39ddf5f1a9f46cbceda6c39ddceceef7adab388cae8e",
+      "bytes": 790
+    },
+    {
+      "path": "audits/phase-c/blind-mutation-evidence.codex.v1/logs/CXM01_SECONDS_DENSITY_JACOBIAN_OMITTED/01-regenerate-observed-experiment.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "audits/phase-c/blind-mutation-evidence.codex.v1/logs/CXM01_SECONDS_DENSITY_JACOBIAN_OMITTED/01-regenerate-observed-experiment.stdout.txt",
+      "sha256": "d465e988963d8ec537ad95ffa2b3370074c3ee9d861f3c89a5cba963683dadfa",
+      "bytes": 2997
+    },
+    {
+      "path": "audits/phase-c/blind-mutation-evidence.codex.v1/logs/CXM01_SECONDS_DENSITY_JACOBIAN_OMITTED/02-phase-c-semantic.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "audits/phase-c/blind-mutation-evidence.codex.v1/logs/CXM01_SECONDS_DENSITY_JACOBIAN_OMITTED/02-phase-c-semantic.stdout.txt",
+      "sha256": "5c78003cdf899bb157e07fd68e80c5aea99bcf9800d735ffc0348a41cceeff4b",
+      "bytes": 3902
+    },
+    {
+      "path": "audits/phase-c/blind-mutation-evidence.codex.v1/logs/CXM01_SECONDS_DENSITY_JACOBIAN_OMITTED/99-clone-status.txt",
+      "sha256": "02322b7d9d6ac1405997feaf49a82c59d57325ce0cb707419d24627b61f3982d",
+      "bytes": 231
+    },
+    {
+      "path": "audits/phase-c/blind-mutation-evidence.codex.v1/logs/CXM02_SURVIVAL_POSTERIOR_USES_EVENT_DENSITY/00-patch.json",
+      "sha256": "2bad64337f89c1f30044f398f701a91a37d8fe54c274306265b62d01bf69bdb4",
+      "bytes": 1091
+    },
+    {
+      "path": "audits/phase-c/blind-mutation-evidence.codex.v1/logs/CXM02_SURVIVAL_POSTERIOR_USES_EVENT_DENSITY/01-regenerate-observed-experiment.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "audits/phase-c/blind-mutation-evidence.codex.v1/logs/CXM02_SURVIVAL_POSTERIOR_USES_EVENT_DENSITY/01-regenerate-observed-experiment.stdout.txt",
+      "sha256": "c3e9f57a03b51142776354e5343a1523ae1b4821504b2f108f6dc96f2dde0029",
+      "bytes": 2996
+    },
+    {
+      "path": "audits/phase-c/blind-mutation-evidence.codex.v1/logs/CXM02_SURVIVAL_POSTERIOR_USES_EVENT_DENSITY/02-phase-c-semantic.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "audits/phase-c/blind-mutation-evidence.codex.v1/logs/CXM02_SURVIVAL_POSTERIOR_USES_EVENT_DENSITY/02-phase-c-semantic.stdout.txt",
+      "sha256": "56af7748b04ffbbe8936226870b6ab598e9d930ad753b4db524bf0b950ac2007",
+      "bytes": 3902
+    },
+    {
+      "path": "audits/phase-c/blind-mutation-evidence.codex.v1/logs/CXM02_SURVIVAL_POSTERIOR_USES_EVENT_DENSITY/99-clone-status.txt",
+      "sha256": "02322b7d9d6ac1405997feaf49a82c59d57325ce0cb707419d24627b61f3982d",
+      "bytes": 231
+    },
+    {
+      "path": "audits/phase-c/blind-mutation-evidence.codex.v1/logs/CXM03_SAMPLE_VARIANCE_BESSEL_CORRECTION_DROPPED/00-patch.json",
+      "sha256": "5861b8ca6bcf2cb431d222e975158bcff0a1394633803d23a2368e0a56d509c7",
+      "bytes": 873
+    },
+    {
+      "path": "audits/phase-c/blind-mutation-evidence.codex.v1/logs/CXM03_SAMPLE_VARIANCE_BESSEL_CORRECTION_DROPPED/01-regenerate-observed-experiment.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "audits/phase-c/blind-mutation-evidence.codex.v1/logs/CXM03_SAMPLE_VARIANCE_BESSEL_CORRECTION_DROPPED/01-regenerate-observed-experiment.stdout.txt",
+      "sha256": "17a276a8a3f3410f18d2ffec8877adcef1c783938b617404caaec4c78d7b8ade",
+      "bytes": 2996
+    },
+    {
+      "path": "audits/phase-c/blind-mutation-evidence.codex.v1/logs/CXM03_SAMPLE_VARIANCE_BESSEL_CORRECTION_DROPPED/02-phase-c-semantic.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "audits/phase-c/blind-mutation-evidence.codex.v1/logs/CXM03_SAMPLE_VARIANCE_BESSEL_CORRECTION_DROPPED/02-phase-c-semantic.stdout.txt",
+      "sha256": "524e91169514b8d046890ce438941ce1c4e948c246250d9af059047e926f0a41",
+      "bytes": 3903
+    },
+    {
+      "path": "audits/phase-c/blind-mutation-evidence.codex.v1/logs/CXM03_SAMPLE_VARIANCE_BESSEL_CORRECTION_DROPPED/99-clone-status.txt",
+      "sha256": "02322b7d9d6ac1405997feaf49a82c59d57325ce0cb707419d24627b61f3982d",
+      "bytes": 231
+    },
+    {
+      "path": "audits/phase-c/blind-mutation-evidence.codex.v1/logs/CXM04_HIDDEN_TRUE_GRADIENT_CROSSES_BOUNDARY/00-patch.json",
+      "sha256": "eea3ee3c3dd9e611e9061710657560a1387cd65db246f69fc9bb9fe075212e14",
+      "bytes": 653
+    },
+    {
+      "path": "audits/phase-c/blind-mutation-evidence.codex.v1/logs/CXM04_HIDDEN_TRUE_GRADIENT_CROSSES_BOUNDARY/01-phase-c-semantic.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "audits/phase-c/blind-mutation-evidence.codex.v1/logs/CXM04_HIDDEN_TRUE_GRADIENT_CROSSES_BOUNDARY/01-phase-c-semantic.stdout.txt",
+      "sha256": "ff627473c21caedeabec5c362be07d76a1eb11e2a30cc049c6e487ed374d843f",
+      "bytes": 3903
+    },
+    {
+      "path": "audits/phase-c/blind-mutation-evidence.codex.v1/logs/CXM04_HIDDEN_TRUE_GRADIENT_CROSSES_BOUNDARY/99-clone-status.txt",
+      "sha256": "062fd6d06e7341a08848cc1eedf628021bba39ad1f8b53c086cb99e0e386c849",
+      "bytes": 40
+    },
+    {
+      "path": "audits/phase-c/blind-mutation-evidence.codex.v1/logs/CXM05_INSTRUMENT_STATOR_COUNT_UNBOUNDED/00-patch.json",
+      "sha256": "7c048f8ee0b37d7d8b1584ec168d8ed3176e0a0fd2d6e8ab2d79c690ffb1298b",
+      "bytes": 1089
+    },
+    {
+      "path": "audits/phase-c/blind-mutation-evidence.codex.v1/logs/CXM05_INSTRUMENT_STATOR_COUNT_UNBOUNDED/01-phase-c-semantic.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "audits/phase-c/blind-mutation-evidence.codex.v1/logs/CXM05_INSTRUMENT_STATOR_COUNT_UNBOUNDED/01-phase-c-semantic.stdout.txt",
+      "sha256": "8503bb54b7b6bb5e7b61c0ea05dd374e920c55cfd23b3ece65fafc9a7f2f787a",
+      "bytes": 3901
+    },
+    {
+      "path": "audits/phase-c/blind-mutation-evidence.codex.v1/logs/CXM05_INSTRUMENT_STATOR_COUNT_UNBOUNDED/99-clone-status.txt",
+      "sha256": "062fd6d06e7341a08848cc1eedf628021bba39ad1f8b53c086cb99e0e386c849",
+      "bytes": 40
+    },
+    {
+      "path": "audits/phase-c/blind-mutation-evidence.codex.v1/logs/CXM06_STATOR_RECRUITMENT_ERASES_LOAD_RESPONSE/00-patch.json",
+      "sha256": "933d17383524b82560c6ce928a2f99e95deea4acdb3ff477e5b69db17e8b16e4",
+      "bytes": 900
+    },
+    {
+      "path": "audits/phase-c/blind-mutation-evidence.codex.v1/logs/CXM06_STATOR_RECRUITMENT_ERASES_LOAD_RESPONSE/01-phase-c-semantic.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "audits/phase-c/blind-mutation-evidence.codex.v1/logs/CXM06_STATOR_RECRUITMENT_ERASES_LOAD_RESPONSE/01-phase-c-semantic.stdout.txt",
+      "sha256": "5161681d56b44346f551547b17970e4dd23f980850d4fa175076845047c929c9",
+      "bytes": 3906
+    },
+    {
+      "path": "audits/phase-c/blind-mutation-evidence.codex.v1/logs/CXM06_STATOR_RECRUITMENT_ERASES_LOAD_RESPONSE/99-clone-status.txt",
+      "sha256": "062fd6d06e7341a08848cc1eedf628021bba39ad1f8b53c086cb99e0e386c849",
+      "bytes": 40
+    },
+    {
+      "path": "audits/phase-c/blind-mutation-evidence.codex.v1/logs/CXM07_FIRST_PASSAGE_WEIGHTS_NOT_NORMALIZED/00-patch.json",
+      "sha256": "e6d47a758a973b53e8a2ec0cf0245a5af47c3a291ee8d94e6bd67ef98092fe3b",
+      "bytes": 843
+    },
+    {
+      "path": "audits/phase-c/blind-mutation-evidence.codex.v1/logs/CXM07_FIRST_PASSAGE_WEIGHTS_NOT_NORMALIZED/01-regenerate-science-gates.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "audits/phase-c/blind-mutation-evidence.codex.v1/logs/CXM07_FIRST_PASSAGE_WEIGHTS_NOT_NORMALIZED/01-regenerate-science-gates.stdout.txt",
+      "sha256": "cb3b2b2fe193d9e7cf2f36ead6cc663198a091488e18d877647d32626b6525f6",
+      "bytes": 1026
+    },
+    {
+      "path": "audits/phase-c/blind-mutation-evidence.codex.v1/logs/CXM07_FIRST_PASSAGE_WEIGHTS_NOT_NORMALIZED/02-phase-c-semantic.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "audits/phase-c/blind-mutation-evidence.codex.v1/logs/CXM07_FIRST_PASSAGE_WEIGHTS_NOT_NORMALIZED/02-phase-c-semantic.stdout.txt",
+      "sha256": "87caaa4e746a98d582e6b17d2c6ec4a2c3f85df0b4170f24574706ad4b498d95",
+      "bytes": 3905
+    },
+    {
+      "path": "audits/phase-c/blind-mutation-evidence.codex.v1/logs/CXM07_FIRST_PASSAGE_WEIGHTS_NOT_NORMALIZED/99-clone-status.txt",
+      "sha256": "b99197f0fd713489f71a979cedb1d91c4564f72c2d6b99d611325fb0c45a07c5",
+      "bytes": 219
+    },
+    {
+      "path": "audits/phase-c/blind-mutation-evidence.codex.v1/logs/CXM08_OFF_HAZARD_OMITS_STATOR_MULTIPLICITY/00-patch.json",
+      "sha256": "34e4f7207c4e187f352735febe3bdb582deb32b7ce185c9b172fb54b2ae1dfb0",
+      "bytes": 796
+    },
+    {
+      "path": "audits/phase-c/blind-mutation-evidence.codex.v1/logs/CXM08_OFF_HAZARD_OMITS_STATOR_MULTIPLICITY/01-regenerate-science-gates.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "audits/phase-c/blind-mutation-evidence.codex.v1/logs/CXM08_OFF_HAZARD_OMITS_STATOR_MULTIPLICITY/01-regenerate-science-gates.stdout.txt",
+      "sha256": "549e3b0bcfa418e8f1fb4f8fbba20894778245d5d32ada9e7a3eee2d5da29fac",
+      "bytes": 1026
+    },
+    {
+      "path": "audits/phase-c/blind-mutation-evidence.codex.v1/logs/CXM08_OFF_HAZARD_OMITS_STATOR_MULTIPLICITY/02-phase-c-semantic.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "audits/phase-c/blind-mutation-evidence.codex.v1/logs/CXM08_OFF_HAZARD_OMITS_STATOR_MULTIPLICITY/02-phase-c-semantic.stdout.txt",
+      "sha256": "5c8946f86247ec951780fbf2c83f6314797a063ca93dd6863aea454ad37c6781",
+      "bytes": 3905
+    },
+    {
+      "path": "audits/phase-c/blind-mutation-evidence.codex.v1/logs/CXM08_OFF_HAZARD_OMITS_STATOR_MULTIPLICITY/99-clone-status.txt",
+      "sha256": "b99197f0fd713489f71a979cedb1d91c4564f72c2d6b99d611325fb0c45a07c5",
+      "bytes": 219
+    },
+    {
+      "path": "audits/phase-c/blind-mutation-evidence.codex.v1/logs/CXM09_EXPONENTIAL_SECOND_MOMENT_FACTOR_DROPPED/00-patch.json",
+      "sha256": "b2e9ddc77e774332d298e8e7d7c560a9efda222857fba69510e562ee40e69a54",
+      "bytes": 1123
+    },
+    {
+      "path": "audits/phase-c/blind-mutation-evidence.codex.v1/logs/CXM09_EXPONENTIAL_SECOND_MOMENT_FACTOR_DROPPED/01-regenerate-science-gates.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "audits/phase-c/blind-mutation-evidence.codex.v1/logs/CXM09_EXPONENTIAL_SECOND_MOMENT_FACTOR_DROPPED/01-regenerate-science-gates.stdout.txt",
+      "sha256": "2e542a64eb060eef7efd06784f2c536205f8825c40f44cd1b21e63894ca044ce",
+      "bytes": 1026
+    },
+    {
+      "path": "audits/phase-c/blind-mutation-evidence.codex.v1/logs/CXM09_EXPONENTIAL_SECOND_MOMENT_FACTOR_DROPPED/02-phase-c-semantic.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "audits/phase-c/blind-mutation-evidence.codex.v1/logs/CXM09_EXPONENTIAL_SECOND_MOMENT_FACTOR_DROPPED/02-phase-c-semantic.stdout.txt",
+      "sha256": "e094773bbb340dc54c38996d6950f88ece751ee87c170ebaced878d3637aadcb",
+      "bytes": 3904
+    },
+    {
+      "path": "audits/phase-c/blind-mutation-evidence.codex.v1/logs/CXM09_EXPONENTIAL_SECOND_MOMENT_FACTOR_DROPPED/99-clone-status.txt",
+      "sha256": "b99197f0fd713489f71a979cedb1d91c4564f72c2d6b99d611325fb0c45a07c5",
+      "bytes": 219
+    },
+    {
+      "path": "audits/phase-c/blind-mutation-evidence.codex.v1/logs/CXM10_PERIODIC_LATTICE_OPENED/00-patch.json",
+      "sha256": "74a0ea05ff5a6eeb29a7fcaeba3436066b27136d83d4f69f1a4e869e84b0fa81",
+      "bytes": 921
+    },
+    {
+      "path": "audits/phase-c/blind-mutation-evidence.codex.v1/logs/CXM10_PERIODIC_LATTICE_OPENED/01-regenerate-cross-study-parity.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "audits/phase-c/blind-mutation-evidence.codex.v1/logs/CXM10_PERIODIC_LATTICE_OPENED/01-regenerate-cross-study-parity.stdout.txt",
+      "sha256": "244efda9b036468d8e466b69e317a6080781b3eb1d6aec712e04f0d6909b3f2d",
+      "bytes": 446
+    },
+    {
+      "path": "audits/phase-c/blind-mutation-evidence.codex.v1/logs/CXM10_PERIODIC_LATTICE_OPENED/02-phase-c-semantic.stderr.txt",
+      "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "bytes": 0
+    },
+    {
+      "path": "audits/phase-c/blind-mutation-evidence.codex.v1/logs/CXM10_PERIODIC_LATTICE_OPENED/02-phase-c-semantic.stdout.txt",
+      "sha256": "e940a50fbe74af5645d8cb77ce40ef184cb54ef4707e505de94af506fd359744",
+      "bytes": 3904
+    },
+    {
+      "path": "audits/phase-c/blind-mutation-evidence.codex.v1/logs/CXM10_PERIODIC_LATTICE_OPENED/99-clone-status.txt",
+      "sha256": "2c2649e6e000e34437097ab4fa8de1c7ee1d71e26c4b5544eedbce595e09142a",
+      "bytes": 245
+    },
+    {
+      "path": "audits/phase-c/blind-mutation-predictions.codex.v1.json",
+      "sha256": "af08a2543d2a38a07745542f49d6afab7481c655b8897d44b51353034306c7ae",
+      "bytes": 6088
+    },
+    {
+      "path": "audits/phase-c/blind-mutation-protocol.codex.v1.json",
+      "sha256": "1a065f8886270c2a132fea8430cae610d09508a4aeb0c5f12a66b48a263b487f",
+      "bytes": 24451
+    },
+    {
+      "path": "audits/phase-c/blind-mutation-result.codex.v1.json",
+      "sha256": "e36bdfb01fd51a4acb078762da1edff9deef4ff0844cf8f80d00c68d400be7d1",
+      "bytes": 25761
+    },
+    {
+      "path": "audits/phase-c/package-manifest.json",
+      "sha256": "076e2e5f3edf317244048fc454ee494b420d50a453bcda0658278c02a5b8e796",
+      "bytes": 827
+    },
+    {
+      "path": "audits/phase-c/semantic-gates-addendum-2.json",
+      "sha256": "11bff33b6bccac1b2e6827016636b47266585022d9a5fa74a9758d244de47b0f",
+      "bytes": 6870
+    },
+    {
+      "path": "audits/phase-c/semantic-gates-addendum.json",
+      "sha256": "126a28cd77899a0b4c87da48d2e2ee8ab6ecb7625eceb0543b78ccc6173821a6",
+      "bytes": 6137
+    },
+    {
+      "path": "audits/phase-c/semantic-gates.json",
+      "sha256": "d4e2ff52000096c836429d9f24d96c7757be66ee8d88f4254db45d036d28a88c",
+      "bytes": 47544
+    },
+    {
+      "path": "audits/phase-c/tools/run-blind-mutation-battery.mjs",
+      "sha256": "72e62b98d302993e8457563e5c8207bcdec49859c5836c65b1c92f4b3b73729e",
+      "bytes": 19783
+    }
+  ]
+}

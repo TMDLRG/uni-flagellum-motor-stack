@@ -1,0 +1,964 @@
+{
+  "schema": "uni.flagellum.observed-experiment/1.0.0",
+  "protocolId": "UNI-FLAGELLUM-OBS-001",
+  "runId": "faa689defbf804948312388b3d26fe5f10b6d938780ca2e31f1fb48514486f6a",
+  "executionClass": "CPU_ONLY_DETERMINISTIC_HELDOUT_ANALYSIS",
+  "identities": {
+    "protocolSha256": "023528fdc2a0f62704884d6472003a0abc10431e2ade4e48a58ebb71131cc34c",
+    "derivedEventsSha256": "32ec7ebf45bf7776ebef239351d2304cc3cead6d1be7749a2478e44a323f25db",
+    "analysisCodeSha256": "b757971e1f207899ddac0b262241822552a06abc5272407b14b21fd98ddbe623",
+    "runnerSha256": "0a67c17efc96cea96d9975445cb432c585a4cad4280310541e0669eff4e846da",
+    "rawSourceSha256": "c14de12cc11df8af2ab87f1ec94629eebc249c0e1475c24f850f5a28ddd1ea22",
+    "rawSourceCommit": "c83119131c3ce3742460a2e3b6bd6c6e44bef4d5"
+  },
+  "dataFlow": {
+    "worldProcess": "Previously recorded individual E. coli flagellar-motor stator-remodeling traces",
+    "observedBoundary": [
+      "motor identity",
+      "timestamp",
+      "step-fitted stator occupancy"
+    ],
+    "hiddenFromModel": [
+      "source-paper molecular interpretation",
+      "holdout durations during fitting",
+      "holdout transition direction during fitting"
+    ],
+    "inference": "Training-fitted survival likelihood updates posterior mass over two predictive timescales.",
+    "prediction": "Frozen probability density and survival curve for events from held-out motors."
+  },
+  "cohort": {
+    "sourceMotors": 129,
+    "sourceEvents": 1349,
+    "trainMotors": 80,
+    "holdoutMotors": 19,
+    "trainEvents": 793,
+    "holdoutEvents": 233,
+    "eligibleStates": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6,
+      7,
+      8
+    ],
+    "exclusions": {
+      "leftTruncatedDwells": 129,
+      "rightCensoredDwells": 109,
+      "outOfRangeDwells": 3,
+      "zeroOrNegativeDurationDwells": 0
+    }
+  },
+  "fittedOnTrainingOnly": {
+    "stateMeanDurationS": {
+      "0": 10.227200000000003,
+      "1": 4.749152542372881,
+      "2": 3.482608695652173,
+      "3": 6.350886075949369,
+      "4": 5.062716049382716,
+      "5": 7.948453608247425,
+      "6": 14.38991869918699,
+      "7": 18.245270270270268,
+      "8": 24.520583941605835
+    },
+    "normalizedDurationModels": {
+      "exponential": {
+        "id": "M0_MEMORYLESS"
+      },
+      "weibull": {
+        "id": "M1_WEIBULL",
+        "shape": 0.625088844276203,
+        "scale": 0.6996038164387606
+      },
+      "lognormal": {
+        "id": "M2_LOGNORMAL",
+        "sigma": 1.5783076021679734,
+        "mu": -1.245527443530609
+      },
+      "mixture": {
+        "id": "M3_UNI_TWO_TIMESCALE",
+        "weightFast": 0.6066448974609373,
+        "rateFast": 5.239865393555934,
+        "rateSlow": 0.44485855808292624
+      }
+    },
+    "direction": {
+      "globalOnProbability": 0.6857682619647355,
+      "onProbabilityByState": {
+        "1": 0.6916666666666667,
+        "2": 0.75,
+        "3": 0.75625,
+        "4": 0.75,
+        "5": 0.7602040816326531,
+        "6": 0.6814516129032258,
+        "7": 0.6879194630872483,
+        "8": 0.5108695652173914
+      }
+    }
+  },
+  "heldoutResults": {
+    "stateSummary": [
+      {
+        "stateN": 1,
+        "events": 25,
+        "motors": 9,
+        "meanDurationS": 4.093599999999999,
+        "cvSquared": 3.104271804481029,
+        "onFraction": 0.48
+      },
+      {
+        "stateN": 2,
+        "events": 22,
+        "motors": 12,
+        "meanDurationS": 2.4472727272727273,
+        "cvSquared": 2.3048785949737316,
+        "onFraction": 0.7727272727272727
+      },
+      {
+        "stateN": 3,
+        "events": 27,
+        "motors": 12,
+        "meanDurationS": 3.331851851851852,
+        "cvSquared": 3.302717968711659,
+        "onFraction": 0.6296296296296297
+      },
+      {
+        "stateN": 4,
+        "events": 22,
+        "motors": 12,
+        "meanDurationS": 8.482727272727272,
+        "cvSquared": 3.2149490450896874,
+        "onFraction": 0.6363636363636364
+      },
+      {
+        "stateN": 5,
+        "events": 27,
+        "motors": 13,
+        "meanDurationS": 11.382222222222222,
+        "cvSquared": 3.2181563852746016,
+        "onFraction": 0.7777777777777778
+      },
+      {
+        "stateN": 6,
+        "events": 32,
+        "motors": 13,
+        "meanDurationS": 11.425625,
+        "cvSquared": 4.441824619310627,
+        "onFraction": 0.78125
+      },
+      {
+        "stateN": 7,
+        "events": 45,
+        "motors": 16,
+        "meanDurationS": 17.67288888888889,
+        "cvSquared": 2.5446365275399465,
+        "onFraction": 0.6222222222222222
+      },
+      {
+        "stateN": 8,
+        "events": 33,
+        "motors": 12,
+        "meanDurationS": 25.49878787878788,
+        "cvSquared": 3.0648157713502453,
+        "onFraction": 0.48484848484848486
+      }
+    ],
+    "meanLogScoreNatsPerEvent": {
+      "exponential": -3.259938023731547,
+      "weibull": -3.0962841768378104,
+      "lognormal": -3.012890170946554,
+      "mixture": -3.0497565695441344
+    },
+    "pairedMixtureAdvantageNatsPerEvent": {
+      "mixtureVsExponential": 0.210181454187411,
+      "mixtureVsWeibull": 0.046527607293676804,
+      "mixtureVsLognormal": -0.03686639859758028
+    },
+    "pairedMixtureAdvantageInterval95": {
+      "mixtureVsExponential": {
+        "lower": 0.06918462236407662,
+        "upper": 0.3247183938187771
+      },
+      "mixtureVsWeibull": {
+        "lower": -0.01796916498254155,
+        "upper": 0.084962018775231
+      },
+      "mixtureVsLognormal": {
+        "lower": -0.06803225348050351,
+        "upper": 0.014817954207609459
+      }
+    },
+    "meanCvSquaredAcrossStates": 3.149531339591441,
+    "meanCvSquaredInterval95": {
+      "lower": 1.5141240937044127,
+      "upper": 3.5675042610575742
+    },
+    "calibration": {
+      "exponential": {
+        "pitMean": 0.3811234730195761,
+        "pitVariance": 0.10035248401211129,
+        "ksStatistic": 0.23324643282958857,
+        "centralCoverage": {
+          "0.5": 0.351931330472103,
+          "0.8": 0.630901287553648,
+          "0.95": 0.9184549356223176
+        }
+      },
+      "weibull": {
+        "pitMean": 0.4971399225403088,
+        "pitVariance": 0.06811550574997097,
+        "ksStatistic": 0.10638947185264802,
+        "centralCoverage": {
+          "0.5": 0.5536480686695279,
+          "0.8": 0.8969957081545065,
+          "0.95": 0.9699570815450643
+        }
+      },
+      "lognormal": {
+        "pitMean": 0.5256364509937055,
+        "pitVariance": 0.08182117577560985,
+        "ksStatistic": 0.0622076647070614,
+        "centralCoverage": {
+          "0.5": 0.463519313304721,
+          "0.8": 0.8283261802575107,
+          "0.95": 0.9742489270386266
+        }
+      },
+      "mixture": {
+        "pitMean": 0.5232748557895528,
+        "pitVariance": 0.07155131832431115,
+        "ksStatistic": 0.07745668640102055,
+        "centralCoverage": {
+          "0.5": 0.5321888412017167,
+          "0.8": 0.8927038626609443,
+          "0.95": 0.9699570815450643
+        }
+      }
+    },
+    "direction": {
+      "stateConditionedLogLoss": 0.6464397923198293,
+      "globalLogLoss": 0.65521530108897,
+      "stateConditionedBrier": 0.22677462343610924,
+      "globalBrier": 0.23109150573006215,
+      "logLossImprovement": 0.008775508769140683,
+      "logLossImprovementInterval95": {
+        "lower": -0.028385118974911114,
+        "upper": 0.048404618954436
+      }
+    }
+  },
+  "claims": [
+    {
+      "hypothesisId": "H1_OVERDISPERSION",
+      "status": "SUPPORTED_WITHIN_PROTOCOL",
+      "observed": 3.149531339591441,
+      "interval95": {
+        "lower": 1.5141240937044127,
+        "upper": 3.5675042610575742
+      },
+      "claim": "Held-out dwell timing rejects the homogeneous memoryless duration prediction within the frozen analysis population.",
+      "fence": "This does not uniquely identify a molecular hidden state; heterogeneity and nonstationarity remain alternatives."
+    },
+    {
+      "hypothesisId": "H2_HELDOUT_LOG_SCORE",
+      "status": "SUPPORTED_WITHIN_PROTOCOL",
+      "observed": 0.210181454187411,
+      "interval95": {
+        "lower": 0.06918462236407662,
+        "upper": 0.3247183938187771
+      },
+      "unit": "nats per event",
+      "claim": "The training-fitted two-timescale mixture assigned higher predictive density to held-out dwell events than the memoryless baseline.",
+      "fence": "Predictive superiority does not prove that the latent mixture components are biological states or that the motor performs Bayesian inference."
+    },
+    {
+      "hypothesisId": "H3_SURVIVAL_POSTERIOR",
+      "status": "MODEL_CONSEQUENCE_CONFIRMED",
+      "observed": {
+        "initial": 0.3933551025390627,
+        "atHoldoutQ90": 0.9999837274565277
+      },
+      "claim": "Within the frozen mixture model, surviving longer without a transition increases posterior mass on the slower latent timescale.",
+      "fence": "This is exact inference in the declared model, illustrated with observed durations; it is not evidence that a bacterium represents this posterior."
+    },
+    {
+      "hypothesisId": "H4_DIRECTION",
+      "status": "INCONCLUSIVE_POINT_ESTIMATE_ONLY",
+      "observed": 0.008775508769140683,
+      "interval95": {
+        "lower": -0.028385118974911114,
+        "upper": 0.048404618954436
+      },
+      "unit": "log-loss reduction per event",
+      "claim": "Training-only stator-count-conditioned transition frequencies were evaluated on held-out motors.",
+      "fence": "The point estimate improved, but the motor-cluster interval crosses zero. Secondary and inconclusive; it cannot rescue a failed duration hypothesis."
+    }
+  ],
+  "curves": {
+    "survival": [
+      {
+        "normalizedTime": 0,
+        "observed": 1,
+        "exponential": 1,
+        "weibull": 1,
+        "lognormal": 1,
+        "mixture": 1
+      },
+      {
+        "normalizedTime": 0.1370616175911786,
+        "observed": 0.6909871244635193,
+        "exponential": 0.8719164990824784,
+        "weibull": 0.6969965501705048,
+        "lognormal": 0.6808208183853677,
+        "mixture": 0.6659099740710266
+      },
+      {
+        "normalizedTime": 0.2741232351823572,
+        "observed": 0.5579399141630901,
+        "exponential": 0.7602383813722455,
+        "weibull": 0.5730779371949187,
+        "lognormal": 0.5122951830585367,
+        "mixture": 0.4924502789189322
+      },
+      {
+        "normalizedTime": 0.4111848527735358,
+        "observed": 0.45064377682403434,
+        "exponential": 0.6628643879542184,
+        "weibull": 0.48805274610527954,
+        "lognormal": 0.41057179607837735,
+        "mixture": 0.3979436008201891
+      },
+      {
+        "normalizedTime": 0.5482464703647144,
+        "observed": 0.3648068669527897,
+        "exponential": 0.577962396511492,
+        "weibull": 0.4237322995152383,
+        "lognormal": 0.3415095288685219,
+        "mixture": 0.3425241803128304
+      },
+      {
+        "normalizedTime": 0.6853080879558929,
+        "observed": 0.33905579399141633,
+        "exponential": 0.5039349493676193,
+        "weibull": 0.3726269394327567,
+        "lognormal": 0.29125277731816535,
+        "mixture": 0.30671729262452413
+      },
+      {
+        "normalizedTime": 0.8223697055470716,
+        "observed": 0.2918454935622318,
+        "exponential": 0.4393891968179206,
+        "weibull": 0.33076570798083726,
+        "lognormal": 0.2529466373373891,
+        "mixture": 0.28099368510790446
+      },
+      {
+        "normalizedTime": 0.9594313231382502,
+        "observed": 0.2575107296137339,
+        "exponential": 0.38311069022414335,
+        "weibull": 0.29574574315970287,
+        "lognormal": 0.22275728881038181,
+        "mixture": 0.2606758151508279
+      },
+      {
+        "normalizedTime": 1.0964929407294288,
+        "observed": 0.22317596566523606,
+        "exponential": 0.334040531781307,
+        "weibull": 0.26598746167626314,
+        "lognormal": 0.19835314801148213,
+        "mixture": 0.2434538300916867
+      },
+      {
+        "normalizedTime": 1.2335545583206073,
+        "observed": 0.19742489270386265,
+        "exponential": 0.2912554510224066,
+        "weibull": 0.24039137027102783,
+        "lognormal": 0.17822664011608585,
+        "mixture": 0.22817416011623554
+      },
+      {
+        "normalizedTime": 1.3706161759117859,
+        "observed": 0.19313304721030042,
+        "exponential": 0.253950433194145,
+        "weibull": 0.21815932835474877,
+        "lognormal": 0.16135612488303708,
+        "mixture": 0.21424869042717798
+      },
+      {
+        "normalizedTime": 1.5076777935029644,
+        "observed": 0.18025751072961374,
+        "exponential": 0.22142357265111776,
+        "weibull": 0.19869298862317314,
+        "lognormal": 0.14702299692935245,
+        "mixture": 0.20136655668363923
+      },
+      {
+        "normalizedTime": 1.6447394110941431,
+        "observed": 0.1630901287553648,
+        "exponential": 0.19306286628029737,
+        "weibull": 0.18153218948875136,
+        "lognormal": 0.1347062377087298,
+        "mixture": 0.18935351631102518
+      },
+      {
+        "normalizedTime": 1.7818010286853219,
+        "observed": 0.15021459227467812,
+        "exponential": 0.16833469846994553,
+        "weibull": 0.16631562488654858,
+        "lognormal": 0.12401844103220372,
+        "mixture": 0.17810328853161028
+      },
+      {
+        "normalizedTime": 1.9188626462765004,
+        "observed": 0.13733905579399142,
+        "exponential": 0.14677380096401954,
+        "weibull": 0.15275468426512467,
+        "lognormal": 0.11466534061009426,
+        "mixture": 0.16754399397456488
+      },
+      {
+        "normalizedTime": 2.055924263867679,
+        "observed": 0.12017167381974249,
+        "exponential": 0.12797449869357644,
+        "weibull": 0.14061545587005755,
+        "lognormal": 0.10641929228800195,
+        "mixture": 0.1576217148208351
+      },
+      {
+        "normalizedTime": 2.1929858814588576,
+        "observed": 0.12017167381974249,
+        "exponential": 0.11158307687273836,
+        "weibull": 0.1297059916545139,
+        "lognormal": 0.09910137364753285,
+        "mixture": 0.14829240796190007
+      },
+      {
+        "normalizedTime": 2.330047499050036,
+        "observed": 0.10300429184549356,
+        "exponential": 0.09729112574372911,
+        "weibull": 0.11986707692849262,
+        "lognormal": 0.09256898615198828,
+        "mixture": 0.13951789554566763
+      },
+      {
+        "normalizedTime": 2.4671091166412147,
+        "observed": 0.09871244635193133,
+        "exponential": 0.08482973775026546,
+        "weibull": 0.11096540090888027,
+        "lognormal": 0.08670707397132404,
+        "mixture": 0.131263847711106
+      },
+      {
+        "normalizedTime": 2.604170734232393,
+        "observed": 0.09012875536480687,
+        "exponential": 0.07396444795729624,
+        "weibull": 0.10288841231557197,
+        "lognormal": 0.0814217807435006,
+        "mixture": 0.1234987404611779
+      },
+      {
+        "normalizedTime": 2.7412323518235717,
+        "observed": 0.0815450643776824,
+        "exponential": 0.06449082251949391,
+        "weibull": 0.09554038285164013,
+        "lognormal": 0.0766357866866274,
+        "mixture": 0.11619329250555588
+      },
+      {
+        "normalizedTime": 2.8782939694147505,
+        "observed": 0.07725321888412018,
+        "exponential": 0.05623061219414658,
+        "weibull": 0.0888393527764808,
+        "lognormal": 0.07228482702398004,
+        "mixture": 0.10932013891863877
+      },
+      {
+        "normalizedTime": 3.0153555870059288,
+        "observed": 0.07725321888412018,
+        "exponential": 0.04902839852558482,
+        "weibull": 0.08271473136561798,
+        "lognormal": 0.06831505571436103,
+        "mixture": 0.10285362333707258
+      },
+      {
+        "normalizedTime": 3.152417204597108,
+        "observed": 0.07296137339055794,
+        "exponential": 0.04274866959804843,
+        "weibull": 0.07710539078787665,
+        "lognormal": 0.0646810237652341,
+        "mixture": 0.09676965084016445
+      },
+      {
+        "normalizedTime": 3.2894788221882862,
+        "observed": 0.06437768240343347,
+        "exponential": 0.03727327033636398,
+        "weibull": 0.07195813669496179,
+        "lognormal": 0.06134411087184827,
+        "mixture": 0.09104557312989921
+      },
+      {
+        "normalizedTime": 3.426540439779465,
+        "observed": 0.060085836909871244,
+        "exponential": 0.032499179381037274,
+        "weibull": 0.06722646988104125,
+        "lognormal": 0.05827129585371671,
+        "mixture": 0.08566009200961627
+      },
+      {
+        "normalizedTime": 3.5636020573706437,
+        "observed": 0.060085836909871244,
+        "exponential": 0.02833657070896748,
+        "weibull": 0.06286957529423723,
+        "lognormal": 0.05543418334970773,
+        "mixture": 0.08059317418324508
+      },
+      {
+        "normalizedTime": 3.700663674961822,
+        "observed": 0.060085836909871244,
+        "exponential": 0.024707123528566036,
+        "weibull": 0.05885149039678871,
+        "lognormal": 0.05280822648672606,
+        "mixture": 0.07582597383050516
+      },
+      {
+        "normalizedTime": 3.8377252925530008,
+        "observed": 0.055793991416309016,
+        "exponential": 0.021542548649425626,
+        "weibull": 0.05514041629405717,
+        "lognormal": 0.050372100946490805,
+        "mixture": 0.07134076109617297
+      },
+      {
+        "normalizedTime": 3.974786910144179,
+        "observed": 0.055793991416309016,
+        "exponential": 0.01878330359972117,
+        "weibull": 0.05170814346383226,
+        "lognormal": 0.048107197095301535,
+        "mixture": 0.06712085545995332
+      },
+      {
+        "normalizedTime": 4.111848527735358,
+        "observed": 0.05150214592274678,
+        "exponential": 0.016377472315872197,
+        "weibull": 0.04852957018432978,
+        "lognormal": 0.045997204985078255,
+        "mixture": 0.06315056336489358
+      },
+      {
+        "normalizedTime": 4.248910145326537,
+        "observed": 0.05150214592274678,
+        "exponential": 0.014279788325475487,
+        "weibull": 0.04558229647960172,
+        "lognormal": 0.044027773002019155,
+        "mixture": 0.05941511968988097
+      },
+      {
+        "normalizedTime": 4.385971762917715,
+        "observed": 0.05150214592274678,
+        "exponential": 0.012450783044387436,
+        "weibull": 0.04284627999242266,
+        "lognormal": 0.04218622536010924,
+        "mixture": 0.05590063275956805
+      },
+      {
+        "normalizedTime": 4.523033380508894,
+        "observed": 0.05150214592274678,
+        "exponential": 0.01085604316289778,
+        "weibull": 0.04030354295270431,
+        "lognormal": 0.0404613269443011,
+        "mixture": 0.05259403264382781
+      },
+      {
+        "normalizedTime": 4.660094998100072,
+        "observed": 0.04721030042918455,
+        "exponential": 0.00946556314848211,
+        "weibull": 0.037937921545946655,
+        "lognormal": 0.03884308650597834,
+        "mixture": 0.04948302253330786
+      },
+      {
+        "normalizedTime": 4.797156615691251,
+        "observed": 0.04721030042918455,
+        "exponential": 0.008253180682268638,
+        "weibull": 0.035734850654657084,
+        "lognormal": 0.037322591116047577,
+        "mixture": 0.04655603299993647
+      },
+      {
+        "normalizedTime": 4.934218233282429,
+        "observed": 0.04291845493562232,
+        "exponential": 0.007196084406778814,
+        "weibull": 0.03368117825847422,
+        "lognormal": 0.0358918662423392,
+        "mixture": 0.04380217896724928
+      },
+      {
+        "normalizedTime": 5.0712798508736086,
+        "observed": 0.034334763948497854,
+        "exponential": 0.006274384723060593,
+        "weibull": 0.03176500481904913,
+        "lognormal": 0.03454375694896661,
+        "mixture": 0.04121121922806097
+      },
+      {
+        "normalizedTime": 5.208341468464786,
+        "observed": 0.034334763948497854,
+        "exponential": 0.005470739561627585,
+        "weibull": 0.029975543805616744,
+        "lognormal": 0.033271826596940335,
+        "mixture": 0.0387735183577377
+      },
+      {
+        "normalizedTime": 5.345403086055965,
+        "observed": 0.034334763948497854,
+        "exponential": 0.004770028085966334,
+        "weibull": 0.028303000183343942,
+        "lognormal": 0.03207027011731134,
+        "mixture": 0.03648001088084654
+      },
+      {
+        "normalizedTime": 5.4824647036471434,
+        "observed": 0.034334763948497854,
+        "exponential": 0.004159066189240862,
+        "weibull": 0.0267384642244268,
+        "lognormal": 0.030933839474756364,
+        "mixture": 0.034322167557639144
+      },
+      {
+        "normalizedTime": 5.619526321238323,
+        "observed": 0.030042918454935622,
+        "exponential": 0.003626358431175195,
+        "weibull": 0.025273818438637498,
+        "lognormal": 0.029857779373968996,
+        "mixture": 0.03229196366485387
+      },
+      {
+        "normalizedTime": 5.756587938829501,
+        "observed": 0.030042918454935622,
+        "exponential": 0.003161881747728506,
+        "weibull": 0.023901655776485606,
+        "lognormal": 0.02883777160852319,
+        "mixture": 0.03038184915281032
+      },
+      {
+        "normalizedTime": 5.893649556420679,
+        "observed": 0.030042918454935622,
+        "exponential": 0.0027568968639922276,
+        "weibull": 0.022615207550553008,
+        "lognormal": 0.02786988673103269,
+        "mixture": 0.028584720567780723
+      },
+      {
+        "normalizedTime": 6.0307111740118575,
+        "observed": 0.030042918454935622,
+        "exponential": 0.0024037838619835675,
+        "weibull": 0.021408279761537207,
+        "lognormal": 0.02695054194898938,
+        "mixture": 0.02689389463520612
+      },
+      {
+        "normalizedTime": 6.167772791603037,
+        "observed": 0.030042918454935622,
+        "exponential": 0.0020958988094916704,
+        "weibull": 0.02027519671502298,
+        "lognormal": 0.026076464333823268,
+        "mixture": 0.025303083405508367
+      },
+      {
+        "normalizedTime": 6.304834409194216,
+        "observed": 0.02575107296137339,
+        "exponential": 0.0018274487524031105,
+        "weibull": 0.019210750980845712,
+        "lognormal": 0.02524465858016195,
+        "mixture": 0.023806370870065287
+      },
+      {
+        "normalizedTime": 6.441896026785394,
+        "observed": 0.02575107296137339,
+        "exponential": 0.0015933827184479636,
+        "weibull": 0.018210158885340902,
+        "lognormal": 0.02445237867474087,
+        "mixture": 0.022398190960384895
+      },
+      {
+        "normalizedTime": 6.5789576443765725,
+        "observed": 0.02575107296137339,
+        "exponential": 0.0013892966815676712,
+        "weibull": 0.017269020842771467,
+        "lognormal": 0.023697102935224368,
+        "mixture": 0.021073306848659757
+      },
+      {
+        "normalizedTime": 6.716019261967751,
+        "observed": 0.02575107296137339,
+        "exponential": 0.001211350698779389,
+        "weibull": 0.016383285929780278,
+        "lognormal": 0.02297651196252043,
+        "mixture": 0.019826791472722816
+      },
+      {
+        "normalizedTime": 6.85308087955893,
+        "observed": 0.02575107296137339,
+        "exponential": 0.001056196660440838,
+        "weibull": 0.015549220189049447,
+        "lognormal": 0.022288469119310206,
+        "mixture": 0.018654009212979186
+      },
+      {
+        "normalizedTime": 6.990142497150108,
+        "observed": 0.02575107296137339,
+        "exponential": 0.0009209152945141811,
+        "weibull": 0.01476337821806963,
+        "lognormal": 0.021631003205102306,
+        "mixture": 0.01755059865317315
+      },
+      {
+        "normalizedTime": 7.1272041147412875,
+        "observed": 0.02575107296137339,
+        "exponential": 0.0008029612395443138,
+        "weibull": 0.014022577658152251,
+        "lognormal": 0.021002293046265608,
+        "mixture": 0.016512456360879536
+      },
+      {
+        "normalizedTime": 7.264265732332465,
+        "observed": 0.02575107296137339,
+        "exponential": 0.0007001151528824062,
+        "weibull": 0.013323876249290717,
+        "lognormal": 0.020400653759879483,
+        "mixture": 0.015535721627401829
+      },
+      {
+        "normalizedTime": 7.401327349923644,
+        "observed": 0.02575107296137339,
+        "exponential": 0.0006104419530558214,
+        "weibull": 0.01266455115961257,
+        "lognormal": 0.01982452448423455,
+        "mixture": 0.014616762110326321
+      },
+      {
+        "normalizedTime": 7.538388967514822,
+        "observed": 0.02575107296137339,
+        "exponential": 0.0005322544106015026,
+        "weibull": 0.012042080335136034,
+        "lognormal": 0.019272457397521092,
+        "mixture": 0.013752160325339316
+      },
+      {
+        "normalizedTime": 7.6754505851060015,
+        "observed": 0.02575107296137339,
+        "exponential": 0.00046408140231286984,
+        "weibull": 0.011454125647317027,
+        "lognormal": 0.018743107870555775,
+        "mixture": 0.01293870093707193
+      },
+      {
+        "normalizedTime": 7.81251220269718,
+        "observed": 0.02575107296137339,
+        "exponential": 0.0004046402315939248,
+        "weibull": 0.010898517643249906,
+        "lognormal": 0.018235225620054862,
+        "mixture": 0.012173358801709253
+      },
+      {
+        "normalizedTime": 7.949573820288358,
+        "observed": 0.02575107296137339,
+        "exponential": 0.0003528124941192983,
+        "weibull": 0.010373241727033236,
+        "lognormal": 0.017747646746559487,
+        "mixture": 0.011453287716895647
+      },
+      {
+        "normalizedTime": 8.086635437879536,
+        "observed": 0.02145922746781116,
+        "exponential": 0.00030762303470505614,
+        "weibull": 0.009876425621289172,
+        "lognormal": 0.01727928655615729,
+        "mixture": 0.01077580983709887
+      },
+      {
+        "normalizedTime": 8.223697055470716,
+        "observed": 0.02145922746781116,
+        "exponential": 0.00026822159945716015,
+        "weibull": 0.00940632797559686,
+        "lognormal": 0.016829133078024472,
+        "mixture": 0.010138405715070077
+      }
+    ],
+    "posteriorSlow": [
+      {
+        "normalizedTime": 0,
+        "posteriorSlow": 0.3933551025390627
+      },
+      {
+        "normalizedTime": 0.05974572234857059,
+        "posteriorSlow": 0.4633782766683611
+      },
+      {
+        "normalizedTime": 0.11949144469714118,
+        "posteriorSlow": 0.5348761372596227
+      },
+      {
+        "normalizedTime": 0.17923716704571174,
+        "posteriorSlow": 0.604968912099328
+      },
+      {
+        "normalizedTime": 0.23898288939428236,
+        "posteriorSlow": 0.6709961073991215
+      },
+      {
+        "normalizedTime": 0.2987286117428529,
+        "posteriorSlow": 0.7308963232987982
+      },
+      {
+        "normalizedTime": 0.3584743340914235,
+        "posteriorSlow": 0.7834110226494474
+      },
+      {
+        "normalizedTime": 0.41822005643999405,
+        "posteriorSlow": 0.8280880688524763
+      },
+      {
+        "normalizedTime": 0.4779657787885647,
+        "posteriorSlow": 0.8651358232254012
+      },
+      {
+        "normalizedTime": 0.5377115011371353,
+        "posteriorSlow": 0.8952099538997874
+      },
+      {
+        "normalizedTime": 0.5974572234857058,
+        "posteriorSlow": 0.9192040012609435
+      },
+      {
+        "normalizedTime": 0.6572029458342765,
+        "posteriorSlow": 0.9380840530460706
+      },
+      {
+        "normalizedTime": 0.716948668182847,
+        "posteriorSlow": 0.9527789397689259
+      },
+      {
+        "normalizedTime": 0.7766943905314176,
+        "posteriorSlow": 0.9641195968524799
+      },
+      {
+        "normalizedTime": 0.8364401128799881,
+        "posteriorSlow": 0.972814382322713
+      },
+      {
+        "normalizedTime": 0.8961858352285588,
+        "posteriorSlow": 0.9794471038740754
+      },
+      {
+        "normalizedTime": 0.9559315575771294,
+        "posteriorSlow": 0.9844873849628244
+      },
+      {
+        "normalizedTime": 1.0156772799257,
+        "posteriorSlow": 0.9883063720045061
+      },
+      {
+        "normalizedTime": 1.0754230022742706,
+        "posteriorSlow": 0.9911935883782163
+      },
+      {
+        "normalizedTime": 1.135168724622841,
+        "posteriorSlow": 0.9933727165884016
+      },
+      {
+        "normalizedTime": 1.1949144469714117,
+        "posteriorSlow": 0.9950153357773509
+      },
+      {
+        "normalizedTime": 1.2546601693199824,
+        "posteriorSlow": 0.9962523561278169
+      },
+      {
+        "normalizedTime": 1.314405891668553,
+        "posteriorSlow": 0.997183260066688
+      },
+      {
+        "normalizedTime": 1.3741516140171233,
+        "posteriorSlow": 0.9978834214152953
+      },
+      {
+        "normalizedTime": 1.433897336365694,
+        "posteriorSlow": 0.9984098201247156
+      },
+      {
+        "normalizedTime": 1.4936430587142646,
+        "posteriorSlow": 0.9988054587957003
+      },
+      {
+        "normalizedTime": 1.5533887810628353,
+        "posteriorSlow": 0.999102750549899
+      },
+      {
+        "normalizedTime": 1.613134503411406,
+        "posteriorSlow": 0.9993261036613814
+      },
+      {
+        "normalizedTime": 1.6728802257599762,
+        "posteriorSlow": 0.9994938854471991
+      },
+      {
+        "normalizedTime": 1.7326259481085469,
+        "posteriorSlow": 0.9996199100383043
+      },
+      {
+        "normalizedTime": 1.7923716704571175,
+        "posteriorSlow": 0.9997145629531512
+      },
+      {
+        "normalizedTime": 1.8521173928056882,
+        "posteriorSlow": 0.9997856497282415
+      },
+      {
+        "normalizedTime": 1.9118631151542589,
+        "posteriorSlow": 0.9998390355215928
+      },
+      {
+        "normalizedTime": 1.9716088375028291,
+        "posteriorSlow": 0.9998791267278156
+      },
+      {
+        "normalizedTime": 2.0313545598514,
+        "posteriorSlow": 0.9999092333776993
+      },
+      {
+        "normalizedTime": 2.0911002821999705,
+        "posteriorSlow": 0.9999318416901593
+      },
+      {
+        "normalizedTime": 2.150846004548541,
+        "posteriorSlow": 0.999948818971999
+      },
+      {
+        "normalizedTime": 2.210591726897112,
+        "posteriorSlow": 0.9999615676128808
+      },
+      {
+        "normalizedTime": 2.270337449245682,
+        "posteriorSlow": 0.999971140796762
+      },
+      {
+        "normalizedTime": 2.3300831715942527,
+        "posteriorSlow": 0.9999783294328595
+      },
+      {
+        "normalizedTime": 2.3898288939428234,
+        "posteriorSlow": 0.9999837274565277
+      }
+    ]
+  },
+  "audit": {
+    "bootstrapReplicates": 2000,
+    "bootstrapSeed": 20260717,
+    "splitMethod": "sha256(motorName) interpreted as an unsigned integer; remainder modulo 5",
+    "noMotorLeakage": true,
+    "outcomeAccessDuringFit": false,
+    "exactModelFencesRetained": true
+  }
+}

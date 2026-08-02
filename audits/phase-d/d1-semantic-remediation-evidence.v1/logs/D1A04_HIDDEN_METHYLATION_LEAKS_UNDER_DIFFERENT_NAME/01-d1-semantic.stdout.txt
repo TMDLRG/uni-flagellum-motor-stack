@@ -1,0 +1,165 @@
+✔ D1P11 historical phase-c adverse 0/10 detection result is preserved unlaundered (7.9195ms)
+✔ D1P11 the preserved phase-c evidence copy has not silently diverged from the canonical adverse result (3.9644ms)
+✔ D1P11 the phase-c adverse result is not weakened by the D1 remediation contract (4.6927ms)
+✔ right-censored dwells are excluded from the uncensored duration likelihood (hand-calculated mean) (2.3699ms)
+✔ the fixture discriminates: admitting censored dwells changes the mean to a different hand-calculated value (0.2888ms)
+✔ censored dwells exert zero influence on the likelihood: flagged-present run equals censored-absent run (0.3057ms)
+✔ likelihood cohort sizes equal the independently counted uncensored eligible events (0.3155ms)
+✔ right-censored dwells are RETAINED in the record for provenance (0.8998ms)
+✔ the frozen protocol still declares both halves of the censoring rule (1.5482ms)
+✔ D1P01 seconds-scale predictive density carries the change-of-variables jacobian (1.5651ms)
+✔ D1P01 seconds-scale predictive density is equivariant under unit reparameterization (0.3181ms)
+✔ D1P03 sample variance uses the bessel n-1 denominator (0.3921ms)
+✔ D1P03 reported cvSquared propagates the bessel n-1 denominator into the held-out state summary (0.3243ms)
+✔ D1P07 first-passage mixture weights are a normalized bernoulli convolution (3.5741ms)
+✔ D1P08 competing-risk off hazard carries n-fold stator detachment multiplicity (1.8334ms)
+✔ D1P09 exponential-mixture second moment retains its factor of two (262.0066ms)
+✔ fixture guard: both synthetic stator states are eligible and fully scored (1.8223ms)
+✔ direction semantics: "on" is the positive outcome in the training-fitted probabilities (0.263ms)
+✔ direction semantics: held-out outcome 1 is "on" (hand-calculated log loss and Brier score) (0.1942ms)
+✔ direction semantics: stateSummary.onFraction counts "on", not "off" (0.2428ms)
+✔ anchoring identity: state-conditioned direction predictor was constructed to beat the pooled baseline (0.1981ms)
+✔ anchoring identity: the generating model outscores every mis-specified baseline (0.2012ms)
+✔ paired advantage sign convention: mixture was constructed to beat every baseline (0.2972ms)
+✔ paired advantage sign convention: bootstrap intervals agree in sign with the point estimate (0.327ms)
+✔ independent recomputation: paired advantages match an oracle written from the density definitions (0.8993ms)
+✔ internal orientation identity: paired advantage equals the difference of the reported mean log scores (0.301ms)
+✔ determinism: a second run of the same fixture reproduces every orientation-bearing value (124.6077ms)
+✔ D1P10 periodic thirteen-site lattice retains its wraparound bond (13.0125ms)
+✔ D1P10 periodic and open-chain lattice topologies are genuinely discriminated at the reported fit (4.8902ms)
+✔ D1P10 the lattice gate cannot detect a bond-offset relabelling, because on a prime ring it is an isomorphism (3.309ms)
+✔ D1P10 lattice adjacency oracle counts the wraparound bond on hand-calculable configurations (0.3196ms)
+PROSPECTIVITY GATE: 6/6 anchors verified against commit ancestry.
+PROSPECTIVITY GATE: class ledger
+  B1-MUTATION-BATTERY-V1: declared=PROSPECTIVE measured=PROSPECTIVE (STRICT_ANCESTRY_PROVEN)
+  B1-RERUN-ON-C3-FIXED-TREE: declared=TIMING_UNVERIFIED measured=TIMING_UNVERIFIED (SAME_COMMIT:audits/phase-b/b1-mutation-ledger-rerun.json)
+  C3-CANONICAL-WRITE-FIX: declared=TIMING_UNVERIFIED measured=TIMING_UNVERIFIED (SAME_COMMIT:1630a68f)
+  B3-MODEL-COMPETITION-V1: declared=PENDING measured=PENDING (RESULT_DOES_NOT_EXIST_YET)
+  PHASE-D1-SEMANTIC-REMEDIATION-CLAUDE: declared=PENDING measured=PENDING (RESULT_DOES_NOT_EXIST_YET)
+  PHASE-C-BLIND-MUTATION-CODEX: declared=PROSPECTIVE measured=PROSPECTIVE (STRICT_ANCESTRY_PROVEN)
+✔ SYNTHETIC: prediction committed one commit before its result => PROSPECTIVE (1241.2841ms)
+✔ SYNTHETIC: prediction and result in the SAME commit => TIMING_UNVERIFIED, never upgraded (858.6472ms)
+✔ SYNTHETIC: result committed BEFORE the prediction => TIMING_UNVERIFIED (1228.0549ms)
+✔ SYNTHETIC: prediction committed, result does not exist => PENDING (888.8673ms)
+✔ SYNTHETIC: result written but NOT committed cannot make a prediction PROSPECTIVE (870.3821ms)
+✔ SYNTHETIC: prospectivity is decided by ancestry, NOT by commit timestamps (1274.3181ms)
+✔ SYNTHETIC: a fabricated anchor commit is not accepted as an anchor (769.7454ms)
+✔ Every prediction record is well formed and carries claim, falsifier and anchor (0.7121ms)
+✔ Every prediction anchor commit exists and precedes the prediction it anchors (1941.1016ms)
+✔ Declared prospectivity equals prospectivity measured from commit ancestry (1347.6887ms)
+✔ The known same-commit provenance defect remains declared and visible (463.773ms)
+✔ D1P02 slow-state posterior conditions on survival not on event density (1.8766ms)
+✔ D1P02 slow-state posterior equals the independently recomputed survivor mass ratio (0.4868ms)
+✔ D1P02 slow-state posterior increases with survival and saturates toward the slow component (0.2911ms)
+✔ G1 a motor present in both partitions is refused, and the refusal names motor leakage (5.6906ms)
+✔ G2 the frozen dataset's partitions are disjoint at motor granularity (9.1923ms)
+✔ G2 every motor's partition equals the preregistered sha256(motorName) mod 5 rule, recomputed here (9.0649ms)
+✔ G3 fitted parameters equal HAND-CALCULATED training-only values, not pooled values (41.6765ms)
+✔ G3 corrupting every holdout observation leaves the real dataset's fitted parameters unmoved (1205.6467ms)
+✖ D1P04 observation excludes hidden world truth at the markov boundary (6.7806ms)
+✖ D1P04 observation is invariant to hidden world state under any field name (1.4809ms)
+✖ D1P04 the agent receives an observation and never the world object (1.955ms)
+✔ D1P05 live instrument stator occupancy is bounded to the physical zero to eleven range (0.7389ms)
+✔ D1P06 mechanosensitive stator recruitment increases with load (14.8449ms)
+ℹ tests 55
+ℹ suites 0
+ℹ pass 52
+ℹ fail 3
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 11538.7416
+
+✖ failing tests:
+
+test at tests\semantic\world-agent-observation-boundary.semantic.test.mjs:86:1
+✖ D1P04 observation excludes hidden world truth at the markov boundary (6.7806ms)
+  AssertionError [ERR_ASSERTION]: The observation record does not carry exactly the declared instrument-measurable fields. Declared boundary key set ["deviceTimeMs","ligandUm","loadPnNm","motorSpeedRpm","pmfMv","receivedAtMs","receptorActivity","rotation","source"], observed ["deviceTimeMs","ligandUm","loadPnNm","methylationLevel","motorSpeedRpm","pmfMv","receivedAtMs","receptorActivity","rotation","source"]. Any extra key means hidden world state has crossed the markov boundary into an observation, which invalidates the claimed world/agent separation.
+  + actual - expected
+  
+    [
+      'deviceTimeMs',
+      'ligandUm',
+      'loadPnNm',
+  +   'methylationLevel',
+      'motorSpeedRpm',
+      'pmfMv',
+      'receivedAtMs',
+      'receptorActivity',
+      'rotation',
+  
+      at TestContext.<anonymous> (file:///C:/Users/mpolz/AppData/Local/Temp/uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85/clones/d1a04_hidden_methylation_leaks_under_different_name/tests/semantic/world-agent-observation-boundary.semantic.test.mjs:92:10)
+      at Test.runInAsyncScope (node:async_hooks:213:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.start (node:internal/test_runner/test:1003:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:358:17) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: [ 'deviceTimeMs', 'ligandUm', 'loadPnNm', 'methylationLevel', 'motorSpeedRpm', 'pmfMv', 'receivedAtMs', 'receptorActivity', 'rotation', 'source' ],
+    expected: [ 'deviceTimeMs', 'ligandUm', 'loadPnNm', 'motorSpeedRpm', 'pmfMv', 'receivedAtMs', 'receptorActivity', 'rotation', 'source' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\semantic\world-agent-observation-boundary.semantic.test.mjs:110:1
+✖ D1P04 observation is invariant to hidden world state under any field name (1.4809ms)
+  AssertionError [ERR_ASSERTION]: Two worlds that differ ONLY in hidden state produced DIFFERENT observation records. Some hidden world variable is leaking across the markov boundary, whatever the leaked field is named. Observation A {"source":"SYNTHETIC_WORLD","deviceTimeMs":0,"receivedAtMs":1000,"ligandUm":0.9777976107004311,"receptorActivity":0.33777976107004315,"motorSpeedRpm":6165.586296585668,"rotation":"CCW","loadPnNm":700,"pmfMv":150,"methylationLevel":2.2} versus observation B {"source":"SYNTHETIC_WORLD","deviceTimeMs":0,"receivedAtMs":1000,"ligandUm":0.9777976107004311,"receptorActivity":0.33777976107004315,"motorSpeedRpm":6165.586296585668,"rotation":"CCW","loadPnNm":700,"pmfMv":150,"methylationLevel":7.9}.
+  + actual - expected
+  
+    {
+      deviceTimeMs: 0,
+      ligandUm: 0.9777976107004311,
+      loadPnNm: 700,
+  +   methylationLevel: 7.9,
+  -   methylationLevel: 2.2,
+      motorSpeedRpm: 6165.586296585668,
+      pmfMv: 150,
+      receivedAtMs: 1000,
+      receptorActivity: 0.33777976107004315,
+      rotation: 'CCW',
+  
+      at TestContext.<anonymous> (file:///C:/Users/mpolz/AppData/Local/Temp/uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85/clones/d1a04_hidden_methylation_leaks_under_different_name/tests/semantic/world-agent-observation-boundary.semantic.test.mjs:119:10)
+      at Test.runInAsyncScope (node:async_hooks:213:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: { source: 'SYNTHETIC_WORLD', deviceTimeMs: 0, receivedAtMs: 1000, ligandUm: 0.9777976107004311, receptorActivity: 0.33777976107004315, motorSpeedRpm: 6165.586296585668, rotation: 'CCW', loadPnNm: 700, pmfMv: 150, methylationLevel: 7.9 },
+    expected: { source: 'SYNTHETIC_WORLD', deviceTimeMs: 0, receivedAtMs: 1000, ligandUm: 0.9777976107004311, receptorActivity: 0.33777976107004315, motorSpeedRpm: 6165.586296585668, rotation: 'CCW', loadPnNm: 700, pmfMv: 150, methylationLevel: 2.2 },
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }
+
+test at tests\semantic\world-agent-observation-boundary.semantic.test.mjs:128:1
+✖ D1P04 the agent receives an observation and never the world object (1.955ms)
+  AssertionError [ERR_ASSERTION]: The observation retained by the agent contains keys outside the declared boundary set. Observed ["deviceTimeMs","ligandUm","loadPnNm","methylationLevel","motorSpeedRpm","pmfMv","receivedAtMs","receptorActivity","rotation","source"]. The agent may retain only what crossed the markov boundary.
+  + actual - expected
+  
+    [
+      'deviceTimeMs',
+      'ligandUm',
+      'loadPnNm',
+  +   'methylationLevel',
+      'motorSpeedRpm',
+      'pmfMv',
+      'receivedAtMs',
+      'receptorActivity',
+      'rotation',
+  
+      at TestContext.<anonymous> (file:///C:/Users/mpolz/AppData/Local/Temp/uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85/clones/d1a04_hidden_methylation_leaks_under_different_name/tests/semantic/world-agent-observation-boundary.semantic.test.mjs:140:10)
+      at Test.runInAsyncScope (node:async_hooks:213:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: [ 'deviceTimeMs', 'ligandUm', 'loadPnNm', 'methylationLevel', 'motorSpeedRpm', 'pmfMv', 'receivedAtMs', 'receptorActivity', 'rotation', 'source' ],
+    expected: [ 'deviceTimeMs', 'ligandUm', 'loadPnNm', 'motorSpeedRpm', 'pmfMv', 'receivedAtMs', 'receptorActivity', 'rotation', 'source' ],
+    operator: 'deepStrictEqual',
+    diff: 'simple'
+  }

@@ -1,0 +1,56 @@
+@startuml
+title <size:24>Component View: UNI Platform - The Control Plane</size>\n<size:24>Inside the Control Plane: what gets built, and in which phase.</size>
+
+set separator none
+top to bottom direction
+
+<style>
+  root {
+    BackgroundColor: #ffffff
+    FontColor: #444444
+  }
+</style>
+
+!include <C4/C4>
+!include <C4/C4_Context>
+!include <C4/C4_Container>
+!include <C4/C4_Component>
+
+System_Boundary("UNIPlatform_boundary", "UNI Platform", $tags="") {
+  Container_Boundary("UNIPlatform.TheControlPlane_boundary", "The Control Plane", $tags="") {
+    Component(UNIPlatform.TheControlPlane.Registry, "Registry", $techn="Elixir, phase 3", $descr="Registers a gate BEFORE its run, with pass_condition, falsifies_condition and pre_registration_path. Refuses a verdict with no registered gate.", $tags="", $link="")
+    Component(UNIPlatform.TheControlPlane.Verdict, "Verdict", $techn="Elixir, phase 3", $descr="Authors PASS|PARTIAL|FAIL|WITHHELD|PENDING only. Refuses a percent score and a PARTIAL that does not name its holding sub-claim.", $tags="", $link="")
+    Component(UNIPlatform.TheControlPlane.Anchor, "Anchor", $techn="Elixir, phase 3", $descr="Holds the expected head and length OUTSIDE the chain. A hash chain cannot detect truncation from its own tail; a prefix of a valid chain is a valid chain.", $tags="", $link="")
+    Component(UNIPlatform.TheControlPlane.Store, "Store", $techn="Elixir, phase 4", $descr="Durable append-only persistence. Until it exists the Control Plane cannot record its own mutations and nothing holds an anchor across a restart.", $tags="", $link="")
+    Component(UNIPlatform.TheControlPlane.Run, "Run", $techn="Elixir, phase 4", $descr="Immutable run identity: code identity, env identity, inputs, params, seeds, start/end in unix_ns and UTC, exit code, output hashes.", $tags="", $link="")
+    Component(UNIPlatform.TheControlPlane.Pair, "Pair", $techn="Elixir, phase 4", $descr="Enforces exactly one differing variable between arms. Two differences mark the run VOID and unclaimable.", $tags="", $link="")
+    Component(UNIPlatform.TheControlPlane.Drift, "Drift", $techn="Elixir, phase 2", $descr="Like-for-like comparison only. Refuses a cross-type comparison AT CONSTRUCTION, so the Phase 1 defect cannot recur.", $tags="", $link="")
+    Component(UNIPlatform.TheControlPlane.Witness, "Witness", $techn="Elixir, phase 5", $descr="An anchor the ledger's writer cannot reach. A local anchor cannot outrank a local writer: a tamperer who owns the store directory can truncate the ledger and rewrite its anchor to match.", $tags="", $link="")
+    Component(UNIPlatform.TheControlPlane.RoomKey, "Room + Key", $techn="Elixir, phase 6", $descr="green to clean to sterile, two keys per airlock. A failed condition names the missing receipt. No override path.", $tags="", $link="")
+    Component(UNIPlatform.TheControlPlane.Scene, "Scene", $techn="Elixir, phase 7", $descr="Pure function of state. Every node carries truth_class, receipt_ref, evidence_class, captured_at. A node missing them renders as fog.", $tags="", $link="")
+    Component(UNIPlatform.TheControlPlane.Command, "Command", $techn="Elixir, phase 2", $descr="The ONLY writer. Records actor, role, utc, unix_ns, prior, transition, authorization, evidence, resulting, hash. Inherits the Door's law: a read never actuates.", $tags="", $link="")
+    Component(UNIPlatform.TheControlPlane.Ledger, "Ledger", $techn="Elixir, phase 2", $descr="Append-only, hash-chained via prev_hash. verify/1 walks the chain; tampering any past entry fails it. History is extended, never edited.", $tags="", $link="")
+    Component(UNIPlatform.TheControlPlane.GateRow, "GateRow", $techn="Elixir, phase 2", $descr="Builds and validates a row against gate_row.schema.json in hand-written Elixir with stdlib JSON. supersedes chains a revision without mutating what it supersedes.", $tags="", $link="")
+  }
+
+  Container(UNIPlatform.Gaia, "Gaia", $techn="Node.js / gaia_server.cjs :8096 + read-only MCP", $descr="World-visibility organ. 308 live signals, 0 provenance-incomplete, 5 drift signals. LAW: never summarizes, scores, ranks, narrates, authors a verdict, or acts outward.", $tags="", $link="")
+}
+
+Rel(UNIPlatform.TheControlPlane.Command, UNIPlatform.TheControlPlane.Ledger, "Appends one entry per mutation", $techn="", $tags="", $link="")
+Rel(UNIPlatform.TheControlPlane.Command, UNIPlatform.TheControlPlane.GateRow, "Builds and validates a row", $techn="", $tags="", $link="")
+Rel(UNIPlatform.TheControlPlane.Registry, UNIPlatform.TheControlPlane.Command, "Registers a gate before its run", $techn="", $tags="", $link="")
+Rel(UNIPlatform.TheControlPlane.Verdict, UNIPlatform.TheControlPlane.Command, "Authors a verdict", $techn="", $tags="", $link="")
+Rel(UNIPlatform.TheControlPlane.Run, UNIPlatform.TheControlPlane.Pair, "Checks exactly one variable differs", $techn="", $tags="", $link="")
+Rel(UNIPlatform.TheControlPlane.Run, UNIPlatform.TheControlPlane.Command, "Records run identity", $techn="", $tags="", $link="")
+Rel(UNIPlatform.TheControlPlane.RoomKey, UNIPlatform.TheControlPlane.Command, "Records an airlock transition", $techn="", $tags="", $link="")
+Rel(UNIPlatform.TheControlPlane.Scene, UNIPlatform.TheControlPlane.Ledger, "Reads state to build the scene", $techn="", $tags="", $link="")
+Rel(UNIPlatform.TheControlPlane.Drift, UNIPlatform.TheControlPlane.Ledger, "Compares like with like", $techn="", $tags="", $link="")
+Rel(UNIPlatform.TheControlPlane.Anchor, UNIPlatform.TheControlPlane.Ledger, "Attests the head the chain cannot hold", $techn="", $tags="", $link="")
+Rel(UNIPlatform.TheControlPlane.Store, UNIPlatform.TheControlPlane.Ledger, "Persists and reloads, append-only", $techn="", $tags="", $link="")
+Rel(UNIPlatform.TheControlPlane.Run, UNIPlatform.TheControlPlane.Pair, "Offers an arm for pairing", $techn="", $tags="", $link="")
+Rel(UNIPlatform.TheControlPlane.Witness, UNIPlatform.TheControlPlane.Store, "Holds the anchor out of the writer's reach", $techn="", $tags="", $link="")
+Rel(UNIPlatform.Gaia, UNIPlatform.TheControlPlane.Store, "Projects the Control Plane ledger VERBATIM (seat control-plane)", $techn="", $tags="", $link="")
+
+SHOW_LEGEND(true)
+hide stereotypes
+@enduml

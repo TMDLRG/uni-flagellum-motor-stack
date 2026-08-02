@@ -1,0 +1,54 @@
+{
+  "name": "uni-flagellum-laboratory",
+  "version": "0.3.0",
+  "private": true,
+  "engines": {
+    "node": ">=22.13.0"
+  },
+  "scripts": {
+    "dev": "vinext dev",
+    "build": "vinext build",
+    "start": "vinext start",
+    "test": "node --test tests/model.test.mjs tests/observed-experiment.test.mjs tests/science-gates.test.mjs tests/cross-study-parity.test.mjs tests/walkthrough.test.mjs tests/semantic/train-holdout-leakage.semantic.test.mjs tests/semantic/censoring-exclusion.semantic.test.mjs tests/semantic/orientation-direction-and-score-sign.test.mjs tests/semantic/prospectivity-provenance.test.mjs tests/semantic/density-scale-and-dispersion.semantic.test.mjs tests/semantic/survival-posterior-conditioning.semantic.test.mjs tests/semantic/world-agent-observation-boundary.semantic.test.mjs tests/semantic/first-passage-invariants.semantic.test.mjs tests/semantic/periodic-lattice-topology.semantic.test.mjs tests/semantic/adverse-record-preservation.semantic.test.mjs tests/semantic/d1-correction-integrity.semantic.test.mjs && npm run build && node --test tests/rendered-html.test.mjs",
+    "experiment:ingest": "python scripts/ingest-wadhwa-data.py",
+    "experiment:run": "node scripts/run-observed-experiments.mjs",
+    "experiment:verify": "python scripts/independent-statistical-check.py",
+    "science:run": "python scripts/run-science-gates.py",
+    "science:verify": "node scripts/independent-science-check.mjs",
+    "cross-study:ingest": "python scripts/ingest-cross-study-evidence.py",
+    "cross-study:verify-raw": "python scripts/verify-ito-raw-archive.py",
+    "cross-study:run": "python scripts/run-cross-study-parity.py",
+    "cross-study:verify": "node scripts/independent-cross-study-check.mjs",
+    "lint": "eslint . --ignore-pattern dist --ignore-pattern .next",
+    "db:generate": "drizzle-kit generate"
+  },
+  "dependencies": {
+    "drizzle-orm": "0.45.2",
+    "next": "16.2.6",
+    "react": "19.2.6",
+    "react-dom": "19.2.6"
+  },
+  "devDependencies": {
+    "@cloudflare/vite-plugin": "1.37.1",
+    "@cloudflare/workers-types": "4.20260702.1",
+    "@tailwindcss/postcss": "4.2.1",
+    "@types/node": "22.19.19",
+    "@types/react": "19.2.14",
+    "@types/react-dom": "19.2.3",
+    "@vitejs/plugin-react": "6.0.2",
+    "@vitejs/plugin-rsc": "0.5.26",
+    "drizzle-kit": "0.31.10",
+    "eslint": "9.39.4",
+    "eslint-config-next": "16.2.6",
+    "react-server-dom-webpack": "19.2.6",
+    "tailwindcss": "4.2.1",
+    "typescript": "5.9.3",
+    "vinext": "0.0.50",
+    "vite": "8.0.13",
+    "wrangler": "4.92.0"
+  },
+  "overrides": {
+    "postcss": "8.5.10"
+  },
+  "type": "module"
+}

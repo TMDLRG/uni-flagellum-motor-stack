@@ -1,0 +1,542 @@
+{
+  "schema": "uni.flagellum.science-gates/1.0.0",
+  "generatedAt": "2026-07-17T23:00:00Z",
+  "executionClass": "CPU_ONLY_DETERMINISTIC_SCIENCE_GATE_AUDIT",
+  "summary": {
+    "overall": "PARTIAL_PARITY_ONLY",
+    "gateCount": 14,
+    "statusCounts": {
+      "PASS": 4,
+      "FAIL": 3,
+      "SOURCE_ONLY": 1,
+      "BLOCKED_EXTERNAL": 5,
+      "NOT_ESTABLISHED": 1
+    },
+    "computationalGatesPassed": 4,
+    "computationalGatesEvaluated": 7,
+    "fullBiologicalParityAchieved": false,
+    "proofClaim": "No universal, causal, or biological Active-Inference identity was proved."
+  },
+  "modelBoundary": {
+    "mechanisticObject": "Wadhwa D-L-T first-passage survival reduction with H handled only as a source-reported separated timescale",
+    "observation": "Historical step-fitted stator-count intervals from single E. coli motors",
+    "prediction": "Competing-risk density or censoring survival for a held-out motor interval",
+    "worldNotInModel": [
+      "molecular conformation",
+      "local torque per stator",
+      "membrane diffusion",
+      "instrument noise",
+      "cell physiology"
+    ]
+  },
+  "identities": {
+    "dataSha256": "32ec7ebf45bf7776ebef239351d2304cc3cead6d1be7749a2478e44a323f25db",
+    "observedReportSha256": "7ad8a21f855618044b920d6229c37e71f518b7f6d1fc4ab9142cc6ce57fd3bc8",
+    "sourceReferenceSha256": "8d430f74dbffb32488faed632c3c1a672c16e0e43d1a913a79c67bb2fd819af6",
+    "pythonGateRunnerSha256": "9f2a2d7ab6f57afc4237414aa313e809120b9d60ee28c7d1039c7079028da079",
+    "javascriptEquationOracleSha256": "c66cf5ff048f5eb1e85c7b3148a002002636df14c5e96dda7eb840366a2ff6d8"
+  },
+  "fittedMechanism": {
+    "kPlusByN": {
+      "1": 0.14632054606652234,
+      "2": 0.21639037395404462,
+      "3": 0.1195874820247357,
+      "4": 0.1343188903709056,
+      "5": 0.07628485393174829,
+      "6": 0.03367200029681064,
+      "7": 0.02193400464909244,
+      "8": 0.012651023175631809
+    },
+    "sigmaMinusPerSecond": 0.0005383372989899636,
+    "sigmaPlusPerSecond": 0.11738123918944812,
+    "c1": 0.4623986757602773,
+    "c2": 0.0004212688658406774,
+    "c3": 1.0722928877624737e-06
+  },
+  "gates": [
+    {
+      "id": "G00_SOURCE_IDENTITY",
+      "name": "Pinned observed-source identity",
+      "status": "PASS",
+      "criterion": "Raw data, public repository commit, derived events, article source-data workbook, and analysis implementations have immutable identities.",
+      "evidence": {
+        "rawDataSha256": "c14de12cc11df8af2ab87f1ec94629eebc249c0e1475c24f850f5a28ddd1ea22",
+        "repositoryCommit": "c83119131c3ce3742460a2e3b6bd6c6e44bef4d5",
+        "sourceDataWorkbookSha256": "097bdbb7c15ae28949eab0391ea3832e62c36703c89b97af7bbef397ac41bee8",
+        "codeBundleSha256": "a20d25b84344efdaf13d8e00fc080c9094fc3bef6a90e17554a7da922c7b8729"
+      },
+      "limitation": "Identity establishes provenance, not correctness or biological truth."
+    },
+    {
+      "id": "G01_OBSERVATION_BOUNDARY",
+      "name": "World/model and train/holdout separation",
+      "status": "PASS",
+      "criterion": "No motor crosses partitions; the historical world process, observations, latent variables, fit data, and held-out outcomes remain separately named.",
+      "evidence": {
+        "noMotorLeakage": true,
+        "trainMotors": 80,
+        "holdoutMotors": 19,
+        "worldProcess": "Previously recorded individual E. coli flagellar-motor stator-remodeling traces"
+      },
+      "limitation": "The source experiment is historical and observational; this is not a prospective laboratory intervention."
+    },
+    {
+      "id": "G02_FIRST_PASSAGE_MATH",
+      "name": "D-L-T first-passage equation integrity",
+      "status": "PASS",
+      "criterion": "For every eligible N, mixture coefficients are nonnegative and normalized, S(0)=1, rates are positive, and integrated plus/minus competing-risk densities sum to one.",
+      "evidence": [
+        {
+          "stateN": 1,
+          "coefficientSum": 1.0,
+          "survivalAtZero": 1.0,
+          "integratedPlusDensity": 0.7922023944178146,
+          "integratedMinusDensity": 0.20779760558218535,
+          "integratedTotalDensity": 1.0,
+          "minimumCoefficient": 0.4623986757602773,
+          "minimumRate": 0.1468588833655123
+        },
+        {
+          "stateN": 2,
+          "coefficientSum": 0.9999999999999999,
+          "survivalAtZero": 0.9999999999999999,
+          "integratedPlusDensity": 0.8341272208711127,
+          "integratedMinusDensity": 0.1658727791288873,
+          "integratedTotalDensity": 1.0,
+          "minimumCoefficient": 0.00019479416570376316,
+          "minimumRate": 0.21746704855202453
+        },
+        {
+          "stateN": 3,
+          "coefficientSum": 0.9999999999999999,
+          "survivalAtZero": 0.9999999999999999,
+          "integratedPlusDensity": 0.7625919948107373,
+          "integratedMinusDensity": 0.23740800518926272,
+          "integratedTotalDensity": 1.0,
+          "minimumCoefficient": 2.0887639846177002e-10,
+          "minimumRate": 0.12120249392170558
+        },
+        {
+          "stateN": 4,
+          "coefficientSum": 0.9999999999999999,
+          "survivalAtZero": 0.9999999999999999,
+          "integratedPlusDensity": 0.7741671591475154,
+          "integratedMinusDensity": 0.2258328408524844,
+          "integratedTotalDensity": 0.9999999999999998,
+          "minimumCoefficient": 2.0887639846177002e-10,
+          "minimumRate": 0.13647223956686547
+        },
+        {
+          "stateN": 5,
+          "coefficientSum": 0.9999999999999999,
+          "survivalAtZero": 0.9999999999999999,
+          "integratedPlusDensity": 0.699254858931728,
+          "integratedMinusDensity": 0.300745141068272,
+          "integratedTotalDensity": 1.0,
+          "minimumCoefficient": 2.0887639846177002e-10,
+          "minimumRate": 0.0789765404266981
+        },
+        {
+          "stateN": 6,
+          "coefficientSum": 0.9999999999999999,
+          "survivalAtZero": 0.9999999999999999,
+          "integratedPlusDensity": 0.5916402207969769,
+          "integratedMinusDensity": 0.40835977920302297,
+          "integratedTotalDensity": 0.9999999999999998,
+          "minimumCoefficient": 2.0887639846177002e-10,
+          "minimumRate": 0.03690202409075042
+        },
+        {
+          "stateN": 7,
+          "coefficientSum": 0.9999999999999999,
+          "survivalAtZero": 0.9999999999999999,
+          "integratedPlusDensity": 0.5297594773255971,
+          "integratedMinusDensity": 0.47024052267440286,
+          "integratedTotalDensity": 1.0,
+          "minimumCoefficient": 2.0887639846177002e-10,
+          "minimumRate": 0.025702365742022185
+        },
+        {
+          "stateN": 8,
+          "coefficientSum": 0.9999999999999999,
+          "survivalAtZero": 0.9999999999999999,
+          "integratedPlusDensity": 0.44463230226536987,
+          "integratedMinusDensity": 0.55536769773463,
+          "integratedTotalDensity": 0.9999999999999999,
+          "minimumCoefficient": 2.0887639846177002e-10,
+          "minimumRate": 0.016957721567551518
+        }
+      ],
+      "limitation": "This is the source paper's H-separated D-L-T reduction, not a spatial molecular simulation and not the complete D-L-T-H process in one likelihood."
+    },
+    {
+      "id": "G03_PUBLIC_ARTIFACT_PARITY",
+      "name": "Article, source workbook, and bundled-code parity",
+      "status": "FAIL",
+      "criterion": "The bundled fitting vector must reproduce the source-data workbook's Figure 3 theory arrays and lie within the article's stated 50%-loss parameter ranges.",
+      "evidence": {
+        "parameterIntervalChecks": {
+          "c1": false,
+          "c2": false,
+          "c3": true,
+          "sigmaPlus": true,
+          "sigmaMinus": true
+        },
+        "momentMismatch": {
+          "maxRelativeMeanError": 3.7673463879979154,
+          "maxAbsoluteFractionPlusError": 0.4425832724787296,
+          "maxAbsoluteNormalizedVarianceError": 3.8622701732312037,
+          "bundledCodeMoments": [
+            {
+              "meanDwellSeconds": 6.352275565230155,
+              "fractionPlus": 1.0,
+              "normalizedVariance": 1.1929960070605694
+            },
+            {
+              "meanDwellSeconds": 5.179905628999695,
+              "fractionPlus": 0.7570510423325395,
+              "normalizedVariance": 1.1296855417492004
+            },
+            {
+              "meanDwellSeconds": 4.8332842447125,
+              "fractionPlus": 0.6675010762735489,
+              "normalizedVariance": 1.1995882221342327
+            },
+            {
+              "meanDwellSeconds": 3.186945400767535,
+              "fractionPlus": 0.7213943095004445,
+              "normalizedVariance": 1.1074127802754887
+            },
+            {
+              "meanDwellSeconds": 34.344630048973436,
+              "fractionPlus": 0.27259951606419547,
+              "normalizedVariance": 5.11298645447455
+            },
+            {
+              "meanDwellSeconds": 3.4936967905906817,
+              "fractionPlus": 0.6999419699194354,
+              "normalizedVariance": 1.1297722298487307
+            },
+            {
+              "meanDwellSeconds": 47.14137868057387,
+              "fractionPlus": 0.25820200173538654,
+              "normalizedVariance": 5.76347086692523
+            },
+            {
+              "meanDwellSeconds": 55.13986360230039,
+              "fractionPlus": 0.25282607429661225,
+              "normalizedVariance": 6.0391654800904035
+            },
+            {
+              "meanDwellSeconds": 52.56824448589024,
+              "fractionPlus": 0.25436207356020224,
+              "normalizedVariance": 5.958353706594591
+            }
+          ]
+        },
+        "n0Contradiction": "The source-data workbook's theory value V(N=0)=1.5920577617 conflicts with the paper equation for N=0, which is a single exponential and therefore has V=1. The public Python code applies its c1 mixture branch at N=0 for mean and variance, while special-casing f_plus(0)=1."
+      },
+      "limitation": "A failure is a source-artifact reproducibility finding. It does not by itself invalidate the paper's experimental observations."
+    },
+    {
+      "id": "G04_CENSORED_JOINT_LIKELIHOOD",
+      "name": "Censored competing-risk likelihood",
+      "status": "PASS",
+      "criterion": "Training and held-out right-censored intervals contribute log S(t); observed on/off exits contribute log P_plus(t) or log P_minus(t); every score is finite.",
+      "evidence": {
+        "trainIntervals": 836,
+        "trainRightCensored": 43,
+        "holdoutIntervals": 244,
+        "holdoutRightCensored": 11,
+        "fit": {
+          "optimizer": "SciPy L-BFGS-B deterministic 2-start maximum likelihood",
+          "success": true,
+          "message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+          "negativeLogLikelihood": 3274.1942470929175,
+          "iterations": 33,
+          "starts": [
+            {
+              "success": true,
+              "negativeLogLikelihood": 3274.194831563582,
+              "iterations": 22
+            },
+            {
+              "success": true,
+              "negativeLogLikelihood": 3274.1942470929175,
+              "iterations": 33
+            }
+          ]
+        },
+        "parameters": {
+          "kPlusByN": {
+            "1": 0.14632054606652234,
+            "2": 0.21639037395404462,
+            "3": 0.1195874820247357,
+            "4": 0.1343188903709056,
+            "5": 0.07628485393174829,
+            "6": 0.03367200029681064,
+            "7": 0.02193400464909244,
+            "8": 0.012651023175631809
+          },
+          "sigmaMinusPerSecond": 0.0005383372989899636,
+          "sigmaPlusPerSecond": 0.11738123918944812,
+          "c1": 0.4623986757602773,
+          "c2": 0.0004212688658406774,
+          "c3": 1.0722928877624737e-06
+        }
+      },
+      "limitation": "Censoring is handled conditionally on the extracted step trace; uncertainty from step detection is not yet propagated."
+    },
+    {
+      "id": "G05_SYNTHETIC_RECOVERY",
+      "name": "Mechanistic parameter recovery",
+      "status": "FAIL",
+      "criterion": "All three deterministic synthetic replicates recover each c within 0.12, each sigma within |log ratio| 0.50, and median k+ within |log ratio| 0.25.",
+      "evidence": {
+        "status": "FAIL",
+        "criterion": "All three deterministic synthetic replicates recover each c within 0.12, each sigma within |log ratio| 0.50, and median k+ within |log ratio| 0.25.",
+        "passedReplicates": 2,
+        "totalReplicates": 3,
+        "countsByState": {
+          "1": 160,
+          "2": 160,
+          "3": 160,
+          "4": 164,
+          "5": 200,
+          "6": 254,
+          "7": 326,
+          "8": 314
+        },
+        "replicates": [
+          {
+            "seed": 20260817,
+            "events": 1738,
+            "passed": true,
+            "sharedAbsoluteError": {
+              "c1": 0.10785175034537992,
+              "c2": 0.08316359896705472,
+              "c3": 0.08350764544633467
+            },
+            "sharedLogRatioError": {
+              "sigmaPlusPerSecond": 0.012603452367540869,
+              "sigmaMinusPerSecond": 0.12148515770169248
+            },
+            "medianKPlusLogRatioError": 0.042083904139777625,
+            "optimizer": {
+              "optimizer": "SciPy L-BFGS-B deterministic 1-start maximum likelihood",
+              "success": true,
+              "message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+              "negativeLogLikelihood": 6932.063614697999,
+              "iterations": 39,
+              "starts": [
+                {
+                  "success": true,
+                  "negativeLogLikelihood": 6932.063614697999,
+                  "iterations": 39
+                }
+              ]
+            }
+          },
+          {
+            "seed": 20260818,
+            "events": 1738,
+            "passed": true,
+            "sharedAbsoluteError": {
+              "c1": 0.07953519221043354,
+              "c2": 0.05268777592438839,
+              "c3": 0.0530595874386517
+            },
+            "sharedLogRatioError": {
+              "sigmaPlusPerSecond": 0.04320495010007531,
+              "sigmaMinusPerSecond": 0.13482970764144217
+            },
+            "medianKPlusLogRatioError": 0.02523121939611682,
+            "optimizer": {
+              "optimizer": "SciPy L-BFGS-B deterministic 1-start maximum likelihood",
+              "success": true,
+              "message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+              "negativeLogLikelihood": 6954.674099890746,
+              "iterations": 37,
+              "starts": [
+                {
+                  "success": true,
+                  "negativeLogLikelihood": 6954.674099890746,
+                  "iterations": 37
+                }
+              ]
+            }
+          },
+          {
+            "seed": 20260819,
+            "events": 1738,
+            "passed": false,
+            "sharedAbsoluteError": {
+              "c1": 0.06205321298281363,
+              "c2": 0.1383933783583783,
+              "c3": 0.00012539495726616645
+            },
+            "sharedLogRatioError": {
+              "sigmaPlusPerSecond": 0.09557854607840724,
+              "sigmaMinusPerSecond": 0.05128319911525552
+            },
+            "medianKPlusLogRatioError": 0.021345092484720378,
+            "optimizer": {
+              "optimizer": "SciPy L-BFGS-B deterministic 1-start maximum likelihood",
+              "success": true,
+              "message": "CONVERGENCE: RELATIVE REDUCTION OF F <= FACTR*EPSMCH",
+              "negativeLogLikelihood": 6978.921750762502,
+              "iterations": 35,
+              "starts": [
+                {
+                  "success": true,
+                  "negativeLogLikelihood": 6978.921750762502,
+                  "iterations": 35
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "limitation": "Passing recovery is necessary but not sufficient for biological identifiability; it tests the implementation under data generated by its own model."
+    },
+    {
+      "id": "G06_HELDOUT_MECHANISTIC_PREDICTION",
+      "name": "Held-out mechanistic prediction",
+      "status": "FAIL",
+      "criterion": "The motor-cluster 95% bootstrap interval for D-L-T censored joint log score minus a state-specific memoryless competing-risk baseline lies entirely above zero.",
+      "evidence": {
+        "mechanisticMeanLogScorePerInterval": -3.838083424564402,
+        "memorylessMeanLogScorePerInterval": -3.8963417959275564,
+        "advantageNatsPerInterval": 0.05825837136315377,
+        "advantageInterval95": {
+          "lower": -0.015801079856724822,
+          "upper": 0.13264344169039152
+        },
+        "bootstrapReplicates": 2000,
+        "bootstrapSeed": 20260717
+      },
+      "limitation": "The source dataset was known before this protocol; the split is leakage-controlled but not a blind prospective replication."
+    },
+    {
+      "id": "G07_H_STATE_REEXTRACTION",
+      "name": "Transient H-state event reproduction",
+      "status": "SOURCE_ONLY",
+      "criterion": "Re-extract the 43 short hidden-state wells and the reported k_h and k_-h from an independently specified event detector.",
+      "evidence": {
+        "occurrences": 43,
+        "weightedExposureSeconds": 136620,
+        "meanLifetimeSeconds": 4.1,
+        "kHPerSecond": 0.0003,
+        "kMinusHPerSecond": 0.24,
+        "status": "REPORTED_SUMMARY_NOT_REEXTRACTED"
+      },
+      "limitation": "The current event artifact was designed for count-state dwell intervals and does not encode the source authors' H-state classification decisions."
+    },
+    {
+      "id": "G08_LOAD_TORQUE_TRANSFER",
+      "name": "Load- and torque-dependent transfer",
+      "status": "BLOCKED_EXTERNAL",
+      "criterion": "Predict stator kinetics across independently measured loads and torque regimes without refitting shared mechanistic parameters.",
+      "evidence": {
+        "currentIntervention": "Low-load electrorotation removed, followed by one high-load adaptation regime",
+        "needed": "Raw multi-load single-motor occupancy, torque, and timing observations with motor identities",
+        "primaryAnchors": [
+          "https://doi.org/10.1038/s41467-021-25774-2",
+          "https://doi.org/10.1038/s41467-019-13030-1"
+        ]
+      },
+      "limitation": "One post-electrorotation regime cannot identify a load-response surface."
+    },
+    {
+      "id": "G09_SWITCH_COOPERATIVITY",
+      "name": "Switching cooperativity and global mechanical coupling",
+      "status": "BLOCKED_EXTERNAL",
+      "criterion": "Test occupancy-fluctuation and switching predictions against raw multi-load switching records, including motor-level heterogeneity and competing equilibrium/non-equilibrium mechanisms.",
+      "evidence": {
+        "currentDataContainsSwitchingTrajectories": false,
+        "currentPrimaryModels": [
+          "https://doi.org/10.1038/s41598-025-14570-3",
+          "https://doi.org/10.1038/s41567-025-03105-2"
+        ]
+      },
+      "limitation": "The present stator-remodeling dwell data cannot adjudicate switching cooperativity models."
+    },
+    {
+      "id": "G10_ACTIVE_INFERENCE_CAUSAL_IDENTITY",
+      "name": "Biological Active-Inference identity",
+      "status": "NOT_ESTABLISHED",
+      "criterion": "Measure intervention-dependent biological states and actions that uniquely distinguish the declared Active-Inference model from mechanochemical, feedback-control, and descriptive stochastic alternatives.",
+      "evidence": {
+        "observedHere": [
+          "stator-count dwell intervals",
+          "transition direction",
+          "historical intervention timing"
+        ],
+        "notObservedHere": [
+          "biological posterior",
+          "policy posterior",
+          "counterfactual preference",
+          "UNI-selected intervention"
+        ]
+      },
+      "limitation": "Exact Bayesian inference inside a declared software model is not evidence that a bacterium implements that representation."
+    },
+    {
+      "id": "G11_LIVE_INSTRUMENT",
+      "name": "Synchronous live measurement parity",
+      "status": "BLOCKED_EXTERNAL",
+      "criterion": "Ingest calibrated motor measurements with acquisition timestamps, uncertainty, precommitted predictions, and intervention records while the experiment is running.",
+      "evidence": {
+        "serialAdapterImplemented": true,
+        "liveInstrumentRunInThisRelease": false
+      },
+      "limitation": "A software serial aperture is not a measurement until connected to a calibrated instrument."
+    },
+    {
+      "id": "G12_INDEPENDENT_REPLICATION",
+      "name": "Independent biological replication",
+      "status": "BLOCKED_EXTERNAL",
+      "criterion": "A separate laboratory reproduces the protocol, raw-data audit, fitted parameters, and held-out predictions with a predeclared acceptance rule.",
+      "evidence": {
+        "independentLaboratories": 0
+      },
+      "limitation": "Repository replay and an independent numerical implementation are not independent biological replication."
+    },
+    {
+      "id": "G13_PHYSICAL_MODEL_VALIDATION",
+      "name": "Printed UNI mechanism validation",
+      "status": "BLOCKED_EXTERNAL",
+      "criterion": "Print, tolerance-test, instrument, and classroom-safety-review the UNI teaching mechanism; compare measured gear angles and backlash with the screen calculation.",
+      "evidence": {
+        "parametricCadExportImplemented": true,
+        "physicalPrintRuns": 0,
+        "measuredBacklashRuns": 0
+      },
+      "limitation": "CAD export is a conversion starting point, not evidence of printability or safety."
+    }
+  ],
+  "executionOrder": [
+    "G00_SOURCE_IDENTITY",
+    "G01_OBSERVATION_BOUNDARY",
+    "G02_FIRST_PASSAGE_MATH",
+    "G03_PUBLIC_ARTIFACT_PARITY",
+    "G04_CENSORED_JOINT_LIKELIHOOD",
+    "G05_SYNTHETIC_RECOVERY",
+    "G06_HELDOUT_MECHANISTIC_PREDICTION",
+    "G07_H_STATE_REEXTRACTION",
+    "G08_LOAD_TORQUE_TRANSFER",
+    "G09_SWITCH_COOPERATIVITY",
+    "G10_ACTIVE_INFERENCE_CAUSAL_IDENTITY",
+    "G11_LIVE_INSTRUMENT",
+    "G12_INDEPENDENT_REPLICATION",
+    "G13_PHYSICAL_MODEL_VALIDATION"
+  ],
+  "nextExecutableWork": [
+    "Resolve G03 by obtaining a tagged final parameter artifact or author clarification; never overwrite the shipped mismatch.",
+    "Specify and independently implement the H-well classifier required by G07.",
+    "Acquire or license motor-identified raw multi-load timing data for G08 and G09.",
+    "Run a prospective calibrated instrument protocol for G11 before making live-measurement claims.",
+    "Arrange independent wet-lab and physical-print replication for G12 and G13."
+  ],
+  "runId": "1361fae770fa513dbdcf99e46ef72e742bff8c56f1f44e64af87bb83954f9a23"
+}

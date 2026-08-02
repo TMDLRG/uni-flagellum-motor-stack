@@ -1,0 +1,27 @@
+started_utc=2026-07-22T04:13:27Z
+HEAD=28ce7380a9b6001b373756f3a47eabaa0f73fd6e
+branch=hierarchical-aif/motor-stack
+cell=B4C01_SYNTHETIC_PARAMETER_RECOVERY
+harness=hierarchical-aif/scripts/run_c01_corrected_full.py (sha256 e4474fb7087443b41aeffa164db29689d2d94f258d8e46d4e655d48dd78bbe74)
+frozen_runner_consumed=audits/phase-b/b4-identifiability-robustness-runner.py (FROZEN, UNMODIFIED, READ-ONLY, sha256 3e21edac97a2b68faec087e73de307439348e89e778b6e97d84809bbf1e135a7)
+predictionRecord=hierarchical-aif/protocols/B4C01-CORRECTED-FULL-PREDICTION.md (sha256 5e08cfd396bf7e8567ab4c4556e6b78dd84ab963e9c7919e1c9f4e1afbfeda8d)
+predictionRecordIntroducedBy=28ce7380a9b6001b373756f3a47eabaa0f73fd6e 2026-07-21T23:05:29-05:00
+prospectivity=prediction record was COMMITTED while B4C01 had never run at any N (frozen artifact: status=NOT_RUN, actual_N=0)
+correctionApplied=D3_HASH_SEED_NONDETERMINISM (stable_seed replaces hash(gen) % 100000)
+correctionNotApplied=D1 - C01 does not use the motor-cluster bootstrap
+onlyChangeFromCommittedCell=seed derivation; '+ sim' term, seed_base, generators, tolerances, self-win threshold, model set and verdict rule unchanged
+n_sim_per_generator=200
+generators=M0_EXPONENTIAL,M1_WEIBULL,M2_LOGNORMAL,M3_TWO_TIMESCALE,M5_GAMMA
+seed_base=20260801
+skippedModels=M4_MIXTURE_K3,M7_HIERARCHICAL_MOTOR,M8_EMPIRICAL_KDE (skipped BY CONSTRUCTION in the frozen cell)
+python=3.12.10
+numpy=2.3.5
+scipy=1.16.3
+platform=Windows-11-10.0.26200-SP0
+cpu_count=16
+PYTHONHASHSEED=<unset>
+note=stable_seed makes this run independent of PYTHONHASHSEED (D3 fix)
+note=PROGRESS.json is a crash-recovery checkpoint and is NOT a result
+ended_utc=2026-07-22T21:03:09Z
+exit_code=0
+result_sha256=8256cb120376f46bf00b537d2ad665f9d50335e3eed3727a1299129195dfb65b

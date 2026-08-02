@@ -1,0 +1,13 @@
+{
+ "DISCLAIMER": "This file is a crash-recovery checkpoint of an IN-FLIGHT run. It is NOT a result, NOT evidence, and licenses NO verdict. Do not read, quote, or predicate anything on these numbers. The result is B4C11_CORRECTED_FULL_RESULT.json, written only on completion.",
+ "LABEL": "PARTIAL_PROGRESS_CHECKPOINT_NOT_A_RESULT",
+ "cell": "B4C11_M7_STRUCTURAL_IDENTIFIABILITY",
+ "collapsed": 11,
+ "completed": 2000,
+ "elapsedS": 76026.13283324242,
+ "failed": 0,
+ "frozen_N_boot": 2000,
+ "plannedN": 2000,
+ "replicatesAttempted": 2000,
+ "writtenUtc": "2026-07-22T22:47:14Z"
+}

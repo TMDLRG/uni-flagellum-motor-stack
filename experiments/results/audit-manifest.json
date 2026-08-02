@@ -1,0 +1,34 @@
+{
+  "schema": "uni.flagellum.experiment-audit/1.0.0",
+  "protocolId": "UNI-FLAGELLUM-OBS-001",
+  "runId": "faa689defbf804948312388b3d26fe5f10b6d938780ca2e31f1fb48514486f6a",
+  "source": {
+    "repository": "https://github.com/navishwadhwa/multi-state-remodeling",
+    "commit": "c83119131c3ce3742460a2e3b6bd6c6e44bef4d5",
+    "rawPath": "data/remodeling_data.mat",
+    "rawSha256": "c14de12cc11df8af2ab87f1ec94629eebc249c0e1475c24f850f5a28ddd1ea22"
+  },
+  "artifacts": {
+    "protocol": {
+      "path": "experiments/preregistration.v1.json",
+      "sha256": "023528fdc2a0f62704884d6472003a0abc10431e2ade4e48a58ebb71131cc34c"
+    },
+    "derivedEvents": {
+      "path": "experiments/data/wadhwa-2022-events.json",
+      "sha256": "32ec7ebf45bf7776ebef239351d2304cc3cead6d1be7749a2478e44a323f25db"
+    },
+    "analysisCode": {
+      "path": "lib/observed-experiment.js",
+      "sha256": "b757971e1f207899ddac0b262241822552a06abc5272407b14b21fd98ddbe623"
+    },
+    "runner": {
+      "path": "scripts/run-observed-experiments.mjs",
+      "sha256": "0a67c17efc96cea96d9975445cb432c585a4cad4280310541e0669eff4e846da"
+    },
+    "report": {
+      "path": "experiments/results/observed-experiment-report.json",
+      "sha256": "7ad8a21f855618044b920d6229c37e71f518b7f6d1fc4ab9142cc6ce57fd3bc8"
+    }
+  },
+  "deterministicReplay": "Run the analysis twice from identical protocol, event artifact, and code identities; the report SHA-256 must be identical."
+}

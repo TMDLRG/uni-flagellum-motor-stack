@@ -1,0 +1,74 @@
+{
+  "schema": "uni.flagellum.audit-artifact/1.0.0",
+  "purpose": "Evidence that artifact identity (runId / report SHA-256) depends on the JavaScript engine version, from identical protocol, data and code identities.",
+  "auditedCommit": "9c3a644e4b57e8ac27f925dcec84222463063aa1",
+  "auditPhase": "A",
+  "auditorModel": "claude-opus-4-8 (Phase A execution), claude-fable-5 (packaging)",
+  "operatingSystem": "Microsoft Windows 11 Pro 10.0.26200 build 26200 (x64)",
+  "cpu": "Intel Core i7-10700T @ 2.00GHz, 8 cores / 16 threads",
+  "ramGB": 63.71,
+  "appendOnly": true,
+  "note": "Timestamps are deliberately omitted: this package must be byte-reproducible. Ordering is established by git history.",
+  "finding": "CRITICAL",
+  "affectedClaim": "experiments/results/audit-manifest.json:53 — 'Run the analysis twice from identical protocol, event artifact, and code identities; the report SHA-256 must be identical.'",
+  "method": {
+    "harness": "Read-only harness mirroring scripts/run-observed-experiments.mjs:20-29 with no file writes.",
+    "heldConstant": [
+      "protocolSha256",
+      "derivedEventsSha256",
+      "analysisCodeSha256",
+      "runnerSha256",
+      "rawSourceSha256",
+      "rawSourceCommit"
+    ],
+    "varied": [
+      "node/V8 runtime only"
+    ]
+  },
+  "committedRunId": "1c4b71f42193bb74edd5634da6ff1ea38dd3ab4767f9aadfb783d4a5b0def666",
+  "results": [
+    {
+      "node": "v22.13.1",
+      "v8": "12.4.254.21-node.22",
+      "runId": "308d09d83fe556ef9d4ea03948ae34acbebcb5f8493a73cec773bb41d6dd1884",
+      "reportSha256": "d1753d25f71c19a96e80001a782758a36448359bac52d5c9842430efb237dfb8",
+      "matchesCommitted": false
+    },
+    {
+      "node": "v25.0.0",
+      "v8": "14.1.146.11-node.10",
+      "runId": "1c4b71f42193bb74edd5634da6ff1ea38dd3ab4767f9aadfb783d4a5b0def666",
+      "reportSha256": "a485fa5acf6296c79fd5494cc410fd9bf6e3b73c0b99c8413dd4acd769f51205",
+      "matchesCommitted": true
+    }
+  ],
+  "intraVersionDeterminism": {
+    "runsPerVersion": 3,
+    "identicalWithinVersion": true,
+    "conclusion": "Reproducible cross-version dependency, not flakiness."
+  },
+  "divergentFields": [
+    {
+      "path": "uncertainty.mixtureVsWeibull.lower",
+      "node22": -0.017969164982541544,
+      "node25": -0.01796916498254155
+    },
+    {
+      "path": "uncertainty.mixtureVsWeibull.upper",
+      "node22": 0.08496201877523105,
+      "node25": 0.084962018775231
+    },
+    {
+      "path": "calibration[].weibull",
+      "note": "a small number of entries differ in the 17th significant digit"
+    }
+  ],
+  "magnitude": "1-2 ULP (17th significant digit).",
+  "scientificImpact": "NONE observed. The lognormal baseline still out-scores the mixture; the mixtureVsWeibull interval still straddles zero. This is a reproducibility and evidence-chain-identity defect, not a scientific-invalidity finding.",
+  "prediction": "V8 transcendental drift (Math.exp/log/pow/sin or the Lanczos logGamma) explains the divergence.",
+  "observed": "REFUTED. A direct probe across V8 12.4 and 14.1 produced BIT-IDENTICAL results for Math.exp, Math.log, Math.pow, Math.sin and the full Lanczos logGamma across eight shape values.",
+  "openQuestion": "The divergence originates somewhere in the bootstrap accumulation path and has NOT been localized. This is deferred to red test C1.",
+  "alternativeExplanation": "Candidate mechanisms not yet excluded: JIT tier-up changing floating-point association or fusion in hot loops; differing inlining of Math.pow; differing array/sort behaviour affecting accumulation order.",
+  "uncertainty": "Only two Node versions sampled. Whether the committed artifact is reproducible on any Node 23.x or 24.x is UNKNOWN.",
+  "independentlyReproduced": false
+}

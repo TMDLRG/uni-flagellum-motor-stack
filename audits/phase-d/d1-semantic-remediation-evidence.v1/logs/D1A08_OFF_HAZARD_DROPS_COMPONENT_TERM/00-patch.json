@@ -1,0 +1,9 @@
+{
+  "id": "D1A08_OFF_HAZARD_DROPS_COMPONENT_TERM",
+  "class": "ALTERNATE_FORM",
+  "propertyId": "D1P08_OFF_HAZARD_STATOR_MULTIPLICITY",
+  "targetPath": "lib/source-first-passage.js",
+  "preMutationSha256": "c66cf5ff048f5eb1e85c7b3148a002002636df14c5e96dda7eb840366a2ff6d8",
+  "postMutationSha256": "5dee5facca4158c1fe9cda455c8fbd5c173fc6e4f7993c1c535e628edc2a50e4",
+  "diff": "diff --git a/lib/source-first-passage.js b/lib/source-first-passage.js\nindex 36e624d..59d7a83 100644\n--- a/lib/source-first-passage.js\n+++ b/lib/source-first-passage.js\n@@ -36,7 +36,7 @@ export function sourceTerms(stateN, parameters, codeN0Branch = false) {\n     component,\n     weight,\n     totalRate: kPlus + stateN * sigmaMinus + component * deltaSigma,\n-    offRate: stateN * sigmaMinus + component * deltaSigma,\n+    offRate: stateN * sigmaMinus,\n   }));\n }\n \n"
+}

@@ -1,0 +1,81 @@
+graph TB
+  linkStyle default fill:#ffffff
+
+  subgraph diagram ["Container View: UNI Platform"]
+    style diagram fill:#ffffff,stroke:#ffffff
+
+    1["<div style='font-weight: bold'>Michael</div><div style='font-size: 70%; margin-top: 0px'>[Person]</div><div style='font-size: 80%; margin-top:10px'>Regenerative architect and<br />organic operator. Present<br />inside every body, not a<br />dashboard recipient. Types<br />go-live personally.</div>"]
+    style 1 fill:#3c3489,stroke:#2a245f,color:#ffffff
+    2["<div style='font-weight: bold'>External reviewer</div><div style='font-size: 70%; margin-top: 0px'>[Person]</div><div style='font-size: 80%; margin-top:10px'>Independent scientific or<br />release reviewer. Receives<br />evidence packages; never has<br />write access.</div>"]
+    style 2 fill:#8a6a1a,stroke:#604a12,color:#ffffff
+    33["<div style='font-weight: bold'>Streaming platforms</div><div style='font-size: 70%; margin-top: 0px'>[Software System]</div><div style='font-size: 80%; margin-top:10px'>YouTube, Twitch and up to<br />twenty endpoints.</div>"]
+    style 33 fill:#8a6a1a,stroke:#604a12,color:#ffffff
+
+    subgraph 4 ["UNI Platform"]
+      style 4 fill:#ffffff,stroke:#14161a,color:#14161a
+
+      20("<div style='font-weight: bold'>The Lab View</div><div style='font-size: 70%; margin-top: 0px'>[Container: Phoenix LiveView + THREE.js on T1000]</div><div style='font-size: 80%; margin-top:10px'>The immersive rendered room<br />the operator works inside.<br />Proposes commands; never<br />writes. Rooms, airlocks,<br />world portals, Gaia overhead.</div>")
+      style 20 fill:#fdf1ee,stroke:#b4442f,color:#16181d
+      21("<div style='font-weight: bold'>Gaia</div><div style='font-size: 70%; margin-top: 0px'>[Container: Node.js / gaia_server.cjs :8096 + read-only MCP]</div><div style='font-size: 80%; margin-top:10px'>World-visibility organ. 308<br />live signals, 0<br />provenance-incomplete, 5<br />drift signals. LAW: never<br />summarizes, scores, ranks,<br />narrates, authors a verdict,<br />or acts outward.</div>")
+      style 21 fill:#e8f4ef,stroke:#0f6e56,color:#16181d
+      22("<div style='font-weight: bold'>The HUD</div><div style='font-size: 70%; margin-top: 0px'>[Container: WPF widget + JSON service :8100]</div><div style='font-size: 80%; margin-top:10px'>What the operator sees and<br />carries. LAW: never<br />fabricates a state; unknown<br />renders SYNCING.</div>")
+      style 22 fill:#e8f4ef,stroke:#0f6e56,color:#16181d
+      23("<div style='font-weight: bold'>Colony world</div><div style='font-size: 70%; margin-top: 0px'>[Container: Elixir / lib/sp + paper.jar :25565]</div><div style='font-size: 80%; margin-top:10px'>Minecraft world plus the<br />Phoenix FEP brain and body.js<br />bots. The subject of the<br />science.</div>")
+      style 23 fill:#e8f4ef,stroke:#0f6e56,color:#16181d
+      24("<div style='font-weight: bold'>Overlooker</div><div style='font-size: 70%; margin-top: 0px'>[Container: Phoenix LiveView + world.js THREE]</div><div style='font-size: 80%; margin-top:10px'>The colony's own omniscient<br />per-tick god-view with a<br />Markov-blanket monitor that<br />re-derives per tick that the<br />agent received only the<br />opaque observation.</div>")
+      style 24 fill:#e8f4ef,stroke:#0f6e56,color:#16181d
+      25("<div style='font-weight: bold'>Colony control center</div><div style='font-size: 70%; margin-top: 0px'>[Container: Node.js / command_center.cjs :8098]</div><div style='font-size: 80%; margin-top:10px'>Live-television vision mixer<br />for the colony: preview,<br />take, cut, cue, projector,<br />overlay, fanout, golive,<br />offair.</div>")
+      style 25 fill:#e8f4ef,stroke:#0f6e56,color:#16181d
+      26("<div style='font-weight: bold'>Cameras and compositor</div><div style='font-size: 70%; margin-top: 0px'>[Container: Node.js + Chrome :3020 :8099]</div><div style='font-size: 80%; margin-top:10px'>Director follow-cam,<br />prismarine colony cam,<br />overlay server and the<br />single-page broadcast<br />composite.</div>")
+      style 26 fill:#e8f4ef,stroke:#0f6e56,color:#16181d
+      27("<div style='font-weight: bold'>Encoder</div><div style='font-size: 70%; margin-top: 0px'>[Container: OBS + MediaMTX :1935]</div><div style='font-size: 80%; margin-top:10px'>One render and one encode on<br />the T1000, out as a single<br />RTMP stream.</div>")
+      style 27 fill:#e8f4ef,stroke:#0f6e56,color:#16181d
+      28("<div style='font-weight: bold'>Fan-out relay</div><div style='font-size: 70%; margin-top: 0px'>[Container: Podman / uni-bcast-relay]</div><div style='font-size: 80%; margin-top:10px'>Tees one incoming stream to<br />many endpoints. No encode, no<br />colony.</div>")
+      style 28 fill:#e8f4ef,stroke:#0f6e56,color:#16181d
+      29[("<div style='font-weight: bold'>Gate ledger</div><div style='font-size: 70%; margin-top: 0px'>[Container: NDJSON / evidence/gates.ndjson]</div><div style='font-size: 80%; margin-top:10px'>Append-only record of every<br />registered gate and its<br />verdict. 206 rows, 109<br />unique, 1 FAIL.</div>")]
+      style 29 fill:#eef0fb,stroke:#534ab7,color:#16181d
+      30[("<div style='font-weight: bold'>Receipt store</div><div style='font-size: 70%; margin-top: 0px'>[Container: Filesystem + sha256]</div><div style='font-size: 80%; margin-top:10px'>Content-addressed artifacts,<br />commit ids and logs that<br />reproduce each claim.</div>")]
+      style 30 fill:#eef0fb,stroke:#534ab7,color:#16181d
+      31("<div style='font-weight: bold'>Approval queue</div><div style='font-size: 70%; margin-top: 0px'>[Container: systemd / uni-approvald]</div><div style='font-size: 80%; margin-top:10px'>One human approve or deny per<br />mutating call.</div>")
+      style 31 fill:#e8f4ef,stroke:#0f6e56,color:#16181d
+      32("<div style='font-weight: bold'>Flagellum project</div><div style='font-size: 70%; margin-top: 0px'>[Container: Next.js on Cloudflare Worker :8790 :8791]</div><div style='font-size: 80%; margin-top:10px'>Bacterial flagellar-motor<br />science. Separate repo,<br />CPU-only build, no WebGL or<br />network.</div>")
+      style 32 fill:#e8f4ef,stroke:#0f6e56,color:#16181d
+      5("<div style='font-weight: bold'>The Door</div><div style='font-size: 70%; margin-top: 0px'>[Container: Node.js / launcher.cjs :8090]</div><div style='font-size: 80%; margin-top:10px'>Admission, release, key<br />custody and the journey. LAW:<br />a polled read never spawns<br />anything; every actuation is<br />a deliberate click or an<br />explicit verb.</div>")
+      style 5 fill:#e8f4ef,stroke:#0f6e56,color:#16181d
+      6("<div style='font-weight: bold'>The Control Plane</div><div style='font-size: 70%; margin-top: 0px'>[Container: Elixir / SP.ControlPlane, root zero-dep app]</div><div style='font-size: 80%; margin-top:10px'>Runs the science and authors<br />every verdict, across every<br />project. THIS IS THE LAB.<br />Phase 2 landed Ledger,<br />GateRow, Command and Drift;<br />Registry, Verdict, Run, Pair,<br />Room and Scene are not built.</div>")
+      style 6 fill:#fdf8e8,stroke:#9a7b12,color:#16181d
+    end
+
+    1-. "<div>Crosses once, on the way in</div><div style='font-size: 70%'></div>" .->5
+    1-. "<div>Works inside. Authors<br />verdicts. Stops runs.</div><div style='font-size: 70%'></div>" .->20
+    1-. "<div>Carries</div><div style='font-size: 70%'></div>" .->22
+    1-. "<div>Types go-live by hand (G-PA)</div><div style='font-size: 70%'></div>" .->25
+    1-. "<div>Co-signs each mutating call</div><div style='font-size: 70%'></div>" .->31
+    2-. "<div>Receives evidence packages</div><div style='font-size: 70%'></div>" .->30
+    21-. "<div>Projects the Control Plane<br />ledger VERBATIM (seat<br />control-plane)</div><div style='font-size: 70%'></div>" .->6
+    5-. "<div>Admits and releases</div><div style='font-size: 70%'></div>" .->6
+    6-. "<div>Pushes a compact scene per<br />tick</div><div style='font-size: 70%'></div>" .->20
+    20-. "<div>Explicit verbs only. No hover<br />or poll actuates.</div><div style='font-size: 70%'></div>" .->6
+    6-. "<div>Appends a gate row. Never<br />edits.</div><div style='font-size: 70%'></div>" .->29
+    6-. "<div>Writes a receipt per decision</div><div style='font-size: 70%'></div>" .->30
+    6-. "<div>Requests the human co-sign</div><div style='font-size: 70%'></div>" .->31
+    6-. "<div>Starts and stops paired runs</div><div style='font-size: 70%'></div>" .->23
+    6-. "<div>Runs gates and guards</div><div style='font-size: 70%'></div>" .->32
+    21-. "<div>Projects rows verbatim</div><div style='font-size: 70%'></div>" .->29
+    21-. "<div>Projects artifacts with<br />sha256</div><div style='font-size: 70%'></div>" .->30
+    21-. "<div>Projects register and journey</div><div style='font-size: 70%'></div>" .->5
+    21-. "<div>Projects the ledger.<br />Read-only.</div><div style='font-size: 70%'></div>" .->6
+    21-. "<div>Probes and projects. Never<br />actuates.</div><div style='font-size: 70%'></div>" .->23
+    22-. "<div>Reads signals</div><div style='font-size: 70%'></div>" .->21
+    22-. "<div>Reads state</div><div style='font-size: 70%'></div>" .->5
+    22-. "<div>Reads run state</div><div style='font-size: 70%'></div>" .->6
+    20-. "<div>Renders signals overhead.<br />Cannot act on them.</div><div style='font-size: 70%'></div>" .->21
+    20-. "<div>Looks through the colony<br />portal. Never reimplements<br />it.</div><div style='font-size: 70%'></div>" .->24
+    23-. "<div>Emits an observer frame each<br />tick</div><div style='font-size: 70%'></div>" .->24
+    23-. "<div>Is captured over the LAN</div><div style='font-size: 70%'></div>" .->26
+    26-. "<div>Feeds one composite</div><div style='font-size: 70%'></div>" .->27
+    25-. "<div>Switches scenes, cuts, takes</div><div style='font-size: 70%'></div>" .->27
+    27-. "<div>One RTMP stream</div><div style='font-size: 70%'></div>" .->28
+    28-. "<div>Fans out</div><div style='font-size: 70%'></div>" .->33
+
+  end

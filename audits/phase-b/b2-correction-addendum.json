@@ -1,0 +1,156 @@
+{
+  "schema": "uni.flagellum.audit-artifact/1.0.0",
+  "purpose": "Append-only correction to the B2 evidence package. Corrects claim strength and executable coverage; does NOT alter the scientific conclusion, which stands.",
+  "auditedCommit": "9c3a644e4b57e8ac27f925dcec84222463063aa1",
+  "auditPhase": "B",
+  "auditorModel": "claude-fable-5",
+  "appendOnly": true,
+  "correctsButDoesNotReplace": "audits/phase-b/b2-independent-duration-model-rederivation.json and audits/phase-b/b2-decisive-oracle.py, both PRESERVED BYTE-IDENTICAL at commit de5c2fb.",
+  "note": "Timestamps are deliberately omitted: this package must be byte-reproducible. Ordering is established by git history.",
+
+  "externalVerification": {
+    "verifier": "Codex",
+    "atCommit": "de5c2fb",
+    "confirmed": [
+      "remote branch pushed; main remains 9c3a644; scoped production files unchanged",
+      "phase-a manifest 16/16 and phase-b manifest 3/3 verify",
+      "red tests reproduce exactly: C1 2 FAIL, C2 5 FAIL + 4 SKIP, C3 4 FAIL + 1 PASS",
+      "M3 training NLL difference 5.3137e-10 nats",
+      "lognormal beats M3 by approximately 0.03687 nats per held-out event",
+      "all event split hashes matched; cohort 793 train / 233 holdout / 19 holdout motors"
+    ],
+    "independentBootstrapReplication": {
+      "result": "An independent Python bootstrap matched all five committed interval pairs to within 8.9e-16. A separate 50,000-replicate bootstrap preserved every verdict.",
+      "intervals": {
+        "H1_CV_SQUARED": { "interval": [1.50355, 3.56772], "verdict": "supported" },
+        "H2_M3_MINUS_M0": { "interval": [0.07073, 0.32474], "verdict": "supported" },
+        "M3_MINUS_WEIBULL": { "verdict": "crosses zero" },
+        "M3_MINUS_LOGNORMAL": { "verdict": "crosses zero" },
+        "DIRECTION_IMPROVEMENT": { "verdict": "crosses zero" }
+      },
+      "epistemicStatus": "RETROSPECTIVE CORROBORATION, NOT A PREREGISTERED PREDICTION. This audit did not commit a prediction about the bootstrap intervals before they were recomputed. It is recorded as independent replication of an existing result, and must not be presented as a prospective test.",
+      "clearsPriorConcern": "The Phase B report flagged that the motor-cluster bootstrap interval remained single-implementation, making every 'interval crosses zero' claim rest on one implementation. That concern is now CLEARED by exact reproduction plus a 50,000-replicate check."
+    }
+  },
+
+  "corrections": [
+    {
+      "id": "C-B2-1",
+      "defect": "The committed executable b2-decisive-oracle.py hard-codes an absolute checkout path (line 16) and is therefore not clone-reproducible.",
+      "severity": "HIGH",
+      "status": "CORRECTED",
+      "correction": "audits/phase-b/b2-portable-oracle.py derives the repository root from __file__ via Path(__file__).resolve().parents[2] and takes no absolute paths.",
+      "originalPreserved": true
+    },
+    {
+      "id": "C-B2-2",
+      "defect": "The B2 JSON states the oracle reads 'data + protocol', but b2-decisive-oracle.py never loads the protocol. Eligibility, committed parameters, committed scores, the seed and the model equations were all hard-coded.",
+      "severity": "HIGH",
+      "status": "CORRECTED",
+      "correction": "The portable oracle loads and VALIDATES experiments/preregistration.v1.json (checking the sha256-mod-5 split rule, holdoutRemainders, presence of scope.primaryStates, and the right-censoring rule), takes the seed from protocol.uncertainty.seed, recomputes every motor partition from sha256(motorId) mod 5, and loads committed parameters and scores from experiments/results/observed-experiment-report.json rather than embedding them.",
+      "residual": "The model EQUATIONS are still implemented in the oracle, because the protocol specifies them in prose rather than machine-readable form. This is unavoidable and is stated rather than glossed."
+    },
+    {
+      "id": "C-B2-3",
+      "defect": "The committed executable optimizes only M3. The JSON's independent Weibull and lognormal refits, and its 144-start surface analysis, are not reproduced by any committed executable.",
+      "severity": "MEDIUM",
+      "status": "CORRECTED",
+      "correction": "The portable oracle refits M1 (Weibull shape) and M2 (lognormal sigma) by 60-start scalar multistart under two methods each, refits M3 by 300-start multistart under two methods, and records the distinct converged NLL basins it actually observed."
+    },
+    {
+      "id": "C-B2-4",
+      "defect": "The B2 JSON reports '320 optimizer runs'. The committed loops do not perform 320 runs.",
+      "severity": "MEDIUM",
+      "status": "CORRECTED",
+      "correctedFigures": {
+        "totalAttempted": 720,
+        "feasibleAfterDomainCheck": 608,
+        "mixtureAttempted": 600,
+        "mixtureFeasibleAfterDomainCheck": 488,
+        "scalarModelStarts": 120,
+        "reconciliation": "720 - 120 scalar = 600 mixture attempts; 608 - 120 scalar = 488 mixture-feasible runs. The 488 figure independently reproduces Codex's count exactly.",
+        "counterSemanticsCaveat": "The scalar and mixture counters use different granularity: fit_scalar increments 'attempted' once per start but 'finite' once per (start, method), while fit_mixture increments per (start, method) throughout. The aggregate 'finiteObjective' of 728 therefore mixes two conventions and should not be read as a single run count. The unambiguous figure is 488 mixture-feasible runs."
+      },
+      "rootCause": "The 320 figure was asserted in prose from a recollection of the search grid, not counted from the executed code. Counts are now emitted programmatically by the script itself."
+    },
+    {
+      "id": "C-B2-5",
+      "defect": "The calibration narrative claimed to have ESTABLISHED explicit eligible-state filtering. Three of four configurations tie exactly, because states lacking a training scale are implicitly filtered out. The program selects eligible_only=False, scale_from_eligible=True.",
+      "severity": "MEDIUM",
+      "status": "CORRECTED AND SUPERSEDED BY A LARGER FINDING",
+      "correction": "The event set (793 train / 233 holdout) is correctly identified and reproduces the committed scores to 1.776e-15. What was NOT established is WHICH eligibility POLICY the implementation applies, because several policies are observationally equivalent on this data. Event-set equivalence is not policy identification. The earlier wording overstated this and is withdrawn.",
+      "supersededBy": "F-B2-NEW-1"
+    },
+    {
+      "id": "C-B2-6",
+      "defect": "'The committed mixture IS at the GLOBAL OPTIMUM' overstates what finite multistart optimization can establish.",
+      "severity": "MEDIUM",
+      "status": "CORRECTED",
+      "withdrawnWording": "THE COMMITTED MIXTURE IS AT THE GLOBAL OPTIMUM, to within 5.3e-10 nats.",
+      "adoptedWording": "No better solution was found over the declared search domain w in (1e-9, 1-1e-9), lf in (1e-9, 1e4) subject to lf > w. The committed fit is numerically indistinguishable from the best located optimum, differing by 5.313722795108333e-10 nats. This is a finite-multistart numerical conclusion, not a proof of global optimality.",
+      "whatIsUnaffected": "The refutation of prediction P-B2 stands. P-B2 predicted a STRICTLY BETTER solution would be found. None was found. That is a negative empirical result and does not depend on proving global optimality."
+    }
+  ],
+
+  "newFindings": [
+    {
+      "id": "F-B2-NEW-1",
+      "title": "The implementation's eligible-state set is narrower than the frozen protocol's declared primaryStates, with no authorizing rule",
+      "severity": "MEDIUM",
+      "discoveredWhile": "Attempting to satisfy Codex's instruction to derive eligibility from frozen rules rather than hard-code it.",
+      "protocolDeclares": { "path": "scope.primaryStates", "value": [0, 1, 2, 3, 4, 5, 6, 7, 8] },
+      "implementationUses": { "path": "cohort.eligibleStates", "value": [1, 2, 3, 4, 5, 6, 7, 8] },
+      "excludedState": 0,
+      "notExplainedByMissingData": {
+        "state0TrainUncensoredEvents": 25,
+        "state0HoldoutUncensoredEvents": 18,
+        "conclusion": "State 0 has ample data in both partitions. It is not dropped for want of a training scale; it is excluded by an implementation choice."
+      },
+      "authorizingRuleInFrozenProtocol": "NONE FOUND. The extraction rules reject states outside 0..11 and discard left-truncated and right-censored dwells, but no rule excludes state 0 from the eligible set.",
+      "eventCountConsequence": { "protocolStates_0_to_8": { "train": 818, "holdout": 251 }, "implementedStates_1_to_8": { "train": 793, "holdout": 233 } },
+      "whyItMatters": "The frozen protocol is the preregistered object. An implementation that analyses a narrower cohort than the protocol declares has made a post-specification choice, and the protocol offers no justification a reader could check. This is a resonance defect between declared assumptions and implementation.",
+      "robustnessCheck": "The portable oracle runs the entire analysis under BOTH eligibility sets. See conclusionRobustness below.",
+      "notAnAllegationOfBadFaith": "There may be a sound physical reason to exclude the zero-stator state, for instance that a dwell at zero stators is not the same kind of event. The finding is that the reason is not recorded in the frozen protocol, not that the choice is wrong."
+    }
+  ],
+
+  "conclusionRobustness": {
+    "underCommittedEligibleStates_1_to_8": {
+      "trainEvents": 793, "holdoutEvents": 233, "holdoutMotors": 19,
+      "reproducesCommittedScoresTo": 1.776e-15,
+      "mixtureNllAtCommitted": 537.0211284012928,
+      "mixtureNllAtBestFound": 537.0211284007614,
+      "deltaNats": 5.313722795108333e-10,
+      "ranking": ["lognormal", "mixture", "weibull", "exponential"],
+      "lognormalMinusMixture": 0.036866518050048036,
+      "adverseResultSurvives": true
+    },
+    "underProtocolPrimaryStates_0_to_8": {
+      "trainEvents": 818, "holdoutEvents": 251, "holdoutMotors": 19,
+      "mixtureNllAtCommitted": 567.990201993354,
+      "mixtureNllAtBestFound": 567.7912635401843,
+      "deltaNats": 0.19893845316971692,
+      "deltaInterpretation": "EXPECTED AND NOT A DEFECT. The committed parameters were fitted on the 1..8 cohort, so they are naturally sub-optimal for the wider 0..8 cohort. This is not evidence of a fitting failure.",
+      "ranking": ["lognormal", "mixture", "weibull", "exponential"],
+      "lognormalMinusMixture": 0.038719376021165264,
+      "adverseResultSurvives": true
+    },
+    "verdict": "THE SCIENTIFIC CONCLUSION IS ROBUST TO THE ELIGIBILITY DISCREPANCY. The ranking is identical and the lognormal advantage survives under both the protocol's declared cohort and the implementation's narrower cohort, with the gap slightly LARGER under the protocol's wider cohort."
+  },
+
+  "preservedConclusion": {
+    "P_B2": "REFUTED. No strictly better mixture solution was found.",
+    "mixtureFit": "Numerically indistinguishable from the best located optimum over the declared search domain.",
+    "adverseLognormalResult": "SURVIVES, under both eligibility sets, and after independent 50,000-replicate bootstrap replication.",
+    "statement": "The corrections in this addendum concern the evidence package and the strength of the claims. They do not alter the result."
+  },
+
+  "clearanceForB3": {
+    "status": "CLEARED, conditional on this addendum self-verifying.",
+    "condition": "Comparisons against M3 are comparisons against a correctly fitted M3 under the implemented cohort. Any B3 competition must declare which eligibility set it uses and must report both if the choice could move a ranking."
+  },
+
+  "uncertainty": "Optimality is asserted only over the declared search domain and only for the mean-one parameterization with common shape parameters and uncensored-events-only likelihood. Per-state shape parameters, alternative censoring treatments and alternative normalizations define different problems that have not been examined.",
+  "alternativeExplanation": "Agreement to 1e-15 in calibration could in principle indicate that the independent implementation reproduces an error present in the original rather than confirming correctness. Agreement alone cannot exclude this. It is constrained by the mean-one constraints having been verified in closed form, and by Codex's independent bootstrap agreeing to 8.9e-16 from a separate implementation.",
+  "independentlyReproduced": "Yes. Codex independently verified the manifests, red tests, NLL delta, lognormal margin and split hashes at de5c2fb, and independently replicated the bootstrap intervals."
+}

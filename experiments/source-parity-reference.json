@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "schema": "uni.flagellum.source-parity-reference/1.0.0",
+  "source": {
+    "article": "Wadhwa et al., A multi-state dynamic process confers mechano-adaptation to a biological nanomachine, Nature Communications 13, 5327 (2022)",
+    "doi": "10.1038/s41467-022-33075-5",
+    "articleUrl": "https://www.nature.com/articles/s41467-022-33075-5",
+    "supplementUrl": "https://static-content.springer.com/esm/art%3A10.1038%2Fs41467-022-33075-5/MediaObjects/41467_2022_33075_MOESM1_ESM.pdf",
+    "sourceDataUrl": "https://static-content.springer.com/esm/art%3A10.1038%2Fs41467-022-33075-5/MediaObjects/41467_2022_33075_MOESM4_ESM.xlsx",
+    "sourceDataSha256": "097bdbb7c15ae28949eab0391ea3832e62c36703c89b97af7bbef397ac41bee8",
+    "repository": "https://github.com/navishwadhwa/multi-state-remodeling",
+    "commit": "c83119131c3ce3742460a2e3b6bd6c6e44bef4d5",
+    "codeBundlePath": "codes_for_Nature_communications.zip",
+    "codeBundleSha256": "a20d25b84344efdaf13d8e00fc080c9094fc3bef6a90e17554a7da922c7b8729"
+  },
+  "declaredMechanism": {
+    "states": ["D_DIFFUSIVE", "L_LOOSE", "T_TIGHT", "H_TRANSIENT_UNBOUND"],
+    "firstPassageReduction": "The source paper removes H by a timescale-separation threshold, sets k_off,t=0, and evaluates the remaining D-L-T process through a finite exponential survival mixture.",
+    "reportedHiddenState": {
+      "occurrences": 43,
+      "weightedExposureSeconds": 136620,
+      "meanLifetimeSeconds": 4.1,
+      "kHPerSecond": 0.0003,
+      "kMinusHPerSecond": 0.24,
+      "status": "REPORTED_SUMMARY_NOT_REEXTRACTED"
+    },
+    "reportedMomentFit": {
+      "c1": { "value": 0.3, "uncertainty50PercentLossIncrease": 0.11 },
+      "c2": { "value": 0.12, "uncertainty50PercentLossIncrease": 0.14 },
+      "c3": { "value": 0.06, "uncertainty50PercentLossIncrease": 0.16 },
+      "sigmaPlusPerSecond": { "value": 0.19, "uncertainty50PercentLossIncrease": 0.1 },
+      "sigmaMinusPerSecond": { "upperBound": 0.0005 },
+      "warning": "These intervals are changes that increase the authors' loss by 50%; they are not confidence or credible intervals."
+    },
+    "reportedDerivedRatesPerSecond": {
+      "kOffLoose": { "value": 0.057, "uncertainty": 0.023 },
+      "kTightening": { "value": 0.13, "uncertainty": 0.07 },
+      "kLoosening": { "upperBound": 0.0017 },
+      "kOffTight": { "fixed": 0 }
+    }
+  },
+  "bundledCodeParameterVector": {
+    "pathInsideBundle": "codes_for_Nature_communications/data/fitting_parameters.txt",
+    "kPlusByNPerSecond": [
+      0.11313351847094766,
+      0.14615151250906777,
+      0.13810507358506371,
+      0.22635916803805484,
+      0.00793718015525235,
+      0.2003442232893644,
+      0.005477183929747626,
+      0.00458517772405343,
+      0.004838702072854557
+    ],
+    "c3": 0.16278595927824757,
+    "c2": 0.3081249631813354,
+    "c1": 0.6136380583929043,
+    "sigmaPlusPerSecond": 0.0957874163558757,
+    "sigmaMinusPerSecond": 1e-8,
+    "warning": "This vector is preserved exactly as shipped. It is not assumed to be the final article fit."
+  },
+  "sourceDataFigure3": {
+    "states": [0, 1, 2, 3, 4, 5, 6, 7, 8],
+    "experiment": {
+      "meanDwellSeconds": [24.3290943779072, 7.98540080780495, 6.80814951410468, 15.2978860522839, 14.8707575883257, 21.1935860541982, 22.7665724440247, 43.3393099839842, 32.0789173116557],
+      "fractionPlus": [1, 0.859056077121387, 0.791074924564996, 0.805888937707163, 0.88076827400836, 0.866361319127215, 0.817863234885539, 0.754757089598046, 0.628331578029191],
+      "normalizedVariance": [1.45667870036101, 2.19314079422382, 2.0740072202166, 3, 1.82490974729241, 2.39891696750902, 1.98736462093862, 1.63537906137184, 1.6841155234657]
+    },
+    "theory": {
+      "meanDwellSeconds": [26.8289508106763, 9.23526521653129, 9.47492678071222, 11.5479099801558, 7.2041398408637, 21.9434536533074, 24.1829748406403, 44.339175987902, 34.9122325661526],
+      "fractionPlus": [1, 0.794115746693459, 0.72451847592218, 0.671142961445767, 0.715182788542925, 0.629344377750066, 0.627922096802331, 0.605403052290833, 0.612097706905129],
+      "normalizedVariance": [1.59205776173285, 1.32129963898916, 1.48375451263537, 1.6624548736462, 1.44043321299638, 1.94945848375451, 1.98736462093862, 2.1768953068592, 2.11732851985559]
+    },
+    "warning": "The source-data workbook's theory value V(N=0)=1.5920577617 conflicts with the paper equation for N=0, which is a single exponential and therefore has V=1. The public Python code applies its c1 mixture branch at N=0 for mean and variance, while special-casing f_plus(0)=1."
+  }
+}

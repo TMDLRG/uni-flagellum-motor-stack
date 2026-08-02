@@ -1,0 +1,67 @@
+✔ cross-study protocol has one result for every ordered gate (2.4226ms)
+✔ source corpus expands biological units without counting time points as replicates (0.4004ms)
+✔ all frozen cached upstream artifacts remain byte-identical when present (2.2068ms)
+✔ expanded mechanistic gates preserve passes and falsifiers (0.4377ms)
+✔ GMC generator satisfies stochastic-matrix and source-marginal tolerances (0.3029ms)
+✔ audit binds report, corpus, protocol, structure map, and runner bytes (15.4082ms)
+✔ categorical posterior normalizes and free-energy identity is exact (1.5469ms)
+✔ log posterior odds equal log prior odds plus log likelihood ratio (0.2481ms)
+✔ Markov observation excludes hidden world truth (0.3825ms)
+✔ same initial state and controls replay deterministically (2.1473ms)
+✔ policy posterior normalizes after a real observation record (0.4285ms)
+✔ physical encoder angles drive the exact log-odds calculation (0.3871ms)
+✔ instrument validation rejects incomplete or non-finite frames (0.7308ms)
+✔ Hellinger distance is symmetric and bounded (0.2396ms)
+✔ CAD export names the model, boundary and explicit non-claim (0.7169ms)
+✔ observed event artifact retains the pinned raw-data identity (1.4063ms)
+✔ motor-level partition prevents train/holdout leakage (0.9063ms)
+✔ frozen observed analysis replays byte-for-value deterministically (1700.1853ms)
+✔ held-out analysis reports the adverse flexible-baseline comparison (0.3913ms)
+✔ overdispersion gate is evaluated only on eligible held-out stator states (0.2498ms)
+✔ survival evidence monotonically increases the slow-timescale posterior (0.2397ms)
+✔ observed report cannot be confused with a live instrument run (0.1632ms)
+✔ first-passage coefficients and competing risks are normalized (1.7753ms)
+✔ analytic density equals the negative survival derivative (0.6484ms)
+✔ right-censored observations contribute survival, never an invented direction (0.3863ms)
+✔ science ledger preserves failed and external gates (0.2319ms)
+✖ audit manifest binds the science report to its inputs and implementations (5.4711ms)
+✔ walkthrough has 13 ordered, evidence-bound, gate-bound lessons (2.2734ms)
+✔ truth contract retains species and evidence-class separation (0.4914ms)
+✔ all local evidence assets match pinned SHA-256 identities (166.8713ms)
+✔ recorded replay is deterministic, frozen, and exposes missing fields (0.428ms)
+✔ every pencil-and-paper numerical anchor reproduces independently (0.2782ms)
+✔ observer notebook exports, imports, and rejects truth laundering (2.5209ms)
+✔ walkthrough application contains no LLM or GPU runtime (4.6933ms)
+ℹ tests 34
+ℹ suites 0
+ℹ pass 33
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 1875.498
+
+✖ failing tests:
+
+test at tests\science-gates.test.mjs:62:1
+✖ audit manifest binds the science report to its inputs and implementations (5.4711ms)
+  AssertionError [ERR_ASSERTION]: SHA-256 mismatch for experiments/results/observed-experiment-report.json
+  + actual - expected
+  
+  + '7ad8a21f855618044b920d6229c37e71f518b7f6d1fc4ab9142cc6ce57fd3bc8'
+  - '690bd75feaf4ebfdd05c6ffcfd80fdc87c685e091dad8c4e70cc3333a71af81d'
+  
+      at TestContext.<anonymous> (file:///C:/Users/mpolz/AppData/Local/Temp/uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85/clones/d1a03_sample_variance_denominator_n_plus_one/tests/science-gates.test.mjs:65:12)
+      at Test.runInAsyncScope (node:async_hooks:213:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async Test.processPendingSubtests (node:internal/test_runner/test:788:7) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: '7ad8a21f855618044b920d6229c37e71f518b7f6d1fc4ab9142cc6ce57fd3bc8',
+    expected: '690bd75feaf4ebfdd05c6ffcfd80fdc87c685e091dad8c4e70cc3333a71af81d',
+    operator: 'strictEqual',
+    diff: 'simple'
+  }

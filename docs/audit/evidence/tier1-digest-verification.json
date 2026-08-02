@@ -1,0 +1,98 @@
+﻿[
+    {
+        "name":  "ito-2021-source-data.xlsx",
+        "declBytes":  11896413,
+        "obsBytes":  11896413,
+        "declSha":  "33687c50a5636817",
+        "obsSha":  "33687c50a5636817",
+        "status":  "OK"
+    },
+    {
+        "name":  "antani-2021-source-data.xlsx",
+        "declBytes":  45271,
+        "obsBytes":  45271,
+        "declSha":  "bee5497182be4e7b",
+        "obsSha":  "bee5497182be4e7b",
+        "status":  "OK"
+    },
+    {
+        "name":  "lisevich-2025-source-data.zip",
+        "declBytes":  45274919,
+        "obsBytes":  45274919,
+        "declSha":  "7e30c791be8136cc",
+        "obsSha":  "7e30c791be8136cc",
+        "status":  "OK"
+    },
+    {
+        "name":  "lisevich-2025-supp-data-1.xlsx",
+        "declBytes":  13690,
+        "obsBytes":  13690,
+        "declSha":  "87186cdc9221ed42",
+        "obsSha":  "87186cdc9221ed42",
+        "status":  "OK"
+    },
+    {
+        "name":  "lisevich-2025-supp-data-2.xlsx",
+        "declBytes":  14102,
+        "obsBytes":  14102,
+        "declSha":  "3d62f6a53876d1fc",
+        "obsSha":  "3d62f6a53876d1fc",
+        "status":  "OK"
+    },
+    {
+        "name":  "mattingly-2026-fig2-source-data.zip",
+        "declBytes":  15731056,
+        "obsBytes":  15731056,
+        "declSha":  "6c9c7145ef8aa948",
+        "obsSha":  "6c9c7145ef8aa948",
+        "status":  "OK"
+    },
+    {
+        "name":  "mattingly-2026-supp-code-2.zip",
+        "declBytes":  402957,
+        "obsBytes":  402957,
+        "declSha":  "ccb4ce3c3052110e",
+        "obsSha":  "ccb4ce3c3052110e",
+        "status":  "OK"
+    },
+    {
+        "name":  "mattingly-2026-supp-code-3.zip",
+        "declBytes":  439682,
+        "obsBytes":  439682,
+        "declSha":  "16f9ea44aa6ac79e",
+        "obsSha":  "16f9ea44aa6ac79e",
+        "status":  "OK"
+    },
+    {
+        "name":  "mattingly-2026-supp-code-4.zip",
+        "declBytes":  372370,
+        "obsBytes":  372370,
+        "declSha":  "a3ddbaec26b9b576",
+        "obsSha":  "a3ddbaec26b9b576",
+        "status":  "OK"
+    },
+    {
+        "name":  "mattingly-2026-supp-code-5.zip",
+        "declBytes":  409379,
+        "obsBytes":  409379,
+        "declSha":  "b01ea374aec04dd7",
+        "obsSha":  "b01ea374aec04dd7",
+        "status":  "OK"
+    },
+    {
+        "name":  "mattingly-2026-supp-code-6.zip",
+        "declBytes":  376804,
+        "obsBytes":  376804,
+        "declSha":  "127a3e7688ae33fd",
+        "obsSha":  "127a3e7688ae33fd",
+        "status":  "OK"
+    },
+    {
+        "name":  "perez-carrasco-2022-code.zip",
+        "declBytes":  25093,
+        "obsBytes":  25093,
+        "declSha":  "23bded7d444f8c68",
+        "obsSha":  "23bded7d444f8c68",
+        "status":  "OK"
+    }
+]

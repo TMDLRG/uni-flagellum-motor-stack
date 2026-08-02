@@ -1,0 +1,13 @@
+{
+  "status": "FAIL",
+  "failures": [
+    "lattice fitted SSE: 0.050049639985098815 versus 0.04973850333007341 (tol 1e-10)"
+  ],
+  "checks": {
+    "itoLeaveOneBinOutRmse": 0.8293641328245378,
+    "latticeFittedSse": 0.04973850333007341,
+    "latticeJ0Sse": 0.050413163016410384,
+    "rftRmse": 1.7274106879853608,
+    "auditArtifacts": 10
+  }
+}

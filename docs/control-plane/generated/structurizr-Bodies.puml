@@ -1,0 +1,74 @@
+@startuml
+title <size:24>Container View: UNI Platform</size>\n<size:24>The four bodies, the colony stack and the evidence stores.</size>
+
+set separator none
+top to bottom direction
+
+<style>
+  root {
+    BackgroundColor: #ffffff
+    FontColor: #444444
+  }
+</style>
+
+!include <C4/C4>
+!include <C4/C4_Context>
+!include <C4/C4_Container>
+
+Person(Michael, "Michael", $descr="Regenerative architect and organic operator. Present inside every body, not a dashboard recipient. Types go-live personally.", $tags="", $link="")
+Person(Externalreviewer, "External reviewer", $descr="Independent scientific or release reviewer. Receives evidence packages; never has write access.", $tags="", $link="")
+System(Streamingplatforms, "Streaming platforms", $descr="YouTube, Twitch and up to twenty endpoints.", $tags="", $link="")
+
+System_Boundary("UNIPlatform_boundary", "UNI Platform", $tags="") {
+  Container(UNIPlatform.TheLabView, "The Lab View", $techn="Phoenix LiveView + THREE.js on T1000", $descr="The immersive rendered room the operator works inside. Proposes commands; never writes. Rooms, airlocks, world portals, Gaia overhead.", $tags="", $link="")
+  Container(UNIPlatform.Gaia, "Gaia", $techn="Node.js / gaia_server.cjs :8096 + read-only MCP", $descr="World-visibility organ. 308 live signals, 0 provenance-incomplete, 5 drift signals. LAW: never summarizes, scores, ranks, narrates, authors a verdict, or acts outward.", $tags="", $link="")
+  Container(UNIPlatform.TheHUD, "The HUD", $techn="WPF widget + JSON service :8100", $descr="What the operator sees and carries. LAW: never fabricates a state; unknown renders SYNCING.", $tags="", $link="")
+  Container(UNIPlatform.Colonyworld, "Colony world", $techn="Elixir / lib/sp + paper.jar :25565", $descr="Minecraft world plus the Phoenix FEP brain and body.js bots. The subject of the science.", $tags="", $link="")
+  Container(UNIPlatform.Overlooker, "Overlooker", $techn="Phoenix LiveView + world.js THREE", $descr="The colony's own omniscient per-tick god-view with a Markov-blanket monitor that re-derives per tick that the agent received only the opaque observation.", $tags="", $link="")
+  Container(UNIPlatform.Colonycontrolcenter, "Colony control center", $techn="Node.js / command_center.cjs :8098", $descr="Live-television vision mixer for the colony: preview, take, cut, cue, projector, overlay, fanout, golive, offair.", $tags="", $link="")
+  Container(UNIPlatform.Camerasandcompositor, "Cameras and compositor", $techn="Node.js + Chrome :3020 :8099", $descr="Director follow-cam, prismarine colony cam, overlay server and the single-page broadcast composite.", $tags="", $link="")
+  Container(UNIPlatform.Encoder, "Encoder", $techn="OBS + MediaMTX :1935", $descr="One render and one encode on the T1000, out as a single RTMP stream.", $tags="", $link="")
+  Container(UNIPlatform.Fanoutrelay, "Fan-out relay", $techn="Podman / uni-bcast-relay", $descr="Tees one incoming stream to many endpoints. No encode, no colony.", $tags="", $link="")
+  ContainerDb(UNIPlatform.Gateledger, "Gate ledger", $techn="NDJSON / evidence/gates.ndjson", $descr="Append-only record of every registered gate and its verdict. 206 rows, 109 unique, 1 FAIL.", $tags="", $link="")
+  ContainerDb(UNIPlatform.Receiptstore, "Receipt store", $techn="Filesystem + sha256", $descr="Content-addressed artifacts, commit ids and logs that reproduce each claim.", $tags="", $link="")
+  Container(UNIPlatform.Approvalqueue, "Approval queue", $techn="systemd / uni-approvald", $descr="One human approve or deny per mutating call.", $tags="", $link="")
+  Container(UNIPlatform.Flagellumproject, "Flagellum project", $techn="Next.js on Cloudflare Worker :8790 :8791", $descr="Bacterial flagellar-motor science. Separate repo, CPU-only build, no WebGL or network.", $tags="", $link="")
+  Container(UNIPlatform.TheDoor, "The Door", $techn="Node.js / launcher.cjs :8090", $descr="Admission, release, key custody and the journey. LAW: a polled read never spawns anything; every actuation is a deliberate click or an explicit verb.", $tags="", $link="")
+  Container(UNIPlatform.TheControlPlane, "The Control Plane", $techn="Elixir / SP.ControlPlane, root zero-dep app", $descr="Runs the science and authors every verdict, across every project. THIS IS THE LAB. Phase 2 landed Ledger, GateRow, Command and Drift; Registry, Verdict, Run, Pair, Room and Scene are not built.", $tags="", $link="")
+}
+
+Rel(Michael, UNIPlatform.TheDoor, "Crosses once, on the way in", $techn="", $tags="", $link="")
+Rel(Michael, UNIPlatform.TheLabView, "Works inside. Authors verdicts. Stops runs.", $techn="", $tags="", $link="")
+Rel(Michael, UNIPlatform.TheHUD, "Carries", $techn="", $tags="", $link="")
+Rel(Michael, UNIPlatform.Colonycontrolcenter, "Types go-live by hand (G-PA)", $techn="", $tags="", $link="")
+Rel(Michael, UNIPlatform.Approvalqueue, "Co-signs each mutating call", $techn="", $tags="", $link="")
+Rel(Externalreviewer, UNIPlatform.Receiptstore, "Receives evidence packages", $techn="", $tags="", $link="")
+Rel(UNIPlatform.Gaia, UNIPlatform.TheControlPlane, "Projects the Control Plane ledger VERBATIM (seat control-plane)", $techn="", $tags="", $link="")
+Rel(UNIPlatform.TheDoor, UNIPlatform.TheControlPlane, "Admits and releases", $techn="", $tags="", $link="")
+Rel(UNIPlatform.TheControlPlane, UNIPlatform.TheLabView, "Pushes a compact scene per tick", $techn="", $tags="", $link="")
+Rel(UNIPlatform.TheLabView, UNIPlatform.TheControlPlane, "Explicit verbs only. No hover or poll actuates.", $techn="", $tags="", $link="")
+Rel(UNIPlatform.TheControlPlane, UNIPlatform.Gateledger, "Appends a gate row. Never edits.", $techn="", $tags="", $link="")
+Rel(UNIPlatform.TheControlPlane, UNIPlatform.Receiptstore, "Writes a receipt per decision", $techn="", $tags="", $link="")
+Rel(UNIPlatform.TheControlPlane, UNIPlatform.Approvalqueue, "Requests the human co-sign", $techn="", $tags="", $link="")
+Rel(UNIPlatform.TheControlPlane, UNIPlatform.Colonyworld, "Starts and stops paired runs", $techn="", $tags="", $link="")
+Rel(UNIPlatform.TheControlPlane, UNIPlatform.Flagellumproject, "Runs gates and guards", $techn="", $tags="", $link="")
+Rel(UNIPlatform.Gaia, UNIPlatform.Gateledger, "Projects rows verbatim", $techn="", $tags="", $link="")
+Rel(UNIPlatform.Gaia, UNIPlatform.Receiptstore, "Projects artifacts with sha256", $techn="", $tags="", $link="")
+Rel(UNIPlatform.Gaia, UNIPlatform.TheDoor, "Projects register and journey", $techn="", $tags="", $link="")
+Rel(UNIPlatform.Gaia, UNIPlatform.TheControlPlane, "Projects the ledger. Read-only.", $techn="", $tags="", $link="")
+Rel(UNIPlatform.Gaia, UNIPlatform.Colonyworld, "Probes and projects. Never actuates.", $techn="", $tags="", $link="")
+Rel(UNIPlatform.TheHUD, UNIPlatform.Gaia, "Reads signals", $techn="", $tags="", $link="")
+Rel(UNIPlatform.TheHUD, UNIPlatform.TheDoor, "Reads state", $techn="", $tags="", $link="")
+Rel(UNIPlatform.TheHUD, UNIPlatform.TheControlPlane, "Reads run state", $techn="", $tags="", $link="")
+Rel(UNIPlatform.TheLabView, UNIPlatform.Gaia, "Renders signals overhead. Cannot act on them.", $techn="", $tags="", $link="")
+Rel(UNIPlatform.TheLabView, UNIPlatform.Overlooker, "Looks through the colony portal. Never reimplements it.", $techn="", $tags="", $link="")
+Rel(UNIPlatform.Colonyworld, UNIPlatform.Overlooker, "Emits an observer frame each tick", $techn="", $tags="", $link="")
+Rel(UNIPlatform.Colonyworld, UNIPlatform.Camerasandcompositor, "Is captured over the LAN", $techn="", $tags="", $link="")
+Rel(UNIPlatform.Camerasandcompositor, UNIPlatform.Encoder, "Feeds one composite", $techn="", $tags="", $link="")
+Rel(UNIPlatform.Colonycontrolcenter, UNIPlatform.Encoder, "Switches scenes, cuts, takes", $techn="", $tags="", $link="")
+Rel(UNIPlatform.Encoder, UNIPlatform.Fanoutrelay, "One RTMP stream", $techn="", $tags="", $link="")
+Rel(UNIPlatform.Fanoutrelay, Streamingplatforms, "Fans out", $techn="", $tags="", $link="")
+
+SHOW_LEGEND(true)
+hide stereotypes
+@enduml

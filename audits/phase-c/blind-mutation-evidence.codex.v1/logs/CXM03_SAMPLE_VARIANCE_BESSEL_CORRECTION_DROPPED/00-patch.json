@@ -1,0 +1,7 @@
+{
+  "id": "CXM03_SAMPLE_VARIANCE_BESSEL_CORRECTION_DROPPED",
+  "targetPath": "lib/observed-experiment.js",
+  "preMutationSha256": "b757971e1f207899ddac0b262241822552a06abc5272407b14b21fd98ddbe623",
+  "postMutationSha256": "9431dc81439d182602eba1e6b21a64a4cc357181157de680acbdf0b6244815ff",
+  "diff": "diff --git a/lib/observed-experiment.js b/lib/observed-experiment.js\nindex 2218c86..5493d0d 100644\n--- a/lib/observed-experiment.js\n+++ b/lib/observed-experiment.js\n@@ -10,7 +10,7 @@ export function mean(values) {\n export function sampleVariance(values) {\n   if (values.length < 2) return 0;\n   const center = mean(values);\n-  return values.reduce((sum, value) => sum + (value - center) ** 2, 0) / (values.length - 1);\n+  return values.reduce((sum, value) => sum + (value - center) ** 2, 0) / values.length;\n }\n \n function quantile(values, probability) {\n"
+}

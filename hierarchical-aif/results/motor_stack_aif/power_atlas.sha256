@@ -1,0 +1,11 @@
+# RE-RECORDED 2026-07-27 under the operator's ruling. S9: this pin named 66311a07866b916c...,
+# the CRLF form this file carried in a Windows working copy. .gitattributes declares
+# `* text=auto eol=lf`, so EVERY checkout on EVERY platform produces the LF form and the
+# pin was of bytes git has never stored - verifiable on one machine and nowhere else.
+# The TEXT was byte-for-byte identical once CR was ignored, verified before re-recording:
+# this is a RECORDING fault repaired, not an evidence change. The result is untouched.
+# SUPERSEDED: 66311a07866b916c77a44faab4bc22688db1e4e7fd6438bce77b1ba8ffe8976b
+# Anything citing the superseded hash (FLOW-JOURNAL.jsonl, POWER-ATLAS-MOTOR-EQUAL-SCORING.md)
+# is LEFT AS WRITTEN - a journal is append-only and a report records what was true when it
+# was written. This line is the bridge between the two.
+1af189b784494f131c32b805b03d28d0ea06cb29921a2a469486c8288e2c8c77  power_atlas.json

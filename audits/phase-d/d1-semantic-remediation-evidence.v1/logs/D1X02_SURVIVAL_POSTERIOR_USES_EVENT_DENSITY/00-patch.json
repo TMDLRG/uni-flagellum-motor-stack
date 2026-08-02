@@ -1,0 +1,9 @@
+{
+  "id": "D1X02_SURVIVAL_POSTERIOR_USES_EVENT_DENSITY",
+  "class": "EXACT_PHASE_C_REPLAY",
+  "propertyId": "D1P02_SURVIVAL_CONDITIONED_POSTERIOR",
+  "targetPath": "lib/observed-experiment.js",
+  "preMutationSha256": "b757971e1f207899ddac0b262241822552a06abc5272407b14b21fd98ddbe623",
+  "postMutationSha256": "ae8cf1f7417e907574d32655d4ea37db2a3e150a56562fbe3df6df35f46e00ac",
+  "diff": "diff --git a/lib/observed-experiment.js b/lib/observed-experiment.js\nindex 2218c86..f0a66d9 100644\n--- a/lib/observed-experiment.js\n+++ b/lib/observed-experiment.js\n@@ -202,8 +202,8 @@ function inverseCdf(modelName, probability, models) {\n }\n \n export function posteriorSlowGivenSurvival(normalizedTime, mixture) {\n-  const slowMass = (1 - mixture.weightFast) * Math.exp(-mixture.rateSlow * normalizedTime);\n-  const fastMass = mixture.weightFast * Math.exp(-mixture.rateFast * normalizedTime);\n+  const slowMass = (1 - mixture.weightFast) * mixture.rateSlow * Math.exp(-mixture.rateSlow * normalizedTime);\n+  const fastMass = mixture.weightFast * mixture.rateFast * Math.exp(-mixture.rateFast * normalizedTime);\n   return slowMass / Math.max(EPS, slowMass + fastMass);\n }\n \n"
+}

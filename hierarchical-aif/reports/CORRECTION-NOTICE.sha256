@@ -1,0 +1,11 @@
+1f92bab6284a4947c292aeb2442c0cf8a5372f94448addeafa7724e45bb98ea6 *hierarchical-aif/reports/CORRECTION-NOTICE-TO-REVIEWER.md
+d549c9ecebef812d969073f83da0326adaa8fd432cc8eac08740f75f1f5b4d99 *hierarchical-aif/reports/CORRECTION-NOTICE-ISSUED.md
+# RE-ISSUED 2026-07-27 under the operator's ruling. This pin named 972c5e391bd0bd66...,
+# which matched NOWHERE - not the working copy, not the commit, not any checkout. The
+# ledger was edited by 7e9b22b (D12 incident containment: redact leaked held-out mark
+# identity from distributable surfaces) AFTER this notice was written in b9b5670, and the
+# pin was never re-issued. Unlike the three S9 cases this was NOT a recording fault: the
+# artifact genuinely moved and the record did not follow. Re-issued against the current
+# committed form, which disk and blob agree on.
+# SUPERSEDED: 972c5e391bd0bd66339c0799ace1bed44709b57e324fa84c12739874986fc6de
+68d4f834db91a2f97371315022e5c4cd09d9a295b63b14a86563fb0a3d9e25da *hierarchical-aif/ledgers/HIERARCHICAL-AIF-DEFECT-LEDGER.md

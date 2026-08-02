@@ -1,0 +1,162 @@
+{
+  "schema": "uni.flagellum.audit-artifact/1.0.0",
+  "purpose": "Append-only addendum tightening b3-competition-protocol.v1.json. Addresses all eight underspecifications Codex identified, so that no model, bound, restart rule, hyperparameter or scoring choice remains selectable after a result is seen.",
+  "auditedCommit": "9c3a644e4b57e8ac27f925dcec84222463063aa1",
+  "auditPhase": "B",
+  "auditorModel": "claude-opus-4-8",
+  "appendOnly": true,
+  "correctsButDoesNotReplace": "audits/phase-b/b3-competition-protocol.v1.json, PRESERVED BYTE-IDENTICAL at 52aedca.",
+  "frozenBeforeExecution": true,
+  "note": "Timestamps are deliberately omitted: this package must be byte-reproducible. Ordering is established by git history.",
+
+  "componentSpecifications": {
+    "location": "audits/phase-b/b3-specs/",
+    "files": [
+      "m4-three-component-mixture.json",
+      "m7-hierarchical-motor.json",
+      "m8-kde-ceiling.json",
+      "scoring-and-uncertainty.json"
+    ],
+    "provenance": "Each was derived independently by a specialist working from the frozen protocol prose, with no access to the sibling specifications. They were written before any competition was executed and before any competitor was fitted.",
+    "ambiguitiesEliminated": 86,
+    "residualRisksDeclared": 32,
+    "byComponent": {
+      "M4_MIXTURE_K3": { "ambiguities": 19, "risks": 7 },
+      "M7_HIERARCHICAL_MOTOR": { "ambiguities": 27, "risks": 9 },
+      "M8_EMPIRICAL_KDE": { "ambiguities": 23, "risks": 9 },
+      "B3_SCORING_UNCERTAINTY": { "ambiguities": 17, "risks": 7 }
+    }
+  },
+
+  "codexTighteningsAddressed": [
+    {
+      "id": "T1",
+      "requirement": "Replace every 'at least' optimizer/restart choice with exact methods, counts, tolerances and iteration limits.",
+      "status": "ADDRESSED",
+      "resolution": "All three optimizers are mandatory for every likelihood-fitted model, not a subset, so no subset can be chosen post hoc. Exact counts are fixed per model: M7 uses exactly 100 grid starts plus 200 random plus 1 nested-M1 start = 301, giving exactly 603 terminal results. Exact tolerances are fixed: Nelder-Mead xatol/fatol 1e-10 with maxiter/maxfev 20000; L-BFGS-B ftol 1e-12, gtol 1e-10, maxiter/maxfun 20000, maxls 100; differential_evolution best1bin, popsize 60, tol 1e-10, mutation (0.5,1.0), recombination 0.7, maxiter 5000, init sobol, seed 20260717, workers 1, updating deferred.",
+      "note": "M8 has NO likelihood-optimized parameter. Rather than silently reporting the optimizer requirements as satisfied, its specification declares the requirement inapplicable and substitutes an exhaustive 61-point grid, with the vacuity stated explicitly in the deliverable."
+    },
+    {
+      "id": "T2",
+      "requirement": "Define M4's implied third-rate formula and label/order constraints.",
+      "status": "ADDRESSED",
+      "closedForm": "l3 = (1 - w1 - w2) / (1 - w1/l1 - w2/l2)",
+      "feasibilityCondition": "D := 1 - w1/l1 - w2/l2 > 0. D is the share of the unit mean budget not yet consumed by components 1 and 2. D = 0 sends l3 to zero (unbounded component mean); D < 0 makes l3 negative. Both are infeasible.",
+      "labelSwitching": "A k=3 mixture has 3! = 6 equivalent optima. Resolved by a strictly decreasing rate ordering enforced on the natural-log scale with a separation floor EPS_SEP = 1e-4 exactly: ln(l1)-ln(l2) >= 1e-4 and ln(l2)-ln(l3) >= 1e-4. Log scale is used because rates span 13 decades, where an absolute floor would be vacuous at large rates and prohibitive at small ones. Weights are deliberately NOT ordered, since ordering rates alone already selects one permutation copy and additionally ordering weights would exclude valid mixtures.",
+      "collapseDetection": "M4 nests M3 (a weight to zero) and M0 (rates coinciding). Collapse is declared by thresholds fixed in advance on the training-only canonical point estimate: weight collapse at omega_min < 5/793, rate collapse at adjacent log-rate ratio <= 0.01. The separation floor makes collapse observable as boundary parking rather than as an interior optimum an implementer would have to judge afterwards.",
+      "interpretationFixedInAdvance": "A five-cell mapping from {collapsed, not collapsed} x {beats M3, does not beat M3} to a B3 conclusion, including an explicit INCONCLUSIVE cell, so the flexibility-versus-two-timescales verdict cannot be selected after seeing the leaderboard."
+    },
+    {
+      "id": "T3",
+      "requirement": "Define M7's random-effect distribution, quadrature method, and held-out-new-motor predictive integration.",
+      "status": "ADDRESSED",
+      "distribution": "log k_m = log(k) + tau*z_m with z_m ~ N(0,1) i.i.d. across motors; the effect is lognormal on the SHAPE.",
+      "whyTheShapeAndNotTheRate": "This is the load-bearing decision. Mean-one is imposed CONDITIONALLY on each realized k_m via scale s(a) = 1/Gamma(1+1/a). The tower property then gives E[y] = E_z[E[y|z]] = E_z[1] = 1 EXACTLY for the marginal, with no tau-dependent renormalizer. An effect on the rate or scale would instead give conditional mean 1/rate_m, so the marginal mean would be E[1/rate_m] - a nontrivial and sometimes divergent function of tau. That would couple the mean-one normalization to the very dispersion parameter under test.",
+      "quadrature": "Gauss-Hermite, physicists' weight, exactly 129 nodes, z_j = sqrt(2)*x_j, W_j = v_j/sqrt(pi) renormalized to sum to exactly one. Node count is ODD so a node sits at exactly z = 0 and the tau -> 0 limit reproduces M1 exactly rather than approximately. Weight renormalization is what makes discrete marginal mean-one exact in floating point. Convergence diagnostic |NLL(129) - NLL(257)| <= 1e-6 nats, with the 129-node value reported in both cases so no post-hoc substitution is possible.",
+      "heldOutNewMotorPredictive": "The population-MARGINAL per-event density. A holdout motor's random effect is unobserved, so the predictive must integrate over the population law. Empirical-Bayes conditioning, posterior-mode conditioning, adaptive recentring on a holdout motor's own events, and leave-one-event-out within a holdout motor are ALL explicitly named as LEAKAGE and forbidden. Non-adaptive quadrature is mandated on every partition for the same reason: mode-centring on a holdout motor's data would be leakage.",
+      "unidentifiabilityCriteria": "Four exact observables replace human judgement: tau_hat < 1.0e-3; tau_hat > 4.95; profile log-span >= 0.50 at the 1.9207 threshold on a 61-point log grid; bootstrap collapse fraction >= 0.25. The nested LRT against M1 uses the boundary-corrected 0.5*chi2_0 + 0.5*chi2_1 with critical value 2.7055, NOT the naive chi2_1 value of 3.8415.",
+      "honestExpectation": "tau is informed only by BETWEEN-motor contrasts, so its effective sample size is the motor count, not the 793 training events. M7 being declared UNIDENTIFIED is the honest expected outcome rather than a defect. The criteria exist so that verdict is reached mechanically."
+    },
+    {
+      "id": "T4",
+      "requirement": "Define M8's kernel, bandwidth grid, fold count/assignment, CV objective and exact mean-one transformation.",
+      "status": "ADDRESSED",
+      "kernel": "Standard normal (Gaussian) on z = log y. No boundary correction is used, and the reason is structural rather than a preference: estimation on log y has no boundary.",
+      "meanOneTransformation": "The elegant part. A Gaussian KDE on log y IS IDENTICALLY an equal-weight n-component lognormal mixture, whose mean is available in closed form as m(h) = exp(h^2/2) * ybar. Mean-one is therefore achieved by a pure SCALE change of the variable, implemented as a single location shift s_i = z_i - h^2/2 - log(ybar). This does not distort shape at all, because scale is exactly the degree of freedom the competition intends to strip out. Truncate-and-renormalize and exponential tilting are explicitly rejected as shape-distorting. There is NO numerically-solved normalizing constant anywhere in M8.",
+      "machineCheckableInvariant": "ybar over the uncensored training set is analytically exactly 1, because the per-state scales ARE the per-state training means. |ybar - 1| <= 1e-9 therefore becomes a bug detector for any inconsistency in the frozen normalization. Hard-coding ybar = 1 is forbidden; it must be computed with math.fsum and checked.",
+      "bandwidthGrid": "h_j = 10^(-2 + 0.05j) for j = 0..60: exactly 61 points, endpoints exactly 0.01 and 10.0, exactly 0.05 decade spacing, ascending, non-extensible.",
+      "folds": "Exactly 5. Assignment by motorIds sorted by UTF-8 bytes, one numpy.random.Generator(PCG64(20260717)).permutation call, fold = rank mod 5, every event inheriting its motor's fold. No motor spans a fold boundary. The full fold map must be recorded verbatim in the deliverable, not merely the seed.",
+      "cvObjective": "Mean out-of-fold log predictive density per event in normalized y-space, with fold models rebuilt from fold-complement events only. Event-level leave-one-out CV is explicitly forbidden as pseudoreplication. Holdout data may never touch this selection.",
+      "tieBreaking": "Strict-greater-than ascending scan, selecting the smallest h among bitwise-exact ties. No tolerance-based near-tie rule is permitted.",
+      "forbidden": "scipy.stats.gaussian_kde is forbidden, because its automatic bandwidth rules would bypass the mandated CV and its covariance-factor convention makes a reported h ambiguous."
+    },
+    {
+      "id": "T5",
+      "requirement": "Specify CRPS integration bounds, tolerances and tail handling.",
+      "status": "ADDRESSED",
+      "scaleDecision": "CRPS is NOT invariant under change of variables, so this is substantive. The B3 normalization y = t/scale_N is a per-state positive linear rescaling, which gives the exact identity CRPS_seconds = scale_N * CRPS_y. CRPS is therefore always computed in y-space, where one fixed quadrature split point is valid for every state and every model, and converted to seconds by multiplying by scale_N.",
+      "asymmetryStatedHonestly": "Paired NLPD differences are INVARIANT to this choice, because the log-Jacobian is model-independent and cancels. Paired CRPS differences are NOT: seconds-scale CRPS weights slow states more heavily. The normalized-scale CRPS ranking is therefore a MANDATORY secondary report, and a seconds-versus-normalized ranking flip is pre-declared as a first-class reportable disagreement.",
+      "integration": "scipy.integrate.quad only, epsabs 1e-11, epsrel 1e-11, limit 500, IntegrationWarning escalated to an exception. No Monte Carlo, no fixed-grid trapezoid, no retry at a looser tolerance.",
+      "truncationBound": "U = 50.0 in normalized y-space, declared before any fit, identical for every competitor and every stateN. Chosen in y-space precisely so one value can be model-independent, which a seconds-space bound could not be.",
+      "tailHandling": "Made exact rather than approximate. The interval [max(U, y), inf) is integrated to the true limit with quad's upper bound numpy.inf, so no mass is dropped and CRPS is mathematically independent of U. Locked by a mandatory U-invariance test at U = 20.0 and U = 200.0 to 1e-8 over a 208-point deterministic checkpoint set.",
+      "kinkHandling": "The integral is split at x = yobs where the indicator jumps, into three named terms, with the yobs > U branch defined via L = max(U, yobs) so the formula is correct for every possible observation rather than only when an assertion holds.",
+      "closedForms": "Exactly M0 and M2 admit closed forms. Both are written out and cross-checked against quadrature on all 233 holdout events, with the max deviation recorded in the ledger even on passing runs. M1 and M3 are quadrature-only, and introducing a closed form for them later is FORBIDDEN, which removes any post-hoc choice of computational path."
+    },
+    {
+      "id": "T6",
+      "requirement": "State whether bootstrap replicates reuse frozen training fits or refit models.",
+      "status": "ADDRESSED",
+      "decision": "FROZEN TRAINING FITS.",
+      "reason": "This is settled by leakage, not preference. The resampling unit is drawn from the HOLDOUT partition. Refitting inside a replicate would therefore train on holdout data, violating the frozen protocol's leakage control. Frozen fits are the only coherent choice.",
+      "whatThisMeasures": "Uncertainty in the HELD-OUT SCORE ONLY, conditional on the training fits. Parameter-estimation uncertainty is EXCLUDED.",
+      "declaredLimitation": "Intervals on ABSOLUTE scores are therefore anticonservative and must be read as conditional. The PAIRED-DIFFERENCE intervals are the defensible product. The refit-on-training variant is named and placed explicitly out of scope so it cannot be silently substituted later.",
+      "degenerateReplicates": "Exactly zero discards, by construction, because no fitting occurs inside a replicate under frozen fits. Value-conditional discarding is named as a source of bias and forbidden."
+    },
+    {
+      "id": "T7",
+      "requirement": "Declare 2,000 replicates primary and 50,000 a sensitivity check.",
+      "status": "ADDRESSED",
+      "primary": 2000,
+      "sensitivity": 50000,
+      "construction": "numpy.random.default_rng(20260717) / PCG64, constructed once, never reseeded or spawned. The full 50000 x 19 index matrix is drawn in a SINGLE integers() call, so the 2000 primary replicates are a strict PREFIX of the 50000 sensitivity replicates. The primary number is fixed in advance and may not be increased after seeing a result.",
+      "commonRandomNumbers": "One index matrix is reused verbatim across all models, both scoring rules and both scales, so every contrast is exactly paired.",
+      "aggregation": "Unweighted mean over 19 motors of within-motor means, with deterministic event and motor orderings. Event-pooled and n_i-weighted means are demoted to labelled diagnostics, since the experimental unit is the motor.",
+      "interval": "95 percent equal-tailed BCa as primary, with the percentile interval ALWAYS reported as a companion rather than as a fallback. Exact z0 tie-handling, exact jackknife acceleration formula, numpy.quantile method='linear', and an enumerated list of conditions under which BCa is declared UNDEFINED rather than silently replaced.",
+      "multiplicity": "Three primary contrasts against M0, pre-committed, with a Bonferroni companion at level 0.9833333333333333 reported alongside the 95 percent interval. The other three pairs are labelled secondary and unadjusted IN ADVANCE."
+    },
+    {
+      "id": "T8",
+      "requirement": "Remove the open-ended post hoc exemption for models that cannot satisfy mean one, or identify exemptions now.",
+      "status": "ADDRESSED - THE EXEMPTION IS REMOVED, AND THERE ARE NO EXEMPTIONS",
+      "withdrawnClause": "b3-competition-protocol.v1.json stated: 'Any model that cannot accept this constraint must be declared, and its exemption reported as a limitation.' That clause is WITHDRAWN. It permitted an exemption to be claimed after a model was found inconvenient to constrain.",
+      "replacement": "Every one of the nine competitors satisfies mean-one exactly, by a stated mechanism. No exemption exists and none may be claimed.",
+      "mechanismPerModel": {
+        "M0": "rate 1 forced by the constraint; no free parameter",
+        "M1": "scale_w = 1/Gamma(1+1/k), closed form",
+        "M2": "mu = -sigma^2/2, closed form",
+        "M3": "ls = (1-w)/(1 - w/lf), closed form, inducing lf > w",
+        "M4": "l3 = (1-w1-w2)/(1 - w1/l1 - w2/l2), closed form, inducing D > 0",
+        "M5": "rate = shape, closed form",
+        "M6": "per-state Weibull, each with scale 1/Gamma(1+1/k_N), closed form",
+        "M7": "imposed conditionally on each realized k_m; exact marginally by the tower property, and preserved exactly under Gauss-Hermite discretization because any convex combination of mean-one densities has mean exactly one",
+        "M8": "pure scale change with closed-form mean exp(h^2/2)*ybar; no quadrature-solved constant"
+      },
+      "consequence": "If a future candidate model cannot satisfy mean-one, it may not be added to this competition. It would be a different competition, requiring its own frozen protocol."
+    }
+  ],
+
+  "additionalHardeningNotRequestedButAdopted": [
+    "float64 mandated throughout; float32 forbidden in any fit, score or bootstrap.",
+    "Direct exponential summation forbidden; scipy.special.logsumexp mandated, so any density floor reflects genuine tail behaviour rather than avoidable numerical error.",
+    "A shared density floor of 1e-300 applied identically to M0 through M8 by the SHARED scorer, with flooredEventCount reported as adverse telemetry adjacent to every score, so a floor cannot silently advantage whichever model vanishes first.",
+    "Out-of-domain penalties are finite and exceed the maximum attainable feasible objective, so no unbounded simplex can terminate outside a declared domain. Never inf, never nan.",
+    "Non-finite log density is a HALTING condition, not an implementer judgement call. Flooring and clipping to rescue it are banned.",
+    "Quadrature tolerance failure HALTS the run. The mandated response is to fix the offending competitor's parameter bounds in its own specification, never to loosen the shared tolerance."
+  ],
+
+  "consolidatedResidualRisks": {
+    "count": 32,
+    "note": "Each component specification carries its own risks in full. The ones a reviewer should weigh first are listed here because they bear on whether a B3 result would be interpretable at all.",
+    "highestPriority": [
+      "M7: tau is informed only by between-motor contrasts, so with 19 holdout motors M7 may well be declared UNIDENTIFIED. That is the honest expected outcome, not a defect.",
+      "M7: the per-event marginal score deliberately discards exactly the within-motor dependence M7 exists to represent. A poor M7 per-event score is therefore NOT evidence against motor heterogeneity, and the write-up must say so.",
+      "M8: with 19 holdout motors and 233 events, the bootstrap interval on any paired difference involving M8 may contain zero. UNRESOLVED is declared in advance, but the competition may simply lack the resolution to place M8 relative to M2 and M3.",
+      "Scoring: frozen fits mean absolute-score intervals are anticonservative. Only the paired-difference intervals are defensible.",
+      "Scoring: BCa with 19 jackknife units is only asymptotically justified; a material BCa-versus-percentile disagreement is a signal about sample size, not a choice between two numbers.",
+      "M4: the training NLL at a collapsed optimum is very slightly worse than the true nested M0 value, because the separation floor prevents exact collapse in the interior. This must not be read as M4 fitting worse for a substantive reason.",
+      "Cross-model: M7's training objective is motor-grouped while M0-M3, M5 and M8 are event-exchangeable. Training-NLL comparisons across models other than the nested M1/M7 pair are NOT licensed. Only held-out per-event scores are cross-model comparable."
+    ]
+  },
+
+  "statusOfB3": {
+    "protocolComplete": true,
+    "executionCleared": false,
+    "remainingGate": "Per-model predictions and falsifiers must be committed before any competitor is fitted. This has NOT been done.",
+    "rationale": "B2 demonstrated the value: a committed prediction was refuted, and the refutation carried more information than a confirmation would have. The same discipline is required here, and for the same reason.",
+    "whatMustBeCommitted": "For each of the nine models, whether it is expected to beat M3 under each of the two scoring rules, under each of the two cohorts, with the falsifier stated."
+  },
+
+  "uncertainty": "These specifications were written but NOT executed. No competitor has been fitted. A specification can be internally exact and still prove unimplementable or numerically fragile on contact with the data; the first execution attempt is itself a test of this document.",
+  "alternativeExplanation": "n/a - this is a protocol, not an empirical claim.",
+  "independentlyReproduced": "Each component was derived by a specialist with no access to the sibling specifications. Their independence is genuine at the derivation level. They have NOT been cross-checked against one another for interface consistency, which is a known gap: the M7 and M8 specifications both flag that they depend on the shared CRPS integrator's tail handling, which their authors could not inspect."
+}

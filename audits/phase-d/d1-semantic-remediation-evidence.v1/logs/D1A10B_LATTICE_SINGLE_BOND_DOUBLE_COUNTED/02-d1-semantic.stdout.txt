@@ -1,0 +1,89 @@
+✔ D1P11 historical phase-c adverse 0/10 detection result is preserved unlaundered (5.4596ms)
+✔ D1P11 the preserved phase-c evidence copy has not silently diverged from the canonical adverse result (9.3716ms)
+✔ D1P11 the phase-c adverse result is not weakened by the D1 remediation contract (8.0953ms)
+✔ right-censored dwells are excluded from the uncensored duration likelihood (hand-calculated mean) (1.7707ms)
+✔ the fixture discriminates: admitting censored dwells changes the mean to a different hand-calculated value (0.2176ms)
+✔ censored dwells exert zero influence on the likelihood: flagged-present run equals censored-absent run (0.2496ms)
+✔ likelihood cohort sizes equal the independently counted uncensored eligible events (0.2754ms)
+✔ right-censored dwells are RETAINED in the record for provenance (0.4133ms)
+✔ the frozen protocol still declares both halves of the censoring rule (1.7856ms)
+✔ D1P01 seconds-scale predictive density carries the change-of-variables jacobian (1.9583ms)
+✔ D1P01 seconds-scale predictive density is equivariant under unit reparameterization (0.4631ms)
+✔ D1P03 sample variance uses the bessel n-1 denominator (0.7369ms)
+✔ D1P03 reported cvSquared propagates the bessel n-1 denominator into the held-out state summary (0.31ms)
+✔ D1P07 first-passage mixture weights are a normalized bernoulli convolution (2.8453ms)
+✔ D1P08 competing-risk off hazard carries n-fold stator detachment multiplicity (2.2484ms)
+✔ D1P09 exponential-mixture second moment retains its factor of two (266.7212ms)
+✔ fixture guard: both synthetic stator states are eligible and fully scored (1.8737ms)
+✔ direction semantics: "on" is the positive outcome in the training-fitted probabilities (0.2889ms)
+✔ direction semantics: held-out outcome 1 is "on" (hand-calculated log loss and Brier score) (0.2021ms)
+✔ direction semantics: stateSummary.onFraction counts "on", not "off" (0.2047ms)
+✔ anchoring identity: state-conditioned direction predictor was constructed to beat the pooled baseline (0.2385ms)
+✔ anchoring identity: the generating model outscores every mis-specified baseline (0.2439ms)
+✔ paired advantage sign convention: mixture was constructed to beat every baseline (0.2303ms)
+✔ paired advantage sign convention: bootstrap intervals agree in sign with the point estimate (0.197ms)
+✔ independent recomputation: paired advantages match an oracle written from the density definitions (0.6682ms)
+✔ internal orientation identity: paired advantage equals the difference of the reported mean log scores (0.3322ms)
+✔ determinism: a second run of the same fixture reproduces every orientation-bearing value (115.0979ms)
+✖ D1P10 periodic thirteen-site lattice retains its wraparound bond (11.7505ms)
+✔ D1P10 periodic and open-chain lattice topologies are genuinely discriminated at the reported fit (9.0655ms)
+✔ D1P10 the lattice gate cannot detect a bond-offset relabelling, because on a prime ring it is an isomorphism (3.4733ms)
+✔ D1P10 lattice adjacency oracle counts the wraparound bond on hand-calculable configurations (0.3351ms)
+PROSPECTIVITY GATE: 6/6 anchors verified against commit ancestry.
+PROSPECTIVITY GATE: class ledger
+  B1-MUTATION-BATTERY-V1: declared=PROSPECTIVE measured=PROSPECTIVE (STRICT_ANCESTRY_PROVEN)
+  B1-RERUN-ON-C3-FIXED-TREE: declared=TIMING_UNVERIFIED measured=TIMING_UNVERIFIED (SAME_COMMIT:audits/phase-b/b1-mutation-ledger-rerun.json)
+  C3-CANONICAL-WRITE-FIX: declared=TIMING_UNVERIFIED measured=TIMING_UNVERIFIED (SAME_COMMIT:1630a68f)
+  B3-MODEL-COMPETITION-V1: declared=PENDING measured=PENDING (RESULT_DOES_NOT_EXIST_YET)
+  PHASE-D1-SEMANTIC-REMEDIATION-CLAUDE: declared=PENDING measured=PENDING (RESULT_DOES_NOT_EXIST_YET)
+  PHASE-C-BLIND-MUTATION-CODEX: declared=PROSPECTIVE measured=PROSPECTIVE (STRICT_ANCESTRY_PROVEN)
+✔ SYNTHETIC: prediction committed one commit before its result => PROSPECTIVE (1521.9725ms)
+✔ SYNTHETIC: prediction and result in the SAME commit => TIMING_UNVERIFIED, never upgraded (903.4417ms)
+✔ SYNTHETIC: result committed BEFORE the prediction => TIMING_UNVERIFIED (1351.7475ms)
+✔ SYNTHETIC: prediction committed, result does not exist => PENDING (1115.4727ms)
+✔ SYNTHETIC: result written but NOT committed cannot make a prediction PROSPECTIVE (1374.1366ms)
+✔ SYNTHETIC: prospectivity is decided by ancestry, NOT by commit timestamps (1431.7448ms)
+✔ SYNTHETIC: a fabricated anchor commit is not accepted as an anchor (885.4196ms)
+✔ Every prediction record is well formed and carries claim, falsifier and anchor (0.564ms)
+✔ Every prediction anchor commit exists and precedes the prediction it anchors (2239.5756ms)
+✔ Declared prospectivity equals prospectivity measured from commit ancestry (1436.5338ms)
+✔ The known same-commit provenance defect remains declared and visible (611.1054ms)
+✔ D1P02 slow-state posterior conditions on survival not on event density (1.6329ms)
+✔ D1P02 slow-state posterior equals the independently recomputed survivor mass ratio (0.9053ms)
+✔ D1P02 slow-state posterior increases with survival and saturates toward the slow component (0.4368ms)
+✔ G1 a motor present in both partitions is refused, and the refusal names motor leakage (4.6136ms)
+✔ G2 the frozen dataset's partitions are disjoint at motor granularity (8.2582ms)
+✔ G2 every motor's partition equals the preregistered sha256(motorName) mod 5 rule, recomputed here (11.1313ms)
+✔ G3 fitted parameters equal HAND-CALCULATED training-only values, not pooled values (39.5673ms)
+✔ G3 corrupting every holdout observation leaves the real dataset's fitted parameters unmoved (1399.4936ms)
+✔ D1P04 observation excludes hidden world truth at the markov boundary (5.7354ms)
+✔ D1P04 observation is invariant to hidden world state under any field name (0.7557ms)
+✔ D1P04 the agent receives an observation and never the world object (1.8596ms)
+✔ D1P05 live instrument stator occupancy is bounded to the physical zero to eleven range (0.6384ms)
+✔ D1P06 mechanosensitive stator recruitment increases with load (15.1696ms)
+ℹ tests 55
+ℹ suites 0
+ℹ pass 54
+ℹ fail 1
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 13616.4761
+
+✖ failing tests:
+
+test at tests\semantic\periodic-lattice-topology.semantic.test.mjs:141:1
+✖ D1P10 periodic thirteen-site lattice retains its wraparound bond (11.7505ms)
+  AssertionError [ERR_ASSERTION]: The reported finite-lattice fit is not consistent with a PERIODIC thirteen-site ring at its own reported parameters. Independently recomputed periodic sum of squared residuals 0.050049639985098815, reported 0.04973850333007341, absolute difference 0.0003111366550254055. The lattice adjacency must include the wraparound bond joining site 13 to site 1; an open chain or a next-nearest-neighbour ring changes the partition function and the fitted cooperativity while the model is still described as a periodic motor ring.
+      at TestContext.<anonymous> (file:///C:/Users/mpolz/AppData/Local/Temp/uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85/clones/d1a10b_lattice_single_bond_double_counted/tests/semantic/periodic-lattice-topology.semantic.test.mjs:152:10)
+      at Test.runInAsyncScope (node:async_hooks:213:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.start (node:internal/test_runner/test:1003:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:358:17) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

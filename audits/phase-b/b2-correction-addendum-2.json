@@ -1,0 +1,171 @@
+{
+  "schema": "uni.flagellum.audit-artifact/1.0.0",
+  "purpose": "Second append-only correction to the B2 evidence package. Retracts a false finding, reclassifies it, and repairs four executable defects. The scientific conclusion is unchanged.",
+  "auditedCommit": "9c3a644e4b57e8ac27f925dcec84222463063aa1",
+  "auditPhase": "B",
+  "auditorModel": "claude-fable-5",
+  "appendOnly": true,
+  "correctsButDoesNotReplace": "audits/phase-b/b2-correction-addendum.json and audits/phase-b/b2-portable-oracle.py, both PRESERVED BYTE-IDENTICAL at commit 6ad64ec, together with the original three B2 artifacts preserved at de5c2fb.",
+  "note": "Timestamps are deliberately omitted: this package must be byte-reproducible. Ordering is established by git history.",
+
+  "retraction": {
+    "id": "RETRACT-F-B2-NEW-1",
+    "severity": "This audit published a false finding. It is retracted here in full.",
+    "falseClaim": "F-B2-NEW-1 asserted that the exclusion of stator state 0 from the eligible cohort was 'an implementation choice with no authorizing rule in the frozen protocol', and that 'NO rule in the frozen protocol authorizes it'.",
+    "whyItIsFalse": "An authorizing rule exists and was missed. experiments/preregistration.v1.json hypotheses[H1_OVERDISPERSION].eligibility states: 'Primary N with at least 20 uncensored holdout events from at least 5 holdout motors.' State 0 has 18 uncensored holdout events from 7 holdout motors. 18 < 20, so state 0 FAILS a frozen, preregistered threshold.",
+    "rootCauseOfTheError": "The audit read scope.primaryStates and treated it as the eligibility rule. primaryStates denotes CANDIDATE states; eligibility is a separate and stricter filter applied on top of it. Conflating candidacy with eligibility produced the false claim.",
+    "correctDerivation": {
+      "rule": "eligibleStates = scope.primaryStates INTERSECT { N : uncensored holdout events >= 20 AND distinct holdout motors >= 5 }",
+      "result": [1, 2, 3, 4, 5, 6, 7, 8],
+      "committedCohortEligibleStates": [1, 2, 3, 4, 5, 6, 7, 8],
+      "match": true,
+      "bothConditionsAreLoadBearing": "State 0 satisfies the motor threshold (7 >= 5) but fails the event threshold (18 < 20). State 9 satisfies BOTH numeric thresholds (21 events, 10 motors) but is outside primaryStates. Neither condition alone reproduces the committed cohort; their intersection does, exactly.",
+      "perStateEvidence": {
+        "0": { "holdoutUncensoredEvents": 18, "holdoutMotors": 7, "meetsH1Thresholds": false, "inPrimaryStates": true },
+        "1": { "holdoutUncensoredEvents": 25, "holdoutMotors": 9, "meetsH1Thresholds": true, "inPrimaryStates": true },
+        "2": { "holdoutUncensoredEvents": 22, "holdoutMotors": 12, "meetsH1Thresholds": true, "inPrimaryStates": true },
+        "3": { "holdoutUncensoredEvents": 27, "holdoutMotors": 12, "meetsH1Thresholds": true, "inPrimaryStates": true },
+        "4": { "holdoutUncensoredEvents": 22, "holdoutMotors": 12, "meetsH1Thresholds": true, "inPrimaryStates": true },
+        "5": { "holdoutUncensoredEvents": 27, "holdoutMotors": 13, "meetsH1Thresholds": true, "inPrimaryStates": true },
+        "6": { "holdoutUncensoredEvents": 32, "holdoutMotors": 13, "meetsH1Thresholds": true, "inPrimaryStates": true },
+        "7": { "holdoutUncensoredEvents": 45, "holdoutMotors": 16, "meetsH1Thresholds": true, "inPrimaryStates": true },
+        "8": { "holdoutUncensoredEvents": 33, "holdoutMotors": 12, "meetsH1Thresholds": true, "inPrimaryStates": true },
+        "9": { "holdoutUncensoredEvents": 21, "holdoutMotors": 10, "meetsH1Thresholds": true, "inPrimaryStates": false },
+        "10": { "holdoutUncensoredEvents": 7, "holdoutMotors": 5, "meetsH1Thresholds": false, "inPrimaryStates": false },
+        "11": { "holdoutUncensoredEvents": 2, "holdoutMotors": 2, "meetsH1Thresholds": false, "inPrimaryStates": false }
+      }
+    },
+    "creditToTheExternalReviewer": "This error was caught by Codex, not by the audit. It is recorded because an audit that publishes a false finding and then quietly deletes it is worse than one that never found it."
+  },
+
+  "reclassifiedFinding": {
+    "id": "F-B2-REV-1",
+    "supersedes": "F-B2-NEW-1",
+    "classification": "PROTOCOL_SCOPE_AMBIGUITY",
+    "severity": "LOW",
+    "notAnUnauthorizedExclusion": true,
+    "statement": "The eligibility rule that produces the analysed cohort is nested inside hypothesis H1_OVERDISPERSION. The frozen protocol does not state whether H2_HELDOUT_LOG_SCORE and the duration-model fitting reuse that same rule. The implementation does reuse it. That reuse is reasonable and reproduces a defensible cohort, but its scope is not declared.",
+    "whyItStillMatters": "A reader cannot determine from the frozen protocol alone whether the model-fitting cohort was specified in advance or chosen afterwards, because the rule's applicability beyond H1 is unstated. This is a documentation-scope gap, not a data-handling defect.",
+    "minimalCorrection": "State explicitly in the protocol which hypotheses and which fitting procedures inherit the H1 eligibility filter.",
+    "robustnessRetained": "The both-cohort probe is retained and is the substantive contribution of the original finding. See conclusionRobustness."
+  },
+
+  "corrections": [
+    {
+      "id": "C2-B2-1",
+      "defect": "Eligibility was derived from scope.primaryStates alone, which is wrong.",
+      "status": "CORRECTED",
+      "correction": "b2-portable-oracle-v2.py derives eligibility as primaryStates INTERSECT the frozen H1 rule, parsing the thresholds from the protocol's own eligibility text and asserting their presence. A new self-check, derivedEligibilityMatchesCommittedCohort, asserts the derivation reproduces the committed cohort and PASSES."
+    },
+    {
+      "id": "C2-B2-2",
+      "defect": "The self-check tested deltaNats < 1e-6, which passes when the optimizer returns a solution arbitrarily WORSE than the committed fit. Vacuous in the adverse direction.",
+      "status": "CORRECTED",
+      "correction": "The check is now abs(deltaNats) < 1e-6, renamed committedMixtureNotBeatenAndNotBeating, and the emitted record carries absDeltaNats plus a sign field. The committed parameters are additionally supplied as an EXPLICIT optimizer start, so the search cannot fail to consider them.",
+      "verified": "Scenario 1 |delta| 5.313722795108333e-10 passes; scenario 2 |delta| 0.19893845316971692 correctly does NOT pass, demonstrating the check can fail."
+    },
+    {
+      "id": "C2-B2-3",
+      "defect": "Telemetry was incoherent: 720 attempted, 608 feasible, 728 finite. A finite count cannot exceed attempts under one counter definition. 'distinctConvergedNllValues' also recorded merely-finite terminations as if they were successful convergences.",
+      "status": "CORRECTED",
+      "correction": "Five non-overlapping counters: startsDeclared, methodStartPairsConsidered, domainFeasibleOptimizerCalls, successfulOptimizerCalls, finiteTerminalResults, with a machine-checked coherence invariant finite <= feasible <= pairs. The basin list is split into distinctFiniteTerminalNllValues and distinctSuccessfulNllValues.",
+      "reconciliation": {
+        "startsDeclared": 421,
+        "startsDecomposition": "120 scalar (60 starts x 2 models) + 301 mixture (100 grid + 200 seeded random + 1 committed) = 421",
+        "methodStartPairsConsidered": 842,
+        "pairsDecomposition": "240 scalar + 602 mixture = 842",
+        "domainFeasibleOptimizerCalls": 730,
+        "feasibleDecomposition": "240 scalar + 490 mixture = 730",
+        "agreementWithCodex": "Codex independently counted 488 feasible mixture calls for the v1 script. v2 adds the committed parameters as one further start, feasible under both methods, giving 488 + 2 = 490. The counts reconcile exactly.",
+        "coherent": true
+      },
+      "successVersusFiniteProvenSeparable": {
+        "concern": "In the production run successfulOptimizerCalls == finiteTerminalResults == 730, so the distinction was never observed to bind and could itself have been a vacuous check.",
+        "probe": "The same scalar fit was re-run with the optimizer deliberately starved of iterations.",
+        "results": [
+          { "maxiter": 1, "successfulOptimizerCalls": 0, "finiteTerminalResults": 120, "separated": true },
+          { "maxiter": 2, "successfulOptimizerCalls": 0, "finiteTerminalResults": 120, "separated": true },
+          { "maxiter": 5, "successfulOptimizerCalls": 2, "finiteTerminalResults": 120, "separated": true }
+        ],
+        "conclusion": "The two counters are genuinely distinct quantities. They coincide at maxiter 20000 only because every optimizer call truly converges on this data. The check is not vacuous."
+      }
+    },
+    {
+      "id": "C2-B2-4",
+      "defect": "Path.write_text emits platform line endings. Under the audits/** -text attribute, which preserves exact bytes, the v1 result file was CRLF on Windows and would be LF on Linux, so it was not byte-reproducible cross-platform.",
+      "status": "CORRECTED",
+      "correction": "v2 writes canonical UTF-8 bytes explicitly via write_bytes with ensure_ascii, producing LF on every platform.",
+      "verified": { "v1ResultCarriageReturns": 245, "v2ResultCarriageReturns": 0 },
+      "irony": "This is the same defect class as C3, the CRLF finding this audit raised against the repository's own generator. The audit committed it in its own evidence."
+    },
+    {
+      "id": "C2-B2-5",
+      "defect": "Not raised by Codex; found while verifying C2-B2-3. The v1 and v2 scalar fits ran Nelder-Mead unbounded, so a degenerate parameter k <= 0 was possible. It never occurred, and the run survived only because numpy returns inf rather than raising where a Python float would divide by zero.",
+      "status": "CORRECTED",
+      "correction": "fit_scalar now applies an explicit out-of-domain penalty of 1e12 rather than relying on numpy's inf semantics. The oracle is now robust by design rather than by accident.",
+      "resultImpact": "None. All values are bit-identical before and after the guard."
+    }
+  ],
+
+  "identityAndMathematicalValidation": {
+    "addedPerCodex": "Codex judged the equation residual acceptable, on the condition that direct mathematical checks replace any shared executable model code.",
+    "identityChecks": [
+      "report.protocolId matches protocol.protocolId",
+      "dataset.source.commit matches protocol.source.commit",
+      "dataset.source.observedRawSha256 matches protocol.source.rawSha256",
+      "report.identities.protocolSha256 matches sha256 of the protocol file on disk",
+      "report.identities.derivedEventsSha256 matches sha256 of the data file on disk"
+    ],
+    "identityChecksPassed": true,
+    "mathematicalChecks": "Unit integral and mean-one verified by quadrature for the exponential, for Weibull at k in {0.35, 0.625088844276203, 1.0, 2.7}, for lognormal at sigma in {0.4, 1.5783076021679734, 2.6}, and for the mixture at three parameter pairs. Parameter-domain assertions verify that the mixture is infeasible when lf <= w, feasible when lf > w, and that the constrained slow rate is positive.",
+    "mathematicalChecksPassed": true,
+    "noSharedExecutableModelCode": true
+  },
+
+  "conclusionRobustness": {
+    "derived_eligible_H1_rule_applied": {
+      "eligibleStates": [1, 2, 3, 4, 5, 6, 7, 8],
+      "trainEvents": 793, "holdoutEvents": 233, "holdoutMotors": 19,
+      "reproducesCommittedScoresTo": 1.776e-15,
+      "mixtureNllAtCommitted": 537.0211284012928,
+      "mixtureNllAtBestFound": 537.0211284007614,
+      "absDeltaNats": 5.313722795108333e-10,
+      "committedNotBeaten": true,
+      "ranking": ["lognormal", "mixture", "weibull", "exponential"],
+      "lognormalMinusMixture": 0.036866518050048036,
+      "adverseResultSurvives": true
+    },
+    "primary_states_H1_rule_not_applied": {
+      "eligibleStates": [0, 1, 2, 3, 4, 5, 6, 7, 8],
+      "trainEvents": 818, "holdoutEvents": 251, "holdoutMotors": 19,
+      "mixtureNllAtCommitted": 567.990201993354,
+      "mixtureNllAtBestFound": 567.7912635401843,
+      "absDeltaNats": 0.19893845316971692,
+      "committedNotBeaten": false,
+      "deltaInterpretation": "EXPECTED, NOT A DEFECT. The committed parameters were fitted on the narrower H1-filtered cohort, so they are naturally sub-optimal on the wider cohort. This scenario is a robustness probe of the scope ambiguity, not a test of the committed fit.",
+      "ranking": ["lognormal", "mixture", "weibull", "exponential"],
+      "lognormalMinusMixture": 0.038719376021165264,
+      "adverseResultSurvives": true
+    },
+    "verdict": "The ranking is identical and the adverse lognormal advantage survives under both cohorts, slightly LARGER when the H1 filter is not reused. The scientific conclusion does not depend on how the scope ambiguity is resolved."
+  },
+
+  "preservedConclusion": {
+    "P_B2": "REFUTED. No strictly better mixture solution was found over the declared search domain.",
+    "mixtureFit": "Numerically indistinguishable from the best located optimum, |delta| 5.31e-10 nats.",
+    "adverseLognormalResult": "SURVIVES under both cohorts and after independent 50,000-replicate bootstrap replication by Codex.",
+    "statement": "This addendum retracts a false finding and repairs five executable defects. It does not alter the result."
+  },
+
+  "selfChecksAllPassing": [
+    "protocolValidated", "identityChecksPassed", "mathematicalChecksPassed",
+    "splitRecomputedWithZeroMismatches", "noMotorSpansPartitions",
+    "derivedEligibilityMatchesCommittedCohort", "committedScoresReproduced",
+    "committedMixtureNotBeatenAndNotBeating", "telemetryCoherentInEveryScenario",
+    "adverseLognormalSurvivesUnderBothCohorts"
+  ],
+
+  "uncertainty": "Optimality is asserted only over the declared search domain and only for the mean-one parameterization with common shape parameters and an uncensored-events-only likelihood. Per-state shape parameters, alternative censoring treatments and alternative normalizations define different problems and have not been examined.",
+  "alternativeExplanation": "Agreement to 1e-15 in calibration cannot by itself exclude the possibility that the independent implementation reproduces an error present in the original. It is constrained by the closed-form mean-one constraints being verified by quadrature, by the identity checks, and by Codex's bootstrap agreeing to 8.9e-16 from a separate implementation.",
+  "independentlyReproduced": "Codex verified the manifests, red tests, NLL delta, lognormal margin and split hashes at de5c2fb and 6ad64ec, independently replicated the bootstrap intervals, and identified the retraction and four of the five corrections recorded here."
+}

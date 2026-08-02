@@ -1,0 +1,196 @@
+{
+  "schema": "uni.flagellum.b4-identifiability-robustness-protocol/1.0.0",
+  "protocolId": "PHASE-B4-IDENTIFIABILITY-ROBUSTNESS-CLAUDE-V1",
+  "purpose": "Determine which B3 rankings and scientific conclusions survive identifiability and robustness analysis. Frozen in full BEFORE any B4 cell is executed, so no threshold, cohort, seed, failure rule or required output can be selected after seeing a B4 result. Predictive superiority and mechanistic truth remain separate claims throughout.",
+  "planReference": "audits/coordinator/claude-three-phase-parity-completion-plan.v1.md section 2.4, 2.5, 2.6",
+  "governedBy": [
+    "audits/phase-b/b3-competition-protocol.v1.json",
+    "audits/phase-b/b3-competition-protocol-addendum-v2.json",
+    "audits/phase-b/b3-integration-addendum-v3.json (GOVERNS on conflict)",
+    "audits/phase-b/b3-specs/"
+  ],
+  "b3ResultConsumed": {
+    "path": "audits/phase-b/b3-model-competition-result.json",
+    "sha256": "5d7a0589e94de6b10f425f2d483e1e2a8f899d336aa59c335990209795e6b2bd",
+    "permittedUse": "B4 MAY use the observed B3 leaderboard to choose declared SENSITIVITY TARGETS (which contrasts and which stability questions to probe). B4 MAY NOT use any unseen B4 result to choose a threshold, and MAY NOT retune any B3 fit, cohort, scoring rule or bound.",
+    "b3ObservedContext": {
+      "adverseHeld": "M2 (lognormal) leads NLPD motor-equal in both cohorts; event-pooled M2-minus-M3 log density = 0.03687 [1..8], 0.03872 [0..8], reproducing B2.",
+      "allMotorEqualContrastsInconclusive": true,
+      "ruleDisagreement": "NLPD and CRPS-seconds leaderboards differ (M2 first on NLPD, near-last on CRPS-seconds).",
+      "m4CollapseLabel": "DISTINCT (both cohorts)",
+      "m7": "tau interior (0.18); nested LRT supported over M1; U2 profile and U4 bootstrap deferred to B4 (this protocol).",
+      "m8": "h=0.316 interior; no boundary/flat verdict."
+    }
+  },
+  "frozenBeforeExecution": true,
+  "appendOnlyAfterExecution": true,
+  "networkAllowed": false,
+
+  "statusVocabulary": ["PASS", "FAIL", "STABLE", "UNSTABLE", "UNIDENTIFIED", "NOT_ESTABLISHED", "NOT_RUN", "BLOCKED_EXTERNAL", "INVALID_PROVENANCE"],
+
+  "claimBoundary": {
+    "whatB4Establishes": "Which B3 conclusions are STABLE (survive resampling, seed changes, unit removal and measurement-error propagation), which are UNSTABLE or specification-dependent, and which model parameters are practically/structurally UNIDENTIFIED.",
+    "whatB4DoesNotEstablish": "B4 establishes no new biological observation and promotes no predictive model to mechanism. Identifiability and robustness are properties of the estimation problem on this cohort, not evidence about molecular truth. A model declared UNIDENTIFIED is an absence of evidence, not evidence of absence.",
+    "parityLadderEffect": "B4 can strengthen or qualify P1 (equation/implementation) and P3 (held-out predictive) evidence by mapping the validity domain. It cannot move P4-P8, which require transfer, intervention, molecular structure, and independent replication."
+  },
+
+  "sharedDiscipline": {
+    "aggregation": "MOTOR-EQUAL primary throughout (v3 R3); event-pooled reported only as the labelled continuity bridge.",
+    "resamplingUnit": "MOTOR. Event-level resampling is forbidden (pseudoreplication).",
+    "floor": "NO floor anywhere (v3 R1); non-finite log density HALTS.",
+    "rng": "Every stochastic cell constructs its RNG once from a declared seed; the full index draw is a single call so any subset is a strict prefix.",
+    "determinism": "Every B4 numeric artifact is produced twice and compared byte-for-byte; a mismatch HALTS with FAILED-NONDETERMINISM.",
+    "noPostHoc": "No threshold, cohort, seed, bound, optimizer setting or scoring rule may be changed after any B4 result is seen. A change requires withdrawing the affected cell and recording the withdrawal.",
+    "independentOracle": "An independent oracle sharing NO code with the B4 runner recomputes a stratified sample of every cell's decisive quantity and must agree within the cell's declared tolerance."
+  },
+
+  "state0Handling": {
+    "rule": "State 0 is used ONLY as a clearly labelled SENSITIVITY cohort, never as a primary cohort. State 0 has 18 uncensored holdout events and fails the frozen eligibility threshold of 20 uncensored holdout events; that is an authorizing exclusion, not a missing one.",
+    "prohibition": "Do NOT repeat the retracted claim that state 0 lacks an authorizing exclusion. The only open item is historical scope wording, not an unauthorized cohort exclusion."
+  },
+
+  "cells": [
+    {
+      "id": "B4C01_SYNTHETIC_PARAMETER_RECOVERY",
+      "component": "correctly-specified synthetic parameter recovery",
+      "question": "When data are simulated from a model at KNOWN parameters, does the frozen B3 fitting pipeline recover those parameters and the correct model ranking?",
+      "method": "For each generating model in {M0, M1, M2, M3, M5}: simulate N_sim independent synthetic datasets matched to the real cohort structure (per-state motor counts and event counts of cohort [1..8]) at declared true parameters; refit every competing model with the exact frozen B3 optimizer contract; record the recovered parameter and whether the generating model wins its own held-out competition.",
+      "declaredTrueParameters": "Set to the B3 fitted values for each generating model (recorded here at freeze from the committed B3 result), so recovery is measured against a realistic operating point.",
+      "N_sim": 200,
+      "seed": 20260801,
+      "criterion": "PASS if, per generating model, the median recovered parameter lies within its declared tolerance of truth AND the generating model wins its own NLPD motor-equal competition in >= 50% of simulations. Otherwise the recovery is reported UNSTABLE or NOT_ESTABLISHED with the observed rate.",
+      "tolerance": {"M1_shape": 0.1, "M2_sigma": 0.1, "M3_w": 0.1, "M3_lf_log10": 0.2, "M5_shape": 0.15},
+      "failureRule": "A non-finite or non-converged synthetic fit is recorded, not dropped; if > 5% of fits fail the cell is NOT_ESTABLISHED with the failure rate.",
+      "requiredOutput": "per-model recovery distribution, self-win rate, parameter bias and coverage.",
+      "establishes": "practical identifiability of the simple models under correct specification; a floor on how much of B3's inconclusiveness is estimation noise versus genuine model similarity."
+    },
+    {
+      "id": "B4C02_MISSPECIFIED_WORLDS",
+      "component": "misspecified synthetic worlds",
+      "question": "When data are simulated from a model OUTSIDE the competitor set, which competitor is selected, and is the adverse M2-over-M3 pattern an artifact of a specific data-generating process?",
+      "method": "Simulate from declared misspecified generators (a Weibull-Gamma blend; a 3-timescale mixture with a heavy slow tail; a per-motor-heterogeneous Weibull) matched to cohort [1..8] structure; run the full frozen competition; record which model wins NLPD and CRPS and whether M2 beats M3.",
+      "N_sim": 200,
+      "seed": 20260802,
+      "criterion": "Descriptive, pre-declared: report the selected-model frequency per generator. The adverse M2>M3 pattern is labelled GENERATOR-ROBUST if M2 beats M3 under NLPD in >= 2 of the 3 misspecified generators, GENERATOR-SPECIFIC otherwise. No PASS/FAIL; this maps where the adverse result does and does not hold.",
+      "requiredOutput": "selected-model frequency matrix by generator and scoring rule; M2-vs-M3 direction per generator.",
+      "establishes": "the domain over which the B3 adverse result is a stable feature of the data shape rather than of one assumed mechanism."
+    },
+    {
+      "id": "B4C03_PRIOR_SENSITIVITY",
+      "component": "prior sensitivity where priors exist",
+      "question": "Do any B3 conclusions depend on a prior or a smoothing choice?",
+      "method": "B3's frozen competition is maximum-likelihood with no Bayesian priors on the duration models, so there is no duration-model prior to vary. The only prior-like smoothing choices are M8's KDE bandwidth grid and the direction-probability additive-half pseudo-count. Vary M8 bandwidth selection over its frozen 61-point grid (already recorded as the CV curve) and re-report M8's rank; the additive-half pseudo-count is a fixed protocol constant and is reported as NOT_APPLICABLE for variation (changing it would deviate from the frozen B3 protocol).",
+      "criterion": "M8 rank is STABLE if its NLPD motor-equal rank is unchanged across the +/-1 grid-step neighbourhood of h* (the BANDWIDTH_SENSITIVE_SCORE diagnostic already frozen in the M8 spec). Otherwise UNSTABLE with the range shown.",
+      "requiredOutput": "M8 neighbour-bandwidth rank range; explicit statement that the duration competitors carry no varied prior.",
+      "establishes": "that the B3 leaderboard is not driven by a hidden prior choice, or names the one smoothing dependence if it is."
+    },
+    {
+      "id": "B4C04_MULTI_SEED_BOOTSTRAP_STABILITY",
+      "component": "multiple frozen bootstrap seeds",
+      "question": "Is the zero-crossing of every primary M3 contrast interval stable across independent bootstrap seeds and between 2000 and 50000 replicates?",
+      "method": "Recompute the 8 primary M3 contrasts (NLPD motor-equal and CRPS-seconds) under 5 declared independent motor-cluster bootstrap seeds and at both 2000 and 50000 replicates, using the frozen fits from B3 (no refitting).",
+      "seeds": [20260717, 20260803, 20260804, 20260805, 20260806],
+      "criterion": "A contrast is SEED-STABLE if its zero-crossing verdict (M_BEATS_M3 / M3_BEATS_M / INCONCLUSIVE) is identical across all 5 seeds and both replicate counts. Otherwise MONTE-CARLO-SENSITIVE with the disagreeing verdicts listed. Given B3 observed all motor-equal contrasts INCONCLUSIVE, the pre-declared expectation is that all remain INCONCLUSIVE; any seed producing a conclusive verdict is a first-class reported instability.",
+      "requiredOutput": "verdict matrix (contrast x seed x replicate-count) for both rules.",
+      "establishes": "that B3's underpowered inconclusiveness is a property of the 19-motor sample, not of one RNG seed."
+    },
+    {
+      "id": "B4C05_CENSORING_AND_INVALID_TREATMENT",
+      "component": "censoring assumptions and invalid-treatment negative controls",
+      "question": "How sensitive are the B3 conclusions to the frozen right-censoring exclusion, and do invalid censoring treatments behave as negative controls should?",
+      "method": "Re-run the competition under three declared censoring treatments as SENSITIVITY variants (never replacing the frozen primary): (a) frozen exclusion (reference); (b) naive inclusion of right-censored dwells as if uncensored (a KNOWN-WRONG negative control that must degrade or distort scores); (c) censored dwells treated with a survival-aware likelihood for the models that admit one, scored on the same uncensored holdout. Report M2-vs-M3 and the leaderboard under each.",
+      "seed": 20260807,
+      "criterion": "Negative-control check: treatment (b) MUST measurably change the fitted scales/scores versus (a) (asserting the censoring flag is load-bearing); if (b) is indistinguishable from (a) the pipeline is not respecting censoring and the cell FAILS. Treatment (c) is reported as a labelled sensitivity, not a competition result.",
+      "requiredOutput": "per-treatment leaderboard and M2-vs-M3 direction; the (a)-vs-(b) score delta proving censoring is load-bearing.",
+      "establishes": "that the frozen censoring rule materially matters and is correctly applied, and the direction of its influence on the adverse result."
+    },
+    {
+      "id": "B4C06_OUTLIER_AND_ANALYSIS_START_BOUNDARY",
+      "component": "outlier rules and the analysisStartIndex=3500 boundary",
+      "question": "Do the B3 conclusions survive perturbation of the analysis-window start and declared outlier handling?",
+      "method": "The ingestion uses analysisStartIndex=3500. Re-derive the cohort at declared neighbouring start indices {3400, 3500, 3600} as SENSITIVITY variants and re-run the competition; separately, apply a declared robust outlier sensitivity (drop the single longest and single shortest dwell per state) and re-run. Report leaderboard and M2-vs-M3 under each.",
+      "seed": 20260808,
+      "criterion": "BOUNDARY-STABLE if the NLPD motor-equal leaderboard head (top-3) and the M2-vs-M3 direction are unchanged across all start indices and under the outlier sensitivity; otherwise UNSTABLE with the changes named. analysisStartIndex remains 3500 for the primary; neighbours are sensitivity only and are never adopted post hoc.",
+      "requiredOutput": "leaderboard head and M2-vs-M3 direction per start index and per outlier treatment.",
+      "establishes": "that the adverse result and ranking are not artifacts of the exact analysis window or a few extreme dwells."
+    },
+    {
+      "id": "B4C07_ELIGIBILITY_AND_UNFILTERED_COHORT",
+      "component": "frozen eligibility derivation plus unfiltered-cohort sensitivity, and the state-0 sensitivity cohort",
+      "question": "Is the frozen eligibility derivation reproduced, and how do conclusions change on the unfiltered cohort and the state-0 sensitivity cohort?",
+      "method": "Recompute the frozen eligibility rule (primaryStates INTERSECT {N: uncensored holdout >= 20 AND distinct holdout motors >= 5}) and assert it yields [1..8]. Report the already-frozen dual-cohort B3 result ([1..8] vs [0..8]) as the primary eligibility sensitivity. Additionally run a state-0-ONLY labelled sensitivity cohort (18 uncensored holdout events, below the frozen 20 threshold) and report its leaderboard with an explicit UNDERPOWERED_SENSITIVITY_ONLY label.",
+      "criterion": "ELIGIBILITY-REPRODUCED if the recomputed eligible set equals [1..8] exactly. The [0..8] and state-0 results are labelled sensitivities; any leaderboard-head or M2-vs-M3 change between [1..8] and [0..8] is reported as a first-class cohort-dependence result (already present in B3).",
+      "requiredOutput": "recomputed eligibility set; [1..8] vs [0..8] vs state-0 leaderboard heads; the per-state holdout event/motor counts.",
+      "establishes": "that the cohort is the frozen one and maps how the conclusions depend on the eligibility boundary."
+    },
+    {
+      "id": "B4C08_LEAVE_ONE_UNIT_OUT",
+      "component": "leave-one-motor-out; leave-one-study-out and leave-one-condition-out where supported",
+      "question": "Do the B3 conclusions survive removal of any single experimental unit?",
+      "method": "Leave-one-MOTOR-out: recompute the 8 primary M3 contrasts and the leaderboard head with each of the 19 holdout motors removed in turn (frozen fits; motor-equal over the remaining 18). Leave-one-STUDY-out and leave-one-CONDITION-out: the observed-experiment cohort is a SINGLE study (Wadhwa 2022) and the dwell records carry no separable experimental condition beyond stateN; therefore these two are recorded NOT_RUN with the reason 'single study, no separable condition label in the frozen extraction' rather than fabricated.",
+      "criterion": "LOMO-STABLE if no single motor removal flips any primary contrast's zero-crossing verdict or changes the leaderboard leader; otherwise the influential motor(s) are named and the cell is UNSTABLE. Leave-one-study-out and leave-one-condition-out are NOT_RUN with the stated reason.",
+      "requiredOutput": "per-removed-motor verdict matrix and leaderboard leader; the two NOT_RUN declarations with reasons.",
+      "establishes": "that no single motor drives the adverse result or the ranking, or names the motor that does."
+    },
+    {
+      "id": "B4C09_MEASUREMENT_INTERVAL_UNCERTAINTY",
+      "component": "propagation of the 0.02 s measurement-interval uncertainty",
+      "question": "Do durations known only to a 0.02 s sampling interval carry enough uncertainty to change the B3 conclusions?",
+      "method": "The source sampling interval is 0.02 s. Add declared interval jitter to every durationS by resampling within +/- one half-interval (uniform on [-0.01, 0.01] s, floored at a small positive duration) under M declared seeds, re-derive per-state scales and re-run the full competition; report the distribution of M2-vs-M3 direction and leaderboard head.",
+      "M_jitter": 100,
+      "seed": 20260809,
+      "criterion": "INTERVAL-ROBUST if the M2-vs-M3 NLPD direction and the leaderboard leader are unchanged in >= 95% of jittered replicates; otherwise the fraction that flips is reported and the conclusion is INTERVAL-SENSITIVE.",
+      "requiredOutput": "flip fraction for M2-vs-M3 and for the leaderboard leader under interval jitter.",
+      "establishes": "that the adverse result is not within the measurement-quantization noise of the instrument."
+    },
+    {
+      "id": "B4C10_M4_STRUCTURAL_IDENTIFIABILITY",
+      "component": "practical and structural identifiability of M4 (deferred from B3)",
+      "question": "Is M4's three-component mixture identified, or is its third component a ridge artifact?",
+      "method": "Execute the M4 spec section-8 identifiability suite deferred from B3: the 2000-replicate training-MOTOR-cluster refit bootstrap under the reduced differential_evolution budget (maxiter=400, popsize=30, seed 20260717 + replicate index), plus the mandatory reduced-budget calibration run on the full training set; evaluate criteria U1-U4 exactly as frozen (U1 collapse label != DISTINCT; U2 bootstrap collapse fraction >= 0.25; U3 log10(lambda_3) 95% interval span >= 2.0 decades; U4 omega_3 interval straddling 5/793 and 0.25) and the flat-likelihood ridge diagnostic.",
+      "seed": 20260717,
+      "criterion": "M4 is UNIDENTIFIED if any of U1-U4 holds (naming which). U1 is already known DISTINCT from B3; U2-U4 are computed here. The reduced-budget calibration governs whether U2 is reliable (frozen 0.05-nat threshold).",
+      "requiredOutput": "U1-U4 verdicts with the bootstrap collapse fraction, the log10(lambda_3) and omega_3 intervals, and the calibration shortfall.",
+      "establishes": "whether M4's flexibility is a genuine third timescale or an unidentified ridge, which governs the flexibility-versus-two-timescales reading of M3's advantage over M0."
+    },
+    {
+      "id": "B4C11_M7_STRUCTURAL_IDENTIFIABILITY",
+      "component": "practical and structural identifiability of M7 (deferred from B3)",
+      "question": "Is M7's between-motor dispersion tau identified?",
+      "method": "Execute the M7 spec section-4 identifiability suite deferred from B3: U2 profile flatness (61-point tau grid, profile NLL over log k from 11 starts per tau, flat set at 1.9207, logspan >= 0.50) and U4 bootstrap collapse frequency (2000-replicate training-motor bootstrap, reduced 26-start L-BFGS-B refit, fraction with tau_hat < 1e-3 >= 0.25). B3 already recorded U1 (tau interior) and U3 (nested LRT D=15.8/17.9, supported over M1).",
+      "seed": 20260717,
+      "criterion": "M7 is UNIDENTIFIED if U1 lower/upper OR U2 fires; U4 carries the UNSTABLE_DISPERSION flag independently. Report all four. The honest prior expectation (from the M7 spec) is that tau is informed only by between-motor contrasts, so a flat profile is plausible even though tau is interior and LRT-supported.",
+      "requiredOutput": "U2 profile curve and logspan; U4 collapse fraction; the combined M7_STATUS with U1-U4 flags.",
+      "establishes": "whether the motor-heterogeneity dispersion is a determined quantity or only weakly constrained, which bounds any heterogeneity interpretation. A poor M7 per-event score is never evidence against heterogeneity."
+    },
+    {
+      "id": "B4C12_RANKING_AND_INTERVAL_CROSSING_STABILITY",
+      "component": "ranking stability and interval crossings",
+      "question": "Which B3 conclusions are STABLE across every B4 perturbation above, and which are UNSTABLE or specification-dependent?",
+      "method": "Aggregate cells B4C02, B4C04, B4C05, B4C06, B4C07, B4C08, B4C09 into a single stability ledger: for each headline conclusion (adverse M2>M3 NLPD; all-contrasts-inconclusive; rule disagreement; cohort dependence) record STABLE / UNSTABLE / SPECIFICATION-DEPENDENT with the perturbations that move it.",
+      "criterion": "Computed, not selected: a conclusion is STABLE only if it survives every applicable perturbation cell; otherwise it is qualified with the exact perturbation that breaks it.",
+      "requiredOutput": "the stability ledger mapping each B3 headline conclusion to its robustness verdict and the perturbations that qualify it.",
+      "establishes": "the validity domain of the B3 conclusions — the deliverable of B4."
+    }
+  ],
+
+  "artifacts": {
+    "protocol": "audits/phase-b/b4-identifiability-robustness-protocol.v1.json",
+    "predictions": "audits/phase-b/b4-identifiability-robustness-predictions.v1.json",
+    "predictionRecord": "experiments/predictions/b4-identifiability-robustness.prediction.json",
+    "result": "audits/phase-b/b4-identifiability-robustness-result.v1.json",
+    "evidence": "audits/phase-b/b4-evidence.v1/",
+    "runner": "audits/phase-b/b4-identifiability-robustness-runner.py",
+    "oracle": "audits/phase-b/b4-independent-oracle.py"
+  },
+
+  "executionGate": {
+    "order": "protocol committed -> per-cell predictions and falsifiers committed (prediction-only commit, pushed, strict ancestry proven) -> execution cleared",
+    "before": "Verify the B3 result is byte-identical to 5d7a0589..., the frozen B3 inputs are byte-identical to e5b4969, and Phase-C/Phase-D evidence is byte-identical to 4fcba6c.",
+    "predictionsNotYetCommitted": true,
+    "statusOfB4": "PROTOCOL DRAFT. Execution NOT cleared. No B4 cell has been executed and no B4 competitor has been refit."
+  },
+
+  "uncertainty": "This protocol freezes the identifiability and robustness questions that B3's result made answerable. It is written but NOT executed; a cell can be internally exact and still prove numerically fragile on contact with the data (as the M7 mean-one verification did in B3). The first execution of each cell is itself a test of this document.",
+  "notEstablished": "B4 maps the validity domain of the B3 predictive conclusions. It establishes no new observation, promotes no model to mechanism, and moves no parity level above P3. Leave-one-study-out and leave-one-condition-out are NOT_RUN by construction (single study, no separable condition), not by omission."
+}

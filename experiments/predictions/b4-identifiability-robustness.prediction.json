@@ -1,0 +1,34 @@
+{
+  "schema": "uni.flagellum.prediction-record/1.0.0",
+  "recordId": "PHASE-B4-IDENTIFIABILITY-ROBUSTNESS-CLAUDE",
+  "claim": "The 12 frozen B4 identifiability-and-robustness cells will map the validity domain of the B3 predictive conclusions: the underpowered inconclusiveness of every motor-equal M3 contrast is a stable property of the 19-motor cohort; the adverse lognormal-over-mixture result is robust to reasonable perturbations of censoring, analysis window, outliers, seeds and measurement-interval jitter; and M4 and M7 are at best weakly identified on this cohort. Predictive superiority and mechanistic truth remain separate; no parity level above P3 is moved.",
+  "falsifier": "Any B4 cell producing a conclusive, seed-stable, perturbation-robust motor-equal M3 contrast refutes the uniform-underpowered claim; a demonstration that M4 or M7 is strongly identified refutes the weak-identification claim; the adverse result proving specification-dependent under a documented perturbation refutes its robustness. Per-cell falsifiers are frozen in audits/phase-b/b4-identifiability-robustness-predictions.v1.json.",
+  "madeAgainstCommit": "e433ef9b92a8803208abc76a148016ef4b3c299b",
+  "predictionPath": "audits/phase-b/b4-identifiability-robustness-predictions.v1.json",
+  "resultPaths": ["audits/phase-b/b4-identifiability-robustness-result.v1.json"],
+  "prospectivity": "PROSPECTIVE",
+  "note": "Committed in a PREDICTION-ONLY commit (693fead), after B3 was executed and committed and BEFORE any B4 cell is executed. The B4 result has now been committed as a descendant of e433ef9b (also a strict ancestor of the current HEAD), so the commit graph witnesses strict prediction-before-result ancestry by construction. This PENDING->PROSPECTIVE flip is the single change authorized by the coordinator plan section 2.4-2.6 and is made only in the result commit. The 12-cell prediction file audits/phase-b/b4-identifiability-robustness-predictions.v1.json remains byte-identical.",
+  "outcome": {
+    "resultPath": "audits/phase-b/b4-identifiability-robustness-result.v1.json",
+    "resultSha256": "f361e4dcf5fb8e1bf1724844b0581ebd1392027bfb694220944f3d048f1807f3",
+    "determinismGate": "PASS: two independent assembler runs produced byte-identical artifacts (f361e4dc...); the per-cell runner outputs are themselves deterministic given seeds (verified on the C03/C07 cheap cells: two independent runs produce byte-identical bcc18412... output).",
+    "independentOracle": "43/43 no-shared-code checks agree (audits/phase-b/b4-evidence.v1/oracle-result.json).",
+    "cellsExecutedFully": ["B4C03", "B4C04", "B4C05", "B4C06", "B4C07", "B4C08", "B4C11", "B4C12"],
+    "cellsResourceBoundPartial": ["B4C10"],
+    "cellsNotRunResourceBound": ["B4C01", "B4C02", "B4C09"],
+    "headline": "Of 12 frozen cells, 8 executed at the full frozen replicate/simulation counts; 1 (B4C10 M4 U2-U4) executed with 100 of 2000 bootstrap replicates (resourceBoundPartial=true); 3 (B4C01 200x5 synthetic recovery; B4C02 200x3 misspecified generators; B4C09 100 interval-jitter refits) recorded NOT_RUN with reason=RESOURCE_BOUND (each requires 100+ hours of full B3 refit compute not feasible in this dispatch). Per-cell prediction verdicts: B4C04 SEED-STABLE_ALL_INCONCLUSIVE CONFIRMED; B4C05 PASS_censoring_load_bearing CONFIRMED (naive-inclusion (b) shifts M2 sigma by 0.089 and swaps leader from M2 to M3); B4C07 ELIGIBILITY-REPRODUCED CONFIRMED; B4C03 M8 rank at +1 grid step falls from 2 to 3 -> STABLE REFUTED; B4C06 top-3 order changes between primary and drop-longest -> BOUNDARY-STABLE REFUTED (leader and M2-vs-M3 direction stable); B4C08 no leader change but 2 contrast verdicts flip under single-motor removal -> LOMO-STABLE REFUTED; B4C10 M4 at 100 of 2000 replicates: U2/U3/U4 all OK -> UNIDENTIFIED_OR_WEAK REFUTED_PARTIAL; B4C11 M7 U2 profile logspan_normalized=0.067<<0.50 (U2_OK), U4 at 30 of 2000 replicates 0/30 collapsed (U4_OK) -> PROFILE_FLAT_OR_WEAK REFUTED_U4_PARTIAL; B4C01/B4C02/B4C09 NOT_ESTABLISHED_RESOURCE_BOUND. C12 stability ledger: adverse M2-over-M3 SPECIFICATION-DEPENDENT (stable at leader level; some contrast verdicts flip under motor removal or outlier drop); all-motor-equal-contrasts-inconclusive SPECIFICATION-DEPENDENT; rule-disagreement STABLE; cohort-dependence STABLE.",
+    "adverseFindings": [
+      "B4C03: M8 KDE bandwidth rank NOT stable at +/-1 grid neighbourhood (rank 2 -> 3 at h+1 grid step in both cohorts). The frozen prediction STABLE is REFUTED. M4 and M8 hold nearly-identical scores at h+1, so M8 falls from rank 2 to rank 3.",
+      "B4C06: outlier drop-longest-per-state swaps M4 and M8 in the top-3 (primary [M2,M8,M4] -> [M2,M4,M8]). Leader (M2) and M2-vs-M3 direction (INCONCLUSIVE) unchanged. The 3400/3600 analysisStartIndex neighbours require the raw MAT file (data/remodeling_data.mat, absent) and are recorded BLOCKED_EXTERNAL.",
+      "B4C08: 2 non-primary contrasts (CRPS_seconds M3-vs-M6 removing motor idx 7; NLPD M3-vs-M0 removing motor idx 3 and motor idx 10) flip to conclusive under single-motor removal. Leader (M2) stable across all 19 leave-one-out removals. The M2-vs-M3 primary contrast stays INCONCLUSIVE across all removals."
+    ],
+    "resourceBoundLimitations": [
+      "B4C01 (200 sims x 5 gen x full B3 refit) requires ~250-400 h wall-clock; not feasible in this dispatch.",
+      "B4C02 (200 sims x 3 gen x full B3 refit) requires ~150-250 h wall-clock; not feasible in this dispatch.",
+      "B4C09 (100 replicates x full B3 refit under 0.02 s jitter) requires ~25-40 h wall-clock; not feasible in this dispatch.",
+      "B4C10 (2000 replicate M4 bootstrap; reduced DE budget) executed at 100 of 2000 (5%); reported values are point estimates at partial precision. Full-training reduced-budget calibration passes 0.05-nat threshold with shortfall = 8.8e-11 nats.",
+      "B4C11 U4 (2000 replicate M7 bootstrap; reduced 26-start L-BFGS) executed at 30 of 2000 (1.5%); reported values are point estimates at partial precision. C11 U2 profile ran the full frozen 61-point tau grid x 11 L-BFGS starts contract."
+    ],
+    "notEstablished": "B4 maps the validity domain of the B3 predictive conclusions on this single 19-motor cohort. It establishes no new biological observation, promotes no predictive model to mechanism, and moves no parity level above P3. Leave-one-study-out and leave-one-condition-out remain NOT_RUN by construction (single study, no separable condition label in the frozen extraction). The 3400/3600 analysisStartIndex neighbours remain BLOCKED_EXTERNAL. C01/C02/C09 remain NOT_RUN with reason=RESOURCE_BOUND (compute budget). C10 and C11 U4 partial estimates are reported with the actual N run and labelled resourceBoundPartial=true."
+  }
+}

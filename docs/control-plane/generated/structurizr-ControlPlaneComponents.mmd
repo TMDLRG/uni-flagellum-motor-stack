@@ -1,0 +1,60 @@
+graph TB
+  linkStyle default fill:#ffffff
+
+  subgraph diagram ["Component View: UNI Platform - The Control Plane"]
+    style diagram fill:#ffffff,stroke:#ffffff
+
+    subgraph 4 ["UNI Platform"]
+      style 4 fill:#ffffff,stroke:#14161a,color:#14161a
+
+      subgraph 6 ["The Control Plane"]
+        style 6 fill:#ffffff,stroke:#9a7b12,color:#9a7b12
+
+        10["<div style='font-weight: bold'>Registry</div><div style='font-size: 70%; margin-top: 0px'>[Component: Elixir, phase 3]</div><div style='font-size: 80%; margin-top:10px'>Registers a gate BEFORE its<br />run, with pass_condition,<br />falsifies_condition and<br />pre_registration_path.<br />Refuses a verdict with no<br />registered gate.</div>"]
+        style 10 fill:#e8f4ef,stroke:#0f6e56,color:#16181d
+        11["<div style='font-weight: bold'>Verdict</div><div style='font-size: 70%; margin-top: 0px'>[Component: Elixir, phase 3]</div><div style='font-size: 80%; margin-top:10px'>Authors<br />PASS|PARTIAL|FAIL|WITHHELD|PENDING<br />only. Refuses a percent score<br />and a PARTIAL that does not<br />name its holding sub-claim.</div>"]
+        style 11 fill:#e8f4ef,stroke:#0f6e56,color:#16181d
+        12["<div style='font-weight: bold'>Anchor</div><div style='font-size: 70%; margin-top: 0px'>[Component: Elixir, phase 3]</div><div style='font-size: 80%; margin-top:10px'>Holds the expected head and<br />length OUTSIDE the chain. A<br />hash chain cannot detect<br />truncation from its own tail;<br />a prefix of a valid chain is<br />a valid chain.</div>"]
+        style 12 fill:#e8f4ef,stroke:#0f6e56,color:#16181d
+        13["<div style='font-weight: bold'>Store</div><div style='font-size: 70%; margin-top: 0px'>[Component: Elixir, phase 4]</div><div style='font-size: 80%; margin-top:10px'>Durable append-only<br />persistence. Until it exists<br />the Control Plane cannot<br />record its own mutations and<br />nothing holds an anchor<br />across a restart.</div>"]
+        style 13 fill:#e8f4ef,stroke:#0f6e56,color:#16181d
+        14["<div style='font-weight: bold'>Run</div><div style='font-size: 70%; margin-top: 0px'>[Component: Elixir, phase 4]</div><div style='font-size: 80%; margin-top:10px'>Immutable run identity: code<br />identity, env identity,<br />inputs, params, seeds,<br />start/end in unix_ns and UTC,<br />exit code, output hashes.</div>"]
+        style 14 fill:#e8f4ef,stroke:#0f6e56,color:#16181d
+        15["<div style='font-weight: bold'>Pair</div><div style='font-size: 70%; margin-top: 0px'>[Component: Elixir, phase 4]</div><div style='font-size: 80%; margin-top:10px'>Enforces exactly one<br />differing variable between<br />arms. Two differences mark<br />the run VOID and unclaimable.</div>"]
+        style 15 fill:#e8f4ef,stroke:#0f6e56,color:#16181d
+        16["<div style='font-weight: bold'>Drift</div><div style='font-size: 70%; margin-top: 0px'>[Component: Elixir, phase 2]</div><div style='font-size: 80%; margin-top:10px'>Like-for-like comparison<br />only. Refuses a cross-type<br />comparison AT CONSTRUCTION,<br />so the Phase 1 defect cannot<br />recur.</div>"]
+        style 16 fill:#e8f4ef,stroke:#0f6e56,color:#16181d
+        17["<div style='font-weight: bold'>Witness</div><div style='font-size: 70%; margin-top: 0px'>[Component: Elixir, phase 5]</div><div style='font-size: 80%; margin-top:10px'>An anchor the ledger's writer<br />cannot reach. A local anchor<br />cannot outrank a local<br />writer: a tamperer who owns<br />the store directory can<br />truncate the ledger and<br />rewrite its anchor to match.</div>"]
+        style 17 fill:#e8f4ef,stroke:#0f6e56,color:#16181d
+        18["<div style='font-weight: bold'>Room + Key</div><div style='font-size: 70%; margin-top: 0px'>[Component: Elixir, phase 6]</div><div style='font-size: 80%; margin-top:10px'>green to clean to sterile,<br />two keys per airlock. A<br />failed condition names the<br />missing receipt. No override<br />path.</div>"]
+        style 18 fill:#e8f4ef,stroke:#0f6e56,color:#16181d
+        19["<div style='font-weight: bold'>Scene</div><div style='font-size: 70%; margin-top: 0px'>[Component: Elixir, phase 7]</div><div style='font-size: 80%; margin-top:10px'>Pure function of state. Every<br />node carries truth_class,<br />receipt_ref, evidence_class,<br />captured_at. A node missing<br />them renders as fog.</div>"]
+        style 19 fill:#fdf1ee,stroke:#b4442f,color:#16181d
+        7["<div style='font-weight: bold'>Command</div><div style='font-size: 70%; margin-top: 0px'>[Component: Elixir, phase 2]</div><div style='font-size: 80%; margin-top:10px'>The ONLY writer. Records<br />actor, role, utc, unix_ns,<br />prior, transition,<br />authorization, evidence,<br />resulting, hash. Inherits the<br />Door's law: a read never<br />actuates.</div>"]
+        style 7 fill:#e8f4ef,stroke:#0f6e56,color:#16181d
+        8["<div style='font-weight: bold'>Ledger</div><div style='font-size: 70%; margin-top: 0px'>[Component: Elixir, phase 2]</div><div style='font-size: 80%; margin-top:10px'>Append-only, hash-chained via<br />prev_hash. verify/1 walks the<br />chain; tampering any past<br />entry fails it. History is<br />extended, never edited.</div>"]
+        style 8 fill:#e8f4ef,stroke:#0f6e56,color:#16181d
+        9["<div style='font-weight: bold'>GateRow</div><div style='font-size: 70%; margin-top: 0px'>[Component: Elixir, phase 2]</div><div style='font-size: 80%; margin-top:10px'>Builds and validates a row<br />against gate_row.schema.json<br />in hand-written Elixir with<br />stdlib JSON. supersedes<br />chains a revision without<br />mutating what it supersedes.</div>"]
+        style 9 fill:#e8f4ef,stroke:#0f6e56,color:#16181d
+      end
+
+      21("<div style='font-weight: bold'>Gaia</div><div style='font-size: 70%; margin-top: 0px'>[Container: Node.js / gaia_server.cjs :8096 + read-only MCP]</div><div style='font-size: 80%; margin-top:10px'>World-visibility organ. 308<br />live signals, 0<br />provenance-incomplete, 5<br />drift signals. LAW: never<br />summarizes, scores, ranks,<br />narrates, authors a verdict,<br />or acts outward.</div>")
+      style 21 fill:#e8f4ef,stroke:#0f6e56,color:#16181d
+    end
+
+    7-. "<div>Appends one entry per<br />mutation</div><div style='font-size: 70%'></div>" .->8
+    7-. "<div>Builds and validates a row</div><div style='font-size: 70%'></div>" .->9
+    10-. "<div>Registers a gate before its<br />run</div><div style='font-size: 70%'></div>" .->7
+    11-. "<div>Authors a verdict</div><div style='font-size: 70%'></div>" .->7
+    14-. "<div>Checks exactly one variable<br />differs</div><div style='font-size: 70%'></div>" .->15
+    14-. "<div>Records run identity</div><div style='font-size: 70%'></div>" .->7
+    18-. "<div>Records an airlock transition</div><div style='font-size: 70%'></div>" .->7
+    19-. "<div>Reads state to build the<br />scene</div><div style='font-size: 70%'></div>" .->8
+    16-. "<div>Compares like with like</div><div style='font-size: 70%'></div>" .->8
+    12-. "<div>Attests the head the chain<br />cannot hold</div><div style='font-size: 70%'></div>" .->8
+    13-. "<div>Persists and reloads,<br />append-only</div><div style='font-size: 70%'></div>" .->8
+    14-. "<div>Offers an arm for pairing</div><div style='font-size: 70%'></div>" .->15
+    17-. "<div>Holds the anchor out of the<br />writer's reach</div><div style='font-size: 70%'></div>" .->13
+    21-. "<div>Projects the Control Plane<br />ledger VERBATIM (seat<br />control-plane)</div><div style='font-size: 70%'></div>" .->13
+
+  end

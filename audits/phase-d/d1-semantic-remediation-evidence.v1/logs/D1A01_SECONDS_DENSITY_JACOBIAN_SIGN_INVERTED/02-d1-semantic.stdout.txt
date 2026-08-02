@@ -1,0 +1,107 @@
+✔ D1P11 historical phase-c adverse 0/10 detection result is preserved unlaundered (4.8177ms)
+✔ D1P11 the preserved phase-c evidence copy has not silently diverged from the canonical adverse result (4.5698ms)
+✔ D1P11 the phase-c adverse result is not weakened by the D1 remediation contract (7.7605ms)
+✔ right-censored dwells are excluded from the uncensored duration likelihood (hand-calculated mean) (3.7374ms)
+✔ the fixture discriminates: admitting censored dwells changes the mean to a different hand-calculated value (0.425ms)
+✔ censored dwells exert zero influence on the likelihood: flagged-present run equals censored-absent run (0.5292ms)
+✔ likelihood cohort sizes equal the independently counted uncensored eligible events (0.4669ms)
+✔ right-censored dwells are RETAINED in the record for provenance (2.12ms)
+✔ the frozen protocol still declares both halves of the censoring rule (4.5336ms)
+✖ D1P01 seconds-scale predictive density carries the change-of-variables jacobian (2.8715ms)
+✖ D1P01 seconds-scale predictive density is equivariant under unit reparameterization (0.4151ms)
+✔ D1P03 sample variance uses the bessel n-1 denominator (0.4313ms)
+✔ D1P03 reported cvSquared propagates the bessel n-1 denominator into the held-out state summary (0.2714ms)
+✔ D1P07 first-passage mixture weights are a normalized bernoulli convolution (3.3552ms)
+✔ D1P08 competing-risk off hazard carries n-fold stator detachment multiplicity (3.1058ms)
+✔ D1P09 exponential-mixture second moment retains its factor of two (313.7518ms)
+✔ fixture guard: both synthetic stator states are eligible and fully scored (2.6047ms)
+✔ direction semantics: "on" is the positive outcome in the training-fitted probabilities (0.2765ms)
+✔ direction semantics: held-out outcome 1 is "on" (hand-calculated log loss and Brier score) (0.2264ms)
+✔ direction semantics: stateSummary.onFraction counts "on", not "off" (0.199ms)
+✔ anchoring identity: state-conditioned direction predictor was constructed to beat the pooled baseline (0.1946ms)
+✔ anchoring identity: the generating model outscores every mis-specified baseline (0.2137ms)
+✔ paired advantage sign convention: mixture was constructed to beat every baseline (0.2453ms)
+✔ paired advantage sign convention: bootstrap intervals agree in sign with the point estimate (0.196ms)
+✔ independent recomputation: paired advantages match an oracle written from the density definitions (0.6634ms)
+✔ internal orientation identity: paired advantage equals the difference of the reported mean log scores (0.3028ms)
+✔ determinism: a second run of the same fixture reproduces every orientation-bearing value (128.8103ms)
+✔ D1P10 periodic thirteen-site lattice retains its wraparound bond (15.2297ms)
+✔ D1P10 periodic and open-chain lattice topologies are genuinely discriminated at the reported fit (6.0416ms)
+✔ D1P10 the lattice gate cannot detect a bond-offset relabelling, because on a prime ring it is an isomorphism (4.219ms)
+✔ D1P10 lattice adjacency oracle counts the wraparound bond on hand-calculable configurations (0.491ms)
+PROSPECTIVITY GATE: 6/6 anchors verified against commit ancestry.
+PROSPECTIVITY GATE: class ledger
+  B1-MUTATION-BATTERY-V1: declared=PROSPECTIVE measured=PROSPECTIVE (STRICT_ANCESTRY_PROVEN)
+  B1-RERUN-ON-C3-FIXED-TREE: declared=TIMING_UNVERIFIED measured=TIMING_UNVERIFIED (SAME_COMMIT:audits/phase-b/b1-mutation-ledger-rerun.json)
+  C3-CANONICAL-WRITE-FIX: declared=TIMING_UNVERIFIED measured=TIMING_UNVERIFIED (SAME_COMMIT:1630a68f)
+  B3-MODEL-COMPETITION-V1: declared=PENDING measured=PENDING (RESULT_DOES_NOT_EXIST_YET)
+  PHASE-D1-SEMANTIC-REMEDIATION-CLAUDE: declared=PENDING measured=PENDING (RESULT_DOES_NOT_EXIST_YET)
+  PHASE-C-BLIND-MUTATION-CODEX: declared=PROSPECTIVE measured=PROSPECTIVE (STRICT_ANCESTRY_PROVEN)
+✔ SYNTHETIC: prediction committed one commit before its result => PROSPECTIVE (1340.41ms)
+✔ SYNTHETIC: prediction and result in the SAME commit => TIMING_UNVERIFIED, never upgraded (888.4253ms)
+✔ SYNTHETIC: result committed BEFORE the prediction => TIMING_UNVERIFIED (1275.1826ms)
+✔ SYNTHETIC: prediction committed, result does not exist => PENDING (941.6003ms)
+✔ SYNTHETIC: result written but NOT committed cannot make a prediction PROSPECTIVE (942.9009ms)
+✔ SYNTHETIC: prospectivity is decided by ancestry, NOT by commit timestamps (1399.5393ms)
+✔ SYNTHETIC: a fabricated anchor commit is not accepted as an anchor (882.3914ms)
+✔ Every prediction record is well formed and carries claim, falsifier and anchor (0.6503ms)
+✔ Every prediction anchor commit exists and precedes the prediction it anchors (2314.97ms)
+✔ Declared prospectivity equals prospectivity measured from commit ancestry (1494.5887ms)
+✔ The known same-commit provenance defect remains declared and visible (616.1745ms)
+✔ D1P02 slow-state posterior conditions on survival not on event density (2.0365ms)
+✔ D1P02 slow-state posterior equals the independently recomputed survivor mass ratio (0.5204ms)
+✔ D1P02 slow-state posterior increases with survival and saturates toward the slow component (0.3652ms)
+✔ G1 a motor present in both partitions is refused, and the refusal names motor leakage (4.8792ms)
+✔ G2 the frozen dataset's partitions are disjoint at motor granularity (8.6127ms)
+✔ G2 every motor's partition equals the preregistered sha256(motorName) mod 5 rule, recomputed here (10.6672ms)
+✔ G3 fitted parameters equal HAND-CALCULATED training-only values, not pooled values (51.7162ms)
+✔ G3 corrupting every holdout observation leaves the real dataset's fitted parameters unmoved (1250.4384ms)
+✔ D1P04 observation excludes hidden world truth at the markov boundary (5.1056ms)
+✔ D1P04 observation is invariant to hidden world state under any field name (0.5611ms)
+✔ D1P04 the agent receives an observation and never the world object (2.2198ms)
+✔ D1P05 live instrument stator occupancy is bounded to the physical zero to eleven range (0.7793ms)
+✔ D1P06 mechanosensitive stator recruitment increases with load (16.6328ms)
+ℹ tests 55
+ℹ suites 0
+ℹ pass 53
+ℹ fail 2
+ℹ cancelled 0
+ℹ skipped 0
+ℹ todo 0
+ℹ duration_ms 12894.8683
+
+✖ failing tests:
+
+test at tests\semantic\density-scale-and-dispersion.semantic.test.mjs:134:1
+✖ D1P01 seconds-scale predictive density carries the change-of-variables jacobian (2.8715ms)
+  AssertionError [ERR_ASSERTION]: The seconds-scale mean log predictive density is missing or misapplying its change-of-variables jacobian. Hand-calculated seconds-scale value -1 - ln(3) = -2.0986122886681096, observed 0.09861228866810962. A density reported in nats per event on the seconds scale must include the jacobian -log(scale); omitting it reports a density on normalized duration while labelling it a seconds-scale density.
+      at TestContext.<anonymous> (file:///C:/Users/mpolz/AppData/Local/Temp/uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85/clones/d1a01_seconds_density_jacobian_sign_inverted/tests/semantic/density-scale-and-dispersion.semantic.test.mjs:148:10)
+      at Test.runInAsyncScope (node:async_hooks:213:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.start (node:internal/test_runner/test:1003:17)
+      at startSubtestAfterBootstrap (node:internal/test_runner/harness:358:17) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }
+
+test at tests\semantic\density-scale-and-dispersion.semantic.test.mjs:168:1
+✖ D1P01 seconds-scale predictive density is equivariant under unit reparameterization (0.4151ms)
+  AssertionError [ERR_ASSERTION]: The reported predictive density is not a proper seconds-scale density under change-of-variables. Re-expressing every dwell in half-seconds must shift the mean log score by exactly -ln(2) = -0.6931471805599453, observed shift 0.6931471805599454. A shift of zero means the jacobian is absent and the quantity is a density on normalized duration, not an absolute predictive density in nats per event on the seconds scale.
+      at TestContext.<anonymous> (file:///C:/Users/mpolz/AppData/Local/Temp/uni-flagellum-d1-2d9c3c88-6f16-44e5-81c8-266e07161e85/clones/d1a01_seconds_density_jacobian_sign_inverted/tests/semantic/density-scale-and-dispersion.semantic.test.mjs:177:10)
+      at Test.runInAsyncScope (node:async_hooks:213:14)
+      at Test.run (node:internal/test_runner/test:1106:25)
+      at Test.processPendingSubtests (node:internal/test_runner/test:788:18)
+      at Test.postRun (node:internal/test_runner/test:1235:19)
+      at Test.run (node:internal/test_runner/test:1163:12)
+      at async startSubtestAfterBootstrap (node:internal/test_runner/harness:358:3) {
+    generatedMessage: false,
+    code: 'ERR_ASSERTION',
+    actual: false,
+    expected: true,
+    operator: '==',
+    diff: 'simple'
+  }

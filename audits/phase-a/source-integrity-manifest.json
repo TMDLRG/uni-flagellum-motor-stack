@@ -1,0 +1,124 @@
+{
+  "schema": "uni.flagellum.audit-artifact/1.0.0",
+  "purpose": "Independent verification of every declared Tier-1 upstream artifact. Bytes are NOT stored in this package; only identities.",
+  "auditedCommit": "9c3a644e4b57e8ac27f925dcec84222463063aa1",
+  "auditPhase": "A",
+  "auditorModel": "claude-opus-4-8 (Phase A execution), claude-fable-5 (packaging)",
+  "operatingSystem": "Microsoft Windows 11 Pro 10.0.26200 build 26200 (x64)",
+  "cpu": "Intel Core i7-10700T @ 2.00GHz, 8 cores / 16 threads",
+  "ramGB": 63.71,
+  "appendOnly": true,
+  "note": "Timestamps are deliberately omitted: this package must be byte-reproducible. Ordering is established by git history.",
+  "finding": "POSITIVE",
+  "tier1": {
+    "artifactCount": 12,
+    "declaredTotalBytes": 75001736,
+    "observedTotalBytes": 75001736,
+    "allDigestsMatch": true,
+    "artifacts": [
+      {
+        "name": "ito-2021-source-data.xlsx",
+        "url": "https://static-content.springer.com/esm/art%3A10.1038%2Fs41467-021-23516-y/MediaObjects/41467_2021_23516_MOESM2_ESM.xlsx",
+        "declaredBytes": 11896413,
+        "observedBytes": 11896413,
+        "declaredSha256": "33687c50a5636817889612d59d7e902b876391997bf7f6013574f8fa2bce944a",
+        "verificationStatus": "OK"
+      },
+      {
+        "name": "antani-2021-source-data.xlsx",
+        "url": "https://static-content.springer.com/esm/art%3A10.1038%2Fs41467-021-25774-2/MediaObjects/41467_2021_25774_MOESM5_ESM.xlsx",
+        "declaredBytes": 45271,
+        "observedBytes": 45271,
+        "declaredSha256": "bee5497182be4e7b6c2f1a3bd75a24407ab965512e8652bfe9a6337ffb297abd",
+        "verificationStatus": "OK"
+      },
+      {
+        "name": "lisevich-2025-source-data.zip",
+        "url": "https://static-content.springer.com/esm/art%3A10.1038%2Fs41467-025-56980-x/MediaObjects/41467_2025_56980_MOESM7_ESM.zip",
+        "declaredBytes": 45274919,
+        "observedBytes": 45274919,
+        "declaredSha256": "7e30c791be8136cc4520e7f897d2ca10d7f88cd2558447dfbe36b393eb641afd",
+        "verificationStatus": "OK"
+      },
+      {
+        "name": "lisevich-2025-supp-data-1.xlsx",
+        "url": "https://static-content.springer.com/esm/art%3A10.1038%2Fs41467-025-56980-x/MediaObjects/41467_2025_56980_MOESM2_ESM.xlsx",
+        "declaredBytes": 13690,
+        "observedBytes": 13690,
+        "declaredSha256": "87186cdc9221ed4249231b82306250f1abe7ab66c7de905d7a88682cc9a03ce8",
+        "verificationStatus": "OK"
+      },
+      {
+        "name": "lisevich-2025-supp-data-2.xlsx",
+        "url": "https://static-content.springer.com/esm/art%3A10.1038%2Fs41467-025-56980-x/MediaObjects/41467_2025_56980_MOESM3_ESM.xlsx",
+        "declaredBytes": 14102,
+        "observedBytes": 14102,
+        "declaredSha256": "3d62f6a53876d1fc5c17dfdc05c42c263b7984d1f130cfc05df7ae819cbf1d78",
+        "verificationStatus": "OK"
+      },
+      {
+        "name": "mattingly-2026-fig2-source-data.zip",
+        "url": "https://static-content.springer.com/esm/art%3A10.1038%2Fs41567-025-03105-2/MediaObjects/41567_2025_3105_MOESM7_ESM.zip",
+        "declaredBytes": 15731056,
+        "observedBytes": 15731056,
+        "declaredSha256": "6c9c7145ef8aa9485365d863ecd573e0fd4a664d61a2c46929a7a772ce8522cf",
+        "verificationStatus": "OK"
+      },
+      {
+        "name": "mattingly-2026-supp-code-2.zip",
+        "url": "https://static-content.springer.com/esm/art%3A10.1038%2Fs41567-025-03105-2/MediaObjects/41567_2025_3105_MOESM2_ESM.zip",
+        "declaredBytes": 402957,
+        "observedBytes": 402957,
+        "declaredSha256": "ccb4ce3c3052110e1ebc345dbb7e4078da04f172efd7191918053f7d1bbaa653",
+        "verificationStatus": "OK"
+      },
+      {
+        "name": "mattingly-2026-supp-code-3.zip",
+        "url": "https://static-content.springer.com/esm/art%3A10.1038%2Fs41567-025-03105-2/MediaObjects/41567_2025_3105_MOESM3_ESM.zip",
+        "declaredBytes": 439682,
+        "observedBytes": 439682,
+        "declaredSha256": "16f9ea44aa6ac79e59ae89225b6645c1fe23117bfeb24d1ea6749bf9ba63418a",
+        "verificationStatus": "OK"
+      },
+      {
+        "name": "mattingly-2026-supp-code-4.zip",
+        "url": "https://static-content.springer.com/esm/art%3A10.1038%2Fs41567-025-03105-2/MediaObjects/41567_2025_3105_MOESM4_ESM.zip",
+        "declaredBytes": 372370,
+        "observedBytes": 372370,
+        "declaredSha256": "a3ddbaec26b9b5767fdd438f79d7dcea81d5c2f59a83bac804446a8d1cc76dc2",
+        "verificationStatus": "OK"
+      },
+      {
+        "name": "mattingly-2026-supp-code-5.zip",
+        "url": "https://static-content.springer.com/esm/art%3A10.1038%2Fs41567-025-03105-2/MediaObjects/41567_2025_3105_MOESM5_ESM.zip",
+        "declaredBytes": 409379,
+        "observedBytes": 409379,
+        "declaredSha256": "b01ea374aec04dd77849181cc56a2c2663fcbe100e5f0f2b16e78e4ec4c7d53a",
+        "verificationStatus": "OK"
+      },
+      {
+        "name": "mattingly-2026-supp-code-6.zip",
+        "url": "https://static-content.springer.com/esm/art%3A10.1038%2Fs41567-025-03105-2/MediaObjects/41567_2025_3105_MOESM6_ESM.zip",
+        "declaredBytes": 376804,
+        "observedBytes": 376804,
+        "declaredSha256": "127a3e7688ae33fdf8be1b85d47dd50faf958db5b871e860eeba6913d034fd63",
+        "verificationStatus": "OK"
+      },
+      {
+        "name": "perez-carrasco-2022-code.zip",
+        "url": "https://zenodo.org/records/5784548/files/2piruben/BFM_multistate-v1.0.0.zip?download=1",
+        "declaredBytes": 25093,
+        "observedBytes": 25093,
+        "declaredSha256": "23bded7d444f8c684a7aca95dae7fc9bd06bc07a9c95b42ccb58e213f0543561",
+        "verificationStatus": "OK"
+      }
+    ]
+  },
+  "tier2Pointer": "See ito-archive-verification.json. The 4.09 GB archive is NOT stored in this package.",
+  "significance": "This is the FIRST time the 'verified': true fields in experiments/data/cross-study-motor-evidence.json have been checked against real bytes retrieved from the published URLs. They are true.",
+  "criticalDistinction": "A frozen 'verified': true field is an EVIDENCE CLAIM about a past verification. It is NOT current verification. The generated X01 gate consumes those literals instead of re-reading bytes; see x01-empty-vs-full-cache.json.",
+  "verificationOracle": "PowerShell Get-FileHash (SHA-256), an implementation independent of the repository's Python and JavaScript hashing code.",
+  "uncertainty": "Retrieved once. A stable upstream substitution predating this audit would not be detected by agreement with the repository's own pins.",
+  "alternativeExplanation": "n/a",
+  "independentlyReproduced": false
+}

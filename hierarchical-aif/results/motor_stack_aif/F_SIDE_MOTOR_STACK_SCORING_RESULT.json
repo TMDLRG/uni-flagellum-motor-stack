@@ -1,0 +1,653 @@
+{
+ "aggregation": {
+  "experimentalUnit": "MOTOR",
+  "primary": "MOTOR_EQUAL",
+  "secondary": "EVENT_POOLED (continuity bridge only, never a verdict)"
+ },
+ "candidate": {
+  "model": "F_MOTOR_STACK",
+  "motorEqual": 3.4326923382675303,
+  "nFreeParams": 2
+ },
+ "claimBoundary": {
+  "adverseRetained": "M2_LOGNORMAL out-predicts the two-timescale mixture M3 by ~0.0369 nats event-pooled in the frozen B3 record. M2 is an ADVERSARIAL baseline, never the UNI model. This adverse result is reported alongside this result, never instead of it.",
+  "allowedWording": [
+   "target hypothesis",
+   "candidate model",
+   "CI-bound verdict",
+   "not established",
+   "duration-only held-out support",
+   "F-side observational projection"
+  ],
+  "doesNotEstablish": [
+   "no mechanism: predictive ordering is never promoted to mechanism",
+   "no biological parity at any level",
+   "no active-inference claim: the dataset is passive and the action set is empty",
+   "no G-side policy claim; the expected-free-energy function does not exist in this package, a test enforces its absence, and it must not be added",
+   "nothing about the MARK process (nextStateN/direction/jump) - not read here (D5)",
+   "nothing about species beyond E. coli behavioural evidence in this dataset",
+   "nothing about B4C11, whose U4_OK remains withdrawn (D1)"
+  ],
+  "oracleStatus": "PASS",
+  "parityLadder": "P3 duration-only ONLY. P5 transfer, P6 intervention, P8 full verdict are untouched by this result in either direction.",
+  "scope": "Held-out DURATION prediction on the frozen derived_eligible_1_to_8 cohort of Wadhwa-2022, 19 holdout motors, motor-equal NLPD, seconds scale."
+ },
+ "contrastConvention": "contrast = S(reference) - S(challenger=F_MOTOR_STACK). Interval entirely above 0 => challenger better; entirely below 0 => reference better; contains 0 => NOT_ESTABLISHED.",
+ "contrasts": {
+  "M0_EXPONENTIAL": {
+   "atOrBelowResolutionFloor": false,
+   "challenger": "F_MOTOR_STACK",
+   "contrastDefinition": "S(M0_EXPONENTIAL) - S(F_MOTOR_STACK), SECONDS scale",
+   "halfWidth": 0.10722855673042997,
+   "halfWidthBelongsTo": "the PERCENTILE interval reported in `interval` (D7: the frozen B3 `width` field was the percentile companion while verdicts used BCa; this harness reports percentile intervals only and says so)",
+   "interpretation": "Interval entirely above 0: the F-side motor stack predicts held-out DURATIONS better than M0_EXPONENTIAL on this cohort, at this sample size. Duration-only, no mechanism.",
+   "interval": [
+    0.013039958895400987,
+    0.22749707235626093
+   ],
+   "intervalType": "percentile",
+   "nRep": 2000,
+   "note": "Width reported here is the PERCENTILE width and is labelled as such - see D7, where the frozen artifact's `width` field silently reported the companion interval while verdicts used BCa.",
+   "pointEstimate": 0.11529094279542929,
+   "reference": "M0_EXPONENTIAL",
+   "resamplingUnit": "MOTOR",
+   "role": "ADVERSARY",
+   "seed": 20260717,
+   "verdict": "RESOLVED_ABOVE",
+   "width": 0.21445711346085994
+  },
+  "M1_WEIBULL": {
+   "atOrBelowResolutionFloor": true,
+   "challenger": "F_MOTOR_STACK",
+   "contrastDefinition": "S(M1_WEIBULL) - S(F_MOTOR_STACK), SECONDS scale",
+   "halfWidth": 0.01109232367002231,
+   "halfWidthBelongsTo": "the PERCENTILE interval reported in `interval` (D7: the frozen B3 `width` field was the percentile companion while verdicts used BCa; this harness reports percentile intervals only and says so)",
+   "interpretation": "Interval contains 0: NOT_ESTABLISHED against M1_WEIBULL. This is NOT equivalence and NOT 'no difference'. With 19 holdout motors most contrasts are expected to be inconclusive against a ~0.042-nat resolution floor. Underpowered is not equivalence.",
+   "interval": [
+    -0.010880659688579656,
+    0.011303987651464963
+   ],
+   "intervalType": "percentile",
+   "nRep": 2000,
+   "note": "Width reported here is the PERCENTILE width and is labelled as such - see D7, where the frozen artifact's `width` field silently reported the companion interval while verdicts used BCa.",
+   "pointEstimate": 0.0006145100976836924,
+   "reference": "M1_WEIBULL",
+   "resamplingUnit": "MOTOR",
+   "role": "ADVERSARY",
+   "seed": 20260717,
+   "verdict": "NOT_ESTABLISHED",
+   "width": 0.02218464734004462
+  },
+  "M2_LOGNORMAL": {
+   "atOrBelowResolutionFloor": true,
+   "challenger": "F_MOTOR_STACK",
+   "contrastDefinition": "S(M2_LOGNORMAL) - S(F_MOTOR_STACK), SECONDS scale",
+   "halfWidth": 0.08596239171019703,
+   "halfWidthBelongsTo": "the PERCENTILE interval reported in `interval` (D7: the frozen B3 `width` field was the percentile companion while verdicts used BCa; this harness reports percentile intervals only and says so)",
+   "interpretation": "Interval contains 0: NOT_ESTABLISHED against M2_LOGNORMAL. This is NOT equivalence and NOT 'no difference'. With 19 holdout motors most contrasts are expected to be inconclusive against a ~0.042-nat resolution floor. Underpowered is not equivalence.",
+   "interval": [
+    -0.10488646926961183,
+    0.06703831415078222
+   ],
+   "intervalType": "percentile",
+   "nRep": 2000,
+   "note": "Width reported here is the PERCENTILE width and is labelled as such - see D7, where the frozen artifact's `width` field silently reported the companion interval while verdicts used BCa.",
+   "pointEstimate": -0.023378180014738043,
+   "reference": "M2_LOGNORMAL",
+   "resamplingUnit": "MOTOR",
+   "role": "ADVERSARY",
+   "seed": 20260717,
+   "verdict": "NOT_ESTABLISHED",
+   "width": 0.17192478342039405
+  },
+  "M3_TWO_TIMESCALE": {
+   "atOrBelowResolutionFloor": true,
+   "challenger": "F_MOTOR_STACK",
+   "contrastDefinition": "S(M3_TWO_TIMESCALE) - S(F_MOTOR_STACK), SECONDS scale",
+   "halfWidth": 0.07899792887310705,
+   "halfWidthBelongsTo": "the PERCENTILE interval reported in `interval` (D7: the frozen B3 `width` field was the percentile companion while verdicts used BCa; this harness reports percentile intervals only and says so)",
+   "interpretation": "Interval contains 0: NOT_ESTABLISHED against M3_TWO_TIMESCALE. This is NOT equivalence and NOT 'no difference'. With 19 holdout motors most contrasts are expected to be inconclusive against a ~0.042-nat resolution floor. Underpowered is not equivalence.",
+   "interval": [
+    -0.07714698667204503,
+    0.08084887107416908
+   ],
+   "intervalType": "percentile",
+   "nRep": 2000,
+   "note": "Width reported here is the PERCENTILE width and is labelled as such - see D7, where the frozen artifact's `width` field silently reported the companion interval while verdicts used BCa.",
+   "pointEstimate": 0.0016409948078282934,
+   "reference": "M3_TWO_TIMESCALE",
+   "resamplingUnit": "MOTOR",
+   "role": "CONTROL_CURRENT",
+   "seed": 20260717,
+   "verdict": "NOT_ESTABLISHED",
+   "width": 0.1579958577462141
+  },
+  "M5_GAMMA": {
+   "atOrBelowResolutionFloor": true,
+   "challenger": "F_MOTOR_STACK",
+   "contrastDefinition": "S(M5_GAMMA) - S(F_MOTOR_STACK), SECONDS scale",
+   "halfWidth": 0.025007097832552838,
+   "halfWidthBelongsTo": "the PERCENTILE interval reported in `interval` (D7: the frozen B3 `width` field was the percentile companion while verdicts used BCa; this harness reports percentile intervals only and says so)",
+   "interpretation": "Interval entirely above 0: the F-side motor stack predicts held-out DURATIONS better than M5_GAMMA on this cohort, at this sample size. Duration-only, no mechanism.",
+   "interval": [
+    0.004459263838238518,
+    0.054473459503344195
+   ],
+   "intervalType": "percentile",
+   "nRep": 2000,
+   "note": "Width reported here is the PERCENTILE width and is labelled as such - see D7, where the frozen artifact's `width` field silently reported the companion interval while verdicts used BCa.",
+   "pointEstimate": 0.031036311405221357,
+   "reference": "M5_GAMMA",
+   "resamplingUnit": "MOTOR",
+   "role": "ADVERSARY",
+   "seed": 20260717,
+   "verdict": "RESOLVED_ABOVE",
+   "width": 0.050014195665105676
+  },
+  "M8_EMPIRICAL_KDE": {
+   "atOrBelowResolutionFloor": true,
+   "challenger": "F_MOTOR_STACK",
+   "contrastDefinition": "S(M8_EMPIRICAL_KDE) - S(F_MOTOR_STACK), SECONDS scale",
+   "halfWidth": 0.0744904213618971,
+   "halfWidthBelongsTo": "the PERCENTILE interval reported in `interval` (D7: the frozen B3 `width` field was the percentile companion while verdicts used BCa; this harness reports percentile intervals only and says so)",
+   "interpretation": "Interval contains 0: NOT_ESTABLISHED against M8_EMPIRICAL_KDE. This is NOT equivalence and NOT 'no difference'. With 19 holdout motors most contrasts are expected to be inconclusive against a ~0.042-nat resolution floor. Underpowered is not equivalence.",
+   "interval": [
+    -0.08450581141322655,
+    0.06447503131056763
+   ],
+   "intervalType": "percentile",
+   "nRep": 2000,
+   "note": "Width reported here is the PERCENTILE width and is labelled as such - see D7, where the frozen artifact's `width` field silently reported the companion interval while verdicts used BCa.",
+   "pointEstimate": -0.010168719861166386,
+   "reference": "M8_EMPIRICAL_KDE",
+   "resamplingUnit": "MOTOR",
+   "role": "ADVERSARY",
+   "seed": 20260717,
+   "verdict": "NOT_ESTABLISHED",
+   "width": 0.1489808427237942
+  }
+ },
+ "control": {
+  "model": "M3_TWO_TIMESCALE",
+  "motorEqual": 3.434333333075359,
+  "refitted": false,
+  "role": "CONTROL_CURRENT"
+ },
+ "determinism": {
+  "nRep": 2000,
+  "resamplingUnit": "MOTOR",
+  "rngConstruction": "np.random.default_rng(seed) constructed ONCE per contrast; common random numbers across contrasts",
+  "seed": 20260717,
+  "usesPythonHash": false
+ },
+ "eventPooledNLPD": {
+  "F_MOTOR_STACK": 3.1031632844326933,
+  "F_MOTOR_STACK__JOINT_PER_MOTOR": null,
+  "M0_EXPONENTIAL": 3.2599380237315465,
+  "M1_WEIBULL": 3.0962841793736238,
+  "M2_LOGNORMAL": 3.012890173326149,
+  "M3_TWO_TIMESCALE": 3.0497566906669236,
+  "M5_GAMMA": 3.145405188053896,
+  "M8_EMPIRICAL_KDE": 3.005428677096905
+ },
+ "fitted": {
+  "F_MOTOR_STACK": {
+   "converged": true,
+   "fittedOn": "TRAIN_ONLY (80 motors, motor-grouped marginal likelihood)",
+   "k_population_median": 0.659632669755436,
+   "mu": -0.41607215987582913,
+   "nFreeParams": 2,
+   "nfev": 165,
+   "nit": 83,
+   "note": "Per-motor latents integrated by 33-node Gauss-Hermite quadrature, NOT estimated. Parameter count is independent of motor count.",
+   "source": "F_SIDE_FIT",
+   "tau": 0.18372082607308418,
+   "tauAtBoundary": false,
+   "tauBounds": [
+    0.0001,
+    5.0
+   ],
+   "trainNLL": 575.6701064153622
+  },
+  "M0_EXPONENTIAL": {
+   "fittedOn": "TRAIN_ONLY (pooled training _y, 793 events)",
+   "model": "M0_EXPONENTIAL",
+   "params": {},
+   "source": "F_SIDE_FIT",
+   "trainNLL": 793.0
+  },
+  "M1_WEIBULL": {
+   "fittedOn": "TRAIN_ONLY (pooled training _y, 793 events)",
+   "model": "M1_WEIBULL",
+   "params": {
+    "k": 0.6250888336421024
+   },
+   "source": "F_SIDE_FIT",
+   "trainNLL": 583.5856062645818
+  },
+  "M2_LOGNORMAL": {
+   "fittedOn": "TRAIN_ONLY (pooled training _y, 793 events)",
+   "model": "M2_LOGNORMAL",
+   "params": {
+    "sigma": 1.578307615126113
+   },
+   "source": "F_SIDE_FIT",
+   "trainNLL": 509.28782032664856
+  },
+  "M3_TWO_TIMESCALE": {
+   "fittedOn": "TRAIN_ONLY (frozen B3 fit, reused verbatim)",
+   "model": "M3_TWO_TIMESCALE",
+   "params": {
+    "lambdaFast": 0.44485933051063775,
+    "w": 0.3933559993214189
+   },
+   "paramsVector": [
+    0.3933559993214189,
+    0.44485933051063775
+   ],
+   "source": "FROZEN_B3_RESULT (NOT refitted - this is CONTROL_CURRENT)",
+   "trainNLL": 537.0211284007612
+  },
+  "M5_GAMMA": {
+   "fittedOn": "TRAIN_ONLY (pooled training _y, 793 events)",
+   "model": "M5_GAMMA",
+   "params": {
+    "shape": 0.5115800032417461
+   },
+   "source": "F_SIDE_FIT",
+   "trainNLL": 634.5106339702455
+  },
+  "M8_EMPIRICAL_KDE": {
+   "fittedOn": "TRAIN_ONLY (bandwidth frozen, locations from 793 training events)",
+   "included": true,
+   "inclusionReason": "INCLUDED: obtainable from the frozen record with no new exploratory holdout work, and its recomputed holdout aggregate reproduces the published M8 score exactly, which makes it a third oracle.",
+   "model": "M8_EMPIRICAL_KDE",
+   "params": {
+    "h": 0.31622776601683794,
+    "nKdeLocations": 793
+   },
+   "source": "FROZEN_B3_BANDWIDTH: h read from the frozen record; the KDE locations s are recomputed deterministically from the TRAINING events only. No cross-validation is re-run and no holdout data enters the fit.",
+   "ybarDeviation": 0.0
+  }
+ },
+ "floorPolicy": "NO_FLOOR - a non-finite log density HALTS (matches frozen B3)",
+ "intervalType": "percentile",
+ "leaderboardMotorEqual": [
+  {
+   "model": "M2_LOGNORMAL",
+   "motorEqual": 3.4093141582527933
+  },
+  {
+   "model": "M8_EMPIRICAL_KDE",
+   "motorEqual": 3.4225236184063643
+  },
+  {
+   "model": "F_MOTOR_STACK",
+   "motorEqual": 3.4326923382675303
+  },
+  {
+   "model": "M1_WEIBULL",
+   "motorEqual": 3.433306848365214
+  },
+  {
+   "model": "M3_TWO_TIMESCALE",
+   "motorEqual": 3.434333333075359
+  },
+  {
+   "model": "M5_GAMMA",
+   "motorEqual": 3.463728649672752
+  },
+  {
+   "model": "M0_EXPONENTIAL",
+   "motorEqual": 3.54798328106296
+  }
+ ],
+ "m8Inclusion": {
+  "included": true,
+  "reason": "INCLUDED: obtainable from the frozen record with no new exploratory holdout work, and its recomputed holdout aggregate reproduces the published M8 score exactly, which makes it a third oracle."
+ },
+ "motorEqualNLPD": {
+  "F_MOTOR_STACK": 3.4326923382675303,
+  "F_MOTOR_STACK__JOINT_PER_MOTOR": 3.4314049377718883,
+  "M0_EXPONENTIAL": 3.54798328106296,
+  "M1_WEIBULL": 3.433306848365214,
+  "M2_LOGNORMAL": 3.4093141582527933,
+  "M3_TWO_TIMESCALE": 3.434333333075359,
+  "M5_GAMMA": 3.463728649672752,
+  "M8_EMPIRICAL_KDE": 3.4225236184063643
+ },
+ "motorOrder": [
+  "18-02-06-1505",
+  "18-02-07-1612",
+  "18-02-16-1628",
+  "18-02-16-1755",
+  "18-06-01-1649",
+  "18-06-01-1729",
+  "18-06-07-1516",
+  "18-06-20-1737",
+  "18-06-24-1557",
+  "18-06-24-1750",
+  "18-11-06-1712",
+  "19-01-10-1410",
+  "19-01-14-1756",
+  "19-01-31-1329",
+  "19-01-31-1416",
+  "19-02-01-1517",
+  "19-02-07-1454",
+  "19-02-07-1507",
+  "19-02-07-1857"
+ ],
+ "oracleConsistencyCheck": {
+  "checks": [
+   {
+    "absResidual": 0.0,
+    "model": "M3_TWO_TIMESCALE",
+    "pass": true,
+    "perEventMaxAbsDiffVsFrozenRunner": 0.0,
+    "perMotorMaxAbsDiffVsFrozenRunner": 8.881784197001252e-16,
+    "perMotorTolerance": 1e-13,
+    "publishedMotorEqual": 3.434333333075359,
+    "recomputedMotorEqual": 3.434333333075359,
+    "residual": 0.0,
+    "tolerance": 1e-12,
+    "why": "frozen B3 fitted params, not refitted"
+   },
+   {
+    "absResidual": 0.0,
+    "model": "M0_EXPONENTIAL",
+    "pass": true,
+    "perEventMaxAbsDiffVsFrozenRunner": 0.0,
+    "perMotorMaxAbsDiffVsFrozenRunner": 8.881784197001252e-16,
+    "perMotorTolerance": 1e-13,
+    "publishedMotorEqual": 3.54798328106296,
+    "recomputedMotorEqual": 3.54798328106296,
+    "residual": 0.0,
+    "tolerance": 1e-12,
+    "why": "parameter-free: an unconditional scale/aggregation check"
+   },
+   {
+    "absResidual": 0.0,
+    "model": "M8_EMPIRICAL_KDE",
+    "pass": true,
+    "perEventMaxAbsDiffVsFrozenRunner": 0.0,
+    "perMotorMaxAbsDiffVsFrozenRunner": 8.881784197001252e-16,
+    "perMotorTolerance": 1e-13,
+    "publishedMotorEqual": 3.4225236184063643,
+    "recomputedMotorEqual": 3.4225236184063643,
+    "residual": 0.0,
+    "tolerance": 1e-12,
+    "why": "frozen bandwidth, training-only locations"
+   }
+  ],
+  "note": "B3 stores only AGGREGATED scores - there are no per-motor arrays in the frozen record - so every per-motor array here is recomputed. That is exactly why this check is mandatory rather than optional.",
+  "scaleMode": "SECONDS",
+  "status": "PASS",
+  "tolerance": 1e-12,
+  "toleranceJustification": "Parameters are read verbatim from the frozen JSON and the cohort is rebuilt by the frozen Cohort class in the frozen event order, so every FP operation and summation order matches the recorded run: the expected residual is exactly 0.0 and 1e-12 absolute (~3e-13 relative, ~1000 ULP) is pure last-place headroom. The tolerance is not to be loosened; a residual above it is a convention error and is the finding."
+ },
+ "perMotorNLPD": {
+  "F_MOTOR_STACK": [
+   2.8994263482354223,
+   2.8341841328982404,
+   5.080307324299746,
+   2.5603369756146104,
+   2.9673235478489977,
+   2.4200745667979477,
+   4.758629476188171,
+   3.1536119085445935,
+   2.7671988505568517,
+   4.83450549862918,
+   3.020065097852599,
+   3.6438102749412877,
+   4.939224915437434,
+   2.6809181311272634,
+   3.3352317439783,
+   4.540517173450103,
+   3.176888857562319,
+   2.340369002737545,
+   3.2685306003824706
+  ],
+  "F_MOTOR_STACK__JOINT_PER_MOTOR": [
+   2.903159100127979,
+   2.8290153337619914,
+   5.052593096206936,
+   2.539189876711008,
+   2.948018415049855,
+   2.416472998812094,
+   4.781932977649955,
+   3.1268134787665645,
+   2.7792139186058002,
+   4.874506830764055,
+   3.016642564791621,
+   3.6614482829603445,
+   4.929645997834637,
+   2.6771960043377394,
+   3.345706518505568,
+   4.549373693574667,
+   3.1724534089305525,
+   2.3397784446399355,
+   3.2535328756345754
+  ],
+  "M0_EXPONENTIAL": [
+   3.0144545481200073,
+   2.7665826853911675,
+   4.883103903965646,
+   2.323561592541945,
+   3.273036418768292,
+   2.5087871724793307,
+   5.374786679084128,
+   3.8472269425204564,
+   3.0473206693254262,
+   5.095920124228347,
+   2.857725833663066,
+   3.771925206723198,
+   4.8877906036173995,
+   2.85525096132635,
+   3.4702608184990673,
+   4.669172508330803,
+   3.134990013553356,
+   2.4414132517422877,
+   3.188372406315964
+  ],
+  "M1_WEIBULL": [
+   2.8825308166074066,
+   2.846149169776534,
+   5.119015771538085,
+   2.5996462914067897,
+   2.9377143608655905,
+   2.419460684380451,
+   4.742528033673395,
+   3.0901479489067234,
+   2.7438099222593806,
+   4.854237247443296,
+   3.0495993278671065,
+   3.6568206727159347,
+   4.9559707680043585,
+   2.662543145845579,
+   3.329446778869945,
+   4.54567895253394,
+   3.1917002016431355,
+   2.322254395620742,
+   3.2835756289806772
+  ],
+  "M2_LOGNORMAL": [
+   2.623840153614192,
+   2.70373578389518,
+   5.484545900271609,
+   2.5849287535353582,
+   2.7608077091003014,
+   2.28076123194942,
+   4.806016831748486,
+   2.9088633237949475,
+   2.615925385092418,
+   4.959108194639538,
+   3.0024293537027895,
+   3.689842095910041,
+   5.268733921426248,
+   2.4867399899806593,
+   3.3067584153651124,
+   4.789075214846066,
+   3.2074959115858626,
+   2.0361350451413895,
+   3.26122579120344
+  ],
+  "M3_TWO_TIMESCALE": [
+   2.6584757429283727,
+   2.8443383021681847,
+   5.262149586224359,
+   2.8052577570811565,
+   2.8352898383722533,
+   2.360793041832756,
+   4.747780220335082,
+   2.7981687193773546,
+   2.6839164526856987,
+   5.204718693561177,
+   3.249543805115531,
+   3.799645328801033,
+   5.041648516212517,
+   2.5412102234794,
+   3.3386703120873813,
+   4.552373359966456,
+   3.2352082145647487,
+   2.049451200237381,
+   3.243694013400976
+  ],
+  "M5_GAMMA": [
+   2.9776467813294265,
+   2.894502397655195,
+   4.971051464456616,
+   2.591731246208576,
+   3.019287338752314,
+   2.4814497405877436,
+   4.853166844690549,
+   3.241958078568144,
+   2.818741853843277,
+   4.912005852474162,
+   3.0546550081704793,
+   3.6928435239073094,
+   4.848723762999631,
+   2.7267474376325507,
+   3.356415328539127,
+   4.488128474319893,
+   3.181770014917745,
+   2.423922453182862,
+   3.2760967415466844
+  ],
+  "M8_EMPIRICAL_KDE": [
+   2.722045066327556,
+   2.849737120424358,
+   5.354389017109819,
+   2.7325996617906823,
+   2.685888798711428,
+   2.33130211310026,
+   4.746532372964293,
+   2.7967905731750458,
+   2.7131546407089373,
+   5.011155408676077,
+   3.096894486310783,
+   3.7344541263388527,
+   5.169905595877038,
+   2.4227494154322207,
+   3.2877943679888597,
+   4.696085793644646,
+   3.2218441371835325,
+   2.1747307115206795,
+   3.2798953424358515
+  ]
+ },
+ "protocol": "hierarchical-aif/protocols/F-SIDE-MOTOR-STACK-SCORING-PREDICTION.md",
+ "resolution": {
+  "canResolve": "Differences whose paired per-motor contrast interval excludes 0. In practice, with 19 motors, roughly >~0.042 nats of motor-equal separation unless the per-motor difference is unusually consistent.",
+  "cannotResolve": "Anything smaller. An interval crossing 0 is NOT_ESTABLISHED / INCONCLUSIVE - never 'no difference' and never 'equivalent'. Underpowered is not equivalence. Replicates were not and must not be increased after seeing a width.",
+  "halfWidthFloorNats": 0.042,
+  "nHoldoutMotors": 19
+ },
+ "scaleConvention": {
+  "definition": "NLPD of the observed dwell in SECONDS = -log p(y) + log scale_N[state], y = durationS / scale_N[stateN]",
+  "matchesFrozenB3": true,
+  "reportedScale": "SECONDS",
+  "scaleN": {
+   "1": 4.749152542372881,
+   "2": 3.4826086956521736,
+   "3": 6.350886075949368,
+   "4": 5.062716049382717,
+   "5": 7.948453608247423,
+   "6": 14.389918699186993,
+   "7": 18.245270270270268,
+   "8": 24.52058394160584
+  },
+  "warning": "score.score_motor_stack returns NORMALISED-y NLPD with no Jacobian. The constant cancels in a CONTRAST and does not cancel in an ABSOLUTE score. Every number in this file is on the SECONDS scale."
+ },
+ "schema": "F-SIDE-MOTOR-STACK-SCORING/1",
+ "splitProvenance": {
+  "channel": "DURATION_ONLY",
+  "cohort": "derived_eligible_1_to_8",
+  "holdoutDurationStatus": "already prospectively spent by B3; duration-only held-out scoring is the permitted reuse",
+  "holdoutMotors": [
+   "18-02-06-1505",
+   "18-02-07-1612",
+   "18-02-16-1628",
+   "18-02-16-1755",
+   "18-06-01-1649",
+   "18-06-01-1729",
+   "18-06-07-1516",
+   "18-06-20-1737",
+   "18-06-24-1557",
+   "18-06-24-1750",
+   "18-11-06-1712",
+   "19-01-10-1410",
+   "19-01-14-1756",
+   "19-01-31-1329",
+   "19-01-31-1416",
+   "19-02-01-1517",
+   "19-02-07-1454",
+   "19-02-07-1507",
+   "19-02-07-1857"
+  ],
+  "markChannel": "NOT_READ - nextStateN/direction/jump are never requested (D5)",
+  "nHoldoutEvents": 233,
+  "nHoldoutMotors": 19,
+  "nTrainEvents": 793,
+  "nTrainMotors": 80,
+  "rightCensoredPolicy": "EXCLUDED from the frozen cohort entirely; the F-side censoring branch is unexercised here",
+  "splitRecomputed": false,
+  "splitRule": "sha256_mod5(motorId) == 0 => holdout, else train (FROZEN, reused)",
+  "states": [
+   1,
+   2,
+   3,
+   4,
+   5,
+   6,
+   7,
+   8
+  ]
+ },
+ "strongestAdversary": {
+  "model": "M2_LOGNORMAL",
+  "motorEqualNLPD": 3.4093141582527933,
+  "ranking": [
+   {
+    "model": "M2_LOGNORMAL",
+    "motorEqual": 3.4093141582527933
+   },
+   {
+    "model": "M8_EMPIRICAL_KDE",
+    "motorEqual": 3.4225236184063643
+   },
+   {
+    "model": "M1_WEIBULL",
+    "motorEqual": 3.433306848365214
+   },
+   {
+    "model": "M5_GAMMA",
+    "motorEqual": 3.463728649672752
+   },
+   {
+    "model": "M0_EXPONENTIAL",
+    "motorEqual": 3.54798328106296
+   }
+  ],
+  "selectionBasis": "POINT ESTIMATE, used only to name which adversary is strongest. A point estimate is never a verdict; see contrasts[<model>].verdict."
+ }
+}

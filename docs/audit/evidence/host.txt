@@ -1,0 +1,6 @@
+﻿OS: Microsoft Windows 11 Pro build 26200
+CPU: Intel(R) Core(TM) i7-10700T CPU @ 2.00GHz
+node: v25.0.0
+npm: 11.6.2
+python: Python 3.12.10
+numpy/scipy: 2.3.5 1.16.3

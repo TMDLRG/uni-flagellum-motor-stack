@@ -1,0 +1,113 @@
+{
+  "schema": "uni.flagellum.audit-artifact/1.0.0",
+  "purpose": "Every gate named in CLAUDE.md:107-117, with its actually-observed status. No gate is reported as passing unless it was executed.",
+  "auditedCommit": "9c3a644e4b57e8ac27f925dcec84222463063aa1",
+  "auditPhase": "A",
+  "auditorModel": "claude-opus-4-8 (Phase A execution), claude-fable-5 (packaging)",
+  "operatingSystem": "Microsoft Windows 11 Pro 10.0.26200 build 26200 (x64)",
+  "cpu": "Intel Core i7-10700T @ 2.00GHz, 8 cores / 16 threads",
+  "ramGB": 63.71,
+  "appendOnly": true,
+  "note": "Timestamps are deliberately omitted: this package must be byte-reproducible. Ordering is established by git history.",
+  "legend": [
+    "PASS",
+    "FAIL",
+    "BLOCKED",
+    "NOT RUN",
+    "EXTERNAL VALIDATION REQUIRED"
+  ],
+  "gates": [
+    {
+      "command": "npm ci",
+      "status": "PASS",
+      "exitStatus": 0,
+      "scope": "all four matrix cells"
+    },
+    {
+      "command": "npm test",
+      "status": "PASS on Node 25 / FAIL on Node 22.13.1",
+      "exitStatus": "0 / 1",
+      "detail": "34 tests in the first invocation; 33 pass, 1 fail on Node 22.13.1 at tests/observed-experiment.test.mjs:34",
+      "crossReference": "node-runtime-divergence.json"
+    },
+    {
+      "command": "npm run lint",
+      "status": "PASS",
+      "exitStatus": 0
+    },
+    {
+      "command": "npx tsc --noEmit",
+      "status": "PASS",
+      "exitStatus": 0
+    },
+    {
+      "command": "npm run science:verify",
+      "status": "PASS",
+      "exitStatus": 0,
+      "caveat": "Emits status:'PASS' and publicArtifactMismatchDetected:true as HARD-CODED LITERALS at scripts/independent-science-check.mjs:48-53. The preceding assert.equal calls at :44-46 are real and would throw. Enforcement is genuine; printed output is partly decorative. Also :41 contains an assertion true for every finite double."
+    },
+    {
+      "command": "npm run cross-study:verify",
+      "status": "PASS",
+      "exitStatus": 0
+    },
+    {
+      "command": "npm run experiment:verify",
+      "status": "PASS",
+      "exitStatus": 0,
+      "note": "Independent Python oracle; imports zero repository modules."
+    },
+    {
+      "command": "npm run cross-study:verify-raw",
+      "status": "PASS",
+      "exitStatus": 0,
+      "note": "Previously BLOCKED. Now genuinely earned against the real 4.09 GB archive."
+    },
+    {
+      "command": "npm audit --omit=dev --audit-level=moderate",
+      "status": "PASS",
+      "exitStatus": 0,
+      "vulnerabilities": 0
+    },
+    {
+      "command": "npm audit",
+      "status": "FAIL",
+      "exitStatus": 1,
+      "vulnerabilities": 12,
+      "note": "All development-only."
+    }
+  ],
+  "excludedByDesign": [
+    {
+      "command": "npm run db:generate",
+      "reason": "writes tracked drizzle/meta/_journal.json; not in the required-validation set"
+    },
+    {
+      "command": "node scripts/export-cad.mjs",
+      "reason": "unwired to any npm script; would dirty two tracked CAD artifacts for no gate benefit"
+    },
+    {
+      "command": "npm run cross-study:ingest",
+      "reason": "NOT RUN. Undeclared dependency: scripts/ingest-cross-study-evidence.py:253-258 raises unless the Ito ledger is PASS, and :255 writes public/ before later stages can fail (partial-run mutation hazard)."
+    }
+  ],
+  "testAccounting": {
+    "firstInvocationTests": 34,
+    "perFile": {
+      "model.test.mjs": 9,
+      "observed-experiment.test.mjs": 7,
+      "science-gates.test.mjs": 5,
+      "cross-study-parity.test.mjs": 6,
+      "walkthrough.test.mjs": 7
+    },
+    "renderedHtmlTest": {
+      "count": 1,
+      "invocation": "separate, post-build",
+      "status": "NOT RUN whenever the first invocation fails, because package.json:12 chains with &&"
+    },
+    "totalAcrossAllFiles": 35
+  },
+  "honestSummary": "All executed gates passed EXCEPT npm audit (development-only) and npm test on the declared engines floor. This is not a statement that the repository passes; it is a statement about what was executed.",
+  "uncertainty": "Gate results reflect one host. npm audit is time-varying.",
+  "independentlyReproduced": false
+}

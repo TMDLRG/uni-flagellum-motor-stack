@@ -1,0 +1,60 @@
+{
+  "schema": "uni.flagellum.audit-artifact/1.0.0",
+  "purpose": "Independent verification that the raw Wadhwa .mat matches its pin and that the raw -> derived ingestion chain reproduces the committed artifact.",
+  "auditedCommit": "9c3a644e4b57e8ac27f925dcec84222463063aa1",
+  "auditPhase": "A",
+  "auditorModel": "claude-opus-4-8 (Phase A execution), claude-fable-5 (packaging)",
+  "operatingSystem": "Microsoft Windows 11 Pro 10.0.26200 build 26200 (x64)",
+  "cpu": "Intel Core i7-10700T @ 2.00GHz, 8 cores / 16 threads",
+  "ramGB": 63.71,
+  "appendOnly": true,
+  "note": "Timestamps are deliberately omitted: this package must be byte-reproducible. Ordering is established by git history.",
+  "finding": "POSITIVE",
+  "rawSource": {
+    "repository": "https://github.com/navishwadhwa/multi-state-remodeling",
+    "commit": "c83119131c3ce3742460a2e3b6bd6c6e44bef4d5",
+    "path": "data/remodeling_data.mat",
+    "declaredSha256": "c14de12cc11df8af2ab87f1ec94629eebc249c0e1475c24f850f5a28ddd1ea22",
+    "observedSha256": "c14de12cc11df8af2ab87f1ec94629eebc249c0e1475c24f850f5a28ddd1ea22",
+    "observedBytes": 17868673,
+    "match": true
+  },
+  "rederivation": {
+    "command": "python scripts/ingest-wadhwa-data.py data/remodeling_data.mat --output <scratch>/rederived-events.json",
+    "exitStatus": 0,
+    "wroteOverTrackedArtifact": false,
+    "committedArtifactSha256": "32ec7ebf45bf7776ebef239351d2304cc3cead6d1be7749a2478e44a323f25db",
+    "result": "Re-derived output is CONTENT-IDENTICAL to the committed experiments/data/wadhwa-2022-events.json (JSON.stringify equality).",
+    "scriptSelfCheck": "scripts/ingest-wadhwa-data.py:90 refuses any raw file whose SHA-256 differs from the pin; it did not raise."
+  },
+  "experimentalUnitLedger": {
+    "note": "THREE DISTINCT MOTOR COUNTS EXIST. Conflating them was an error in the earlier Phase A prose and is corrected here.",
+    "sourceMotors": 129,
+    "eventProducingMotors": 109,
+    "eventProducingByPartition": {
+      "train": 89,
+      "holdout": 20
+    },
+    "frozenEligibleAnalysisMotors": 99,
+    "frozenEligibleByPartition": {
+      "train": 80,
+      "holdout": 19
+    },
+    "motorsDroppedByEligibilityFiltering": {
+      "train": 9,
+      "holdout": 1
+    }
+  },
+  "exclusionCountExplanation": {
+    "claim": "rightCensoredDwells == 109 equals the event-producing motor count for a STRUCTURAL reason, not by coincidence and not by a dwell/motor unit error.",
+    "evidence": {
+      "rightCensoredEvents": 109,
+      "distinctMotorsWithCensoredEvent": 109,
+      "maxCensoredEventsPerMotor": 1
+    },
+    "conclusion": "Exactly one right-censored final dwell per event-producing motor."
+  },
+  "uncertainty": "Reproduced on one host with numpy 2.3.5 / scipy 1.16.3. scripts/ingest-wadhwa-data.py stamps these versions into the artifact, so a version change would alter it and cascade into every downstream pin.",
+  "alternativeExplanation": "None: content equality against the committed artifact is exact.",
+  "independentlyReproduced": "The raw pin was verified by an oracle (PowerShell Get-FileHash) independent of the repository's own scripts, and separately by the script's own guard."
+}

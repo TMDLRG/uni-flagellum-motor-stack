@@ -1,0 +1,40 @@
+{
+  "schema": "uni.flagellum.science-gates-audit/1.0.0",
+  "runId": "1361fae770fa513dbdcf99e46ef72e742bff8c56f1f44e64af87bb83954f9a23",
+  "executionClass": "CPU_ONLY_DETERMINISTIC_SCIENCE_GATE_AUDIT",
+  "deterministicSeed": 20260717,
+  "artifacts": {
+    "derivedEvents": {
+      "path": "experiments/data/wadhwa-2022-events.json",
+      "sha256": "32ec7ebf45bf7776ebef239351d2304cc3cead6d1be7749a2478e44a323f25db"
+    },
+    "observedReport": {
+      "path": "experiments/results/observed-experiment-report.json",
+      "sha256": "7ad8a21f855618044b920d6229c37e71f518b7f6d1fc4ab9142cc6ce57fd3bc8"
+    },
+    "sourceReference": {
+      "path": "experiments/source-parity-reference.json",
+      "sha256": "8d430f74dbffb32488faed632c3c1a672c16e0e43d1a913a79c67bb2fd819af6"
+    },
+    "pythonGateRunner": {
+      "path": "scripts/run-science-gates.py",
+      "sha256": "9f2a2d7ab6f57afc4237414aa313e809120b9d60ee28c7d1039c7079028da079"
+    },
+    "javascriptEquationOracle": {
+      "path": "lib/source-first-passage.js",
+      "sha256": "c66cf5ff048f5eb1e85c7b3148a002002636df14c5e96dda7eb840366a2ff6d8"
+    },
+    "scienceGateReport": {
+      "path": "experiments/results/science-gates-report.json",
+      "sha256": "d7a35acab4cfb2b4055be5095466057c8fada7c1de3edc41fd6719207426d667"
+    }
+  },
+  "replay": "Run python scripts/run-science-gates.py twice; report and audit SHA-256 values must remain identical.",
+  "externalBlocks": [
+    "G08_LOAD_TORQUE_TRANSFER",
+    "G09_SWITCH_COOPERATIVITY",
+    "G11_LIVE_INSTRUMENT",
+    "G12_INDEPENDENT_REPLICATION",
+    "G13_PHYSICAL_MODEL_VALIDATION"
+  ]
+}
