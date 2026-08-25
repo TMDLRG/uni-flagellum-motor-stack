@@ -46,7 +46,7 @@ records it as such.
 ## MEASURED STATE
 
 <!-- BEGIN GENERATED uni.state.gates — DO NOT EDIT. node viewer/generate_state_blocks.cjs -->
-**Gates:** **34 registered**, of which **31 `ci:true`** and 3 `ci:false` (`colony`, `hud`, `overlays` — listed, never run, never a fabricated pass). **7 lab gates** (`lab-l0`, `lab-l1`, `lab-l2-shot`, `lab-l3`, `lab-l4`, `lab-l5`, `lab-l6`).
+**Gates:** **36 registered**, of which **33 `ci:true`** and 3 `ci:false` (`colony`, `hud`, `overlays` — listed, never run, never a fabricated pass). **7 lab gates** (`lab-l0`, `lab-l1`, `lab-l2-shot`, `lab-l3`, `lab-l4`, `lab-l5`, `lab-l6`).
 
 Both numbers are stated because both were written before without saying which was which:
 one banner paragraph said 25 and another said 23, and a single file said 23 at one line and
@@ -54,14 +54,14 @@ one banner paragraph said 25 and another said 23, and a single file said 23 at o
 <!-- END GENERATED uni.state.gates -->
 
 <!-- BEGIN GENERATED uni.state.gate_ledger — DO NOT EDIT. node viewer/generate_state_blocks.cjs -->
-**Gate ledger** `evidence/gates.ndjson` — `1daac9124c0ce483...`, **207 rows / 110 unique names**. Last row per name: 93 PASS · 4 PARTIAL · 12 PENDING · 1 FAIL.
+**Gate ledger** `evidence/gates.ndjson` — `ca8fd61ab5380994...`, **212 rows / 112 unique names**. Last row per name: 94 PASS · 5 PARTIAL · 12 PENDING · 1 FAIL.
 
 The per-name tally is stated as such because the per-ROW tally is a different set of numbers,
 and a count whose derivation is unstated is how a backlog and the history of a backlog came
 to be reported as one word.
 <!-- END GENERATED uni.state.gate_ledger -->
 <!-- BEGIN GENERATED uni.state.registry_ledger_gap — DO NOT EDIT. node viewer/generate_state_blocks.cjs -->
-**Registry vs. the canonical ledger:** of **34 registered gates, 1 appear in `evidence/gates.ndjson`** and **33 do not** (0 of those carry a glob `gate_row`, which no kebab-case row can ever bear). `gate_row.schema.json` says every gate the project claims MUST be represented there.
+**Registry vs. the canonical ledger:** of **36 registered gates, 1 appear in `evidence/gates.ndjson`** and **35 do not** (0 of those carry a glob `gate_row`, which no kebab-case row can ever bear). `gate_row.schema.json` says every gate the project claims MUST be represented there.
 
 **The intersection is NOT empty, and four governing documents said it was.** They declared "EVERY registered gate has ZERO rows" and "the intersection is empty by `id` *and* by `gate_row`" for two weeks after a row landed for one of them on 2026-07-17 — inside the paragraph that says these numbers are generated. It was hand-written. It is not any more.
 

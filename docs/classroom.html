@@ -1,0 +1,639 @@
+<title>The Classroom — biological programme</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+:root{--bg:#0e1116;--pan:#161b22;--pan2:#1c2530;--ln:#2a3441;--tx:#e6edf3;--dim:#93a1b0;
+--acc:#7f9fdd;--ok:#4bd18a;--bad:#ff7a7a;--warn:#e8bb55;--gold:#d9b45f;--dead:#66707c;
+--mono:ui-monospace,'SFMono-Regular',Consolas,monospace}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--tx);font:15.5px/1.6 ui-sans-serif,'Segoe UI',Roboto,sans-serif}
+a{color:var(--acc)}
+.wrap{max-width:1340px;margin:0 auto;padding:0 22px 120px}
+h1{font-size:30px;margin:26px 0 6px;letter-spacing:-.02em}
+h2{font-size:15px;text-transform:uppercase;letter-spacing:1.2px;color:var(--acc);margin:52px 0 8px;font-weight:600}
+h3{font-size:17px;margin:18px 0 8px}
+.lede{color:var(--dim);font-size:16px;max-width:86ch;margin:0 0 12px}
+.panel{background:var(--pan);border:1px solid var(--ln);border-radius:14px;padding:20px 22px;margin:14px 0}
+.plain{font-size:16px;line-height:1.65;margin:0 0 12px}.plain b{color:#fff}
+.say{color:var(--dim);font-size:13.5px;margin:8px 0 0}
+.m,code{font-family:var(--mono);font-size:.92em}
+.eq{font-family:var(--mono);font-size:15px;background:#0b0f14;border:1px solid var(--ln);border-left:3px solid var(--acc);
+border-radius:0 8px 8px 0;padding:11px 15px;margin:10px 0;overflow-x:auto;white-space:pre;color:#cfe0f5}
+.callout{border-left:3px solid var(--warn);background:#231d10;padding:13px 17px;border-radius:0 9px 9px 0;margin:12px 0}
+.callout.bad{border-color:var(--bad);background:#241315}
+.callout.ok{border-color:var(--ok);background:#0f2119}
+.chip{display:inline-block;font:10.5px var(--mono);font-weight:600;padding:2px 8px;border-radius:20px;vertical-align:middle}
+.OBS{color:var(--ok);background:#12271c}.STRUCT{color:var(--warn);background:#2a2110}
+.MODEL{color:#8ba0e0;background:#161b2e}.ILL{color:var(--dead);background:#1a1f26}
+.HYP{color:#e0a3f0;background:#241330}.BAD{color:var(--bad);background:#2a1516}
+.UNS{color:var(--bad);background:#2a1516}.MEAS{color:var(--ok);background:#12271c}
+.DIG{color:var(--warn);background:#2a2110}.NH{color:var(--dead);background:#1a1f26}
+table.n{border-collapse:collapse;width:100%;font-size:13.5px}
+table.n th,table.n td{text-align:left;padding:7px 9px;border-bottom:1px solid var(--ln);vertical-align:top}
+table.n th{color:var(--dim);font-size:11.5px;text-transform:uppercase;letter-spacing:.5px}
+table.n td.v{font-family:var(--mono);white-space:nowrap}
+svg{max-width:100%;height:auto}
+/* ---------- the room ---------- */
+.room{position:relative;width:100%;aspect-ratio:1672/941;max-width:1672px;margin:14px auto 0;border-radius:16px;overflow:hidden;border:1px solid var(--ln);container-type:inline-size}
+.room-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
+.zone{position:absolute;left:var(--x);top:var(--y);width:var(--w);height:var(--h);border-radius:10px;text-decoration:none;display:flex;align-items:center;justify-content:center}
+.zone:hover,.zone:focus-visible{outline:none}
+/* labels drawn ON the surfaces - always visible, scale with the room */
+.blabel{pointer-events:none;text-align:center;line-height:1.25;transition:filter .15s,transform .25s}
+.zone:hover .blabel,.zone:focus-visible .blabel{filter:brightness(1.28) drop-shadow(0 0 .5cqw rgba(127,159,221,.55))}
+.blabel .t{display:block;font-weight:600}
+.blabel .sub{display:block;font-weight:400;opacity:.82}
+.blabel .go{display:block;font-weight:400;opacity:.7;margin-top:.5cqw}
+/* marker ink on the whiteboard */
+.blabel.marker{font-family:'Segoe Print','Bradley Hand',cursive;color:#2b4066;transform:rotate(-1.3deg)}
+.blabel.marker .t{font-size:2.5cqw;border-bottom:.24cqw solid #2b4066;padding-bottom:.35cqw;transform:rotate(.4deg)}
+.blabel.marker .sub{font-size:1.35cqw;margin-top:.55cqw;color:#3a5480}
+.blabel.marker .go{font-size:1.1cqw;color:#31497a}
+/* chalk on the dark side boards, set into each board's perspective */
+.blabel.chalk{font-family:'Segoe Print','Bradley Hand',cursive;color:#e9eef6;text-shadow:0 0 .55cqw rgba(233,238,246,.4)}
+.blabel.chalk .t{font-size:1.4cqw;border-bottom:.14cqw solid rgba(233,238,246,.75);padding-bottom:.3cqw}
+.blabel.chalk .sub{font-size:1.0cqw;margin-top:.5cqw}
+.blabel.chalk .go{font-size:.9cqw}
+.zone.left .blabel{transform:perspective(60cqw) rotateY(30deg) rotate(-.8deg)}
+.zone.right .blabel{transform:perspective(60cqw) rotateY(-30deg) rotate(.8deg)}
+.zone.left:hover .blabel{transform:perspective(60cqw) rotateY(30deg) rotate(-.8deg) scale(1.03)}
+.zone.right:hover .blabel{transform:perspective(60cqw) rotateY(-30deg) rotate(.8deg) scale(1.03)}
+/* brass plaque on the bench front */
+.blabel.plaque{pointer-events:none;font-family:Georgia,'Times New Roman',serif;background:linear-gradient(180deg,#d8b96a 0%,#b5924a 45%,#8f6f33 100%);color:#2a1f08;border-radius:.5cqw;padding:.55cqw 1.6cqw;border:.12cqw solid #6f5526;box-shadow:0 .3cqw 1cqw rgba(0,0,0,.55),inset 0 .1cqw .2cqw rgba(255,255,255,.5)}
+.blabel.plaque .t{font-size:1.5cqw;letter-spacing:.14cqw;font-variant:small-caps}
+.blabel.plaque .sub{font-size:.95cqw;letter-spacing:.05cqw}
+/* marker sketch on the whiteboard */
+.wb-sketch{position:absolute;left:50%;transform:translateX(-50%) rotate(-1deg);pointer-events:none}
+.roomcap{color:var(--dim);font-size:12px;text-align:center;margin:8px 0 0}
+.zone-nav{display:none;gap:10px;flex-wrap:wrap;margin:12px 0}
+.zone-nav a{font:13px var(--mono);border:1px solid var(--ln);border-radius:8px;padding:6px 12px;text-decoration:none}
+@media(max-width:720px){.room{display:none}.zone-nav{display:flex}}
+/* ---------- bench ---------- */
+.bench{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:12px}
+button.part{all:unset;cursor:pointer;border:1px solid var(--ln);border-radius:12px;background:var(--pan2);padding:12px;display:flex;flex-direction:column;gap:8px;transition:border-color .12s}
+button.part:hover,button.part:focus-visible{border-color:var(--acc)}
+button.part img{width:100%;height:170px;object-fit:contain;background:#0b0f14;border-radius:8px}
+button.part .nm{font-size:13.5px;font-weight:600}
+button.part .tech{font:11px var(--mono);color:var(--dim)}
+.composites{display:grid;grid-template-columns:2fr 1fr;gap:14px;align-items:start}
+@media(max-width:900px){.composites{grid-template-columns:1fr}}
+.composites figure{margin:0;border:1px solid var(--ln);border-radius:12px;background:#0b0f14;padding:12px}
+.composites img{width:100%;max-height:560px;object-fit:contain}
+.composites figcaption{font-size:12.5px;color:var(--dim);margin-top:8px}
+.videos{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+@media(max-width:820px){.videos{grid-template-columns:1fr}}
+.videos figure{margin:0;border:1px solid var(--ln);border-radius:12px;background:#0b0f14;padding:12px}
+.videos video{width:100%;max-height:400px;object-fit:contain;border-radius:8px;background:#000}
+.videos figcaption{font-size:12.5px;color:var(--dim);margin-top:8px}
+/* ---------- drawer ---------- */
+dialog#drawer{background:var(--pan);color:var(--tx);border:1px solid var(--ln);border-radius:16px;max-width:660px;width:92vw;padding:24px 26px}
+dialog#drawer::backdrop{background:#000a}
+#drawer img{width:100%;max-height:320px;object-fit:contain;background:#0b0f14;border-radius:10px}
+#drawer h3{margin:12px 0 2px}
+#drawer .kv{display:grid;grid-template-columns:130px 1fr;gap:4px 12px;font-size:13px;margin:12px 0}
+#drawer .kv dt{color:var(--dim)}#drawer .kv dd{margin:0;font-family:var(--mono);font-size:12px;word-break:break-all}
+#drawer blockquote{border-left:3px solid var(--warn);margin:10px 0;padding:8px 14px;background:#231d10;border-radius:0 8px 8px 0;font-size:14px}
+#drawer button.x{all:unset;cursor:pointer;float:right;font-size:20px;color:var(--dim);padding:2px 8px}
+/* ---------- ladder ---------- */
+.rung{display:grid;grid-template-columns:64px 1fr;gap:14px;border:1px solid var(--ln);border-radius:11px;padding:13px 15px;margin:8px 0;background:var(--pan2)}
+.rung .id{font:15px var(--mono);font-weight:700;color:var(--acc)}
+.rung h4{margin:0 0 4px;font-size:15px}
+.rung p{margin:3px 0;font-size:13.5px;color:var(--dim)}
+.rung p b{color:var(--tx)}
+.rung.anchored{border-color:var(--ok)}
+.rung.refused{opacity:.6;border-style:dashed}
+/* ---------- frequency wall ---------- */
+.fgroup{margin:16px 0}
+.fgroup h3{font-size:14px;color:var(--acc);text-transform:uppercase;letter-spacing:.8px}
+.frow{border:1px solid var(--ln);border-radius:10px;padding:10px 14px;margin:6px 0;background:var(--pan2);font-size:13.5px}
+.frow .q{font-weight:600}
+.frow .vals{font:12px var(--mono);color:#cfe0f5;margin:4px 0;word-break:break-word}
+.frow .src{font:11px var(--mono);color:var(--dim);word-break:break-all}
+.frow .cav{color:var(--warn);font-size:12.5px;margin-top:4px}
+/* ---------- mind-body ---------- */
+.minds{display:grid;grid-template-columns:1fr 1fr 1fr;gap:14px}
+@media(max-width:1000px){.minds{grid-template-columns:1fr}}
+.mind{border:1px solid var(--ln);border-radius:13px;padding:17px 18px;background:var(--pan2)}
+.mind.body{border-color:var(--ok)}.mind.mind1{border-color:var(--acc)}.mind.third{border-color:#c39df0}
+.mind h3{margin-top:0}
+.stamp{font:11px var(--mono);color:var(--dim)}
+.links a{color:var(--acc);font-size:13px;margin-right:16px;text-decoration:none;border-bottom:1px dotted var(--ln)}
+</style>
+<div class="wrap">
+<nav style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:16px">
+<a href="/" style="font:13px var(--mono);border:1px solid var(--ln);border-radius:9px;padding:7px 14px;text-decoration:none">&larr; dashboard</a>
+<a href="/models" style="font:13px var(--mono);border:1px solid var(--ln);border-radius:9px;padding:7px 14px;text-decoration:none">the models</a>
+<a href="/architecture" style="font:13px var(--mono);border:1px solid var(--ln);border-radius:9px;padding:7px 14px;text-decoration:none">the architecture</a>
+<a href="/api/classroom" style="font:13px var(--mono);border:1px solid var(--ln);border-radius:9px;padding:7px 14px;text-decoration:none">live json</a>
+<span class="stamp" id="livestamp" style="margin-left:auto">committed values — live overlay loading…</span></nav>
+
+<h1>The Classroom</h1>
+<p class="lede">The bacterial flagellar motor, laid out as a room: the <b>specimen bench</b> holds the real
+molecules, the <b>whiteboard</b> carries the mechanism and the honest ladder, the <b>frequency wall</b> lists
+every timescale this estate actually holds, and the <b>mind–body wall</b> separates what is measured from what
+is inferred from what is predicted. Every number on these walls carries its source; every image says what it is.</p>
+
+<div class="room">
+  <img class="room-bg" src="/assets/classroom/room-bg.webp" alt="" fetchpriority="high">
+  <a class="zone" data-anchor="whiteboard" style="--x:27%;--y:34%;--w:46%;--h:17%" href="#whiteboard" aria-label="The whiteboard — the mechanism and the honest ladder">
+    <span class="blabel marker"><span class="t">THE WHITEBOARD</span>
+    <span class="sub">the D–L–T mechanism · the eight-rung ladder</span>
+    </span>
+  </a>
+  <svg class="wb-sketch" id="wbsketch" style="top:46.8%;width:11%" viewBox="0 0 300 64" aria-hidden="true">
+    <g fill="none" stroke="#2b4066" stroke-width="3" stroke-linecap="round">
+      <circle cx="34" cy="30" r="20" transform="rotate(-2 34 30)"/>
+      <circle cx="150" cy="32" r="20" transform="rotate(1.5 150 32)"/>
+      <circle cx="266" cy="29" r="20" transform="rotate(-1 266 29)"/>
+      <path d="M57,28 C85,24 100,26 127,30"/><path d="M131,34 l-7,-3 m7,3 l-6,4"/>
+      <path d="M173,30 C200,26 216,27 243,29"/><path d="M247,30 l-7,-3 m7,3 l-6,4"/>
+    </g>
+    <g font-family="'Segoe Print',cursive" font-size="15" fill="#2b4066" text-anchor="middle" font-weight="600">
+      <text x="34" y="35">D</text><text x="150" y="37">L</text><text x="266" y="34">T</text>
+    </g>
+  </svg>
+  <a class="zone left" data-anchor="boardLeft" style="--x:1.5%;--y:34%;--w:12.5%;--h:27%" href="#mindbody" aria-label="The mind–body wall">
+    <span class="blabel chalk"><span class="t">MIND–BODY WALL</span>
+    <span class="sub">body · mind · the third mind</span>
+    <span class="go">measured / inferred / predicted</span></span>
+  </a>
+  <a class="zone right" data-anchor="boardRight" style="--x:86%;--y:34%;--w:12.5%;--h:27%" href="#frequency" aria-label="The frequency wall">
+    <span class="blabel chalk"><span class="t">FREQUENCY WALL</span>
+    <span class="sub">every timescale held here</span>
+    <span class="go">38 rows · ratios · φ</span></span>
+  </a>
+  <a class="zone" data-anchor="benchFront" style="--x:22%;--y:72%;--w:56%;--h:18%" href="#bench" aria-label="The specimen bench — the real molecules">
+    <span class="blabel plaque"><span class="t">Specimen Bench</span>
+    <span class="sub">the real molecules — 115,000 deposited atoms</span></span>
+  </a>
+</div>
+<p class="roomcap">The room itself is scenery — generated imagery, truth-class <span class="chip ILL">ILLUSTRATION</span>, provenance in
+<span class="m">classroom-assets/MANIFEST.json</span>. It depicts no data. Everything hung on it carries its own source.</p>
+<nav class="zone-nav">
+  <a href="#whiteboard">Whiteboard</a><a href="#bench">Specimen bench</a>
+  <a href="#frequency">Frequency wall</a><a href="#mindbody">Mind–body wall</a>
+</nav>
+
+<!-- ═══════════════════ THE SPECIMEN BENCH ═══════════════════ -->
+<h2 id="bench">The specimen bench — the parts as objects</h2>
+<p class="lede">These are not drawings. Every line below traces <b>actual deposited atom positions</b> from the
+two cryo-EM structures this estate holds, at one true physical scale (1.4&nbsp;px/Å) so the relative sizes are real.
+Click any part for its full provenance. <b>Two species, never blended:</b> the rod-and-hook is
+<i>Salmonella</i>; the stator is <i>B.&nbsp;subtilis</i>. Neither is an <i>E.&nbsp;coli</i> measurement, and each card says so
+in the source's own fence.</p>
+
+<div class="panel">
+<div class="composites">
+  <figure>
+    <img src="/assets/classroom/7e82-composite-front.svg" alt="PDB 7E82 front CA trace">
+    <figcaption><b>The driveshaft and universal joint</b> — flagellar rod with partial hook · PDB 7E82 ·
+    <i>Salmonella enterica</i> · EM 3.3 Å · 13,700 deposited CA atoms · 8 proteins color-coded
+    <span class="chip STRUCT">STRUCTURAL_RECONSTRUCTION</span></figcaption>
+  </figure>
+  <figure>
+    <img src="/assets/classroom/6ysl-composite-front.svg" alt="PDB 6YSL front CA trace">
+    <figcaption><b>The engine unit</b> — MotA₅MotB₂ stator complex · PDB 6YSL ·
+    <i>Bacillus subtilis</i> · EM 3.5 Å · 1,324 deposited CA atoms
+    <span class="chip STRUCT">STRUCTURAL_RECONSTRUCTION</span></figcaption>
+  </figure>
+</div>
+<h3>Each protein, alone</h3>
+<div class="bench" id="benchgrid"></div>
+<p class="say">Renders are deterministic (two runs byte-identical) and each source file's sha256 is recomputed
+against the evidence manifest at render time — a mismatch refuses to render.</p>
+</div>
+
+<div class="panel">
+<h3 style="margin-top:0">Where each part sits — the anatomy map</h3>
+<p class="say" style="margin-bottom:10px">This cutaway is a labelled <b>schematic</b>, not a structure. Parts the estate holds
+atoms for are solid and clickable; parts with <b>no structure held here</b> are dashed and say so.
+Geometry constrained by PDB 7E82 (<i>Salmonella</i>) and 6YSL (<i>B. subtilis</i>) — cross-species labels retained.</p>
+<svg viewBox="0 0 900 560" role="img" aria-label="Flagellar motor cutaway schematic">
+  <defs><marker id="ar" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#6fd3c7"/></marker></defs>
+  <!-- filament (not held) -->
+  <path d="M450,120 C480,90 420,60 450,20" stroke="#66707c" stroke-width="9" fill="none" stroke-dasharray="7 6"/>
+  <text x="480" y="40" fill="#66707c" font-size="13">FILAMENT — the propeller · <tspan font-style="italic">no structure held here — illustration</tspan></text>
+  <!-- hook (held: 7E82 e8) -->
+  <path d="M450,190 C450,160 470,145 450,120" stroke="#ff7a7a" stroke-width="11" fill="none"/>
+  <text x="480" y="150" fill="#ff7a7a" font-size="13">HOOK — the universal joint · FlgE ×11 · <tspan font-family="ui-monospace" font-size="11">atoms held (7E82)</tspan></text>
+  <!-- outer membrane -->
+  <line x1="120" y1="205" x2="780" y2="205" stroke="#2a3441" stroke-width="10"/>
+  <text x="124" y="198" fill="#93a1b0" font-size="11.5">OUTER MEMBRANE</text>
+  <!-- L/P rings (not held) -->
+  <ellipse cx="450" cy="205" rx="42" ry="10" fill="none" stroke="#66707c" stroke-width="3" stroke-dasharray="5 5"/>
+  <text x="510" y="210" fill="#66707c" font-size="12">L RING · no structure held here</text>
+  <line x1="120" y1="252" x2="780" y2="252" stroke="#22303c" stroke-width="7"/>
+  <text x="124" y="246" fill="#93a1b0" font-size="11.5">PEPTIDOGLYCAN</text>
+  <ellipse cx="450" cy="252" rx="48" ry="10" fill="none" stroke="#66707c" stroke-width="3" stroke-dasharray="5 5"/>
+  <text x="516" y="257" fill="#66707c" font-size="12">P RING · no structure held here</text>
+  <!-- rod (held) -->
+  <rect x="438" y="205" width="24" height="150" rx="7" fill="#7f9fdd"/>
+  <text x="480" y="290" fill="#7f9fdd" font-size="13">ROD — the driveshaft · FlgG·FlgF·FlgC·FlgB·FliE · <tspan font-family="ui-monospace" font-size="11">atoms held (7E82)</tspan></text>
+  <!-- inner membrane -->
+  <line x1="120" y1="360" x2="780" y2="360" stroke="#2a3441" stroke-width="10"/>
+  <text x="124" y="353" fill="#93a1b0" font-size="11.5">INNER MEMBRANE</text>
+  <!-- MS ring (held, fragments) -->
+  <ellipse cx="450" cy="360" rx="62" ry="13" fill="none" stroke="#d9b45f" stroke-width="4"/>
+  <text x="604" y="416" fill="#d9b45f" font-size="13">MS RING — anchor plate · <tspan font-family="ui-monospace" font-size="11">fragments held (7E82 L1/L2)</tspan></text>
+  <!-- stators (held, other species) -->
+  <rect x="308" y="332" width="42" height="56" rx="9" fill="#1c2530" stroke="#e8bb55" stroke-width="3"/>
+  <rect x="550" y="332" width="42" height="56" rx="9" fill="#1c2530" stroke="#e8bb55" stroke-width="3"/>
+  <text x="120" y="412" fill="#e8bb55" font-size="13">MotA₅MotB₂ STATORS — the engines · <tspan font-family="ui-monospace" font-size="11">atoms held (6YSL, B. subtilis)</tspan></text>
+  <!-- H+ flow -->
+  <path d="M329,300 C329,318 329,326 329,330" stroke="#6fd3c7" stroke-width="2.5" fill="none" marker-end="url(#ar)"/>
+  <text x="300" y="292" fill="#6fd3c7" font-size="12">H⁺</text>
+  <text x="620" y="315" fill="#6fd3c7" font-size="12">ion flux — <tspan font-style="italic">NOT MEASURED anywhere in this estate</tspan></text>
+  <!-- C ring (not held) -->
+  <ellipse cx="450" cy="452" rx="96" ry="20" fill="none" stroke="#c39df0" stroke-width="4" stroke-dasharray="6 6"/>
+  <text x="560" y="446" fill="#c39df0" font-size="13">C RING · FliG/FliM/FliN — the switch ·
+    <tspan font-style="italic">NO structure held here; the only FliG/FliM/FliN in this estate is this label</tspan></text>
+  <!-- CheY -->
+  <circle cx="320" cy="505" r="12" fill="none" stroke="#66707c" stroke-width="3" stroke-dasharray="4 4"/>
+  <text x="342" y="510" fill="#66707c" font-size="12.5">CheY-P — the steering signal · held only as association (Antani 2021) and a fit (Zhu 2024)</text>
+  <text x="124" y="545" fill="#66707c" font-size="11.5">Schematic — truth-class ILLUSTRATION constrained by the two held structures · ~45 nm across the C-ring · not a direct optical view</text>
+</svg>
+</div>
+
+<div class="panel">
+<h3 style="margin-top:0">The motor moving — the two films this estate holds</h3>
+<div class="videos">
+  <figure>
+    <video controls muted playsinline preload="metadata" poster="/assets/media/mears-2014-run-tumble.webp" src="/assets/media/mears-2014-run-tumble.mp4"></video>
+    <figcaption><span class="chip OBS">OBSERVED</span> <b>Real <i>E. coli</i>, real light</b> — fluorescently labelled flagella
+    bundling in a run, flying apart in a tumble, rebundling. Mears et al., eLife 3:e01916 (2014) · DOI 10.7554/eLife.01916.010 · CC BY 4.0.
+    The only direct behavioural observation in the estate.</figcaption>
+  </figure>
+  <figure>
+    <video controls muted playsinline preload="none" poster="/assets/media/singh-2024-switching.webp" src="/assets/media/singh-2024-switching.mp4"></video>
+    <figcaption><span class="chip STRUCT">STRUCTURAL_RECONSTRUCTION</span> <b>A rendered proposal, not a film of molecules</b> —
+    cryoEM-constrained visualization of C-ring CW/CCW poses, <i>Salmonella</i>. DOI 10.1038/s41564-024-01674-1.
+    <span class="chip BAD">PROVENANCE CONFLICT</span> this DOI is attributed to "Johnson 2024" in one file and "Singh et al." in another —
+    one is wrong and the repository cannot yet say which. Shown unresolved. (20 MB — loads only when you press play.)</figcaption>
+  </figure>
+</div>
+</div>
+
+<!-- ═══════════════════ THE WHITEBOARD ═══════════════════ -->
+<h2 id="whiteboard">The whiteboard — the mechanism, and the honest ladder</h2>
+<p class="lede">The one place real mechanism exists in this estate is the stator-binding process from the
+Wadhwa 2022 paper, held verbatim with its measured rates. Around it: the eight-rung biological ladder, what is
+held at each rung, and the finding that reframed this whole programme.</p>
+
+<div class="panel">
+<h3 style="margin-top:0">The D–L–T stator mechanism — measured rates, drawn</h3>
+<svg viewBox="0 0 980 300" role="img" aria-label="D-L-T kinetic scheme">
+  <defs><marker id="a2" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#7f9fdd"/></marker>
+  <marker id="a3" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#93a1b0"/></marker></defs>
+  <rect x="40" y="90" width="200" height="84" rx="12" fill="#1c2530" stroke="#7f9fdd" stroke-width="2"/>
+  <text x="140" y="122" text-anchor="middle" fill="#fff" font-size="16" font-weight="600">D · DIFFUSIVE</text>
+  <text x="140" y="146" text-anchor="middle" fill="#93a1b0" font-size="12">free in the membrane pool</text>
+  <rect x="390" y="90" width="200" height="84" rx="12" fill="#1c2530" stroke="#e8bb55" stroke-width="2"/>
+  <text x="490" y="122" text-anchor="middle" fill="#fff" font-size="16" font-weight="600">L · LOOSE</text>
+  <text x="490" y="146" text-anchor="middle" fill="#93a1b0" font-size="12">docked, weakly bound</text>
+  <rect x="740" y="90" width="200" height="84" rx="12" fill="#1c2530" stroke="#4bd18a" stroke-width="2"/>
+  <text x="840" y="122" text-anchor="middle" fill="#fff" font-size="16" font-weight="600">T · TIGHT</text>
+  <text x="840" y="146" text-anchor="middle" fill="#93a1b0" font-size="12">engaged, generating torque</text>
+  <line x1="240" y1="112" x2="386" y2="112" stroke="#7f9fdd" stroke-width="2.5" marker-end="url(#a2)"/>
+  <text x="313" y="102" text-anchor="middle" fill="#cfe0f5" font-size="13" font-family="ui-monospace">σ₊ arrival 0.19 s⁻¹</text>
+  <line x1="386" y1="152" x2="240" y2="152" stroke="#93a1b0" stroke-width="2" marker-end="url(#a3)"/>
+  <text x="313" y="174" text-anchor="middle" fill="#93a1b0" font-size="13" font-family="ui-monospace">k_off,loose 0.057 s⁻¹</text>
+  <line x1="590" y1="112" x2="736" y2="112" stroke="#7f9fdd" stroke-width="2.5" marker-end="url(#a2)"/>
+  <text x="663" y="102" text-anchor="middle" fill="#cfe0f5" font-size="13" font-family="ui-monospace">k_tighten 0.13 s⁻¹</text>
+  <line x1="736" y1="152" x2="590" y2="152" stroke="#93a1b0" stroke-width="2" marker-end="url(#a3)"/>
+  <text x="663" y="174" text-anchor="middle" fill="#93a1b0" font-size="13" font-family="ui-monospace">k_loosen ≤ 0.0017 s⁻¹ · k_off,tight fixed 0</text>
+  <rect x="390" y="220" width="200" height="60" rx="12" fill="#161b22" stroke="#66707c" stroke-width="2" stroke-dasharray="6 5"/>
+  <text x="490" y="245" text-anchor="middle" fill="#93a1b0" font-size="14" font-weight="600">H · hidden unbound</text>
+  <text x="490" y="266" text-anchor="middle" fill="#66707c" font-size="11.5" font-family="ui-monospace">in 0.0003 s⁻¹ · out 0.24 s⁻¹ · lifetime 4.1 s</text>
+  <line x1="470" y1="174" x2="470" y2="216" stroke="#66707c" stroke-width="1.5" stroke-dasharray="4 4" marker-end="url(#a3)"/>
+  <text x="40" y="40" fill="#93a1b0" font-size="13">Wadhwa et al., Nat Commun 13:5327 (2022) · DOI 10.1038/s41467-022-33075-5 · E. coli · a tight unit effectively never lets go — the catch-bond shape</text>
+</svg>
+<div class="eq">S_N(t) = Σⱼ aⱼ(N) · exp[ −rⱼ(N) · t ]        rⱼ(N) = k₊(N) + N·σ₋ + j·(σ₊ − σ₋)
+<span style="color:#66707c">the survival law the mechanism predicts — held verbatim at lib/source-first-passage.js</span></div>
+<div class="callout"><b>The fence, verbatim:</b> "These intervals are changes that increase the authors' loss by 50%;
+they are not confidence or credible intervals." H-state numbers are the paper's summary, never re-extracted here (G07 SOURCE_ONLY).</div>
+<div class="callout bad"><b>Adverse, retained:</b> our refit does not reproduce the paper's own figure (G03 FAIL, max relative
+discrepancy 3.767) · parameter recovery fails 1 of 3 seeds (G05) · held-out prediction does not beat memoryless
+(G06 FAIL, interval crosses zero). The mechanism is <i>held</i>; it is not yet <i>confirmed by us</i>.</div>
+</div>
+
+<div class="panel">
+<h3 style="margin-top:0">The ladder — eight rungs of real biology, and what this estate holds at each</h3>
+<p class="plain"><b>The honest headline: the joined depth of this hierarchy, today, is ONE.</b> Eight rungs are
+nameable from the sources; exactly one has event-level primary data on disk; <b>zero adjacent pairs are joined on
+one motor and one clock</b>. Everything else is horizontal slices from different cohorts. Naming a rung we cannot
+reach is how we know what to acquire — that is why all eight are on the board.</p>
+
+<div class="rung"><span class="id">B0</span><div><h4>Ion flux / proton-motive force <span class="chip NH">NOTHING MEASURED</span></h4>
+<p><b>Held:</b> the structural basis only, and in the wrong species — the MotA₅B₂ stator as atoms (6YSL, <i>B. subtilis</i>, on the bench above). <b>Missing:</b> every dynamic quantity — no PMF, no ion flux, no protons-per-revolution. The one cited anchor (Lo 2018) holds zero bytes here.</p>
+<p><b>Would require:</b> per-cell membrane-potential measured alongside a stator trace.</p></div></div>
+
+<div class="rung"><span class="id">B1</span><div><h4>Single-stator binding state D/L/T/H <span class="chip STRUCT">DECLARED MECHANISM</span></h4>
+<p><b>Held:</b> the authors' mechanism verbatim with all rates (drawn above). <b>Missing:</b> any molecular identity — D, L and T are <span class="m">UNIDENTIFIED_LATENT_STATE</span> by the estate's own structural map, which refuses "a known stator conformation, catch-bond state, or molecular intermediate".</p>
+<p><b>Would require:</b> an independent observable of binding state — FRET, a mutant series, or a structure resolving the states.</p></div></div>
+
+<div class="rung anchored"><span class="id">B2</span><div><h4>Ring occupancy N — <b>the one anchored rung</b> <span class="chip OBS">EVENT DATA ON DISK</span></h4>
+<p><b>Held:</b> Wadhwa 2022 — 1,349 dwell events, 129 motors, 50 Hz, the only event-level primary dataset here. Dwell rises steeply with occupancy (8.5 s at N=0 → 99.1 s at N=11); multi-unit jumps are common. Corroborated: Ito 2021 (40 motors), Nord 2017 (load→recruitment), Franco-Oñate 2025, Reid 2006 (≥11 units).</p>
+<p class="cav" style="color:var(--warn)"><b>Open question, deliberately unreconciled:</b> Ito's dwell means FALL with N while Wadhwa's RISE. The repo holds Ito's sheet name but not the figure caption — possibly different observables. Not resolved by inference.</p></div></div>
+
+<div class="rung"><span class="id">B3</span><div><h4>Torque and mechanical output <span class="chip STRUCT">OTHER MOTORS</span></h4>
+<p><b>Held:</b> Antani 2021 — nine torque conditions, 9.4 → 1294 pN·nm, with both switch rates at each. <b>Missing, and it is the big one:</b> no torque–speed curve, no knee, no stall torque, no torque-vs-stator series anywhere. The live curve in the released app (<span class="m">stators × 180 pN·nm</span>) is <span class="chip UNS">UNSOURCED</span>.</p>
+<p><b>Would require:</b> torque calibration per motor, on the same clock as the stator trace.</p></div></div>
+
+<div class="rung"><span class="id">B4</span><div><h4>C-ring conformation and engagement <span class="chip MODEL">THEORY ONLY</span></h4>
+<p><b>Held as theory:</b> Mattingly &amp; Tu 2026 — torque exponentially modulates engaged-subunit switching; ported and numerically verified here (column-sum error 8.5e-14) but classified "published INTERPRETATION". <b>Held as picture:</b> the <i>Salmonella</i> switching video (unresolved Johnson/Singh attribution). <b>Missing:</b> no C-ring structure at all — neither held structure contains FliG, FliM, FliN or CheY. The only FliG/FliM/FliN here is a drawn label.</p></div></div>
+
+<div class="rung"><span class="id">B5</span><div><h4>Directional switch CW/CCW <span class="chip OBS">STRONGEST RESULT</span></h4>
+<p><b>Held:</b> Antani 2021 — as torque rises 9.4 → 1294 pN·nm, k(CW→CCW) rises 1.12 → 4.02 s⁻¹ with Spearman ρ = 1.0000, k(CCW→CW) rises 0.235 → 0.830 s⁻¹ (ρ = 0.93) — while CW bias barely moves (mean 0.158, CV 0.10). <b>The motor speeds its switching clock under load while holding its directional set-point.</b> Also: Yuan 2009's non-monotone k(CW→CCW) peaking near 120 Hz.</p>
+<p class="cav" style="color:var(--warn)"><b>Adverse provenance, displayed:</b> Yuan 2009, Bai 2010 and Zhu 2024 have no DOI, no authors and no title recorded anywhere in this repository, yet count in the 11-study breadth gate.</p></div></div>
+
+<div class="rung"><span class="id">B6</span><div><h4>Chemotaxis input CheY-P <span class="chip STRUCT">ASSOCIATION ONLY</span></h4>
+<p><b>Held:</b> Antani 2021 — stator presence raises the CheY-P signal (Hedges g 0.78, p 0.0008, both required controls retained and null — which is what makes it worth anything). Fenced: "association/coupling, not an unrestricted causal chain." Zhu 2024's values are a <i>fit</i>, and the field name says so. <b>Missing:</b> any measured Hill coefficient or Kd — the released kernel's n=6 and Kd formula are <span class="chip UNS">UNSOURCED</span>.</p></div></div>
+
+<div class="rung"><span class="id">B7</span><div><h4>Filament, bundle, whole-cell behaviour <span class="chip OBS">PIXELS + NUMBERS</span></h4>
+<p><b>Held as pixels:</b> the Mears 2014 film (on the bench — the only OBSERVED behaviour here). <b>Held as numbers:</b> Lisevich 2025, 106 cells — motor 219.5 Hz, filament 174–195 Hz, body 26–42 Hz, swimming 20–28 µm/s, and motor speed invariant to flagellar number (slope CI includes zero). X09 PASS, fenced as source reproduction.</p></div></div>
+
+<div class="rung refused"><span class="id">B8</span><div><h4>Population / ecology <span class="chip NH">REFUSED</span></h4>
+<p><b>Nothing — deliberately.</b> No source held here supports a layer above the single cell; building one would be scaffolding. The refusal is part of the design.</p></div></div>
+
+<div class="callout ok"><b>The one cheap move, found this session:</b> Antani 2021's source workbook sheet is literally named
+<span class="m">Fig2_speed_CWbias_Nst_groups</span> — speed, CW bias and stator number <i>in one sheet, per motor</i>. The per-motor
+join plausibly exists upstream and <b>our ingest threw it away</b> (columns compacted independently, no join key). Re-acquiring that
+one workbook (45,271 bytes, sha256 bee54971…) is the cheapest route to the estate's <b>first real two-rung join</b>. That
+acquisition is on the external-doors list awaiting the operator's go.</div>
+</div>
+
+<div class="panel">
+<h3 style="margin-top:0">The finding that reframed the programme</h3>
+<p class="plain">Our model's layers — population → per-motor → occupancy → hazard — are <b>strata of statistical
+pooling wearing biological names</b>. Each answers one question: <i>which events share a parameter</i>. A biological
+hierarchy is a different object: <b>a composition of maps on physical state, each with units</b> — ions/s → pN·nm →
+s⁻¹. Not one such map exists in the stack, and it is provable by units alone: the only units anywhere in it are
+<b>seconds and counts</b>.</p>
+<p class="plain">And the Markov blanket we score is <b>the analyst's, not the motor's</b> — its active set is empty
+(a = ∅), which makes it a conditioning set, not a blanket. The motor's own blanket — PMF sensing, torque sensing,
+stator engagement as action — is entirely unobserved in this dataset. <b>Parity of the Markov structure with the
+biology is the programme's open problem, and it is now stated instead of assumed.</b></p>
+<p class="say">Full statement with per-layer receipts: <a href="/models">the models page</a>. The naming ruling
+(rename the pooling layers vs build the maps) is the operator's and is open.</p>
+</div>
+
+<!-- ═══════════════════ THE FREQUENCY WALL ═══════════════════ -->
+<h2 id="frequency">The frequency wall — every timescale this estate holds</h2>
+<p class="lede">Rendered live from <span class="m">timescales.v1.json</span>, which is extracted programmatically
+from the artifacts — nothing typed by hand. Units are shown <b>as held</b>: where a source key carries no unit, the
+wall says so rather than asserting one. Chips: <span class="chip MEAS">MEASURED</span>
+<span class="chip DIG">DIGITIZED 3RD PARTY</span> <span class="chip MODEL">MODEL PREDICTION</span>
+<span class="chip UNS">REDUCED MODEL · UNSOURCED</span> <span class="chip NH">NOT HELD</span></p>
+<div class="panel"><div id="freqwall"><p class="say">loading the wall…</p></div></div>
+
+<div class="panel">
+<h3 style="margin-top:0">The layers and their measured tempos — and the ratios</h3>
+<table class="n">
+<tr><th>layer (rung)</th><th>measured tempo held here</th><th>source</th><th>ratio to the layer above</th></tr>
+<tr><td>B7 · one flagellar revolution</td><td class="v">~220 Hz → ≈ 4.5 ms</td><td class="say">Lisevich 2025, 10 cells</td><td class="v">—</td></tr>
+<tr><td>B5 · direction switch interval</td><td class="v">0.30 – 2.59 s (CCW, by bias)</td><td class="say">Bai 2010 via Mattingly, digitized</td><td class="v">≈ 65× – 570× one revolution</td></tr>
+<tr><td>B2 · stator dwell (one occupancy state)</td><td class="v">0.26 – 357 s · state means 3.2 – 99 s</td><td class="say">Wadhwa 2022, 1,349 events</td><td class="v">≈ 10× – 40× a switch interval (means)</td></tr>
+<tr><td>B2 · stator arrival / departure</td><td class="v">σ₊ 0.19 s⁻¹ → ≈ 5.3 s · k_off,loose 0.057 s⁻¹ → ≈ 17.5 s</td><td class="say">Wadhwa 2022</td><td class="v">same rung, kinetic view</td></tr>
+<tr><td>B3/B5 · load adaptation of switching</td><td class="v">observed over 22 – 598 s</td><td class="say">Antani 2021, time axis</td><td class="v">≈ 10× – 100× a dwell</td></tr>
+<tr><td>B0 · ion transit / torque stroke</td><td class="v">NOT MEASURED — no PMF, no flux, no stroke time held</td><td class="say">—</td><td class="v">unknown</td></tr>
+</table>
+<p class="say"><b>Read the ratio column carefully:</b> these are <b>cross-study, order-of-magnitude statements</b> —
+different motors, different labs, different observables. No two adjacent layers have ever been recorded on one motor
+and one clock in this estate, so no ratio here is a within-organism measurement.</p>
+<div class="callout" style="border-color:#e0a3f0;background:#241330">
+<span class="chip HYP">OPERATOR HYPOTHESIS — PREDICTED</span>
+<p class="plain" style="margin:8px 0 4px"><b>The cycle-ratio (φ) prediction.</b> The operator's standing hypothesis:
+between recursively nested layers, the ratio of <b>update-cycle counts</b> follows the golden ratio / Fibonacci
+structure — φ governs <i>cycles between layers</i>, never the surprisal bound and never the decision rule, and
+precision is a separate, model-adjustable organ.</p>
+<p class="say" style="color:#c9b3d6"><b>What observation would move this:</b> it becomes testable the moment two adjacent
+rungs are recorded on one motor and one clock — which is exactly what the Antani workbook re-acquisition (above) buys.
+Until then its status here is PREDICTED, not tested; the measured column above cannot confirm or refute it because
+every ratio in it crosses cohorts.</p></div>
+</div>
+
+<!-- ═══════════════════ THE MIND–BODY WALL ═══════════════════ -->
+<h2 id="mindbody">The mind–body wall</h2>
+<p class="lede">Three panels, three different epistemic standings — measured, not-established, predicted. The wall's
+whole point is that the three are <b>labelled differently and never blended</b>.</p>
+<div class="minds">
+  <div class="mind body">
+    <h3>BODY <span class="chip MEAS">MEASURED</span></h3>
+    <p class="plain" style="font-size:14.5px">The motor as mechanism — everything on the bench and the whiteboard.
+    Its strongest measured behaviour: <b>under load it speeds its switching clock while holding its directional
+    set-point</b> (both rates monotone in torque, ρ = 1.00 / 0.93, while CW bias stays near 0.16). Its stators are not
+    fixed parts but a <b>population that binds and unbinds in seconds</b>, remodelling the engine while it runs.</p>
+    <p class="say">Sources: Antani 2021 · Wadhwa 2022 · Lisevich 2025 · structures 7E82 / 6YSL.</p>
+  </div>
+  <div class="mind mind1">
+    <h3>MIND <span class="chip MODEL">NOT_ESTABLISHED</span></h3>
+    <p class="plain" style="font-size:14.5px">The same motor read as an <b>inference machine</b>: occupancy as belief,
+    remodelling as belief update, switching as action selection. This reading is the programme's central hypothesis and
+    its gate status is stated exactly: <b>G10 / X12 — does a bacterium implement active inference —
+    NOT_ESTABLISHED. Discriminating interventions run: 0.</b></p>
+    <p class="plain" style="font-size:14.5px">And the blanket we currently score is <b>the analyst's, not the
+    motor's</b>: its active set is empty. The mind-reading earns its name only when the motor's own blanket — sensing,
+    action, the conditional independence — is instantiated and tested.</p>
+  </div>
+  <div class="mind third">
+    <h3>THIRD MIND <span class="chip HYP">OPERATOR HYPOTHESIS — PREDICTED</span></h3>
+    <p class="plain" style="font-size:14.5px">The operator's prediction, stated as his: mind and body stack — left and
+    right minds over one body — and when the two come to hold a <b>higher-order understanding of each other and of
+    future states</b>, a third mind — <b>awareness</b> — arises between them. He predicts this structure is consistent
+    for all life, and for matter as measured, with the flagellum as its smallest complete instance: a body that is
+    also a mind of its own.</p>
+    <p class="say" style="color:#c9b3d6"><b>What observation would move this:</b> first a real two-rung join (one motor,
+    one clock), then a discriminating intervention where an inference reading and a mechanism-only reading disagree —
+    the P5 experiment already specified in the external-doors checklist. Until then: predicted, attributed, untested.</p>
+  </div>
+</div>
+<div class="panel" style="border-style:dashed">
+<h3 style="margin-top:0">The conjecture board <span class="chip HYP">OPERATOR CONJECTURE — ATTRIBUTED, NOT ASSERTED</span></h3>
+<p class="plain" style="font-size:14.5px;color:var(--dim)">Also standing on the operator's board, in his words: that
+current space-time theory has carried falsified status far longer than acknowledged; that better measures of the
+passing of experience are needed; and that approaches through a fourth dimension / platonic space may supply them.
+The estate records these as the operator's open conjectures. It asserts no verdict on them, and no gate in this
+repository bears on them — which is exactly what this label means.</p>
+</div>
+
+<p class="say" style="margin-top:30px" id="foot">Every scientific number on this page carries its source inline or in
+its drawer. The room is scenery; the science is cited. Adverse results are displayed as models, not blemishes — that
+is the operating contract.</p>
+</div>
+
+<!-- drawer -->
+<dialog id="drawer">
+  <button class="x" onclick="document.getElementById('drawer').close()">×</button>
+  <div id="drawerbody"></div>
+</dialog>
+
+<script type="application/json" id="baked-parts">
+{
+ "PDB_7E82": {
+  "plain": "The driveshaft and universal joint",
+  "tech": "flagellar rod with partial hook", "pdb": "7E82",
+  "species": "Salmonella enterica", "truthClass": "STRUCTURAL_RECONSTRUCTION",
+  "citation": "PDB 7E82; Tan et al., Cell 184, 2665-2679.e19 (2021)", "doi": "10.2210/pdb7E82/pdb",
+  "license": "CC0 1.0", "sha256": "c143331497d819b2be42b7892db80a577312ad8b4fbc50111d58e263597e8afc",
+  "permittedClaim": "Constrains the labelled arrangement of rod, hook and basal-body components; it is not an E. coli whole-cell observation.",
+  "method": "ELECTRON MICROSCOPY, 3.3 A", "atoms": "101,606 deposited atoms, 13,700 CA plotted"
+ },
+ "PDB_6YSL": {
+  "plain": "The engine unit",
+  "tech": "MotA5MotB2 stator complex", "pdb": "6YSL",
+  "species": "Bacillus subtilis", "truthClass": "STRUCTURAL_RECONSTRUCTION",
+  "citation": "PDB 6YSL; Deme et al., Nature Microbiology 5, 1553-1564 (2020)", "doi": "10.2210/pdb6YSL/pdb",
+  "license": "CC0 1.0", "sha256": "74386247ed1dd7a9f2d02e8b1805bea4c39b9b148ffc9c06766e92b26778c221",
+  "permittedClaim": "Constrains the A5B2 stator architecture; homologous geometry is not silently presented as an E. coli measurement.",
+  "method": "ELECTRON MICROSCOPY, 3.5 A", "atoms": "10,128 deposited atoms, 1,324 CA plotted"
+ }
+}
+</script>
+<script>
+(function(){
+"use strict";
+var PARTS = JSON.parse(document.getElementById('baked-parts').textContent);
+// plain-word names for each entity file (keyed by structures-manifest entityId per pdb)
+var PLAIN = {
+ '7E82': {1:'the distal rod — the driveshaft’s long section', 2:'the proximal rod — driveshaft base',
+  3:'anchor-plate fragment (MS ring L2)', 4:'anchor-plate fragment (MS ring L1)',
+  5:'rod adapter FlgC', 6:'rod adapter FlgB', 7:'the joint between plate and rod (FliE)',
+  8:'the hook — the universal joint'},
+ '6YSL': {1:'the engine block — five MotA subunits', 2:'the anchor — two MotB subunits'}
+};
+function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;');}
+
+function renderBench(structures){
+ var grid=document.getElementById('benchgrid');
+ if(!structures||!structures.files){grid.innerHTML='<p class="say">structure manifest unavailable — composites above still stand</p>';return;}
+ var parts=structures.files.filter(function(f){return f.entityId;});
+ grid.innerHTML=parts.map(function(f){
+  var plain=(PLAIN[f.pdbId]||{})[f.entityId]||f.description;
+  return '<button class="part" data-part="'+esc(f.pdbId)+':'+esc(f.file)+'">'
+   +'<img src="/assets/classroom/'+esc(f.file)+'" loading="lazy" alt="'+esc(f.description)+'">'
+   +'<span class="nm">'+esc(plain)+'</span>'
+   +'<span class="tech">'+esc(f.description)+' · '+(f.chains?f.chains.length+' chains · ':'')+f.caCount+' CA · <i>'+esc(f.species)+'</i></span>'
+   +'<span><span class="chip STRUCT">STRUCTURAL_RECONSTRUCTION</span></span>'
+   +'</button>';
+ }).join('');
+ grid.__files=parts;
+}
+
+function openDrawer(key){
+ var bits=key.split(':'), pdb='PDB_'+bits[0], file=bits[1];
+ var base=PARTS[pdb]; if(!base) return;
+ var f=(document.getElementById('benchgrid').__files||[]).find(function(x){return x.file===file;});
+ var b=document.getElementById('drawerbody');
+ b.innerHTML='<img src="/assets/classroom/'+esc(file)+'" alt="">'
+  +'<h3>'+esc(f?((PLAIN[f.pdbId]||{})[f.entityId]||f.description):base.plain)+'</h3>'
+  +'<p class="say">'+esc(f?f.description:base.tech)+' · <i>'+esc(base.species)+'</i> '
+  +'<span class="chip STRUCT">'+esc(base.truthClass)+'</span></p>'
+  +'<blockquote><b>Permitted claim, verbatim:</b> '+esc(base.permittedClaim)+'</blockquote>'
+  +'<dl class="kv">'
+  +'<dt>citation</dt><dd>'+esc(base.citation)+'</dd>'
+  +'<dt>DOI</dt><dd>'+esc(base.doi)+'</dd>'
+  +'<dt>license</dt><dd>'+esc(base.license)+'</dd>'
+  +'<dt>method</dt><dd>'+esc(base.method)+'</dd>'
+  +'<dt>in this render</dt><dd>'+(f?esc(f.caCount)+' CA atoms'+(f.chains?' across '+f.chains.length+' chains ('+esc(f.chains.join(', '))+')':''):esc(base.atoms))+'</dd>'
+  +'<dt>source file</dt><dd>public/data/structures/'+bits[0].toLowerCase()+'.cif.gz</dd>'
+  +'<dt>source sha256</dt><dd>'+esc(base.sha256)+'</dd>'
+  +'<dt>scale</dt><dd>1.4 px/Å — shared by every render on the bench, so sizes are comparable</dd>'
+  +'</dl>'
+  +'<p class="say">Every plotted line traces deposited CA atom positions — nothing is drawn by hand. Renderer: viewer/render_structure_svg.cjs (deterministic, sha256-checked).</p>';
+ document.getElementById('drawer').showModal();
+}
+document.addEventListener('click',function(e){
+ var btn=e.target.closest&&e.target.closest('[data-part]');
+ if(btn) openDrawer(btn.getAttribute('data-part'));
+});
+document.getElementById('drawer').addEventListener('click',function(e){
+ if(e.target===this) this.close();
+});
+
+var CHIP={MEASURED:'MEAS',DIGITIZED_BY_THIRD_PARTY:'DIG',MODEL_PREDICTION:'MODEL',REDUCED_MODEL:'UNS',REPORTED_SUMMARY:'STRUCT',NOT_HELD:'NH'};
+var CHIPTXT={MEASURED:'MEASURED',DIGITIZED_BY_THIRD_PARTY:'DIGITIZED 3RD PARTY',MODEL_PREDICTION:'MODEL PREDICTION',REDUCED_MODEL:'REDUCED MODEL · UNSOURCED',REPORTED_SUMMARY:'REPORTED SUMMARY',NOT_HELD:'NOT HELD'};
+function fmt(v){ if(typeof v!=='number') return esc(v); return (Math.abs(v)>=1000||((Math.abs(v)<0.001)&&v!==0))?v.toExponential(3):(+v.toFixed(4)).toString(); }
+function renderWall(ts){
+ var el=document.getElementById('freqwall');
+ if(!ts||!ts.rows){el.innerHTML='<p class="say">timescales artifact unavailable</p>';return;}
+ var groups={}; ts.rows.forEach(function(r){(groups[r.group]=groups[r.group]||[]).push(r);});
+ var TITLES={rotation:'Rotation — how fast it spins',switching:'Switching — how often it reverses',
+  'stator-dwell':'Stator dwell — how long an engine count holds','stator-kinetics':'Stator kinetics — the D–L–T rates',
+  'stator-binding':'Stator binding vs speed','adaptation':'Adaptation — the slow loop',swimming:'Swimming — the whole cell',
+  load:'Load — drag and beads',sampling:'The instrument clock','model-fit':'Our model’s fitted tempos','reduced-model':'Teaching-model constants — UNSOURCED'};
+ el.innerHTML=Object.keys(groups).map(function(g){
+  return '<div class="fgroup"><h3>'+esc(TITLES[g]||g)+'</h3>'+groups[g].map(function(r){
+   var vals = r.values? r.values.slice(0,15).map(fmt).join(', ')+(r.values.length>15?' … ('+r.values.length+' values)':'')
+     : r.range? fmt(r.range.min)+' — '+fmt(r.range.max)+'  (n='+r.range.n+')' : '';
+   return '<div class="frow"><span class="chip '+(CHIP[r.epistemics]||'ILL')+'">'+esc(CHIPTXT[r.epistemics]||r.epistemics)+'</span> '
+    +'<span class="q">'+esc(r.quantity)+'</span>'
+    +(vals?'<div class="vals">'+vals+(r.unitsAsHeld?'  ['+esc(r.unitsAsHeld)+']':'')+'</div>':'')
+    +'<div class="src">'+esc(r.sourceId)+(r.doi?' · doi '+esc(r.doi):'')+' · '+esc(r.file)+' :: '+esc(r.jsonPath)+'</div>'
+    +(r.caveat?'<div class="cav">'+esc(r.caveat)+'</div>':'')
+    +(r.fence?'<div class="cav">fence: '+esc(r.fence)+'</div>':'')
+    +'</div>';
+  }).join('')+'</div>';
+ }).join('');
+}
+
+function load(){
+ fetch('/api/classroom?t='+Date.now()).then(function(r){return r.json();}).then(function(d){
+  document.getElementById('livestamp').textContent='live — read from the artifacts at '+new Date().toLocaleTimeString();
+  renderBench(d.structures); renderWall(d.timescales);
+ }).catch(function(){
+  document.getElementById('livestamp').textContent='LIVE FETCH FAILED — page shows committed copy only';
+  renderBench(null); renderWall(null);
+ });
+}
+load();
+
+// ---- anchor-driven placement: the room's overlays pin to measured surfaces ----
+// docs/classroom-assets/room-anchors.v1.json is the ONLY source of placement truth.
+// Edit that file (or re-run viewer/measure_room_anchors.cjs after changing the image)
+// and every overlay follows. ?debug=anchors outlines the measured boxes.
+function applyAnchors(A){
+ if(!A||!A.anchors) return;
+ var an=A.anchors, tu=A.tuning||{};
+ function setZone(el,box,inset){
+  var ix=(box.w*(inset||0)), iy=(box.h*(inset||0));
+  el.style.setProperty('--x',((box.x+ix)*100)+'%');
+  el.style.setProperty('--y',((box.y+iy)*100)+'%');
+  el.style.setProperty('--w',((box.w-2*ix)*100)+'%');
+  el.style.setProperty('--h',((box.h-2*iy)*100)+'%');
+ }
+ document.querySelectorAll('[data-anchor]').forEach(function(el){
+  var k=el.getAttribute('data-anchor'), box=an[k]; if(!box) return;
+  var t=tu[k]||{};
+  if(k==='benchFront'){
+   // plaque sits a fraction down the bench front face
+   var off=(t.plaqueOffsetY!=null?t.plaqueOffsetY:0.35)*box.h;
+   setZone(el,{x:box.x,y:box.y+off,w:box.w,h:Math.max(box.h-off,0.06)},0);
+  } else {
+   setZone(el,box,t.inset!=null?t.inset:0.08);
+  }
+  if(t.rotateY!=null){
+   var lb=el.querySelector('.blabel');
+   if(lb) lb.style.transform='perspective(60cqw) rotateY('+t.rotateY+'deg)';
+  }
+ });
+ var wb=an.whiteboard, sk=document.getElementById('wbsketch');
+ if(wb&&sk){
+  sk.style.top=((wb.y+wb.h*0.78)*100)+'%';
+  sk.style.width=(wb.w*0.24*100)+'%';
+ }
+ if(location.search.indexOf('debug=anchors')>=0){
+  Object.keys(an).forEach(function(k){
+   var b=an[k]; if(!b||b.x==null) return;
+   var d=document.createElement('div');
+   d.style.cssText='position:absolute;border:2px dashed #ff7a7a;pointer-events:none;'
+    +'left:'+(b.x*100)+'%;top:'+(b.y*100)+'%;width:'+(b.w*100)+'%;height:'+(b.h*100)+'%';
+   d.innerHTML='<span style="font:11px monospace;color:#ff7a7a;background:#0009;padding:1px 4px">'+k+'</span>';
+   document.querySelector('.room').appendChild(d);
+  });
+ }
+}
+fetch('/assets/classroom/room-anchors.v1.json?t='+Date.now())
+ .then(function(r){return r.json();}).then(applyAnchors)
+ .catch(function(){ /* pre-fetch CSS defaults remain */ });
+})();
+</script>

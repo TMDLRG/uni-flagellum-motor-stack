@@ -1,0 +1,55 @@
+{
+ "schema": "uni.flagellum.classroom-room-anchors/1.0.0",
+ "sourceImage": "room-bg.webp",
+ "sourceSha256": "3797f69f2d6db9f989bd3a4be5410183dda035e663c47ad49b6077d6f0732778",
+ "imageSize": {
+  "w": 1672,
+  "h": 941
+ },
+ "method": "measured from pixels by viewer/measure_room_anchors.cjs (ffmpeg->PPM, bright luma>170 for the whiteboard; boards = neutral-dark (max channel<80, chroma<22) to exclude the brown door/wood; largest-contiguous-run banding, center-gradient bench edge). Fractions of image size. tuning.* values are HAND-ADJUSTABLE presentation parameters; re-run the script only when the background image changes.",
+ "anchors": {
+  "whiteboard": {
+   "x": 0.253,
+   "y": 0.2115,
+   "w": 0.5084,
+   "h": 0.2922
+  },
+  "boardLeft": {
+   "x": 0,
+   "y": 0.2179,
+   "w": 0.1322,
+   "h": 0.3422,
+   "topSlope": -0.0535
+  },
+  "boardRight": {
+   "x": 0.878,
+   "y": 0.2264,
+   "w": 0.1214,
+   "h": 0.3348,
+   "topSlope": 0.2577
+  },
+  "benchFront": {
+   "x": 0.22,
+   "y": 0.6461,
+   "w": 0.56,
+   "h": 0.3231,
+   "note": "y measured (tabletop front edge); x/w centered by design"
+  }
+ },
+ "tuning": {
+  "boardLeft": {
+   "rotateY": 30,
+   "inset": 0.1
+  },
+  "boardRight": {
+   "rotateY": -30,
+   "inset": 0.1
+  },
+  "whiteboard": {
+   "inset": 0.06
+  },
+  "benchFront": {
+   "plaqueOffsetY": 0.35
+  }
+ }
+}

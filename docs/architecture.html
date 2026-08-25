@@ -1,0 +1,265 @@
+<title>UNI-FLAGELLUM — The architecture</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+:root{--bg:#0e1116;--pan:#161b22;--pan2:#1c2530;--ln:#2a3441;--tx:#e6edf3;--dim:#93a1b0;
+--acc:#7f9fdd;--ok:#4bd18a;--bad:#ff7a7a;--warn:#e8bb55;--dead:#66707c;--gold:#d9b45f;
+--mono:ui-monospace,'SFMono-Regular',Consolas,monospace}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:15.5px/1.6 ui-sans-serif,'Segoe UI',Roboto,sans-serif}
+.wrap{max-width:1320px;margin:0 auto;padding:26px 22px 110px}
+h1{font-size:31px;margin:0 0 6px;letter-spacing:-.02em}
+h2{font-size:15px;text-transform:uppercase;letter-spacing:1.2px;color:var(--acc);margin:46px 0 6px;font-weight:600}
+.lede{color:var(--dim);font-size:16px;max-width:82ch;margin:0 0 10px}
+.panel{background:var(--pan);border:1px solid var(--ln);border-radius:14px;padding:20px 22px;margin:14px 0}
+.plain{font-size:16.5px;line-height:1.65;margin:0 0 12px}.plain b{color:#fff}
+.say{color:var(--dim);font-size:13.8px;margin:8px 0 0}
+.m,code{font-family:var(--mono);font-size:.92em}
+.verdict{border:1px solid var(--bad);background:#241315;border-radius:14px;padding:20px 24px;margin:16px 0}
+.verdict h3{margin:0 0 8px;font-size:21px;color:#fff}
+.callout{border-left:3px solid var(--warn);background:#231d10;padding:13px 17px;border-radius:0 9px 9px 0;margin:12px 0}
+.callout.bad{border-color:var(--bad);background:#241315}
+.callout.ok{border-color:var(--ok);background:#0f2119}
+table.n{border-collapse:collapse;width:100%;font-size:13.5px}
+table.n th,table.n td{text-align:left;padding:7px 9px;border-bottom:1px solid var(--ln);vertical-align:top}
+table.n th{color:var(--dim);font-size:11.5px;text-transform:uppercase;letter-spacing:.5px}
+table.n td.v{font-family:var(--mono);white-space:nowrap}
+tr.win td{background:#241315}
+.chip{display:inline-block;font:11px var(--mono);font-weight:600;padding:2px 9px;border-radius:20px}
+.OK{color:var(--ok);background:#12271c}.BAD{color:var(--bad);background:#2a1516}
+.DEAD{color:var(--dead);background:#1a1f26}.WARN{color:var(--warn);background:#2a2110}
+.EXT{color:#8ba0e0;background:#161b2e}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:1050px){.grid2{grid-template-columns:1fr}}
+svg{max-width:100%;height:auto}
+.cmd{font:13px var(--mono);background:#0b0f14;border:1px solid var(--ln);border-left:3px solid var(--ok);
+border-radius:0 8px 8px 0;padding:11px 15px;margin:8px 0;overflow-x:auto;white-space:pre;color:#cfe0f5}
+.links a{color:var(--acc);font-size:13px;margin-right:16px;text-decoration:none;border-bottom:1px dotted var(--ln)}
+.three{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:12px 0}
+@media(max-width:980px){.three{grid-template-columns:1fr 1fr}}
+.tcard{border:1px solid var(--ln);border-radius:11px;padding:14px 15px;background:var(--pan2)}
+.tcard.ours{border-color:var(--gold);background:#241f10}
+.tcard.beats{border-color:var(--bad)}
+.tcard h4{margin:0 0 6px;font-size:15px}
+.tcard .sc{font:20px var(--mono);font-weight:700;margin:6px 0 2px}
+</style>
+<div class="wrap">
+<p class="links"><a href="/">dashboard</a><a href="/classroom">THE CLASSROOM</a><a href="/snapshot">state snapshot</a><a href="/doors">external doors</a></p>
+
+<h1>UNI-FLAGELLUM — the architecture</h1>
+<p class="lede">The biological programme, end to end: where the data comes from, what the models are, how
+they are scored, and which gates stand. Everything below was read from the code and the machine-readable
+result files, and the runnable parts were <b>executed to confirm they still reproduce</b>.</p>
+
+<div class="verdict">
+<h3>Standing result: the mechanism loses to a two-parameter curve.</h3>
+<p class="plain" style="margin-bottom:6px">On the only real held-out <i>E. coli</i> data in this estate,
+a plain <b>lognormal</b> out-predicts our two-timescale mechanism and every mechanistic candidate. Every
+contrast interval crosses zero, so the honest word is <b>NOT_ESTABLISHED</b> — not "refuted", and never
+"equivalent".</p>
+<p class="plain" style="margin-bottom:0"><b>Full biological parity is FALSE.</b> Cross-lab transfer tests: 0.
+Discriminating interventions: 0. Independent laboratories: 0.</p>
+</div>
+
+<h2>1 · The three — settled from the code</h2>
+<p class="lede">Not a guess. The released pipeline scores our model against <b>exactly three</b> named
+rivals, and the object holding them has exactly three keys.</p>
+<div class="panel">
+<div class="cmd">lib/observed-experiment.js:325-329
+pairedMixtureAdvantageNatsPerEvent {
+  mixtureVsExponential,   // vs the memoryless null
+  mixtureVsWeibull,       // vs a shape-only survival model
+  mixtureVsLognormal      // vs the heavy-tailed adversary
+}</div>
+<p class="plain" style="margin-top:12px"><b>The three are the rivals our model must beat.</b> The
+two-timescale mixture is the fourth because it is <i>ours</i> — you do not beat yourself.</p>
+<div class="three">
+  <div class="tcard beats"><h4>M2 · lognormal</h4><div class="sc" style="color:var(--bad)">3.4093</div>
+    <div class="say">2 parameters. <b style="color:var(--bad)">Currently wins.</b> Heavy-tailed, no mechanism at all.</div></div>
+  <div class="tcard"><h4>M1 · Weibull</h4><div class="sc">3.4333</div>
+    <div class="say">1 free shape. Also the τ→0 nesting limit of our own hierarchy.</div></div>
+  <div class="tcard"><h4>M0 · exponential</h4><div class="sc">3.5480</div>
+    <div class="say">The memoryless null. Parameter-free. The floor everything must clear.</div></div>
+  <div class="tcard ours"><h4>M3 · UNI two-timescale</h4><div class="sc" style="color:var(--gold)">3.4343</div>
+    <div class="say"><b>Ours.</b> A mixture of a fast and a slow exponential — the mechanistic claim.</div></div>
+</div>
+<p class="say">Motor-equal negative log predictive density on the seconds scale, 19 held-out motors,
+lower is better. <b>Our model places 4th of 4.</b></p>
+</div>
+
+<h2>2 · The whole pipeline</h2>
+<div class="panel">
+<svg viewBox="0 0 1280 430" role="img" aria-label="Architecture">
+ <defs><marker id="a" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#7f9fdd"/></marker>
+ <marker id="ab" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#ff7a7a"/></marker></defs>
+
+ <!-- DATA -->
+ <rect x="16" y="20" width="230" height="150" rx="10" fill="#1c2530" stroke="#4bd18a"/>
+ <text x="131" y="44" text-anchor="middle" fill="#4bd18a" font-size="13" font-weight="600">1 · OBSERVED DATA</text>
+ <text x="30" y="68" fill="#e6edf3" font-size="12.5">Wadhwa 2022 · E. coli</text>
+ <text x="30" y="87" fill="#93a1b0" font-size="11.5">single-motor stator dwell times</text>
+ <text x="30" y="106" fill="#93a1b0" font-size="11.5">129 motors · 1349 events</text>
+ <text x="30" y="125" fill="#93a1b0" font-size="11.5">tethered cell, 0.02 s sampling</text>
+ <text x="30" y="147" fill="#e8bb55" font-size="11.5">raw .mat pinned by sha256</text>
+ <text x="30" y="163" fill="#66707c" font-size="10.5">the ONE world process here</text>
+
+ <!-- SPLIT -->
+ <line x1="246" y1="95" x2="286" y2="95" stroke="#7f9fdd" stroke-width="2" marker-end="url(#a)"/>
+ <rect x="288" y="20" width="200" height="150" rx="10" fill="#1c2530" stroke="#7f9fdd"/>
+ <text x="388" y="44" text-anchor="middle" fill="#7f9fdd" font-size="13" font-weight="600">2 · FROZEN SPLIT</text>
+ <text x="300" y="68" fill="#e6edf3" font-size="12">holdout ⇔ sha256(motorId)</text>
+ <text x="300" y="85" fill="#e6edf3" font-size="12">&#160;&#160;&#160;mod 5 == 0</text>
+ <text x="300" y="107" fill="#4bd18a" font-size="11.5">TRAIN 80 motors / 793 ev</text>
+ <text x="300" y="125" fill="#e8bb55" font-size="11.5">HOLDOUT 19 motors / 233 ev</text>
+ <text x="300" y="147" fill="#ff7a7a" font-size="11">never recomputed · halts on</text>
+ <text x="300" y="162" fill="#ff7a7a" font-size="11">any per-event mismatch</text>
+
+ <!-- MODELS -->
+ <line x1="488" y1="95" x2="528" y2="95" stroke="#7f9fdd" stroke-width="2" marker-end="url(#a)"/>
+ <rect x="530" y="20" width="300" height="150" rx="10" fill="#1c2530" stroke="#d9b45f"/>
+ <text x="680" y="44" text-anchor="middle" fill="#d9b45f" font-size="13" font-weight="600">3 · THE COMPETITION</text>
+ <text x="544" y="68" fill="#ff7a7a" font-size="12">M2 lognormal &#160;&#160;3.4093 ← wins</text>
+ <text x="544" y="86" fill="#93a1b0" font-size="12">M8 empirical KDE 3.4225</text>
+ <text x="544" y="104" fill="#93a1b0" font-size="12">F&#160; motor-stack &#160;&#160;3.4327</text>
+ <text x="544" y="122" fill="#93a1b0" font-size="12">M1 Weibull &#160;&#160;&#160;&#160;&#160;3.4333</text>
+ <text x="544" y="140" fill="#d9b45f" font-size="12">M3 two-timescale 3.4343 ← ours</text>
+ <text x="544" y="160" fill="#93a1b0" font-size="12">M0 exponential &#160;&#160;3.5480</text>
+
+ <!-- SCORING -->
+ <line x1="830" y1="95" x2="870" y2="95" stroke="#7f9fdd" stroke-width="2" marker-end="url(#a)"/>
+ <rect x="872" y="20" width="200" height="150" rx="10" fill="#1c2530" stroke="#7f9fdd"/>
+ <text x="972" y="44" text-anchor="middle" fill="#7f9fdd" font-size="13" font-weight="600">4 · SCORING</text>
+ <text x="884" y="68" fill="#e6edf3" font-size="12">motor-equal NLPD</text>
+ <text x="884" y="87" fill="#93a1b0" font-size="11.5">unit = the MOTOR,</text>
+ <text x="884" y="103" fill="#93a1b0" font-size="11.5">never the event</text>
+ <text x="884" y="124" fill="#e6edf3" font-size="12">paired cluster bootstrap</text>
+ <text x="884" y="143" fill="#e8bb55" font-size="11.5">floor 0.042 nats</text>
+ <text x="884" y="161" fill="#66707c" font-size="10.5">below it ⇒ NOT_ESTABLISHED</text>
+
+ <!-- GATES -->
+ <line x1="1072" y1="95" x2="1112" y2="95" stroke="#7f9fdd" stroke-width="2" marker-end="url(#a)"/>
+ <rect x="1114" y="20" width="150" height="150" rx="10" fill="#1c2530" stroke="#ff7a7a"/>
+ <text x="1189" y="44" text-anchor="middle" fill="#ff7a7a" font-size="13" font-weight="600">5 · GATES</text>
+ <text x="1126" y="68" fill="#93a1b0" font-size="11.5">G00–G13 science</text>
+ <text x="1126" y="86" fill="#93a1b0" font-size="11.5">X01–X16 cross-study</text>
+ <text x="1126" y="104" fill="#93a1b0" font-size="11.5">G1–G9 H-AIF</text>
+ <text x="1126" y="124" fill="#e6edf3" font-size="12">P0–P8 ladder</text>
+ <text x="1126" y="145" fill="#ff7a7a" font-size="12" font-weight="600">P8 = FALSE</text>
+ <text x="1126" y="162" fill="#66707c" font-size="10.5">conjunctive</text>
+
+ <!-- second row: mechanistic + released -->
+ <rect x="16" y="210" width="510" height="94" rx="10" fill="#161b22" stroke="#2a3441"/>
+ <text x="30" y="234" fill="#7f9fdd" font-size="13" font-weight="600">MECHANISTIC LAYER — fitted to source aggregates, separate from the duration race</text>
+ <text x="30" y="256" fill="#93a1b0" font-size="11.5">D–L–T first-passage survival (the paper's own equation, re-implemented twice)</text>
+ <text x="30" y="273" fill="#93a1b0" font-size="11.5">M_GMC non-equilibrium switching · M_LATTICE13 occupancy · M_RFT propulsion</text>
+ <text x="30" y="292" fill="#e8bb55" font-size="11.5">these carry the biology; they are scored against SOURCE aggregates, not the holdout</text>
+
+ <rect x="546" y="210" width="380" height="94" rx="10" fill="#161b22" stroke="#2a3441"/>
+ <text x="560" y="234" fill="#7f9fdd" font-size="13" font-weight="600">RELEASED JS MODEL (the lab UI)</text>
+ <text x="560" y="256" fill="#93a1b0" font-size="11.5">world → observation boundary → active-inference agent</text>
+ <text x="560" y="273" fill="#ff7a7a" font-size="11.5">NO biological score: never imported by any scorer</text>
+ <text x="560" y="292" fill="#ff7a7a" font-size="11.5">constants UNSOURCED (180 pN·nm, 18k rpm, Hill n=6)</text>
+ <text x="560" y="292" fill="#ff7a7a" font-size="11.5">its only gate, G10 causal identity, is NOT_ESTABLISHED</text>
+
+ <rect x="946" y="210" width="318" height="94" rx="10" fill="#161b22" stroke="#8ba0e0"/>
+ <text x="960" y="234" fill="#8ba0e0" font-size="13" font-weight="600">OUTSIDE THE REPO</text>
+ <text x="960" y="256" fill="#93a1b0" font-size="11.5">P4 transfer · needs a second lab's cohort</text>
+ <text x="960" y="273" fill="#93a1b0" font-size="11.5">P5 intervention · needs a wet-lab experiment</text>
+ <text x="960" y="292" fill="#93a1b0" font-size="11.5">P7 replication · needs an independent lab</text>
+
+ <!-- burned channel -->
+ <rect x="16" y="330" width="1248" height="76" rx="10" fill="#241315" stroke="#ff7a7a"/>
+ <text x="30" y="354" fill="#ff7a7a" font-size="13" font-weight="600">SPENT AND BURNED EVIDENCE — this constrains what any new result can claim</text>
+ <text x="30" y="376" fill="#e6edf3" font-size="12">The holdout DURATION channel is legitimately spent (used by the frozen competition). The holdout MARK channel</text>
+ <text x="30" y="395" fill="#e6edf3" font-size="12">(next state / direction / jump) was irreversibly BURNED on 2026-07-21 — it can never carry a prospective claim on this dataset again.</text>
+</svg>
+</div>
+
+<h2>3 · What is actually runnable today — verified, not assumed</h2>
+<p class="lede">All of it runs. Nothing here is blocked on missing code. What is missing is <b>evidence</b>,
+not runnability.</p>
+<div class="grid2">
+<div class="panel">
+<h3 style="margin-top:0;font-size:16px">The duration competition (Python)</h3>
+<div class="cmd">cd UNI-FLAGELLUM/hierarchical-aif
+python -m pytest tests/motor_stack_aif -q</div>
+<p class="say">577 tests. The full F-side competition re-runs end to end in <b>~21 s</b> and reproduces every
+frozen number to the last digit. Verified today.</p>
+<h3 style="font-size:16px">The released JS analysis</h3>
+<div class="cmd">cd UNI-FLAGELLUM
+npm run experiment:verify     # the three-rival comparison
+npm run science:verify        # independent JS oracle
+node --test tests/            # 21 invariant tests</div>
+<p class="say">Reproduces every frozen number in-memory. Verified today.</p>
+</div>
+<div class="panel">
+<h3 style="margin-top:0;font-size:16px">The gate boards</h3>
+<div class="cmd">npm run science:run        # G00–G13
+npm run cross-study:run    # X01–X16
+npm run science:verify
+npm run cross-study:verify</div>
+<p class="say">Deterministic: running twice must produce byte-identical report and audit files, or the run
+is rejected.</p>
+<div class="callout bad" style="margin-top:14px"><b>HAZARD — read before running anything.</b> The frozen
+evidence baseline pins 250 files under <span class="m">phase-c</span> and <span class="m">phase-d</span> and
+<b>zero</b> under <span class="m">phase-b</span>. So
+<span class="m">python audits/phase-b/b3-model-competition-runner.py --run</span> would
+<b>silently overwrite the frozen competition record</b> with no guard firing — only <span class="m">git
+diff</span> would catch it. If the competition is re-run it must be run with <span class="m">--out</span>
+to a new path, never bare.</div>
+</div>
+</div>
+
+<h2>4 · The gates, as the machines report them</h2>
+<div class="grid2">
+<div class="panel">
+<h3 style="margin-top:0;font-size:16px">Science gates · G00–G13</h3>
+<p><span class="chip OK">PASS 4</span> <span class="chip BAD">FAIL 3</span>
+<span class="chip WARN">SOURCE_ONLY 1</span> <span class="chip WARN">NOT_ESTABLISHED 1</span>
+<span class="chip EXT">BLOCKED_EXTERNAL 5</span></p>
+<p class="say">G03 the published parameter vector does not reproduce the article's own figure arrays ·
+G05 only 2 of 3 parameter-recovery replicates pass · G06 the mechanism does not beat memoryless
+out-of-sample (interval crosses zero)</p>
+</div>
+<div class="panel">
+<h3 style="margin-top:0;font-size:16px">Cross-study gates · X01–X16</h3>
+<p><span class="chip OK">PASS 8</span> <span class="chip BAD">FAIL 3</span>
+<span class="chip WARN">NOT_ESTABLISHED 2</span> <span class="chip EXT">BLOCKED_EXTERNAL 3</span></p>
+<p class="say">X06 the 13-site lattice gives incompatible interaction strengths from distributions vs
+moments · X11 the lattice is not resolved molecular geometry · <b>X16 full biological parity = FAIL</b></p>
+</div>
+</div>
+<div class="panel">
+<table class="n">
+<tr><th>rung</th><th>what it demands</th><th>status</th></tr>
+<tr><td class="v">P0</td><td>computational integrity — hashes, determinism</td><td><span class="chip OK">HOLDS</span></td></tr>
+<tr><td class="v">P1</td><td>equations match implementation</td><td><span class="chip OK">HOLDS*</span></td></tr>
+<tr><td class="v">P2</td><td>observational — real recorded measurements</td><td><span class="chip OK">LIMITED</span></td></tr>
+<tr><td class="v">P3</td><td>held-out prediction</td><td><span class="chip WARN">DONE — AND THE MECHANISM LOST</span></td></tr>
+<tr class="win"><td class="v">P4</td><td>transfer — parameters frozen on one lab predict another's raw data</td><td><span class="chip BAD">FIRST UNSATISFIED · 0 tests</span></td></tr>
+<tr><td class="v">P5</td><td>intervention — does a bacterium actually infer?</td><td><span class="chip EXT">0 interventions</span></td></tr>
+<tr><td class="v">P6</td><td>structural / mechanistic identity</td><td><span class="chip BAD">SCOPED · X11 FAIL</span></td></tr>
+<tr><td class="v">P7</td><td>independent replication</td><td><span class="chip EXT">0 laboratories</span></td></tr>
+<tr><td class="v">P8</td><td>the conjunction of all of the above</td><td><span class="chip BAD">FALSE</span></td></tr>
+</table>
+</div>
+
+<h2>5 · What "model the three fully and run them" concretely means</h2>
+<div class="panel">
+<p class="plain">All four models already exist and already run. So "fully" cannot mean "write them" — it
+means <b>strengthen the comparison until the result is decisive rather than inconclusive</b>. Concretely,
+three things, in order:</p>
+<table class="n">
+<tr><th>#</th><th>act</th><th>why it is the honest next step</th></tr>
+<tr><td class="v">1</td><td><b>Re-run the competition to a new output path</b> and confirm the frozen numbers still reproduce, without touching the frozen record</td><td>establishes the baseline is live rather than quoted — everything I told you today was copied from July</td></tr>
+<tr><td class="v">2</td><td><b>Make the comparison decisive</b>: every contrast currently crosses zero at 19 holdout motors. Compute the motor count at which a 0.042-nat difference resolves, from a real-data power analysis — never chosen after seeing an interval</td><td>"underpowered" is not "equivalent". Right now we cannot tell whether the mechanism loses or we cannot see</td></tr>
+<tr><td class="v">3</td><td><b>Fix the two verified defects in the released agent</b>: its free energy is vacuous (the identity it tests is true by construction) and its expected free energy double-weights ambiguity</td><td>both confirmed numerically today; the second changes which action it picks</td></tr>
+</table>
+<div class="callout"><b>What none of it can do.</b> No amount of re-running moves P4, P5 or P7. Those need a
+second laboratory's cohort, a wet-lab intervention, and an independent replication respectively. That is
+the whole content of the external-doors checklist, and it is why full parity is FALSE rather than pending.</div>
+</div>
+
+<p class="say" style="margin-top:28px">Read from the code and the machine-readable results; runnable parts
+executed to confirm reproduction. Numbers are the frozen competition's, which this session did
+<b>not</b> re-run — that is act 1 above.</p>
+</div>

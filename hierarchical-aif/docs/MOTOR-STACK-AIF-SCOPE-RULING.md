@@ -82,7 +82,7 @@ Absent these, any `G`-based motor claim is `NOT_ESTABLISHED` by construction.
 | lane | status |
 |-|-|
 | **LANE A** duration-only B3/B4 | Valid within scope. Unchanged. |
-| **LANE B** corrected robustness | In flight (C02, C10 running; C11, C01 queued). |
+| **LANE B** corrected robustness | Complete — all four corrected cells landed at full frozen N (C02, C10, C11, C01). |
 | **LANE C** mark process | **Retrospective-only** after D5; closed-chain modelling blocked by D6. Not used by the F-side build. |
 | **LANE D** motor-stack AIF | **F-side: BUILD NOW.** G-side: design-only. |
 | **LANE E** parity ladder | `P1` may move on implementation; `P3` only if scored; `P5`/`P6`/`P8` unaffected by this ruling. |

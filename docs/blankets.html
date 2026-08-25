@@ -1,0 +1,421 @@
+<title>The Blanket Builder</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+:root{--bg:#0e1116;--pan:#161b22;--pan2:#1c2530;--ln:#2a3441;--tx:#e6edf3;--dim:#93a1b0;
+--acc:#7f9fdd;--ok:#4bd18a;--bad:#ff7a7a;--warn:#e8bb55;--gold:#d9b45f;--dead:#66707c;--vio:#c39df0;
+--mono:ui-monospace,'SFMono-Regular',Consolas,monospace}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:15px/1.6 ui-sans-serif,'Segoe UI',Roboto,sans-serif}
+a{color:var(--acc)}
+.wrap{max-width:1720px;margin:0 auto;padding:0 20px 120px}
+h1{font-size:29px;margin:24px 0 6px;letter-spacing:-.02em}
+h2{font-size:14px;text-transform:uppercase;letter-spacing:1.1px;color:var(--acc);margin:0 0 10px;font-weight:600}
+.lede{color:var(--dim);font-size:15.5px;max-width:96ch;margin:0 0 14px}
+nav.top{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:16px}
+nav.top a{font:13px var(--mono);border:1px solid var(--ln);border-radius:9px;padding:7px 14px;text-decoration:none}
+.stamp{font:11px var(--mono);color:var(--dim);margin-left:auto}
+.cols{display:grid;grid-template-columns:1fr 1fr 1.15fr;gap:16px;align-items:start}
+@media(max-width:1350px){.cols{grid-template-columns:1fr}}
+.col{background:var(--pan);border:1px solid var(--ln);border-radius:14px;padding:16px 18px;min-height:200px}
+.col.asis{border-color:#3a4657}.col.sugg{border-color:var(--acc)}.col.mine{border-color:var(--gold)}
+.colhead{display:flex;align-items:baseline;gap:10px;margin-bottom:4px}
+.colhead .n{font:11px var(--mono);color:var(--dim)}
+.say{color:var(--dim);font-size:12.8px;margin:6px 0 0}
+.chip{display:inline-block;font:10px var(--mono);font-weight:600;padding:2px 7px;border-radius:20px;vertical-align:middle}
+.OK{color:var(--ok);background:#12271c}.BAD{color:var(--bad);background:#2a1516}
+.WARN{color:var(--warn);background:#2a2110}.DEAD{color:var(--dead);background:#1a1f26}
+.VIO{color:var(--vio);background:#241330}.ACC{color:var(--acc);background:#161b2e}
+/* blanket card */
+.bk{border:1px solid var(--ln);border-radius:12px;padding:13px 15px;margin:10px 0;background:var(--pan2)}
+.bk h3{margin:0 0 3px;font-size:15.5px}
+.slot{margin:9px 0}
+.slot .lbl{font:10.5px var(--mono);color:var(--dim);text-transform:uppercase;letter-spacing:.6px;display:flex;gap:6px;align-items:center}
+.slot .lbl .greek{color:var(--acc);font-weight:700}
+.slotbox{border:1px dashed var(--ln);border-radius:9px;min-height:34px;padding:6px 8px;margin-top:4px;display:flex;flex-wrap:wrap;gap:5px;align-items:flex-start}
+.slotbox.empty{border-color:var(--bad);background:#24131540}
+.slotbox.empty::after{content:'EMPTY — a partition with no active states is not a blanket';font:10.5px var(--mono);color:var(--bad);opacity:.85}
+.slotbox.filled{border-style:solid;border-color:#33465e}
+.item{font-size:12.6px;background:#0b0f14;border:1px solid var(--ln);border-radius:7px;padding:4px 8px;line-height:1.4}
+.sig{cursor:pointer;font-size:12.4px;border-radius:7px;padding:4px 9px;border:1px solid var(--ln);background:#0b0f14;display:inline-flex;gap:6px;align-items:center}
+.sig:hover{border-color:var(--acc)}
+.sig .x{color:var(--bad);font-weight:700;padding:0 2px}
+.sig.OPENS{border-left:3px solid var(--ok)}.sig.STOPS{border-left:3px solid var(--bad)}
+.sig.MODULATES{border-left:3px solid var(--warn)}.sig.SENSES{border-left:3px solid var(--acc)}
+.sig.ACTS{border-left:3px solid var(--vio)}.sig.CONTEXT{border-left:3px solid var(--dead)}
+.sig.q{opacity:.62;text-decoration:line-through wavy rgba(255,122,122,.55)}
+.sig .qm{color:var(--bad);font-size:9.5px;font-weight:700}
+.sig .cw{color:var(--warn);font-size:9.5px;font-weight:700}
+.defect{border-left:3px solid var(--bad);background:#241315;padding:9px 13px;border-radius:0 8px 8px 0;margin:9px 0;font-size:13px}
+.opp{border-left:3px solid var(--ok);background:#0f2119;padding:9px 13px;border-radius:0 8px 8px 0;margin:9px 0;font-size:13px}
+/* picker */
+.picker{position:sticky;top:0;background:var(--pan);border:1px solid var(--acc);border-radius:14px;padding:14px 16px;margin:16px 0}
+.filters{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0}
+.filters select,.filters input,.filters button{font:12.5px var(--mono);background:var(--pan2);color:var(--tx);border:1px solid var(--ln);border-radius:8px;padding:6px 10px}
+.filters button{cursor:pointer}.filters button:hover{border-color:var(--acc)}
+.siglist{max-height:280px;overflow-y:auto;display:flex;flex-wrap:wrap;gap:6px;padding:4px 0;margin-top:6px}
+table.props{border-collapse:collapse;width:100%;font-size:12.6px;margin-top:8px}
+table.props td,table.props th{text-align:left;padding:5px 7px;border-bottom:1px solid var(--ln);vertical-align:top}
+table.props th{color:var(--dim);font-size:10.5px;text-transform:uppercase}
+/* drawer */
+dialog#d{background:var(--pan);color:var(--tx);border:1px solid var(--ln);border-radius:16px;max-width:720px;width:94vw;padding:24px 26px}
+dialog#d::backdrop{background:#000b}
+#d blockquote{border-left:3px solid var(--gold);margin:12px 0;padding:10px 15px;background:#241f10;border-radius:0 8px 8px 0;font-size:14.5px;font-style:italic}
+#d .kv{display:grid;grid-template-columns:118px 1fr;gap:5px 12px;font-size:12.6px;margin:12px 0}
+#d .kv dt{color:var(--dim)}#d .kv dd{margin:0;font-family:var(--mono);font-size:11.6px;word-break:break-word}
+#d .chain{display:flex;gap:6px;align-items:center;flex-wrap:wrap;font:11px var(--mono);margin:10px 0;color:var(--dim)}
+#d .chain b{color:var(--tx)}
+#d button.x{all:unset;cursor:pointer;float:right;font-size:20px;color:var(--dim);padding:2px 8px}
+.warnbar{border:1px solid var(--warn);background:#231d10;border-radius:12px;padding:13px 17px;margin:14px 0;font-size:14px}
+.warnbar.bad{border-color:var(--bad);background:#241315}
+.vocab{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+.vocab span{font:10.5px var(--mono);border:1px solid var(--ln);border-radius:20px;padding:2px 9px;color:var(--dim)}
+</style>
+<div class="wrap">
+<nav class="top">
+<a href="/">&larr; dashboard</a><a href="/classroom">the classroom</a><a href="/models">the models</a>
+<a href="/architecture">the architecture</a><a href="/api/blankets">live json</a>
+<span class="stamp" id="stamp">loading…</span></nav>
+
+<h1>The Blanket Builder</h1>
+<p class="lede">A Markov blanket is a boundary where something <b>crosses</b> — ions, force, a phosphoryl
+group, a ligand — and it is identified by <b>the signals that gate the crossing</b>: what opens it, what
+stops it. This workbench holds three columns: what our code <b>actually instantiates today</b>, what the
+cited biology <b>suggests</b>, and <b>your workspace</b> to build from an inventory where every signal
+carries a verbatim quote, a full APA citation, a mirrored copy, and a link to the original.</p>
+
+<div class="warnbar" id="langbar">
+<b>Language contract, binding on this page.</b> We never write <i>fact</i>. We write
+<b>confirmed observation</b>, <b>standing durable measure with observed evidence</b>,
+<b>reported measurement</b>, <b>stated mechanism</b>, <b>proposal</b>, <b>contested</b>,
+<b>not established here</b>. Source hedging is preserved, never stripped.
+<div class="vocab"><span>confirmed observation</span><span>standing durable measure</span>
+<span>reported measurement</span><span>stated mechanism</span><span>proposal</span>
+<span>contested</span><span>not established here</span><span>not measured in this estate</span></div>
+</div>
+
+<div id="invstatus"></div>
+
+<!-- ============ THE PICKER ============ -->
+<div class="picker" id="picker">
+  <h2 style="margin:0 0 2px">Signal inventory — the picker</h2>
+  <p class="say" id="pickinfo">Filter the cited inventory, then click a signal to add it to the slot
+  selected in <b>your column</b>. Click any signal's name to open its full provenance chain.</p>
+  <div class="filters">
+    <select id="fLayer"><option value="">every rung</option></select>
+    <select id="fRole"><option value="">every role</option></select>
+    <select id="fType"><option value="">every source type</option></select>
+    <select id="fStatus"><option value="">every fetch status</option></select>
+    <input id="fText" placeholder="search signal / mechanism / organism" size="30">
+    <button onclick="clearFilters()">clear</button>
+    <span class="say" id="fcount" style="margin-left:auto;align-self:center"></span>
+  </div>
+  <div class="siglist" id="siglist"></div>
+</div>
+
+<!-- ============ THE THREE COLUMNS ============ -->
+<div class="cols">
+  <div class="col asis">
+    <div class="colhead"><h2 style="margin:0">1 · As-is</h2><span class="n">what the code instantiates</span></div>
+    <p class="say">Transcribed from the estate's own blanket justification document. Not authored here.</p>
+    <div id="asis"></div>
+  </div>
+  <div class="col sugg">
+    <div class="colhead"><h2 style="margin:0">2 · Suggested</h2><span class="n">from the cited inventory</span></div>
+    <p class="say">Assembled from signals that a fetched source documents as crossing, opening or closing a
+    boundary. Every chip is clickable to its evidence.</p>
+    <div id="sugg"></div>
+  </div>
+  <div class="col mine">
+    <div class="colhead"><h2 style="margin:0">3 · Yours</h2><span class="n">editable — click a slot, then a signal</span></div>
+    <p class="say">Build your own blanket. Selected slot is highlighted; picking a signal drops it in.
+    Saves append-only to <span class="m">evidence/blanket_drafts.ndjson</span> — nothing is ever overwritten.</p>
+    <div id="mine"></div>
+    <div style="display:flex;gap:8px;flex-wrap:wrap;margin-top:12px">
+      <input id="draftName" placeholder="name this blanket" style="font:12.5px var(--mono);background:var(--pan2);color:var(--tx);border:1px solid var(--ln);border-radius:8px;padding:7px 11px;flex:1;min-width:160px">
+      <button onclick="saveDraft()" style="font:12.5px var(--mono);background:#241f10;color:var(--gold);border:1px solid var(--gold);border-radius:8px;padding:7px 14px;cursor:pointer">save draft</button>
+      <button onclick="newBlanket()" style="font:12.5px var(--mono);background:var(--pan2);color:var(--tx);border:1px solid var(--ln);border-radius:8px;padding:7px 14px;cursor:pointer">clear</button>
+    </div>
+    <div id="savemsg" class="say"></div>
+    <div id="drafts"></div>
+  </div>
+</div>
+
+<h2 style="margin-top:34px">What the partition would have to satisfy</h2>
+<div class="col" style="border-color:var(--ln)"><table class="props" id="props"></table>
+<p class="say">Transcribed verbatim from the estate's blanket justification. These are the checks a
+completed blanket must pass — and the reason column 1 cannot pass them yet.</p></div>
+
+<p class="say" style="margin-top:26px" id="foot"></p>
+</div>
+
+<dialog id="d"><button class="x" onclick="document.getElementById('d').close()">&times;</button><div id="dbody"></div></dialog>
+
+<script>
+(function(){
+"use strict";
+var DATA={asIs:null,inventory:null,drafts:[]};
+var SLOTS=[['internal','μ internal'],['sensory','s sensory'],['active','a active'],['external','ψ external']];
+var mine={name:'',slots:{internal:[],sensory:[],active:[],external:[]}};
+var selSlot='sensory';
+function esc(s){return String(s==null?'':s).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function byId(id){return document.getElementById(id);}
+
+function sigChip(s,opts){
+ opts=opts||{};
+ return '<span class="sig '+esc(s.role||'CONTEXT')+(s.quarantined?' q':'')+'" data-sig="'+esc(s.id)+'" '
+  +'title="'+esc((s.quarantined?'QUARANTINED — ':'')+(s.signalName||''))+'">'
+  +(s.quarantined?'<span class="qm">⚠</span>':'')
+  +((s.citationChainWarnings&&s.citationChainWarnings.length)?'<span class="cw">⛓</span>':'')
+  +'<span data-open="'+esc(s.id)+'">'+esc(s.signalName||s.id)+'</span>'
+  +(opts.remove?'<span class="x" data-rm="'+esc(opts.slot)+'|'+esc(s.id)+'">×</span>':'')
+  +'</span>';
+}
+function findSig(id){return ((DATA.inventory&&DATA.inventory.signals)||[]).find(function(x){return x.id===id;});}
+
+// ---------- column 1 ----------
+function renderAsIs(){
+ var A=DATA.asIs; if(!A){byId('asis').innerHTML='<p class="say">as-is data unavailable</p>';return;}
+ byId('asis').innerHTML=A.blankets.map(function(b){
+  var slots=SLOTS.map(function(sl){
+   var items=(b.slots[sl[0]]||[]);
+   var empty=(b.id==='BLANKET_A_ANALYST'&&sl[0]==='active');
+   return '<div class="slot"><div class="lbl"><span class="greek">'+esc(sl[1])+'</span></div>'
+    +'<div class="slotbox '+(empty?'empty':'filled')+'">'
+    +(empty?'':items.map(function(i){return '<span class="item">'+esc(i.text)+'</span>';}).join(''))
+    +'</div></div>';
+  }).join('');
+  return '<div class="bk"><h3>'+esc(b.name)+'</h3>'
+   +'<span class="chip '+(b.status==='INSTANTIATED_AND_SCORED'?'WARN':'DEAD')+'">'+esc(b.status)+'</span> '
+   +'<span class="say" style="display:inline">'+esc(b.statusNote)+'</span>'
+   +'<p class="say">boundary of: <b>'+esc(b.whoseBoundary)+'</b></p>'
+   +slots
+   +(b.defect?'<div class="defect"><b>Defect.</b> '+esc(b.defect)+(b.defectVerbatim?'<br><i>"'+esc(b.defectVerbatim)+'"</i>':'')+'</div>':'')
+   +(b.opportunity?'<div class="opp"><b>Opportunity.</b> '+esc(b.opportunity)+'</div>':'')
+   +'</div>';
+ }).join('');
+ byId('props').innerHTML='<tr><th>required property</th><th>status</th><th>why</th></tr>'
+  +A.requiredProperties.map(function(p){
+   var cls=p.status==='FAILS_BY_CONSTRUCTION'?'BAD':(p.status==='NOT_CHECKED'?'WARN':'ACC');
+   return '<tr><td>'+esc(p.property)+'</td><td><span class="chip '+cls+'">'+esc(p.status)+'</span></td><td class="say">'+esc(p.why)+'</td></tr>';
+  }).join('');
+ var f=A.operatorFrame;
+ byId('foot').innerHTML=f?('<b>Operator frame, recorded '+esc(f.recordedFrom)+':</b> '+esc(f.definition)
+  +'<br><b>Prediction:</b> '+esc(f.prediction)+' <span class="chip VIO">'+esc(f.predictionStatus.split(' - ')[0])+'</span> '
+  +esc(f.predictionStatus.split(' - ')[1]||'')):'';
+}
+
+// ---------- column 2 ----------
+function renderSugg(){
+ var inv=DATA.inventory;
+ if(!inv||!inv.signals||!inv.signals.length){
+  byId('sugg').innerHTML='<p class="say">The cited signal inventory has not landed yet. This column fills '
+   +'itself the moment <span class="m">signal-inventory.v1.json</span> exists — it is never hand-written.</p>';
+  return;
+ }
+ // group signals by layer; each layer becomes a suggested blanket
+ var byLayer={};
+ inv.signals.forEach(function(s){var k=s.rung||s.layer;(byLayer[k]=byLayer[k]||[]).push(s);});
+ byId('sugg').innerHTML=Object.keys(byLayer).sort().map(function(layer){
+  var sigs=byLayer[layer];
+  var role=function(r){return sigs.filter(function(s){return s.role===r;});};
+  var crosses=[...new Set(sigs.map(function(s){return s.whatCrosses;}).filter(Boolean))].join(' · ');
+  var opens=role('OPENS'),stops=role('STOPS'),senses=role('SENSES'),acts=role('ACTS');
+  var complete=(opens.length||acts.length)&&(senses.length||opens.length);
+  return '<div class="bk"><h3>'+esc(layer)+'</h3>'
+   +'<p class="say">what crosses: <b>'+esc(crosses||'not stated')+'</b> · '+sigs.length+' cited signal'+(sigs.length===1?'':'s')+'</p>'
+   +'<div class="slot"><div class="lbl">opens — the trigger</div><div class="slotbox '+(opens.length?'filled':'')+'">'
+     +(opens.length?opens.map(function(s){return sigChip(s);}).join(''):'<span class="say">none cited yet</span>')+'</div></div>'
+   +'<div class="slot"><div class="lbl">stops — the brake</div><div class="slotbox '+(stops.length?'filled':'')+'">'
+     +(stops.length?stops.map(function(s){return sigChip(s);}).join(''):'<span class="say">none cited yet</span>')+'</div></div>'
+   +'<div class="slot"><div class="lbl">senses / acts / modulates</div><div class="slotbox filled">'
+     +sigs.filter(function(s){return ['SENSES','ACTS','MODULATES','CONTEXT'].indexOf(s.role)>=0;})
+       .map(function(s){return sigChip(s);}).join('')+'</div></div>'
+   +'<p class="say">'+(complete?'<span class="chip OK">has a trigger</span>':'<span class="chip WARN">trigger not yet cited</span>')
+   +(stops.length?' <span class="chip OK">has a stop</span>':' <span class="chip WARN">stop not yet cited</span>')+'</p>'
+   +'</div>';
+ }).join('');
+}
+
+// ---------- column 3 ----------
+function renderMine(){
+ var html='<div class="bk"><h3>'+(esc(mine.name)||'your blanket')+'</h3>'
+  +SLOTS.map(function(sl){
+   var k=sl[0],items=mine.slots[k];
+   var sel=(selSlot===k);
+   return '<div class="slot"><div class="lbl"><span class="greek">'+esc(sl[1])+'</span>'
+    +'<button data-slot="'+k+'" style="font:10px var(--mono);cursor:pointer;border:1px solid '
+    +(sel?'var(--gold)':'var(--ln)')+';background:'+(sel?'#241f10':'transparent')+';color:'
+    +(sel?'var(--gold)':'var(--dim)')+';border-radius:6px;padding:1px 7px">'+(sel?'● selected':'select')+'</button></div>'
+    +'<div class="slotbox '+(items.length?'filled':(k==='active'?'empty':''))+'" style="'+(sel?'outline:1px solid var(--gold);outline-offset:2px':'')+'">'
+    +items.map(function(s){return sigChip(s,{remove:true,slot:k});}).join('')+'</div></div>';
+  }).join('');
+ // live validator
+ var v=[];
+ if(!mine.slots.active.length) v.push(['BAD','a = ∅ — this is a conditioning set, not a blanket']);
+ else v.push(['OK','active states present']);
+ if(!mine.slots.sensory.length) v.push(['WARN','no sensory channel — nothing crosses inward']);
+ if(!mine.slots.internal.length) v.push(['WARN','no internal states — nothing is being screened']);
+ if(!mine.slots.external.length) v.push(['WARN','no external states — μ ⟂ ψ | b cannot be stated']);
+ var uncited=[].concat(mine.slots.internal,mine.slots.sensory,mine.slots.active,mine.slots.external)
+   .filter(function(s){return s.fetchStatus&&s.fetchStatus!=='FETCHED_AND_READ';});
+ if(uncited.length) v.push(['WARN',uncited.length+' signal(s) are not FETCHED_AND_READ — marked, not hidden']);
+ html+='<div class="'+(mine.slots.active.length?'opp':'defect')+'"><b>Validator.</b><br>'
+  +v.map(function(x){return '<span class="chip '+x[0]+'">'+x[0]+'</span> '+x[1];}).join('<br>')+'</div></div>';
+ byId('mine').innerHTML=html;
+ byId('drafts').innerHTML=DATA.drafts.length
+  ? '<p class="say" style="margin-top:12px"><b>'+DATA.drafts.length+'</b> saved draft'+(DATA.drafts.length===1?'':'s')
+    +' · latest: '+esc((DATA.drafts[DATA.drafts.length-1].draft||{}).name||'(unnamed)')+'</p>' : '';
+}
+
+// ---------- picker ----------
+function renderPicker(){
+ var inv=DATA.inventory;
+ var list=byId('siglist');
+ if(!inv||!inv.signals||!inv.signals.length){
+  list.innerHTML='<span class="say">Inventory not yet present. When the verified inventory lands at '
+   +'<span class="m">docs/classroom-assets/signal-inventory.v1.json</span> every signal appears here, '
+   +'filterable, each carrying its quote, APA citation, local copy and original link.</span>';
+  byId('fcount').textContent='';
+  return;
+ }
+ var uniq=function(f){return [...new Set(inv.signals.map(f).filter(Boolean))].sort();};
+ [['fLayer','rung','every rung'],['fRole','role','every role'],
+  ['fType','sourceType','every source type'],['fStatus','fetchStatus','every fetch status']]
+ .forEach(function(c){
+  var el=byId(c[0]); if(el.options.length>1)return;
+  uniq(function(s){return s[c[1]];}).forEach(function(v){
+   var o=document.createElement('option');o.value=v;o.textContent=v;el.appendChild(o);});
+ });
+ var q=byId('fText').value.toLowerCase();
+ var f=inv.signals.filter(function(s){
+  if(byId('fLayer').value&&(s.rung||s.layer)!==byId('fLayer').value)return false;
+  if(byId('fRole').value&&s.role!==byId('fRole').value)return false;
+  if(byId('fType').value&&s.sourceType!==byId('fType').value)return false;
+  if(byId('fStatus').value&&s.fetchStatus!==byId('fStatus').value)return false;
+  if(q&&JSON.stringify(s).toLowerCase().indexOf(q)<0)return false;
+  return true;
+ });
+ list.innerHTML=f.map(function(s){return sigChip(s);}).join('')||'<span class="say">no signals match</span>';
+ byId('fcount').textContent=f.length+' of '+inv.signals.length+' signals';
+}
+window.clearFilters=function(){['fLayer','fRole','fType','fStatus'].forEach(function(i){byId(i).value='';});byId('fText').value='';renderPicker();};
+['fLayer','fRole','fType','fStatus'].forEach(function(i){document.addEventListener('change',function(e){if(e.target.id===i)renderPicker();});});
+document.addEventListener('input',function(e){if(e.target.id==='fText')renderPicker();if(e.target.id==='draftName')mine.name=e.target.value;});
+
+// ---------- the provenance drawer: claim -> quote -> local copy -> original ----------
+function openSig(id){
+ var s=findSig(id); if(!s)return;
+ var b=byId('dbody');
+ // HONESTY FIX: when a row has no localCopy we must NOT assert a reason we never checked.
+ // Mirroring has not yet been attempted for ANY row; say exactly that.
+ var local=s.localCopy?('<a href="/sources/'+esc(s.localCopy.split('/').pop())+'" target="_blank">local mirrored copy</a>')
+   :('<span class="say" style="color:var(--bad)">NOT MIRRORED — mirroring has not yet been attempted for this row. '
+     +'The licence field above is what the page stated; whether it permits mirroring has not been ruled on.</span>');
+ var orig=s.doi?('<a href="https://doi.org/'+esc(s.doi)+'" target="_blank">https://doi.org/'+esc(s.doi)+'</a>')
+   :(s.urlFetched?('<a href="'+esc(s.urlFetched)+'" target="_blank">'+esc(s.urlFetched)+'</a>'):'<span class="say">no stable link recorded</span>');
+ b.innerHTML='<h3 style="margin:0 0 2px">'+esc(s.signalName)+'</h3>'
+  +'<p class="say"><span class="chip '+(s.role==='STOPS'?'BAD':(s.role==='OPENS'?'OK':'ACC'))+'">'+esc(s.role)+'</span> '
+  +'<span class="chip '+(s.fetchStatus==='FETCHED_AND_READ'?'OK':'WARN')+'">'+esc(s.fetchStatus)+'</span> '
+  +'<span class="chip '+(s.sourceType==='FRINGE_OR_CONTESTED'?'VIO':'ACC')+'">'+esc(s.sourceType)+'</span></p>'
+  +'<div class="chain"><b>CLAIM</b> ▶ <b>VERBATIM QUOTE</b> ▶ <b>LOCAL COPY</b> ▶ <b>ORIGINAL</b> '
+  +'<span>— click through and check us</span></div>'
+  +'<p><b>What crosses:</b> '+esc(s.whatCrosses)+'<br><b>Rung (grouping):</b> '+esc(s.rung||'—')+'<br><b>Layer, as the researcher wrote it:</b> '+esc(s.originalLayerText||s.layer)
+  +'<br><b>Stated mechanism:</b> '+esc(s.mechanismStated||'—')
+  +(s.quantityIfStated?'<br><b>Reported measurement:</b> <span class="m">'+esc(s.quantityIfStated)+'</span>':'')
+  +(s.organism?'<br><b>Organism:</b> <i>'+esc(s.organism)+'</i>':'')+'</p>'
+  +'<blockquote>“'+esc(s.verbatimQuote)+'”'
+  +'<div class="say" style="font-style:normal">— '+esc(s.quoteLocator||'locator not recorded')+'</div></blockquote>'
+  +'<dl class="kv">'
+  +'<dt>APA 7</dt><dd style="font-family:inherit;font-size:12.6px">'+esc(s.apaReference)+'</dd>'
+  +'<dt>DOI</dt><dd>'+(s.doi?esc(s.doi):'<span class="say">not stated on the fetched page</span>')+'</dd>'
+  +'<dt>fetched from</dt><dd>'+esc(s.urlFetched)+'</dd>'
+  +'<dt>retrieved</dt><dd>'+esc(s.retrievedOn||'2026-08-20')+'</dd>'
+  +'<dt>licence</dt><dd>'+esc(s.openAccess||s.licence||'UNKNOWN')+'</dd>'
+  +'<dt>local copy</dt><dd style="font-family:inherit">'+local+'</dd>'
+  +'<dt>original</dt><dd style="font-family:inherit">'+orig+'</dd>'
+  +'</dl>'
+  +(s.confidenceNote?'<div class="warnbar" style="margin:10px 0"><b>Standing / hedging, preserved:</b> '+esc(s.confidenceNote)+'</div>':'')
+  +(s.quarantined?'<div class="warnbar bad" style="margin:10px 0"><b>⚠ QUARANTINED — not shown as standing.</b>'
+    +'<ul style="margin:8px 0 0 18px;padding:0">'+(s.quarantineCauses||[]).map(function(c){return '<li>'+esc(c)+'</li>';}).join('')+'</ul>'
+    +'<div class="say" style="margin-top:6px">'+esc(s.quarantineReason||'')+'</div>'
+    +(s.verificationDetail?'<br><br><b>What the verifier found on re-fetch:</b> '+esc(s.verificationDetail):'')+'</div>':'')
+  +((s.citationChainWarnings||[]).map(function(c){return '<div class="warnbar bad" style="margin:10px 0">'
+    +'<b>⛓ APPARENT CORROBORATION THAT IS ONE UNREAD PAPER.</b><br>'
+    +'<b>Looks supported by:</b> '+esc(c.apparentCorroboration)+'<br>'
+    +'<b>Actually traces to:</b> '+esc(c.actualSource)+'<br>'
+    +'<b>Problem:</b> '+esc(c.problem)+'</div>';}).join(''))
+  +(s.independenceWarning?'<div class="warnbar bad" style="margin:10px 0"><b>⛓ INDEPENDENCE OVERSTATED.</b> '+esc(s.independenceWarning)+'</div>':'')
+  +(s.verificationNote?'<div class="warnbar" style="margin:10px 0"><b>Our defect, not the source's:</b> '+esc(s.verificationNote)+'</div>':'')
+  +'<dl class="kv"><dt>verification</dt><dd>'+esc(s.verification||'NOT_SPOT_CHECKED')+'</dd>'
+  +'<dt>quote fidelity</dt><dd>'+esc(s.quoteFidelity||'—')
+  +(s.quoteFidelity==='RAW_BYTE_EXACT_SUBSTRING_MATCH'?' <span class="chip OK">strongest</span>':'')+'</dd>'
+  +'<dt>domain</dt><dd>'+esc(s.domain||'—')+'</dd></dl>'
+  +'<p class="say">Nothing here was written from memory. If this source was not fetched and read, its '
+  +'status says so above.</p>';
+ byId('d').showModal();
+}
+byId('d').addEventListener('click',function(e){if(e.target===this)this.close();});
+
+// ---------- interactions ----------
+document.addEventListener('click',function(e){
+ var t=e.target;
+ var rm=t.getAttribute&&t.getAttribute('data-rm');
+ if(rm){var p=rm.split('|');mine.slots[p[0]]=mine.slots[p[0]].filter(function(s){return s.id!==p[1];});renderMine();return;}
+ var slot=t.getAttribute&&t.getAttribute('data-slot');
+ if(slot){selSlot=slot;renderMine();return;}
+ var open=t.getAttribute&&t.getAttribute('data-open');
+ if(open){openSig(open);return;}
+ var chip=t.closest&&t.closest('[data-sig]');
+ if(chip&&byId('picker').contains(chip)){
+  var s=findSig(chip.getAttribute('data-sig'));
+  if(s&&!mine.slots[selSlot].some(function(x){return x.id===s.id;})){mine.slots[selSlot].push(s);renderMine();}
+ }
+});
+window.newBlanket=function(){mine={name:'',slots:{internal:[],sensory:[],active:[],external:[]}};byId('draftName').value='';renderMine();};
+window.saveDraft=function(){
+ fetch('/api/blanket-draft',{method:'POST',headers:{'content-type':'application/json'},
+  body:JSON.stringify({name:mine.name||'(unnamed)',slots:Object.keys(mine.slots).reduce(function(a,k){
+   a[k]=mine.slots[k].map(function(s){return {id:s.id,signalName:s.signalName,role:s.role,apaReference:s.apaReference};});return a;},{})})})
+ .then(function(r){return r.json();}).then(function(j){
+  byId('savemsg').innerHTML=j.ok?'<span class="chip OK">SAVED</span> appended to evidence/blanket_drafts.ndjson · '+j.count+' total':'<span class="chip BAD">SAVE FAILED</span> '+esc(j.error||'');
+  load();
+ }).catch(function(e){byId('savemsg').innerHTML='<span class="chip BAD">SAVE FAILED</span> '+esc(e);});
+};
+
+// ---------- load ----------
+function load(){
+ fetch('/api/blankets?t='+Date.now()).then(function(r){return r.json();}).then(function(d){
+  DATA=d;
+  byId('stamp').textContent='live · '+new Date().toLocaleTimeString();
+  var inv=d.inventory;
+  var R=inv&&inv.READ_THIS_FIRST;
+  byId('invstatus').innerHTML=inv&&inv.signals&&inv.signals.length
+   ? '<div class="warnbar" style="border-color:var(--ok);background:#0f2119;margin-bottom:8px">'
+     +'<b>Signal inventory loaded:</b> '+inv.signals.length+' cited signals · '
+     +inv.verifiedCount+' quote-strings independently re-fetched and checked · '
+     +'<span class="chip BAD">'+inv.quarantined+' quarantined</span> '
+     +'<button onclick="document.getElementById(\'rtf\').open=!document.getElementById(\'rtf\').open" '
+     +'style="font:11px var(--mono);background:transparent;color:var(--acc);border:1px solid var(--ln);border-radius:6px;padding:2px 9px;cursor:pointer;margin-left:6px">read the audit first ▾</button></div>'
+     +(R?('<details id="rtf" open class="warnbar" style="border-color:var(--warn)"><summary style="cursor:pointer;font-weight:600">The audit, adverse results first — read before using any row</summary>'
+       +'<p><span class="chip BAD">THE REAL FAILURE MODE</span> <b>Epistemic drift, and it is quieter than fabrication.</b> '+esc(R.theRealFailureMode)+'</p>'
+       +'<p><span class="chip BAD">THE TRAP</span> '+esc(R.theTrapForDownstreamReaders)+'</p>'
+       +'<p><span class="chip WARN">QUOTE FIDELITY</span> '+esc(R.quoteFidelityCaveat)+'</p>'
+       +'<p><span class="chip WARN">AUDIT COVERAGE</span> '+esc(R.auditCoverage)+'</p>'
+       +'<p><span class="chip OK">WHAT WENT RIGHT</span> '+esc(R.whatWentRight)+'</p>'
+       +'<p><span class="chip OK">LANGUAGE CONTRACT</span> '+esc(R.languageContract)+'</p>'
+       +(inv.unresolvedGovernanceConflict?('<p><span class="chip BAD">UNRESOLVED</span> <b>'+esc(inv.unresolvedGovernanceConflict.source)+'</b> — '
+         +esc(inv.unresolvedGovernanceConflict.conflict)+' <i>'+esc(inv.unresolvedGovernanceConflict.whyItMatters)+'</i> '
+         +esc(inv.unresolvedGovernanceConflict.status)+'</p>'):'')
+       +(inv.publishedPaperDefect?('<p><span class="chip WARN">DEFECT IN A PUBLISHED PAPER</span> <b>'+esc(inv.publishedPaperDefect.source)+'</b> — '
+         +esc(inv.publishedPaperDefect.finding)+' '+esc(inv.publishedPaperDefect.ruling)+'</p>'):'')
+       +'</details>'):'')
+   : '<div class="warnbar bad"><b>The cited inventory has not landed yet.</b> Columns 2 and 3 fill themselves '
+     +'from <span class="m">docs/classroom-assets/signal-inventory.v1.json</span> the moment it exists. '
+     +'It is being built by fetch-and-verify — nothing enters it from memory, and a failed fetch is '
+     +'recorded as a failed fetch rather than filled in.</div>';
+  renderAsIs();renderSugg();renderMine();renderPicker();
+ }).catch(function(e){byId('stamp').textContent='LIVE FETCH FAILED';});
+}
+load();
+})();
+</script>

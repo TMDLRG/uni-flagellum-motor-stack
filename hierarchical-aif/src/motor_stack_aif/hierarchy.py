@@ -1,4 +1,4 @@
-"""Lmotor-5..Lmotor-2 — the constrained hierarchy actually built.
+"""Lmotor-5..Lmotor-1, with Lmotor-2 NOT instantiated — the constrained hierarchy actually built.
 
 DELIBERATELY MINIMAL. The identifiability analysis says the full stack (population prior +
 per-motor latents + per-event hidden kinetic state + policies) is not identifiable at 793 training
