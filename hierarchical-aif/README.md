@@ -46,7 +46,7 @@ reports/     gate reports, run reports, FLOW-JOURNAL.jsonl, claim-guard reports,
 results/     run outputs + logs + hashes (motor_stack_aif/)
 scripts/     run harnesses and launchers
 src/         motor_stack_aif package
-tests/       pytest suite (currently 71 passed, 1 strict-xfail)
+tests/       pytest suite (577 collected: 573 passed, 3 skipped, 1 strict-xfail; measured 2026-08-19)
 ```
 
 ## Running the suite
@@ -79,6 +79,7 @@ must not be edited. An `XPASS` there means the frozen evidence was mutated — a
 
 ## What this program has NOT established
 
-No P-level has been raised. The F-side model is **built but not yet scored**. Full biological
-parity is not a current status — it is the target world defined by the receipts in
+No P-level has been raised. The F-side model is **built and scored — `NOT_ESTABLISHED`** against
+the current-design control and the adversarial baselines (see `docs/H-AIF-GATES.md` G7). Full
+biological parity is not a current status — it is the target world defined by the receipts in
 `docs/BIOLOGICAL-PARITY-RECEIPT-MAP.md`.

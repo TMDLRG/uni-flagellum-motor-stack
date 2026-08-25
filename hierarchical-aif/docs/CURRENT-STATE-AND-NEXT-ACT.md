@@ -30,7 +30,7 @@ git log -1 --format='%H %s'                       # expect 84ddc76 … "D12 succ
 git status --short                                # expect CLEAN (nothing tracked pending)
 diff -q hierarchical-aif/reports/frozen-evidence-baseline.sha256 \
         <(find audits/phase-c audits/phase-d -type f -print0 | sort -z | xargs -0 sha256sum)  # IDENTICAL
-python -m pytest hierarchical-aif/tests/motor_stack_aif -q                 # 533 passed, 3 skipped, 1 xfailed
+python -m pytest hierarchical-aif/tests/motor_stack_aif -q                 # 573 passed, 3 skipped, 1 xfailed (577 collected; measured 2026-08-19)
 python hierarchical-aif/src/motor_stack_aif/claim_guard.py hierarchical-aif/reports hierarchical-aif/docs hierarchical-aif/ledgers hierarchical-aif/protocols hierarchical-aif/scripts hierarchical-aif/results   # 0 violations
 python hierarchical-aif/src/motor_stack_aif/numeric_provenance_guard.py hierarchical-aif/reports hierarchical-aif/docs hierarchical-aif/ledgers hierarchical-aif/protocols   # 0 failures
 python hierarchical-aif/src/motor_stack_aif/d5_distribution_guard.py hierarchical-aif/reports hierarchical-aif/protocols hierarchical-aif/ledgers hierarchical-aif/docs   # 0 findings (D12 distribution guard)

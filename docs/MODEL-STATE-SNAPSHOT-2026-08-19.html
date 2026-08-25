@@ -1,0 +1,305 @@
+<title>UNI-FLAGELLUM Model State</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  :root{
+    --bg:#f6f7f9; --panel:#ffffff; --ink:#12151b; --dim:#5a6472; --line:#e2e6ec;
+    --accent:#3b6ea5; --mono:'SFMono-Regular',ui-monospace,Consolas,'Liberation Mono',monospace;
+    --pass:#1f9d55; --fail:#d64545; --amber:#c77d16; --ext:#5568a8; --src:#8257c4; --pend:#8a94a3;
+    --passbg:#e6f4ec; --failbg:#fbe9e9; --amberbg:#fbf1e0; --extbg:#e9ecf7; --srcbg:#efe9fa; --pendbg:#eef0f3;
+  }
+  @media (prefers-color-scheme: dark){
+    :root{
+      --bg:#0e1116; --panel:#161b22; --ink:#e6edf3; --dim:#9aa5b1; --line:#26303b;
+      --accent:#6aa3d8;
+      --pass:#4bd18a; --fail:#ff6b6b; --amber:#e0a83e; --ext:#8ba0e0; --src:#b48cf0; --pend:#8a94a3;
+      --passbg:#12271c; --failbg:#2a1516; --amberbg:#2a2110; --extbg:#161b2e; --srcbg:#1e1730; --pendbg:#1a1f26;
+    }
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.55 -apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1080px;margin:0 auto;padding:28px 20px 80px}
+  h1{font-size:26px;margin:0 0 2px;letter-spacing:-.02em}
+  h2{font-size:19px;margin:34px 0 12px;letter-spacing:-.01em;border-bottom:2px solid var(--line);padding-bottom:6px}
+  h3{font-size:15px;margin:16px 0 6px}
+  p{margin:8px 0}
+  .sub{color:var(--dim);font-size:13.5px}
+  code,.m{font-family:var(--mono);font-size:.9em}
+  .kicker{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--accent)}
+  .panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:16px 18px;margin:12px 0}
+  .headline{border-left:4px solid var(--fail);background:var(--failbg)}
+  .grid{display:grid;gap:12px}
+  .g3{grid-template-columns:repeat(3,1fr)}
+  .g2{grid-template-columns:repeat(2,1fr)}
+  @media(max-width:820px){.g3,.g2{grid-template-columns:1fr}}
+  .chip{display:inline-block;font-family:var(--mono);font-size:11.5px;font-weight:600;padding:2px 8px;border-radius:20px;white-space:nowrap;vertical-align:middle}
+  .PASS{color:var(--pass);background:var(--passbg)}
+  .FAIL{color:var(--fail);background:var(--failbg)}
+  .NE{color:var(--amber);background:var(--amberbg)}
+  .EXT{color:var(--ext);background:var(--extbg)}
+  .SRC{color:var(--src);background:var(--srcbg)}
+  .PEND{color:var(--pend);background:var(--pendbg)}
+  .stackhead{display:flex;align-items:baseline;justify-content:space-between;gap:10px}
+  .stackhead b{font-size:16px}
+  table{border-collapse:collapse;width:100%;font-size:13px;margin:4px 0}
+  th,td{text-align:left;padding:6px 8px;border-bottom:1px solid var(--line);vertical-align:top}
+  th{color:var(--dim);font-weight:600;font-size:11.5px;text-transform:uppercase;letter-spacing:.04em}
+  td.n{font-family:var(--mono);white-space:nowrap}
+  .win{color:var(--fail);font-weight:700}
+  .ladder{display:flex;flex-direction:column-reverse;gap:6px;margin-top:8px}
+  .rung{display:grid;grid-template-columns:56px 1fr auto;gap:10px;align-items:center;padding:8px 12px;border:1px solid var(--line);border-radius:8px;background:var(--panel)}
+  .rung .lv{font-family:var(--mono);font-weight:700;font-size:15px}
+  .rung small{color:var(--dim)}
+  .wall{border:1px dashed var(--fail);border-radius:8px;padding:6px 12px;text-align:center;color:var(--fail);font-family:var(--mono);font-size:12px;letter-spacing:.06em;margin:6px 0}
+  .gatewrap{display:flex;flex-wrap:wrap;gap:6px;margin-top:6px}
+  .gate{font-family:var(--mono);font-size:11.5px;padding:3px 7px;border-radius:6px;border:1px solid var(--line)}
+  ul{margin:6px 0 6px 0;padding-left:20px}
+  li{margin:4px 0}
+  .adverse li::marker{color:var(--fail)}
+  .note{font-size:12.5px;color:var(--dim)}
+  .prov{font-family:var(--mono);font-size:11px;color:var(--dim)}
+  .decision{border-left:4px solid var(--accent)}
+  .yard li::marker{color:var(--accent)}
+  a{color:var(--accent)}
+  .tag{font-family:var(--mono);font-size:11px;color:var(--dim);border:1px solid var(--line);border-radius:5px;padding:1px 6px}
+</style>
+
+<div class="wrap">
+
+  <div class="kicker">UNI-FLAGELLUM · point-in-time snapshot</div>
+  <h1>Where the model actually stands</h1>
+  <p class="sub">Measured 2026-08-19 against the committed artifacts, not the prose. Every figure below carries its source file. This page is a <b>snapshot</b> — it will age; the re-measure commands are at the foot. Overall machine verdict: <span class="chip FAIL">PARTIAL_PARITY_ONLY</span> <span class="prov">science-gates-report.json:5</span></p>
+
+  <div class="panel headline">
+    <div class="kicker" style="color:var(--fail)">Adverse first</div>
+    <p style="margin-top:4px"><b>None of the three model stacks has earned biological parity, and the deepest gap is one no code can close.</b></p>
+    <ul class="adverse">
+      <li>A plain <b>2-parameter lognormal out-predicts every mechanistic flagellar model</b> on held-out dwell data. The simple curve beats our mechanism. <span class="prov">M2 3.4093 vs F-side 3.4327 vs M3-control 3.4343 · F-SIDE-MOTOR-STACK-SCORING-REPORT.md:70-78</span></li>
+      <li>The <b>Elixir colony's graduation gate cannot run</b> — its runner still raises <code>@scaffold</code>. <span class="prov">UNI.Minecraft/runs/pureworld_qa_gate.exs:28,39-40</span></li>
+      <li>The <b>JS active-inference agent has no biological score at all</b> — only algebraic-correctness and determinism receipts. <span class="prov">G10 NOT_ESTABLISHED · science-gates-report.json:464-483</span></li>
+      <li><b>"A bacterium implements active inference" is unreachable by software.</b> Exact Bayes inside a program is not evidence a motor does it; only a discriminating wet-lab intervention could establish it, and there is none. <span class="prov">G10 / X12</span></li>
+      <li>One doc still lies about a number: <code>SCIENCE-GATES.md:58</code> says G04 has 76/16 censored intervals; the artifact says <b>43/11</b> (known, unrepaired; may be an eligible-state subset — verify before "fixing"). <span class="prov">science-gates-report.json:248-249</span></li>
+    </ul>
+  </div>
+
+  <h2>1 · The behaviour we must replicate <span class="sub" style="font-weight:400">— the yardstick</span></h2>
+  <p class="sub">From the Wikipedia flagellum article and the model's own primary anchors (Antani 2021, Wadhwa 2022, Lo 2018, Mattingly &amp; Tu 2026). Our model is an explicit <b>teaching reduction</b> of this, not a molecular replica. <span class="prov">SCIENCE.md:24-42</span></p>
+  <div class="grid g3">
+    <div class="panel">
+      <h3>Machine</h3>
+      <ul class="yard">
+        <li>Stator <span class="m">MotA₅:MotB₂</span>, <b>11–16 units</b>, proton-driven; more recruited under load</li>
+        <li>Rotor C-ring switch <span class="m">FliG/FliM/FliN</span></li>
+        <li>Rings L·P·MS · hook · flagellin filament (~20 nm, 11 protofilaments)</li>
+        <li>Stator↔rotor gear ratio <b>≈6.2</b></li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h3>Physics</h3>
+      <ul class="yard">
+        <li>Energy = <b>proton-motive force</b> (Na⁺ in <i>Vibrio</i>)</li>
+        <li>Loaded <b>200–1000 rpm</b>; unloaded 6,000–100,000 rpm</li>
+        <li>Stall torque ∝ stators × PMF; speed falls with load</li>
+        <li>Low-Reynolds regime</li>
+      </ul>
+    </div>
+    <div class="panel">
+      <h3>Behaviour</h3>
+      <ul class="yard">
+        <li><b>CCW = run</b> (bundle, forward); <b>CW = tumble</b> (unbundle)</li>
+        <li><b>CheY-P → C-ring</b> biases CW → tumbling</li>
+        <li>Run-and-tumble = biased random walk = chemotaxis</li>
+        <li>Adaptation via receptor methylation</li>
+      </ul>
+    </div>
+  </div>
+  <p class="note"><b>The three species</b> the truth contract keeps separate: <i>E. coli</i> (behavioural — run/tumble, PMF), <i>Salmonella</i> and <i>Bacillus</i> (structural — switch complex, protofilaments). They are <b>evidence sources</b>, never one measured specimen. <span class="prov">CLAUDE.md:207-209 · lib/walkthrough.js:28,43,58</span></p>
+
+  <h2>1·5 · Measured this run <span class="sub" style="font-weight:400">— 2026-08-19, actually executed on this machine</span></h2>
+  <div class="grid g3">
+    <div class="panel">
+      <div class="stackhead"><b>① JS</b><span class="chip PASS">21 / 21</span></div>
+      <p class="note m">node v25.0.0 · node --test</p>
+      <p>All invariants hold: VFE identity, log-odds identity, Markov boundary, determinism. A passing test confirms the adverse held-out comparison is <b>surfaced, not suppressed</b>.</p>
+    </div>
+    <div class="panel">
+      <div class="stackhead"><b>② Python</b><span class="chip PASS">573 / 577</span></div>
+      <p class="note m">pytest 8.3.3 · numpy 2.3.5 · scipy 1.16.3</p>
+      <p><b>Settles the count:</b> the docs said 71 and 533 — <b>both wrong</b>; measured is 577 collected / 573 pass / 3 skip / 1 xfail. D5 firewall respected; the lognormal-beats-mixture result reproduces green.</p>
+    </div>
+    <div class="panel" style="border-color:var(--fail)">
+      <div class="stackhead"><b>③ Elixir</b><span class="chip FAIL">2 fail</span></div>
+      <p class="note m">1.19.5 / OTP 28 · mix test · 1049 tests</p>
+      <p>Engine passes; the <b>2 reds are stale hardcoded ledger tallies</b> (tests expect PASS 93/PARTIAL 4, live ledger is 94/5) — an operator-gated pin, not an engine bug. Benchmark: all six baselines <b>incl. Random survive to 300 ticks</b> — no survival separation yet. <span class="prov">ledger_schema_conformance_test.exs:145 · verdict_partial_names_subclaim_test.exs:101</span></p>
+    </div>
+  </div>
+
+  <h2>2 · The three model stacks</h2>
+  <div class="grid g3">
+
+    <div class="panel">
+      <div class="stackhead"><b>① JS agent</b><span class="chip SRC">correctness only</span></div>
+      <p class="note m">lib/uni-motor.js · runs in the browser lab</p>
+      <p>World → Markov boundary → <b>discrete active-inference agent</b>. Hidden gradient state <span class="m">{falling, flat, rising}</span>; exact categorical posterior; VFE = surprise (KL≡0 by construction); EFE policy over <b>RUN / TUMBLE</b>, softmax γ=4.</p>
+      <p class="note"><b>Runs:</b> tick-by-tick in the UI. <b>Gated by:</b> algebraic invariants + cross-engine determinism only.</p>
+      <p class="note"><b>Adverse:</b> never scored against biological data — un-gated against data by design. EFE uses a non-canonical form that double-weights ambiguity (code &amp; doc agree; no oracle checks it). <span class="prov">uni-motor.js:328</span></p>
+    </div>
+
+    <div class="panel">
+      <div class="stackhead"><b>② Python competition</b><span class="chip NE">NOT_ESTABLISHED</span></div>
+      <p class="note m">hierarchical-aif/ · fitted &amp; scored on Wadhwa-2022</p>
+      <p>The one place models are <b>literally run and scored</b> on real held-out <i>E. coli</i> dwell data: 80 train / 19 holdout motors, motor-equal NLPD, paired motor-cluster bootstrap. <span class="prov">compare.py · seed 20260717</span></p>
+      <p class="note"><b>Candidate</b> F_MOTOR_STACK · <b>control</b> M3 two-timescale mixture · <b>adversaries</b> M0/M1/M2/M5/M8.</p>
+      <p class="note"><b>Adverse:</b> lognormal (adversary) wins; F-side reproduces the incumbent M7 to <span class="m">2.5e-7</span> nats — a re-derivation, not a new model; buys ~nothing over its own τ→0 Weibull limit. <span class="prov">REPORT.md:20-32,113-121</span></p>
+    </div>
+
+    <div class="panel">
+      <div class="stackhead"><b>③ Elixir colony</b><span class="chip PEND">@scaffold</span></div>
+      <p class="note m">sibling repo UNI.Minecraft · SP.Sim + SP.Runtime</p>
+      <p>Pure open-ended world + a live Minecraft colony that breeds brains on death. The <b>pure benchmark runs offline today</b> (<span class="m">mix test</span>, seeds 101-106). A trained lineage exists on disk. <span class="prov">runs/colony/kin-8.bin</span></p>
+      <p class="note"><b>Graduation gate</b> <span class="m">forage-pureworld-graduation</span>: <span class="chip PEND">PENDING</span> — the twin-lineage harness (Twin A trained vs Twin B untrained), the N≥8 seed sweep, and the receipt writer are <b>unbuilt</b>. <span class="prov">gates.ndjson:5</span></p>
+      <p class="note"><b>Adverse:</b> nearest predecessor <span class="m">nursery-fenced-red-stocked</span> <span class="chip FAIL">FAIL</span> (a bot starved — geometry, not policy). Building the harness is a <b>BUILD, operator-gated</b>, needs live MC + ~64 colony-hours off-broadcast.</p>
+    </div>
+  </div>
+
+  <h2>3 · The parity ladder — how far up the evidence licenses</h2>
+  <p class="sub">P8 is conjunctive: one non-PASS required rung ⇒ <span class="m">FULL_PARITY = false</span>. The ladder is defined generically in CLAUDE.md; per-level status from the H-AIF receipt map. <span class="prov">BIOLOGICAL-PARITY-RECEIPT-MAP.md · HIERARCHICAL-AIF-GATE-TO-EXISTING-P-LADDER-MAP.md</span></p>
+  <div class="ladder">
+    <div class="rung"><span class="lv">P0</span><span>Computational integrity <small>— frozen SHA-256 baseline; all audit hashes reproduce</small></span><span class="chip PASS">HOLDS</span></div>
+    <div class="rung"><span class="lv">P1</span><span>Equation / implementation <small>— first-passage math PASS; but G03 &amp; G05 FAIL live inside</small></span><span class="chip PASS">HOLDS*</span></div>
+    <div class="rung"><span class="lv">P2</span><span>Observational <small>— 11 studies, ≥409 motors, source/aggregate level; raw MAT tier absent</small></span><span class="chip PASS">LIMITED</span></div>
+    <div class="rung"><span class="lv">P3</span><span>Held-out predictive <small>— performed &amp; scored, but the mechanism LOSES to a lognormal</small></span><span class="chip NE">ACTIVITY ONLY</span></div>
+    <div class="wall">▲ the software wall — nothing below this line can be crossed by code in this repo ▲</div>
+    <div class="rung" style="border-color:var(--fail)"><span class="lv">P4</span><span><b>Transfer</b> <small>— 0 commensurate cross-lab transfer tests · FIRST UNSATISFIED RUNG</small></span><span class="chip NE">NOT_ESTABLISHED</span></div>
+    <div class="rung"><span class="lv">P5</span><span>Intervention <small>— no discriminating intervention; "does a bacterium infer?" unanswerable here</small></span><span class="chip NE">NOT_ESTABLISHED</span></div>
+    <div class="rung"><span class="lv">P6</span><span>Structural / mechanistic <small>— scoped; lattice L=13 is not resolved molecular geometry (X11 FAIL)</small></span><span class="chip FAIL">SCOPED / FAIL</span></div>
+    <div class="rung"><span class="lv">P7</span><span>Independent replication <small>— independent laboratories: 0</small></span><span class="chip EXT">BLOCKED_EXTERNAL</span></div>
+    <div class="rung"><span class="lv">P8</span><span>Full verdict <small>— conjunction of all required rungs</small></span><span class="chip FAIL">FALSE</span></div>
+  </div>
+  <p class="note"><b>Honesty flag:</b> the docs call P4 the first unsatisfied rung by treating P3 as "satisfied-as-activity". Under a strict "first rung without a PASS" reading it is <b>P3</b>, because the held-out mechanistic-advantage gate G06 FAILs. Both are stated so you can rule. <span class="prov">G06 advantage 0.0583 nat/interval, 95% CI [-0.0158, 0.1326] crosses 0</span></p>
+
+  <h2>4 · The gates, as the artifacts report them</h2>
+  <div class="grid g2">
+    <div class="panel">
+      <h3>Science gates G00–G13 <span class="sub" style="font-weight:400">— single-study</span></h3>
+      <p class="note">PASS 4 · FAIL 3 · SOURCE_ONLY 1 · NOT_ESTABLISHED 1 · BLOCKED_EXTERNAL 5 <span class="prov">science-gates-report.json:5-19</span></p>
+      <div class="gatewrap">
+        <span class="gate PASS">G00 source</span><span class="gate PASS">G01 boundary</span><span class="gate PASS">G02 math</span>
+        <span class="gate FAIL">G03 artifact</span><span class="gate PASS">G04 censored</span><span class="gate FAIL">G05 recovery</span>
+        <span class="gate FAIL">G06 held-out</span><span class="gate SRC">G07 H-state</span><span class="gate EXT">G08 load/torque</span>
+        <span class="gate EXT">G09 switch</span><span class="gate NE">G10 AIF identity</span><span class="gate EXT">G11 live</span>
+        <span class="gate EXT">G12 replication</span><span class="gate EXT">G13 physical</span>
+      </div>
+    </div>
+    <div class="panel">
+      <h3>Cross-study gates X01–X16</h3>
+      <p class="note">PASS 8 · FAIL 3 · NOT_ESTABLISHED 2 · BLOCKED_EXTERNAL 3 <span class="prov">cross-study-parity-report.json:776-789</span></p>
+      <div class="gatewrap">
+        <span class="gate PASS">X01</span><span class="gate PASS">X02</span><span class="gate PASS">X03</span><span class="gate PASS">X04</span>
+        <span class="gate PASS">X05</span><span class="gate FAIL">X06 lattice</span><span class="gate PASS">X07</span><span class="gate PASS">X08</span>
+        <span class="gate PASS">X09</span><span class="gate NE">X10 transfer</span><span class="gate FAIL">X11 structural</span><span class="gate NE">X12 AIF</span>
+        <span class="gate EXT">X13 live</span><span class="gate EXT">X14 wet-lab</span><span class="gate EXT">X15 print</span><span class="gate FAIL">X16 full</span>
+      </div>
+    </div>
+  </div>
+
+  <h2>5 · The held-out leaderboard <span class="sub" style="font-weight:400">— where the mechanism actually loses</span></h2>
+  <p class="sub">Motor-equal NLPD on 19 holdout motors (lower = better). The experimental unit is the motor; every contrast interval crosses zero, so nothing is "established" and nothing is called "equivalent". <span class="prov">F-SIDE-MOTOR-STACK-SCORING-REPORT.md:70-78</span></p>
+  <div class="panel" style="padding-top:6px">
+  <table>
+    <tr><th>Rank</th><th>Model</th><th>Role</th><th>NLPD</th><th></th></tr>
+    <tr><td class="n">1</td><td>M2 lognormal</td><td>adversary</td><td class="n win">3.4093</td><td class="win">← the simple curve wins</td></tr>
+    <tr><td class="n">2</td><td>M8 empirical KDE</td><td>adversary (no mechanism)</td><td class="n">3.4225</td><td></td></tr>
+    <tr><td class="n">3</td><td>F_MOTOR_STACK</td><td><b>candidate</b></td><td class="n">3.4327</td><td>= re-derivation of M7 (2.5e-7 nats)</td></tr>
+    <tr><td class="n">4</td><td>M1 Weibull</td><td>adversary (τ→0 limit)</td><td class="n">3.4333</td><td>candidate buys ~nothing over this</td></tr>
+    <tr><td class="n">5</td><td>M3 two-timescale mixture</td><td><b>control / "current design"</b></td><td class="n">3.4343</td><td></td></tr>
+    <tr><td class="n">6</td><td>M5 gamma</td><td>adversary</td><td class="n">3.4637</td><td></td></tr>
+    <tr><td class="n">7</td><td>M0 exponential</td><td>memoryless null</td><td class="n">3.5480</td><td>only model the candidate clearly beats</td></tr>
+  </table>
+  </div>
+
+  <h2>6 · "The three" — genuinely underdetermined</h2>
+  <div class="panel decision">
+    <p>The repo fixes <b>no canonical "the three."</b> The reading where every verb of your phrase lands — "model <b>the three</b> fully / run <b>them</b> / work <b>the gates</b>" — is the <b>three runnable stacks above</b> (JS / Python / Elixir). That's my working assumption, at <b>low confidence</b>. The live runnable set is the same work under the strongest alternatives, so I've started running all three regardless.</p>
+    <table>
+      <tr><th>Candidate meaning</th><th>Verdict</th></tr>
+      <tr><td>Three stacks — JS / Python / Elixir</td><td>best fit for "run them"; <b>unattested</b> as a named trio</td></tr>
+      <tr><td>Three roles — target / control / adversary</td><td>a real framing, but there are 5 adversaries and you can't "run" a target hypothesis</td></tr>
+      <tr><td>Three duration models — mixture / lognormal / null</td><td>the repo's only literal "three models" is M0/M1/M2 (exp/Weibull/lognormal) — excludes the mixture</td></tr>
+      <tr><td>Three species — <i>E. coli</i> / <i>Salmonella</i> / <i>Bacillus</i></td><td>the stable triad, but evidence sources, not runnable models</td></tr>
+      <tr><td>Three fleet bodies</td><td><span class="chip FAIL">falsified</span> — the fleet is four (Door/Control-Plane/Gaia/HUD)</td></tr>
+    </table>
+    <p class="note"><b>This one is yours:</b> which "three" did you mean — and if it's the stacks, do you want me to spend the operator-gated Elixir twin-harness build (~64 colony-hours, off-broadcast)? I won't sink that on a guess.</p>
+  </div>
+
+  <h2>7 · The road to "fully replicating the behaviour"</h2>
+  <div class="grid g2">
+    <div class="panel">
+      <h3 style="color:var(--pass)">What code CAN move (in-repo)</h3>
+      <ul>
+        <li>Close the doc-vs-artifact drift cluster (76/16→43/11; stale H-AIF-GATES/README; measured test counts)</li>
+        <li>Run all three stacks &amp; record real receipts <span class="note">(in flight now)</span></li>
+        <li>Score the JS agent against a commensurate observable — or honestly report that none exists</li>
+        <li>Add an EFE-decomposition oracle; re-run the Python competition against M0–M8</li>
+        <li>Build the Elixir twin-harness so the graduation gate can run <span class="note">(operator-gated)</span></li>
+        <li>Addressable without wet-lab data: G03 (needs a tagged source-parameter artifact) &amp; G07 (needs an H-well classifier)</li>
+      </ul>
+    </div>
+    <div class="panel" style="border-color:var(--fail)">
+      <h3 style="color:var(--fail)">What no code can move — the wall</h3>
+      <ul class="adverse">
+        <li><b>P4 transfer</b> — needs an independent cross-lab cohort</li>
+        <li><b>P5 intervention</b> — needs a discriminating biological intervention (this is what "does a bacterium infer?" requires)</li>
+        <li><b>P7 replication</b> — needs an independent wet lab</li>
+        <li>8 gates carry <span class="m">softwareCannotSubstitute:true</span> — G08/G09/G11/G12/G13, X13/X14/X15</li>
+        <li>The D5 holdout mark channel was <b>irreversibly burned</b> (2026-07-21); re-earnable only on independent data</li>
+      </ul>
+      <p class="note">The "world where we fully replicate the behaviour in inference" is a <b>target world defined by external receipts we do not yet hold</b> — not a software finish line.</p>
+    </div>
+  </div>
+
+  <h2>7·5 · Findings from this session's deeper lanes</h2>
+  <div class="grid g3">
+    <div class="panel">
+      <div class="stackhead"><b>Drift closed</b><span class="chip PASS">11 fixes</span></div>
+      <p>11 doc-vs-artifact lies corrected across 6 files, verified against the artifacts:
+      <span class="m">SCIENCE-GATES</span> 76/16→43/11; <span class="m">H-AIF-GATES</span> G5/G6/G7 stale
+      statuses; <span class="m">README</span> &amp; <span class="m">CURRENT-STATE</span> test counts →
+      measured 573/577; <span class="m">hierarchy.py</span> Lmotor label; scope-ruling LANE B. Uncommitted.</p>
+    </div>
+    <div class="panel">
+      <div class="stackhead"><b>Not tri-species</b><span class="chip SRC">E. coli only</span></div>
+      <p>The <b>runnable</b> model is E. coli only. Salmonella (2 assets) and Bacillus (1) are
+      <b>structural illustration</b> — zero runnable dynamics, zero scored gates — and the separation is
+      genuinely code-enforced (<span class="m">walkthrough.test.mjs</span> pins each species). One
+      conflation risk for your eye: the E. coli-scoped structural-state-map imports the Salmonella
+      cryo-EM paper under a different citation label without restating the source species.</p>
+    </div>
+    <div class="panel">
+      <div class="stackhead"><b>EFE self-check</b><span class="chip NE">2.6% flip</span></div>
+      <p>The agent's expected-free-energy <b>double-weights ambiguity</b>. Sweeping all 5,151 belief
+      states, that changes the RUN/TUMBLE decision on <b>134 (2.6%)</b> — a thin near-tie band
+      (margin ≤ 0.034 nat) where the gradient is believed <i>flat</i>: there the extra term tips the
+      agent toward <b>exploratory TUMBLE</b>. Not random — it amplifies information-seeking exactly in
+      the flat regime (the very AIF signature the P5 door tests). Whether intended is the operator's
+      ruling; no gate checks it. <span class="prov">scratchpad/efe_probe.mjs vs uni-motor.js:309-328</span></p>
+    </div>
+  </div>
+
+  <h2>8 · Provenance &amp; re-measure</h2>
+  <p class="sub">This page is a snapshot dated 2026-08-19. To re-measure rather than trust it:</p>
+  <div class="panel">
+    <table>
+      <tr><th>Question</th><th>Command</th></tr>
+      <tr><td>JS model invariants</td><td class="n">node --test tests/model.test.mjs</td></tr>
+      <tr><td>Science gates (deterministic)</td><td class="n">npm run science:run &amp;&amp; npm run science:verify</td></tr>
+      <tr><td>Cross-study parity</td><td class="n">npm run cross-study:run &amp;&amp; npm run cross-study:verify</td></tr>
+      <tr><td>Python motor-stack suite</td><td class="n">python -m pytest tests/motor_stack_aif -q</td></tr>
+      <tr><td>Elixir pure world (sibling repo)</td><td class="n">cd ../UNI.Minecraft &amp;&amp; mix test</td></tr>
+      <tr><td>Are the trees clean?</td><td class="n">git status -sb</td></tr>
+    </table>
+    <p class="note">Authoritative artifacts: <span class="m">experiments/results/science-gates-report.json</span>, <span class="m">experiments/results/cross-study-parity-report.json</span>, <span class="m">hierarchical-aif/reports/F-SIDE-MOTOR-STACK-SCORING-REPORT.md</span>, <span class="m">hierarchical-aif/ledgers/HIERARCHICAL-AIF-GATE-TO-EXISTING-P-LADDER-MAP.md</span>, <span class="m">UNI.Minecraft/evidence/gates.ndjson</span>.</p>
+  </div>
+
+  <p class="note" style="margin-top:24px">Snapshot generated from the 6-agent model-design audit · UNI-FLAGELLUM · uncommitted, for review.</p>
+
+</div>

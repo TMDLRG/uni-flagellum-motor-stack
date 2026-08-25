@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 143 129" role="img">
+<title>PDB 7E82 entity 3 — Flagellar MS ring L2 (5 chains), Salmonella enterica — front CA trace, 75 deposited CA atoms</title>
+<g fill="none" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+<polyline stroke="#e8bb55" stroke-opacity="0.35" points="75.7,32.3 77.5,31.3 72.8,32.6 71.4,31.9 74.8,33.6 72.3,38.1 75.5,41.7 80.2,39.7 78.6,40.0 78.1,45.3 82.1,48.5 82.2,46.5 82.9,51.2 81.4,54.0 79.2,58.7"/>
+<polyline stroke="#e8bb55" stroke-opacity="0.50" points="16.0,24.6 20.4,22.9 22.4,25.5 25.9,25.0 30.9,26.5 30.9,31.4 30.5,34.7 33.7,32.0 37.6,32.3 36.9,37.5 37.7,41.3 33.9,38.8 32.0,43.3 27.4,45.1 23.9,48.8"/>
+<polyline stroke="#e8bb55" stroke-opacity="0.62" points="126.1,35.2 123.2,39.7 119.6,37.2 114.7,38.8 111.6,40.2 110.1,45.0 113.6,48.2 113.9,45.5 108.6,45.8 109.1,51.0 111.5,54.6 116.4,52.9 118.3,57.8 122.4,59.8 124.1,64.2"/>
+<polyline stroke="#e8bb55" stroke-opacity="0.90" points="18.2,17.8 21.8,16.0 25.9,18.5 31.0,18.4 32.5,20.2 34.2,25.1 29.8,27.9 28.6,25.2 33.6,26.1 32.8,31.2 29.5,34.6 25.3,32.1 22.7,36.6 19.6,38.5 18.5,43.1"/>
+<polyline stroke="#e8bb55" stroke-opacity="1.00" points="112.7,41.5 108.2,41.2 108.5,43.6 105.8,43.4 100.7,44.9 101.2,49.8 100.2,53.0 96.4,50.0 93.3,50.8 94.5,56.0 92.9,59.4 96.0,56.6 98.1,60.5 102.7,63.2 104.6,68.1"/>
+</g>
+<g font-family="ui-monospace,Consolas,monospace" font-size="10" fill="#93a1b0">
+<line x1="16" y1="98.1" x2="86" y2="98.1" stroke="#93a1b0" stroke-width="1.5"/>
+<text x="92" y="101.6">50 Å</text>
+<text x="16" y="114.1">PDB 7E82 · Salmonella enterica · EM 3.3 Å · 75 deposited CA atoms · CC0</text>
+</g>
+</svg>

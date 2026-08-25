@@ -55,7 +55,7 @@ likelihood. H-state reproduction remains a separate gate.
 | G01 separation | PASS | No motor leakage; world observations, latent model, fitting data, and held-out outcomes remain distinct. |
 | G02 first-passage math | PASS | Coefficients, survival, rates, and integrated competing-risk densities satisfy the declared equations. |
 | G03 public artifact parity | **FAIL** | The public repository's bundled parameter vector does not reproduce the article source workbook's Figure 3 theory arrays. |
-| G04 censored joint likelihood | PASS | 76 training and 16 held-out censored intervals in eligible states contribute survival likelihoods. |
+| G04 censored joint likelihood | PASS | 43 training and 11 held-out right-censored intervals contribute log S(t) survival likelihoods (836 train / 244 holdout total intervals). |
 | G05 synthetic recovery | **FAIL** | Two of three recovery experiments passed; one missed the frozen tolerance for `c2`. |
 | G06 held-out mechanism | **FAIL** | Point advantage over memoryless was `0.0583` nat/interval, but the 95% motor-cluster interval `[-0.0158, 0.1326]` crosses zero. |
 | G07 H-state reconstruction | SOURCE ONLY | The source reports 43 wells and rates; the current artifact cannot reconstruct the authors' classification decisions. |

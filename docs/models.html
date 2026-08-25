@@ -1,0 +1,295 @@
+<title>UNI-FLAGELLUM — The hierarchical models</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+:root{--bg:#0e1116;--pan:#161b22;--pan2:#1c2530;--ln:#2a3441;--tx:#e6edf3;--dim:#93a1b0;
+--acc:#7f9fdd;--ok:#4bd18a;--bad:#ff7a7a;--warn:#e8bb55;--dead:#66707c;--gold:#d9b45f;
+--mono:ui-monospace,'SFMono-Regular',Consolas,monospace}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--tx);font:15.5px/1.6 ui-sans-serif,'Segoe UI',Roboto,sans-serif}
+.wrap{max-width:1340px;margin:0 auto;padding:24px 22px 110px}
+h1{font-size:30px;margin:0 0 6px;letter-spacing:-.02em}
+h2{font-size:15px;text-transform:uppercase;letter-spacing:1.2px;color:var(--acc);margin:44px 0 6px;font-weight:600}
+.lede{color:var(--dim);font-size:16px;max-width:84ch;margin:0 0 10px}
+.panel{background:var(--pan);border:1px solid var(--ln);border-radius:14px;padding:20px 22px;margin:14px 0}
+.plain{font-size:16.5px;line-height:1.65;margin:0 0 12px}.plain b{color:#fff}
+.say{color:var(--dim);font-size:13.6px;margin:8px 0 0}
+.m,code{font-family:var(--mono);font-size:.92em}
+.eq{font-family:var(--mono);font-size:15px;background:#0b0f14;border:1px solid var(--ln);border-left:3px solid var(--acc);
+border-radius:0 8px 8px 0;padding:11px 15px;margin:9px 0;overflow-x:auto;white-space:pre;color:#cfe0f5}
+.verdict{border:1px solid var(--bad);background:#241315;border-radius:14px;padding:20px 24px;margin:16px 0}
+.verdict h3{margin:0 0 8px;font-size:21px;color:#fff}
+.callout{border-left:3px solid var(--warn);background:#231d10;padding:13px 17px;border-radius:0 9px 9px 0;margin:12px 0}
+.callout.bad{border-color:var(--bad);background:#241315}
+.callout.ok{border-color:var(--ok);background:#0f2119}
+table.n{border-collapse:collapse;width:100%;font-size:13.5px}
+table.n th,table.n td{text-align:left;padding:7px 9px;border-bottom:1px solid var(--ln);vertical-align:top}
+table.n th{color:var(--dim);font-size:11.5px;text-transform:uppercase;letter-spacing:.5px}
+table.n td.v{font-family:var(--mono);white-space:nowrap}
+tr.win td{background:#241315}tr.ours td{background:#241f10}
+.chip{display:inline-block;font:11px var(--mono);font-weight:600;padding:2px 9px;border-radius:20px}
+.OK{color:var(--ok);background:#12271c}.BAD{color:var(--bad);background:#2a1516}
+.WARN{color:var(--warn);background:#2a2110}.DEAD{color:var(--dead);background:#1a1f26}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+@media(max-width:1080px){.grid2{grid-template-columns:1fr}}
+svg{max-width:100%;height:auto}
+.links a{color:var(--acc);font-size:13px;margin-right:16px;text-decoration:none;border-bottom:1px dotted var(--ln)}
+.lay{display:grid;grid-template-columns:96px 1fr 150px;gap:12px;align-items:center;padding:11px 14px;
+border:1px solid var(--ln);border-radius:10px;margin:7px 0;background:var(--pan2)}
+.lay.dead{opacity:.55;border-style:dashed}
+.lay .id{font:13px var(--mono);font-weight:700;color:var(--acc)}
+.lay .p{font:12px var(--mono);color:var(--dim);text-align:right}
+.stat{display:flex;gap:30px;flex-wrap:wrap}
+.stat div{min-width:110px}.stat .l{font-size:11px;color:var(--dim);text-transform:uppercase;letter-spacing:.5px}
+.stat .b{font:25px var(--mono);font-weight:700}
+</style>
+<div class="wrap">
+<p class="links"><a href="/">&larr; dashboard</a><a href="/architecture">the architecture</a><a href="/api/models">raw json</a></p>
+
+<h1>The hierarchical models</h1>
+<p class="lede">The actual layered model fitted to real <i>E. coli</i> motors — every layer, every
+parameter, every score — read <b>live</b> from the result files, so this page cannot drift from them.</p>
+
+<div class="panel" style="border-color:var(--gold)">
+<h3 style="margin:0 0 8px;font-size:21px;color:#fff">The model is the hierarchy.</h3>
+<p class="plain" style="margin-bottom:6px">A population of motors, each motor its own latent shape drawn
+from that population, each dwell shaped by how many stators are engaged. <b>Five layers built, two free
+parameters, eighty motors</b> — the parameter count does not grow with the data because the per-motor
+layer is <b>integrated out</b>, not fitted.</p>
+<p class="plain" style="margin-bottom:0">Scored on nineteen motors it has never seen:
+<b id="v_f">…</b> nats. Everything below is that model, opened up.</p>
+</div>
+
+<h2>0 · The parity map — what each layer IS vs what its name says</h2>
+<p class="lede">From the primary-source investigation (2026-08-19/20): our layers are strata of <b>statistical
+pooling wearing biological names</b>. Each row states the layer's mathematical identity, its biological counterpart,
+and the honest parity status. The naming ruling — rename the pooling layers, or build the maps that make the names
+true — is the operator's and is open.</p>
+<div class="panel">
+<table class="n">
+<tr><th>layer</th><th>what it IS, mathematically</th><th>biological counterpart</th><th>parity</th><th>what parity would require</th></tr>
+<tr><td class="v">Lmotor-5</td><td>empirical-Bayes hyperparameters (μ, τ) of a Gaussian over log-shape — a POOLING level</td><td class="say">between-motor heterogeneity (Wadhwa 2022)</td><td><span class="chip WARN">MISNAMED</span></td><td class="say">a per-motor covariate with units that CAUSES the heterogeneity, or an honest rename</td></tr>
+<tr><td class="v">Lmotor-4</td><td>per-motor latent, integrated out by quadrature — pooling strength</td><td class="say">a persistent per-motor property — NOT SOURCED that it is molecular</td><td><span class="chip WARN">PARTIAL</span></td><td class="say">an independent observable of the per-motor property</td></tr>
+<tr><td class="v">Lmotor-3</td><td>frozen per-state normalisation divisor — <b>cancels in every contrast</b>, so the one biological variable here can influence NO verdict</td><td class="say">stator occupancy N (the one anchored rung)</td><td><span class="chip BAD">NEUTERED</span></td><td class="say">N as an integer jump process with binding/unbinding rates in s⁻¹, calibrated on the held load→occupancy series; plus the state-pooled ablation (needs NO new data)</td></tr>
+<tr><td class="v">Lmotor-2</td><td>not instantiated (identifiability refusal)</td><td class="say">kinetic mode (D/L/T)</td><td><span class="chip DEAD">ABSENT</span></td><td class="say">an independent observable of binding state</td></tr>
+<tr><td class="v">Lmotor-1</td><td>mean-one Weibull hazard — a likelihood FORM</td><td class="say">dwell survival; the D-L-T mixture is the mechanistic version and lives in a DIFFERENT implementation</td><td><span class="chip WARN">PARTIAL</span></td><td class="say">the hazard derived FROM the D-L-T kinetics rather than assumed</td></tr>
+<tr><td class="v">blanket</td><td>a = ∅ — "a partition without active states is not a full Markov blanket": a conditioning set</td><td class="say">the MOTOR's blanket (PMF/torque sensing, engagement as action) — entirely unobserved in this dataset</td><td><span class="chip BAD">ANALYST'S, NOT MOTOR'S</span></td><td class="say">instantiate the motor's blanket and test μ ⊥ ψ | b — untestable today because ψ (load, PMF, temperature, CheY-P) was never recorded</td></tr>
+</table>
+<p class="say">The units test decides it: the only units anywhere in this stack are <b>seconds and counts</b> — no torque,
+no load, no PMF, no temperature. A biological hierarchy is a composition of maps WITH units (ions/s → pN·nm → s⁻¹).
+Full statement and the eight-rung biological ladder: <a href="/classroom">the classroom whiteboard</a>.</p>
+<div class="callout bad"><b>UNSOURCED, flagged (operator's UI ruling, option a):</b> the released kernel's animated constants —
+stall torque <span class="m">stators × 180 pN·nm</span>, zero-load 18,000 rpm, remodelling τ 6.5/3.2 s, CheY Hill n = 6,
+Kd <span class="m">5.8 − 2.5·(torque/1800)</span> µM — carry NO source pin. Sourced numbers for exactly these quantities sit
+unused in <span class="m">cross-study-motor-evidence.json</span>; wiring them in is a separate, unapproved code change.</div>
+</div>
+
+<h2>1 · The stack, layer by layer</h2>
+<p class="lede">Six layers named, <b>five built</b>. One deliberately left empty — and that refusal is the
+most disciplined thing in the model.</p>
+<div class="panel">
+  <div class="lay"><span class="id">Lmotor-5</span>
+    <span><b>Population prior</b> — what motors look like <i>as a species</i>. A normal distribution over
+    log-shape, shared by every motor.</span><span class="p">2 free params<br>μ, τ</span></div>
+  <div class="lay"><span class="id">Lmotor-4</span>
+    <span><b>Per-motor latent</b> — each motor's own shape, drawn from the population above.
+    <b>Integrated out by 33-node quadrature, never estimated</b>, so 80 motors add <i>zero</i> parameters.</span>
+    <span class="p">0 free params<br>η<sub>m</sub> ~ N(μ, τ)</span></div>
+  <div class="lay"><span class="id">Lmotor-3</span>
+    <span><b>Occupancy state</b> — how many stators are engaged (1–8). Sets the time-scale for that state;
+    frozen from training means.</span><span class="p">frozen<br>scale<sub>N</sub></span></div>
+  <div class="lay dead"><span class="id">Lmotor-2</span>
+    <span><b>Kinetic mode</b> — <span class="chip DEAD">NOT INSTANTIATED</span> deliberately. The data
+    cannot identify it, so adding it would buy capacity without testability.</span><span class="p">refused</span></div>
+  <div class="lay"><span class="id">Lmotor-1</span>
+    <span><b>Hazard / survival</b> — the actual dwell-time law. A mean-one Weibull whose shape is that
+    motor's own latent.</span><span class="p">shaped by η<sub>m</sub></span></div>
+  <div class="lay"><span class="id">Lmotor-0</span>
+    <span><b>The observation</b> — one recorded dwell: which state, how long, was it cut off. The Markov
+    blanket; nothing above may read anything else.</span><span class="p">the data</span></div>
+  <div class="stat" style="margin-top:16px">
+    <div><div class="l">layers built</div><div class="b">5<span style="font-size:15px;color:var(--dim)">/6</span></div></div>
+    <div><div class="l">free parameters</div><div class="b" id="s_np">…</div></div>
+    <div><div class="l">train motors</div><div class="b">80</div></div>
+    <div><div class="l">holdout motors</div><div class="b">19</div></div>
+    <div><div class="l">fitted μ</div><div class="b" id="s_mu" style="font-size:19px">…</div></div>
+    <div><div class="l">fitted τ</div><div class="b" id="s_tau" style="font-size:19px">…</div></div>
+  </div>
+  <p class="say"><b>Two parameters for eighty motors.</b> That is the whole design: a model with 80 free
+  per-motor shapes would fit 80 numbers to a median of 7 events each and could not be scored honestly.</p>
+</div>
+
+<h2>2 · How a single dwell time is generated</h2>
+<div class="panel">
+<svg viewBox="0 0 1240 210" role="img" aria-label="generative flow">
+<defs><marker id="a" markerWidth="9" markerHeight="9" refX="7" refY="3" orient="auto"><path d="M0,0 L0,6 L8,3 z" fill="#7f9fdd"/></marker></defs>
+<rect x="14" y="46" width="204" height="96" rx="10" fill="#1c2530" stroke="#7f9fdd"/>
+<text x="116" y="72" text-anchor="middle" fill="#7f9fdd" font-size="12.5" font-weight="600">L5 · POPULATION</text>
+<text x="116" y="98" text-anchor="middle" fill="#e6edf3" font-size="15" font-family="ui-monospace">N(μ, τ²)</text>
+<text x="116" y="122" text-anchor="middle" fill="#93a1b0" font-size="11.5">what motors are like</text>
+<line x1="218" y1="94" x2="256" y2="94" stroke="#7f9fdd" stroke-width="2" marker-end="url(#a)"/>
+<rect x="258" y="46" width="204" height="96" rx="10" fill="#1c2530" stroke="#7f9fdd"/>
+<text x="360" y="72" text-anchor="middle" fill="#7f9fdd" font-size="12.5" font-weight="600">L4 · THIS MOTOR</text>
+<text x="360" y="98" text-anchor="middle" fill="#e6edf3" font-size="15" font-family="ui-monospace">η_m ~ N(μ, τ²)</text>
+<text x="360" y="122" text-anchor="middle" fill="#e8bb55" font-size="11.5">integrated out, not fitted</text>
+<line x1="462" y1="94" x2="500" y2="94" stroke="#7f9fdd" stroke-width="2" marker-end="url(#a)"/>
+<rect x="502" y="46" width="204" height="96" rx="10" fill="#1c2530" stroke="#7f9fdd"/>
+<text x="604" y="72" text-anchor="middle" fill="#7f9fdd" font-size="12.5" font-weight="600">L3 · STATE N</text>
+<text x="604" y="98" text-anchor="middle" fill="#e6edf3" font-size="15" font-family="ui-monospace">scale_N</text>
+<text x="604" y="122" text-anchor="middle" fill="#93a1b0" font-size="11.5">how many stators are on</text>
+<line x1="706" y1="94" x2="744" y2="94" stroke="#7f9fdd" stroke-width="2" marker-end="url(#a)"/>
+<rect x="746" y="46" width="204" height="96" rx="10" fill="#1c2530" stroke="#7f9fdd"/>
+<text x="848" y="72" text-anchor="middle" fill="#7f9fdd" font-size="12.5" font-weight="600">L1 · HAZARD</text>
+<text x="848" y="98" text-anchor="middle" fill="#e6edf3" font-size="14" font-family="ui-monospace">Weibull(k=e^η, mean 1)</text>
+<text x="848" y="122" text-anchor="middle" fill="#93a1b0" font-size="11.5">when does it let go?</text>
+<line x1="950" y1="94" x2="988" y2="94" stroke="#7f9fdd" stroke-width="2" marker-end="url(#a)"/>
+<rect x="990" y="46" width="236" height="96" rx="10" fill="#12271c" stroke="#4bd18a"/>
+<text x="1108" y="72" text-anchor="middle" fill="#4bd18a" font-size="12.5" font-weight="600">L0 · OBSERVED</text>
+<text x="1108" y="98" text-anchor="middle" fill="#e6edf3" font-size="15" font-family="ui-monospace">duration × scale_N</text>
+<text x="1108" y="122" text-anchor="middle" fill="#93a1b0" font-size="11.5">one real dwell, in seconds</text>
+<text x="620" y="176" text-anchor="middle" fill="#e8bb55" font-size="12.5">Lmotor-2 (kinetic mode) would sit between L3 and L1 — it is deliberately absent: the data cannot identify it</text>
+<text x="620" y="196" text-anchor="middle" fill="#66707c" font-size="11.5">Fitting runs right-to-left: the observed dwell updates the population, through the integrated per-motor latent</text>
+</svg>
+</div>
+
+<h2>3 · The hierarchy against its adversaries</h2>
+<p class="lede">The flat curves below are <b>not our models</b> — they are the baselines a hierarchy must out-predict to earn its layers. Two fair ways to score, and they disagree about the ordering.</p>
+<div class="panel"><table class="n" id="board"><tr><td class="say">loading…</td></tr></table>
+<p class="say"><b>Motor-equal</b> gives every motor one vote, so a chatty motor cannot dominate — it is the
+honest unit, because the motor is the biological replicate. <b>Event-pooled</b> counts every dwell equally.
+The hierarchical model ranks <b>3rd</b> on one and <b>5th</b> on the other. <b>The flat lognormal currently leads both</b> — retained here because a baseline beating the mechanism is a result, not a blemish, and it is what the next layer has to overturn.</p>
+</div>
+
+<h2>4 · Why nothing can be resolved — the per-motor spread</h2>
+<p class="lede">Each bar is one held-out motor's score under the hierarchical model. This is the reason
+every comparison says NOT_ESTABLISHED.</p>
+<div class="panel"><div id="scatter"></div>
+<p class="say" id="scatnote"></p>
+<div class="callout"><b>Read it this way.</b> The differences between <i>models</i> are around 0.02 nats.
+The differences between <i>motors</i> span more than 2.5 nats — over a hundred times larger. With 19
+motors, that spread swamps the model difference entirely. <b>"Underpowered" and "the mechanism is wrong"
+look identical from here</b>, and saying which would require more motors, not more modelling.</div>
+</div>
+
+<h2>5 · What the hierarchy has to beat</h2>
+<p class="lede">Our two-timescale mixture against the three models it must beat. A bar crossing the zero
+line means the comparison is undecided.</p>
+<div class="panel"><div id="forest"></div>
+<p class="say">Positive = our mixture predicts better. Bars are 95% paired motor-cluster bootstrap intervals.
+Only the comparison against the memoryless null clears zero.</p>
+</div>
+
+<h2>6 · The data underneath all of it</h2>
+<div class="panel"><table class="n" id="cohort"><tr><td class="say">loading…</td></tr></table>
+<p class="say">One study, one species, one world process: <i>E. coli</i> stator dwell times from tethered-cell
+electrorotation-release, step-fitted at 0.02 s. The split is frozen by a hash of the motor id and never
+recomputed; any per-event mismatch halts the run.</p></div>
+
+<p class="say" style="margin-top:26px" id="stamp">…</p>
+</div>
+
+<script>
+var f=function(x,n){return (x==null||isNaN(x))?"—":Number(x).toFixed(n==null?4:n);};
+function esc(s){return String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;");}
+function nice(id){return id.replace(/_/g," ").replace(/^M\d+ /,"").toLowerCase();}
+
+fetch("/api/models?t="+Date.now()).then(function(r){return r.json();}).then(function(d){
+  var F=d.fside||{}, O=d.observed||{};
+  var me=F.motorEqualNLPD||{}, ep=F.eventPooledNLPD||{}, fit=(F.fitted||{}).F_MOTOR_STACK||{};
+
+  // headline
+  document.getElementById("v_f").textContent   = f(me.F_MOTOR_STACK);
+  document.getElementById("v_m1").textContent  = f(me.M1_WEIBULL);
+  document.getElementById("v_gap").textContent = f(Math.abs((me.M1_WEIBULL||0)-(me.F_MOTOR_STACK||0)),6)+" nats";
+  document.getElementById("v_m2").textContent  = f(me.M2_LOGNORMAL);
+  document.getElementById("s_np").textContent  = fit.nFreeParams!=null?fit.nFreeParams:"—";
+  document.getElementById("s_mu").textContent  = f(fit.mu);
+  document.getElementById("s_tau").textContent = f(fit.tau);
+
+  // ---- board ----
+  var DESC={M2_LOGNORMAL:"heavy tail, 2 params, no mechanism",M8_EMPIRICAL_KDE:"the data smoothed — no model at all",
+    F_MOTOR_STACK:"THE HIERARCHY — 5 layers, 2 params",M1_WEIBULL:"one shape — our own hierarchy with τ→0",
+    M3_TWO_TIMESCALE:"fast + slow mixture — the mechanistic claim",M5_GAMMA:"gamma survival",
+    M0_EXPONENTIAL:"memoryless null — the floor"};
+  var keys=Object.keys(me).filter(function(k){return k.indexOf("__")<0;});
+  var sorted=keys.slice().sort(function(a,b){return me[a]-me[b];});
+  var epSorted=keys.slice().sort(function(a,b){return (ep[a]||9)-(ep[b]||9);});
+  var h='<tr><th>#</th><th>model</th><th>what it is</th><th>motor-equal</th><th>event-pooled</th><th>rank there</th></tr>';
+  sorted.forEach(function(k,i){
+    var cls=(i===0?' class="win"':(k==="F_MOTOR_STACK"||k==="M3_TWO_TIMESCALE"?' class="ours"':''));
+    h+='<tr'+cls+'><td class="v">'+(i+1)+'</td><td class="v">'+esc(k.replace(/_/g," "))+'</td>'
+      +'<td class="say">'+(DESC[k]||"")+(i===0?' <b style="color:var(--bad)">← wins</b>':'')+'</td>'
+      +'<td class="v">'+f(me[k])+'</td><td class="v">'+f(ep[k])+'</td>'
+      +'<td class="v">'+(epSorted.indexOf(k)+1)+'</td></tr>';
+  });
+  document.getElementById("board").innerHTML=h;
+
+  // ---- per-motor scatter ----
+  var pm=(F.perMotorNLPD||{}).F_MOTOR_STACK||[];
+  if(pm.length){
+    var lo=Math.min.apply(null,pm), hi=Math.max.apply(null,pm);
+    var W=1180,H=190,pad=34;
+    var s='<svg viewBox="0 0 '+W+' '+H+'">';
+    pm.forEach(function(v,i){
+      var x=pad+i*((W-2*pad)/pm.length), w=(W-2*pad)/pm.length-6;
+      var hgt=(v-lo)/(hi-lo)*(H-70)+10;
+      s+='<rect x="'+x.toFixed(1)+'" y="'+(H-30-hgt).toFixed(1)+'" width="'+w.toFixed(1)+'" height="'+hgt.toFixed(1)+
+         '" rx="3" fill="#7f9fdd" opacity="0.85"/>';
+      s+='<text x="'+(x+w/2).toFixed(1)+'" y="'+(H-34-hgt).toFixed(1)+'" text-anchor="middle" fill="#93a1b0" font-size="9.5" font-family="ui-monospace">'+v.toFixed(2)+'</text>';
+      s+='<text x="'+(x+w/2).toFixed(1)+'" y="'+(H-12)+'" text-anchor="middle" fill="#66707c" font-size="9.5">m'+(i+1)+'</text>';
+    });
+    s+='</svg>';
+    document.getElementById("scatter").innerHTML=s;
+    document.getElementById("scatnote").innerHTML='Best motor <b>'+f(lo,3)+'</b> · worst <b>'+f(hi,3)+
+      '</b> · spread <b>'+f(hi-lo,3)+' nats</b> across '+pm.length+' motors.';
+  }
+
+  // ---- forest ----
+  var adv=(O.claims&&O.claims.pairedMixtureAdvantageNatsPerEvent)||O.pairedMixtureAdvantageNatsPerEvent;
+  var itv=(O.claims&&O.claims.pairedMixtureAdvantageInterval95)||O.pairedMixtureAdvantageInterval95;
+  if(!adv){ (function dig(o,dep){ if(!o||typeof o!=="object"||dep>4)return;
+    for(var k in o){ if(k==="pairedMixtureAdvantageNatsPerEvent")adv=o[k];
+      if(k==="pairedMixtureAdvantageInterval95")itv=o[k]; dig(o[k],dep+1);} })(O,0); }
+  if(adv&&itv){
+    var rows=[["mixtureVsExponential","vs the memoryless null"],["mixtureVsWeibull","vs Weibull"],["mixtureVsLognormal","vs lognormal"]];
+    var all=[]; rows.forEach(function(r){ all.push(itv[r[0]].lower,itv[r[0]].upper); });
+    var mn=Math.min.apply(null,all), mx=Math.max.apply(null,all);
+    var pad2=(mx-mn)*0.12; mn-=pad2; mx+=pad2;
+    var W=1180,rowH=54,H=rows.length*rowH+40;
+    var X=function(v){return 260+(v-mn)/(mx-mn)*(W-320);};
+    var s='<svg viewBox="0 0 '+W+' '+H+'">';
+    s+='<line x1="'+X(0)+'" y1="8" x2="'+X(0)+'" y2="'+(H-26)+'" stroke="#e8bb55" stroke-dasharray="5 4"/>';
+    s+='<text x="'+X(0)+'" y="'+(H-8)+'" text-anchor="middle" fill="#e8bb55" font-size="11.5">no difference</text>';
+    rows.forEach(function(r,i){
+      var a=adv[r[0]], iv=itv[r[0]], y=24+i*rowH, crosses=(iv.lower<0&&iv.upper>0);
+      var col=crosses?"#e8bb55":(a>0?"#4bd18a":"#ff7a7a");
+      s+='<text x="12" y="'+(y+5)+'" fill="#e6edf3" font-size="13">'+r[1]+'</text>';
+      s+='<line x1="'+X(iv.lower)+'" y1="'+y+'" x2="'+X(iv.upper)+'" y2="'+y+'" stroke="'+col+'" stroke-width="3"/>';
+      s+='<circle cx="'+X(a)+'" cy="'+y+'" r="6" fill="'+col+'"/>';
+      s+='<text x="'+(W-14)+'" y="'+(y+5)+'" text-anchor="end" fill="'+col+'" font-size="12" font-family="ui-monospace">'
+        +(a>0?"+":"")+f(a,4)+(crosses?"  NOT_ESTABLISHED":"  RESOLVED")+'</text>';
+    });
+    s+='</svg>';
+    document.getElementById("forest").innerHTML=s;
+  }
+
+  // ---- cohort ----
+  var c=O.cohort||{}, ex=c.exclusions||{};
+  var ch='<tr><th>quantity</th><th>value</th><th>meaning</th></tr>';
+  var C=[["source motors",c.sourceMotors,"individual E. coli motors recorded"],
+    ["source events",c.sourceEvents,"dwell episodes before filtering"],
+    ["train motors",c.trainMotors,"parameters may see these"],
+    ["train events",c.trainEvents,""],
+    ["holdout motors",c.holdoutMotors,"never touched by any fit"],
+    ["holdout events",c.holdoutEvents,"every score you see comes from these"],
+    ["left-truncated dropped",ex.leftTruncatedDwells,"already running when recording began"],
+    ["right-censored dropped",ex.rightCensoredDwells,"still running when recording stopped"],
+    ["out-of-range dropped",ex.outOfRangeDwells,"outside the eligible 1-8 stator states"]];
+  C.forEach(function(r){ch+='<tr><td>'+r[0]+'</td><td class="v">'+(r[1]==null?"—":r[1])+'</td><td class="say">'+r[2]+'</td></tr>';});
+  document.getElementById("cohort").innerHTML=ch;
+
+  document.getElementById("stamp").textContent="Read live from F_SIDE_MOTOR_STACK_SCORING_RESULT.json and "
+    +"observed-experiment-report.json at "+new Date().toLocaleTimeString()+" — nothing on this page is transcribed.";
+}).catch(function(e){
+  document.getElementById("stamp").textContent="FAILED to read the result files: "+e;
+});
+</script>

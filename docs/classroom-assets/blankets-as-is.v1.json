@@ -1,0 +1,53 @@
+{
+ "schema": "uni.flagellum.blankets-as-is/1.0.0",
+ "note": "Column 1 of the Blanket Builder. Every field below is QUOTED OR DIRECTLY TRANSCRIBED from hierarchical-aif/docs/MOTOR-STACK-MARKOV-BLANKET-JUSTIFICATION.md. Nothing here is authored by an agent; where wording is the document's, it is marked verbatim. This is what the code ACTUALLY instantiates today.",
+ "sourceDoc": "hierarchical-aif/docs/MOTOR-STACK-MARKOV-BLANKET-JUSTIFICATION.md",
+ "formalPartition": "external psi, sensory s, active a, internal mu, with blanket b = s union a, and the substantive requirement mu independent of psi given b.",
+ "blankets": [
+  {
+   "id": "BLANKET_A_ANALYST",
+   "name": "Blanket A - the ANALYST's",
+   "status": "INSTANTIATED_AND_SCORED",
+   "statusNote": "scored on the frozen split",
+   "whoseBoundary": "the statistician's, not the motor's",
+   "slots": {
+    "internal": [{ "text": "mu, tau, and the per-motor belief q(eta_m) from hierarchy.posterior_motor_shape", "verbatim": true }],
+    "sensory": [{ "text": "recorded fields of events[]", "verbatim": true }],
+    "active": [{ "text": "choice of next experiment - exercised at ORCHESTRATE level, OUTSIDE the dataset", "verbatim": true }],
+    "external": [{ "text": "the physical motor, the cell, and the apparatus", "verbatim": true }]
+   },
+   "defect": "a = EMPTY SET within the dataset. The document's own ruling R1: \"A partition without active states is not a full Markov blanket.\" What is instantiated is a sensory-only boundary - a conditional-independence screen over a passively observed system.",
+   "defectVerbatim": "There is no action field in the event record and no action field in the motor record. The set is empty, not small.",
+   "structural": "no additional quantity of Wadhwa-2022 passive recording would create the channel"
+  },
+  {
+   "id": "BLANKET_B_MOTOR",
+   "name": "Blanket B - the MOTOR's",
+   "status": "NOT_INSTANTIATED",
+   "statusNote": "entirely unobserved in this dataset",
+   "whoseBoundary": "the organism's own",
+   "slots": {
+    "internal": [{ "text": "motor chemistry / mechanics / switch complex", "verbatim": true }],
+    "sensory": [{ "text": "ligand binding, PMF sensing, torque load sensing", "verbatim": true }],
+    "active": [{ "text": "stator engagement / disengagement, switch", "verbatim": true }],
+    "external": [{ "text": "everything outside the motor", "verbatim": true }]
+   },
+   "defect": "DESIGN_ONLY. This is the blanket that would carry any claim that the organism performs inference, and it is the one we do not have.",
+   "opportunity": "Column 2 and column 3 exist to build THIS blanket from cited signals - each slot filled with a signal that a real source documents as crossing, opening, or closing the boundary."
+  }
+ ],
+ "requiredProperties": [
+  { "property": "mu independent of psi given b (internal independent of external given the blanket)", "status": "NOT_CHECKED", "why": "psi - load, PMF, stator number, temperature, viscosity, CheY-P - is unobserved. An independence claim cannot be tested against a variable that was never recorded.", "verbatim": true },
+  { "property": "Events exchangeable within a motor given eta_m", "status": "NOT_CHECKED", "why": "Requires a within-recording condition timeseries; none exists.", "verbatim": true },
+  { "property": "Motors exchangeable given (mu, tau)", "status": "PARTIALLY_SUPPORTED", "why": "population_log_likelihood assumes it. nominalElectrorotationSpeed varies between motors at 7 levels, which is a known between-motor inhomogeneity the model does not condition on.", "verbatim": true },
+  { "property": "Sensory channel free of instrument variation", "status": "PARTIALLY_SUPPORTED", "why": "sampleIntervalS constant at 0.02 s on train motors; runCount 3-83 remains an open route.", "verbatim": true },
+  { "property": "Active states well defined", "status": "FAILS_BY_CONSTRUCTION", "why": "a = EMPTY SET (ruling R1).", "verbatim": true }
+ ],
+ "operatorFrame": {
+  "recordedFrom": "the operator, 2026-08-20",
+  "definition": "A Markov blanket in biology is a boundary where something CROSSES - ions, force, a phosphoryl group, a ligand - and it is identified by the SIGNALS THAT GATE the crossing: what opens it, what stops it. Nested layers are found by following the gating signals inward.",
+  "exemplars": "osmosis (when does a cell open to receive) and gland secretion (what signal triggers release, what signal stops it)",
+  "prediction": "On the flagellum the blankets will be FEW AND SIMPLE, consistent with the biology literature.",
+  "predictionStatus": "OPERATOR PREDICTION - recorded before the inventory was built, to be checked against it, not assumed by it."
+ }
+}

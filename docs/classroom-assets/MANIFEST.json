@@ -1,0 +1,17 @@
+{
+ "schema": "uni.flagellum.classroom-assets/1.0.0",
+ "assets": [
+  {
+   "file": "room-bg.webp",
+   "kind": "room background",
+   "truthClass": "ILLUSTRATION",
+   "generatedBy": "ChatGPT image generation (chatgpt.com), driven via Chrome at the operator's explicit direction, 2026-08-20",
+   "promptVerbatim": "Please create a photorealistic image, 16:9 landscape, of an empty modern science classroom / teaching laboratory, viewed from the back of the room facing the front wall. On the front wall: one very large, completely blank white whiteboard, clean and empty. In the foreground: a long dark wooden specimen bench, empty surface. Left and right walls: large empty dark pinboards / display walls. Lighting: dim, warm evening lab lighting, moody, dark tones overall (the room will host a dark-themed interface). No people, no text, no writing, no posters, no diagrams anywhere - every surface completely blank. High detail, realistic materials: wood, glass, brushed metal.",
+   "selection": "ChatGPT offered 2 candidates; image 2 selected for symmetric whiteboard-center / dark-side-walls / foreground-bench composition matching the page's hotspot zones",
+   "originalDownload": "PNG 1672x941, 1578145 bytes",
+   "pixelAspect": "1672:941",
+   "sha256": "3797f69f2d6db9f989bd3a4be5410183dda035e663c47ad49b6077d6f0732778",
+   "note": "This image is scenery, NOT evidence. It depicts no data, no specimen and no measurement. Every scientific element rendered over it carries its own provenance."
+  }
+ ]
+}
