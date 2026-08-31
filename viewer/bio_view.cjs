@@ -8,16 +8,10 @@ const rd = p => { try { return fs.readFileSync(path.join(ROOT, p), 'utf8'); } ca
 const rj = p => { try { return JSON.parse(rd(p)); } catch (e) { return null; } };
 const esc = s => String(s == null ? '' : s).replace(/[&<>"]/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
-function gates() {
-  const sci = rj('experiments/results/science-gates-report.json');
-  const xs = rj('experiments/results/cross-study-parity-report.json');
-  const pick = (r) => {
-    if (!r) return null;
-    const g = (r.gates || []).map(x => ({ id: x.id || x.gateId, status: x.status }));
-    return { summary: r.summary || null, gates: g };
-  };
-  return { science: pick(sci), cross: pick(xs) };
-}
+// The aggregation moved to api_payloads.cjs so the live handlers and the committed fixtures
+// (viewer/make_classroom_fixtures.cjs) can never drift: one definition, two consumers.
+const payloads = require('./api_payloads.cjs').make();
+function gates() { return payloads.gates(); }
 function readDrafts() {
   try {
     return fs.readFileSync(path.join(ROOT, 'evidence', 'blanket_drafts.ndjson'), 'utf8')
@@ -167,22 +161,11 @@ http.createServer((req, res) => {
   }
   if (u === '/classroom') { const f = rd('docs/classroom.html'); return f ? send(200, 'text/html; charset=utf-8', f) : send(404, 'text/plain', 'not found'); }
   if (u === '/api/classroom') {
-    return send(200, 'application/json', JSON.stringify({
-      manifest: rj('public/walkthrough-evidence-manifest.v1.json'),
-      structures: rj('docs/classroom-assets/structures-manifest.json'),
-      timescales: rj('docs/classroom-assets/timescales.v1.json'),
-      fitted: (rj('experiments/results/observed-experiment-report.json') || {}).fittedOnTrainingOnly || null,
-      gates: gates(), now: Date.now()
-    }));
+    return send(200, 'application/json', JSON.stringify({ ...payloads.classroomPayload(), now: Date.now() }));
   }
   if (u === '/api/state') return send(200, 'application/json', JSON.stringify({ gates: gates(), commits: gitlog(), now: Date.now() }, null, 1));
   if (u === '/api/models') {
-    return send(200, 'application/json', JSON.stringify({
-      fside: rj('hierarchical-aif/results/motor_stack_aif/F_SIDE_MOTOR_STACK_SCORING_RESULT.json'),
-      observed: rj('experiments/results/observed-experiment-report.json'),
-      b3models: (rj('audits/phase-b/b3-model-competition-result.json') || {}).models || null,
-      now: Date.now()
-    }));
+    return send(200, 'application/json', JSON.stringify({ ...payloads.modelsPayload(), now: Date.now() }));
   }
   if (u === '/models') { const f = rd('docs/models.html'); return f ? send(200, 'text/html; charset=utf-8', f) : send(404, 'text/plain', 'not found'); }
   if (u === '/architecture') { const f = rd('docs/architecture.html'); return f ? send(200, 'text/html; charset=utf-8', f) : send(404, 'text/plain', 'not found'); }

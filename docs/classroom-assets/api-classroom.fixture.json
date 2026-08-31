@@ -1,0 +1,1419 @@
+{
+ "fixture": {
+  "recorded": true,
+  "kind": "classroom",
+  "generated_by": "viewer/make_classroom_fixtures.cjs",
+  "source_commit": "23251469fd98f12858378345ba64625bfcfb7c02",
+  "source_commit_utc": "2026-08-31T01:37:17-05:00",
+  "generated_utc": "2026-08-31T07:07:05.063Z",
+  "note": "The same artifacts the live viewer aggregates, captured at the commit named — recorded engine output, not a live read. A page that receives this block must say RECORDED, never live."
+ },
+ "manifest": {
+  "schema": "uni.flagellum.walkthrough-evidence/1.0.0",
+  "frozenAt": "2026-07-19T00:00:00.000Z",
+  "claimFence": "Hashes establish file identity. Media and structures constrain the labelled observation scale; they do not establish full biological parity or Active Inference causal identity.",
+  "assets": [
+   {
+    "id": "MEARS_2014_VIDEO_1",
+    "path": "public/media/mears-2014-run-tumble.mp4",
+    "bytes": 1634522,
+    "sha256": "b5839132aec15ca099e9b99e6bd0f57fa26a720a97928e0a5f285eb5d9cd5050",
+    "doi": "10.7554/eLife.01916.010",
+    "license": "CC BY 4.0",
+    "species": "Escherichia coli",
+    "truthClass": "OBSERVED"
+   },
+   {
+    "id": "SINGH_2024_VIDEO_4",
+    "path": "public/media/singh-2024-switching.mp4",
+    "bytes": 20790989,
+    "sha256": "d8cff0a3536a7dd9fbf2acc5b34c815cfdf2588b83725de7f8fe04a72fd5f6e9",
+    "doi": "10.1038/s41564-024-01674-1",
+    "license": "CC BY 4.0",
+    "species": "Salmonella enterica serovar Typhimurium",
+    "truthClass": "STRUCTURAL_RECONSTRUCTION"
+   },
+   {
+    "id": "WADHWA_2022_EVENTS",
+    "path": "public/wadhwa-2022-derived-events.json",
+    "sha256": "d119ca603621900aa4a076b110a1f43c6f01482ce891be2812634f71f597e353",
+    "rawSourceSha256": "c14de12cc11df8af2ab87f1ec94629eebc249c0e1475c24f850f5a28ddd1ea22",
+    "doi": "10.1038/s41467-022-33075-5",
+    "license": "source repository and paper terms",
+    "species": "Escherichia coli",
+    "truthClass": "OBSERVED",
+    "evidenceType": "derived"
+   },
+   {
+    "id": "PDB_7E82",
+    "path": "public/data/structures/7e82.cif.gz",
+    "bytes": 2186999,
+    "sha256": "c143331497d819b2be42b7892db80a577312ad8b4fbc50111d58e263597e8afc",
+    "doi": "10.2210/pdb7E82/pdb",
+    "license": "CC0 1.0",
+    "species": "Salmonella enterica",
+    "truthClass": "STRUCTURAL_RECONSTRUCTION"
+   },
+   {
+    "id": "PDB_6YSL",
+    "path": "public/data/structures/6ysl.cif.gz",
+    "bytes": 238979,
+    "sha256": "74386247ed1dd7a9f2d02e8b1805bea4c39b9b148ffc9c06766e92b26778c221",
+    "doi": "10.2210/pdb6YSL/pdb",
+    "license": "CC0 1.0",
+    "species": "Bacillus subtilis",
+    "truthClass": "STRUCTURAL_RECONSTRUCTION"
+   }
+  ]
+ },
+ "structures": {
+  "schema": "uni.flagellum.classroom-structures/1.0.0",
+  "pxPerAngstrom": 1.4,
+  "renderer": "viewer/render_structure_svg.cjs",
+  "note": "Every plotted point is a deposited CA atom position; nothing is drawn by hand.",
+  "files": [
+   {
+    "file": "6ysl-composite-front.svg",
+    "pdbId": "6YSL",
+    "species": "Bacillus subtilis",
+    "truthClass": "STRUCTURAL_RECONSTRUCTION",
+    "citation": "PDB 6YSL; Deme et al., Nature Microbiology 5, 1553-1564 (2020)",
+    "doi": "10.2210/pdb6YSL/pdb",
+    "sourcePath": "public/data/structures/6ysl.cif.gz",
+    "sourceSha256": "74386247ed1dd7a9f2d02e8b1805bea4c39b9b148ffc9c06766e92b26778c221",
+    "view": "front",
+    "entityId": null,
+    "description": "MotA5MotB2 stator complex",
+    "caCount": 1324,
+    "chains": null,
+    "color": null,
+    "bytes": 17673
+   },
+   {
+    "file": "6ysl-composite-top.svg",
+    "pdbId": "6YSL",
+    "species": "Bacillus subtilis",
+    "truthClass": "STRUCTURAL_RECONSTRUCTION",
+    "citation": "PDB 6YSL; Deme et al., Nature Microbiology 5, 1553-1564 (2020)",
+    "doi": "10.2210/pdb6YSL/pdb",
+    "sourcePath": "public/data/structures/6ysl.cif.gz",
+    "sourceSha256": "74386247ed1dd7a9f2d02e8b1805bea4c39b9b148ffc9c06766e92b26778c221",
+    "view": "top",
+    "entityId": null,
+    "description": "MotA5MotB2 stator complex",
+    "caCount": 1324,
+    "chains": null,
+    "color": null,
+    "bytes": 17534
+   },
+   {
+    "file": "6ysl-e1-motility-protein-a-front.svg",
+    "pdbId": "6YSL",
+    "species": "Bacillus subtilis",
+    "truthClass": "STRUCTURAL_RECONSTRUCTION",
+    "citation": "PDB 6YSL; Deme et al., Nature Microbiology 5, 1553-1564 (2020)",
+    "doi": "10.2210/pdb6YSL/pdb",
+    "sourcePath": "public/data/structures/6ysl.cif.gz",
+    "sourceSha256": "74386247ed1dd7a9f2d02e8b1805bea4c39b9b148ffc9c06766e92b26778c221",
+    "view": "front",
+    "entityId": "1",
+    "description": "Motility protein A",
+    "caCount": 1273,
+    "chains": [
+     "A",
+     "D",
+     "E",
+     "F",
+     "G"
+    ],
+    "color": "#7f9fdd",
+    "bytes": 16997
+   },
+   {
+    "file": "6ysl-e2-motility-protein-b-front.svg",
+    "pdbId": "6YSL",
+    "species": "Bacillus subtilis",
+    "truthClass": "STRUCTURAL_RECONSTRUCTION",
+    "citation": "PDB 6YSL; Deme et al., Nature Microbiology 5, 1553-1564 (2020)",
+    "doi": "10.2210/pdb6YSL/pdb",
+    "sourcePath": "public/data/structures/6ysl.cif.gz",
+    "sourceSha256": "74386247ed1dd7a9f2d02e8b1805bea4c39b9b148ffc9c06766e92b26778c221",
+    "view": "front",
+    "entityId": "2",
+    "description": "Motility protein B",
+    "caCount": 51,
+    "chains": [
+     "B",
+     "C"
+    ],
+    "color": "#e8bb55",
+    "bytes": 1233
+   },
+   {
+    "file": "7e82-composite-front.svg",
+    "pdbId": "7E82",
+    "species": "Salmonella enterica",
+    "truthClass": "STRUCTURAL_RECONSTRUCTION",
+    "citation": "PDB 7E82; Tan et al., Cell 184, 2665-2679.e19 (2021)",
+    "doi": "10.2210/pdb7E82/pdb",
+    "sourcePath": "public/data/structures/7e82.cif.gz",
+    "sourceSha256": "c143331497d819b2be42b7892db80a577312ad8b4fbc50111d58e263597e8afc",
+    "view": "front",
+    "entityId": null,
+    "description": "flagellar rod with partial hook",
+    "caCount": 13700,
+    "chains": null,
+    "color": null,
+    "bytes": 194553
+   },
+   {
+    "file": "7e82-composite-top.svg",
+    "pdbId": "7E82",
+    "species": "Salmonella enterica",
+    "truthClass": "STRUCTURAL_RECONSTRUCTION",
+    "citation": "PDB 7E82; Tan et al., Cell 184, 2665-2679.e19 (2021)",
+    "doi": "10.2210/pdb7E82/pdb",
+    "sourcePath": "public/data/structures/7e82.cif.gz",
+    "sourceSha256": "c143331497d819b2be42b7892db80a577312ad8b4fbc50111d58e263597e8afc",
+    "view": "top",
+    "entityId": null,
+    "description": "flagellar rod with partial hook",
+    "caCount": 13700,
+    "chains": null,
+    "color": null,
+    "bytes": 193378
+   },
+   {
+    "file": "7e82-e1-flagellar-basal-body-rod-protein-flgg-front.svg",
+    "pdbId": "7E82",
+    "species": "Salmonella enterica",
+    "truthClass": "STRUCTURAL_RECONSTRUCTION",
+    "citation": "PDB 7E82; Tan et al., Cell 184, 2665-2679.e19 (2021)",
+    "doi": "10.2210/pdb7E82/pdb",
+    "sourcePath": "public/data/structures/7e82.cif.gz",
+    "sourceSha256": "c143331497d819b2be42b7892db80a577312ad8b4fbc50111d58e263597e8afc",
+    "view": "front",
+    "entityId": "1",
+    "description": "Flagellar basal-body rod protein FlgG",
+    "caCount": 6163,
+    "chains": [
+     "A",
+     "B",
+     "C",
+     "D",
+     "E",
+     "F",
+     "G",
+     "H",
+     "I",
+     "J",
+     "K",
+     "L",
+     "M",
+     "N",
+     "O",
+     "P",
+     "Q",
+     "R",
+     "S",
+     "T",
+     "U",
+     "VA",
+     "WA",
+     "XA"
+    ],
+    "color": "#7f9fdd",
+    "bytes": 85020
+   },
+   {
+    "file": "7e82-e2-flagellar-basal-body-rod-protein-flgf-front.svg",
+    "pdbId": "7E82",
+    "species": "Salmonella enterica",
+    "truthClass": "STRUCTURAL_RECONSTRUCTION",
+    "citation": "PDB 7E82; Tan et al., Cell 184, 2665-2679.e19 (2021)",
+    "doi": "10.2210/pdb7E82/pdb",
+    "sourcePath": "public/data/structures/7e82.cif.gz",
+    "sourceSha256": "c143331497d819b2be42b7892db80a577312ad8b4fbc50111d58e263597e8afc",
+    "view": "front",
+    "entityId": "2",
+    "description": "Flagellar basal-body rod protein FlgF",
+    "caCount": 1244,
+    "chains": [
+     "V",
+     "W",
+     "X",
+     "Y",
+     "Z"
+    ],
+    "color": "#4bd18a",
+    "bytes": 17166
+   },
+   {
+    "file": "7e82-e3-flagellar-ms-ring-l2-front.svg",
+    "pdbId": "7E82",
+    "species": "Salmonella enterica",
+    "truthClass": "STRUCTURAL_RECONSTRUCTION",
+    "citation": "PDB 7E82; Tan et al., Cell 184, 2665-2679.e19 (2021)",
+    "doi": "10.2210/pdb7E82/pdb",
+    "sourcePath": "public/data/structures/7e82.cif.gz",
+    "sourceSha256": "c143331497d819b2be42b7892db80a577312ad8b4fbc50111d58e263597e8afc",
+    "view": "front",
+    "entityId": "3",
+    "description": "Flagellar MS ring L2",
+    "caCount": 75,
+    "chains": [
+     "AA",
+     "BA",
+     "CA",
+     "DA",
+     "EA"
+    ],
+    "color": "#e8bb55",
+    "bytes": 1682
+   },
+   {
+    "file": "7e82-e4-flagellar-ms-ring-l1-front.svg",
+    "pdbId": "7E82",
+    "species": "Salmonella enterica",
+    "truthClass": "STRUCTURAL_RECONSTRUCTION",
+    "citation": "PDB 7E82; Tan et al., Cell 184, 2665-2679.e19 (2021)",
+    "doi": "10.2210/pdb7E82/pdb",
+    "sourcePath": "public/data/structures/7e82.cif.gz",
+    "sourceSha256": "c143331497d819b2be42b7892db80a577312ad8b4fbc50111d58e263597e8afc",
+    "view": "front",
+    "entityId": "4",
+    "description": "Flagellar MS ring L1",
+    "caCount": 105,
+    "chains": [
+     "FA",
+     "GA",
+     "HA",
+     "IA",
+     "RA"
+    ],
+    "color": "#d9b45f",
+    "bytes": 2004
+   },
+   {
+    "file": "7e82-e5-flagellar-basal-body-rod-protein-flgc-front.svg",
+    "pdbId": "7E82",
+    "species": "Salmonella enterica",
+    "truthClass": "STRUCTURAL_RECONSTRUCTION",
+    "citation": "PDB 7E82; Tan et al., Cell 184, 2665-2679.e19 (2021)",
+    "doi": "10.2210/pdb7E82/pdb",
+    "sourcePath": "public/data/structures/7e82.cif.gz",
+    "sourceSha256": "c143331497d819b2be42b7892db80a577312ad8b4fbc50111d58e263597e8afc",
+    "view": "front",
+    "entityId": "5",
+    "description": "Flagellar basal-body rod protein FlgC",
+    "caCount": 771,
+    "chains": [
+     "JA",
+     "KA",
+     "LA",
+     "MA",
+     "QA",
+     "SA"
+    ],
+    "color": "#ff9d7a",
+    "bytes": 10710
+   },
+   {
+    "file": "7e82-e6-flagellar-basal-body-rod-protein-flgb-front.svg",
+    "pdbId": "7E82",
+    "species": "Salmonella enterica",
+    "truthClass": "STRUCTURAL_RECONSTRUCTION",
+    "citation": "PDB 7E82; Tan et al., Cell 184, 2665-2679.e19 (2021)",
+    "doi": "10.2210/pdb7E82/pdb",
+    "sourcePath": "public/data/structures/7e82.cif.gz",
+    "sourceSha256": "c143331497d819b2be42b7892db80a577312ad8b4fbc50111d58e263597e8afc",
+    "view": "front",
+    "entityId": "6",
+    "description": "Flagellar basal body rod protein FlgB",
+    "caCount": 536,
+    "chains": [
+     "NA",
+     "OA",
+     "PA",
+     "TA",
+     "UA"
+    ],
+    "color": "#6fd3c7",
+    "bytes": 7497
+   },
+   {
+    "file": "7e82-e7-flagellar-hook-basal-body-complex-protein-flie-front.svg",
+    "pdbId": "7E82",
+    "species": "Salmonella enterica",
+    "truthClass": "STRUCTURAL_RECONSTRUCTION",
+    "citation": "PDB 7E82; Tan et al., Cell 184, 2665-2679.e19 (2021)",
+    "doi": "10.2210/pdb7E82/pdb",
+    "sourcePath": "public/data/structures/7e82.cif.gz",
+    "sourceSha256": "c143331497d819b2be42b7892db80a577312ad8b4fbc50111d58e263597e8afc",
+    "view": "front",
+    "entityId": "7",
+    "description": "Flagellar hook-basal body complex protein FliE",
+    "caCount": 395,
+    "chains": [
+     "AB",
+     "BB",
+     "CB",
+     "DB",
+     "YA",
+     "ZA"
+    ],
+    "color": "#c39df0",
+    "bytes": 5783
+   },
+   {
+    "file": "7e82-e8-flagellar-hook-protein-flge-front.svg",
+    "pdbId": "7E82",
+    "species": "Salmonella enterica",
+    "truthClass": "STRUCTURAL_RECONSTRUCTION",
+    "citation": "PDB 7E82; Tan et al., Cell 184, 2665-2679.e19 (2021)",
+    "doi": "10.2210/pdb7E82/pdb",
+    "sourcePath": "public/data/structures/7e82.cif.gz",
+    "sourceSha256": "c143331497d819b2be42b7892db80a577312ad8b4fbc50111d58e263597e8afc",
+    "view": "front",
+    "entityId": "8",
+    "description": "Flagellar hook protein FlgE",
+    "caCount": 4411,
+    "chains": [
+     "EB",
+     "FB",
+     "GB",
+     "HB",
+     "IB",
+     "JB",
+     "KB",
+     "LB",
+     "MB",
+     "NB",
+     "OB"
+    ],
+    "color": "#ff7a7a",
+    "bytes": 61539
+   }
+  ]
+ },
+ "timescales": {
+  "schema": "uni.flagellum.classroom-timescales/1.0.0",
+  "note": "Every value read programmatically from the named artifact at build time; provenance is file + JSON path. Nothing typed by hand. Where a key carries no unit, unitNotRecordedInArtifact is true and no unit is asserted.",
+  "epistemicsVocabulary": [
+   "MEASURED",
+   "DIGITIZED_BY_THIRD_PARTY",
+   "MODEL_PREDICTION",
+   "REDUCED_MODEL",
+   "REPORTED_SUMMARY",
+   "NOT_HELD"
+  ],
+  "rows": [
+   {
+    "group": "switching",
+    "quantity": "CCW->CW switching rate vs torque",
+    "values": [
+     0.23473,
+     0.24427,
+     0.23855,
+     0.39504,
+     0.48092,
+     0.45802,
+     0.47328,
+     0.75191,
+     0.83015
+    ],
+    "pairedTorquePnNm": [
+     9.41925,
+     28.25,
+     57.689,
+     131.87,
+     288.465,
+     548.695,
+     556.885,
+     933.67,
+     1293.95
+    ],
+    "unitsAsHeld": "s^-1",
+    "species": "Escherichia coli",
+    "sourceId": "ANTANI_2021",
+    "doi": "10.1038/s41467-021-25774-2",
+    "epistemics": "MEASURED",
+    "file": "experiments/data/cross-study-motor-evidence.json",
+    "jsonPath": "studies.antani2021.torqueSwitching[].kCcwToCwPerSecond"
+   },
+   {
+    "group": "switching",
+    "quantity": "CW->CCW switching rate vs torque",
+    "values": [
+     1.1232,
+     1.392,
+     1.5456,
+     1.8624,
+     2.4096,
+     2.5248,
+     3.0336,
+     3.8592,
+     4.0224
+    ],
+    "pairedTorquePnNm": [
+     9.41925,
+     28.25,
+     57.689,
+     131.87,
+     288.465,
+     548.695,
+     556.885,
+     933.67,
+     1293.95
+    ],
+    "unitsAsHeld": "s^-1",
+    "species": "Escherichia coli",
+    "sourceId": "ANTANI_2021",
+    "doi": "10.1038/s41467-021-25774-2",
+    "epistemics": "MEASURED",
+    "file": "experiments/data/cross-study-motor-evidence.json",
+    "jsonPath": "studies.antani2021.torqueSwitching[].kCwToCcwPerSecond"
+   },
+   {
+    "group": "rotation",
+    "quantity": "motor speed, high-stator class",
+    "range": {
+     "min": 10.87613082,
+     "max": 16.24999748,
+     "n": 44
+    },
+    "unitsAsHeld": "Hz",
+    "species": "Escherichia coli",
+    "sourceId": "ANTANI_2021",
+    "doi": "10.1038/s41467-021-25774-2",
+    "epistemics": "MEASURED",
+    "file": "experiments/data/cross-study-motor-evidence.json",
+    "jsonPath": "studies.antani2021.statorClassSpeedHz.high"
+   },
+   {
+    "group": "rotation",
+    "quantity": "motor speed, medium-stator class",
+    "range": {
+     "min": 5.742468258,
+     "max": 10.76845179,
+     "n": 40
+    },
+    "unitsAsHeld": "Hz",
+    "species": "Escherichia coli",
+    "sourceId": "ANTANI_2021",
+    "doi": "10.1038/s41467-021-25774-2",
+    "epistemics": "MEASURED",
+    "file": "experiments/data/cross-study-motor-evidence.json",
+    "jsonPath": "studies.antani2021.statorClassSpeedHz.medium"
+   },
+   {
+    "group": "rotation",
+    "quantity": "motor speed, low-stator class",
+    "range": {
+     "min": 0.250933764,
+     "max": 5.308307899,
+     "n": 81
+    },
+    "unitsAsHeld": "Hz",
+    "species": "Escherichia coli",
+    "sourceId": "ANTANI_2021",
+    "doi": "10.1038/s41467-021-25774-2",
+    "epistemics": "MEASURED",
+    "file": "experiments/data/cross-study-motor-evidence.json",
+    "jsonPath": "studies.antani2021.statorClassSpeedHz.low"
+   },
+   {
+    "group": "adaptation",
+    "quantity": "dynamic load adaptation time axis (paired to mean CW bias)",
+    "range": {
+     "min": 22,
+     "max": 598,
+     "n": 65
+    },
+    "unitsAsHeld": "s",
+    "species": "Escherichia coli",
+    "sourceId": "ANTANI_2021",
+    "doi": "10.1038/s41467-021-25774-2",
+    "epistemics": "MEASURED",
+    "file": "experiments/data/cross-study-motor-evidence.json",
+    "jsonPath": "studies.antani2021.dynamicLoadAdaptation[].timeSeconds"
+   },
+   {
+    "group": "stator-dwell",
+    "quantity": "per-state dwell means (states 0,1,2,3,4)",
+    "values": [
+     12.88722222222222,
+     1.588505747126437,
+     1.307500000000001,
+     1.336057692307693,
+     1.68537037037037
+    ],
+    "se": [
+     1.966247015597264,
+     0.2544626807193242,
+     0.1598390635438282,
+     0.1551834259128703,
+     0.1881524104914519
+    ],
+    "unitsAsHeld": "s",
+    "species": "Escherichia coli",
+    "sourceId": "ITO_2021",
+    "doi": "10.1038/s41467-021-23516-y",
+    "epistemics": "MEASURED",
+    "file": "experiments/data/cross-study-motor-evidence.json",
+    "jsonPath": "studies.ito2021.dwellMeans.main[].meanDwellSeconds",
+    "caveat": "OPEN QUESTION, unreconciled: Ito dwell means FALL with N while Wadhwa 2022 dwell means RISE with N. The repo holds Ito sheet name but not the figure caption; whether these are the same observable is NOT established here."
+   },
+   {
+    "group": "rotation",
+    "quantity": "per-motor mean rotation rate (40 motors)",
+    "range": {
+     "min": 35.842762250104215,
+     "max": 86.81199751704877,
+     "n": 40
+    },
+    "unitsAsHeld": "Hz",
+    "species": "Escherichia coli",
+    "sourceId": "ITO_2021",
+    "doi": "10.1038/s41467-021-23516-y",
+    "epistemics": "MEASURED",
+    "file": "experiments/data/cross-study-motor-evidence.json",
+    "jsonPath": "studies.ito2021.motors[].rotationHz.mean"
+   },
+   {
+    "group": "stator-binding",
+    "quantity": "stator binding rate vs rotation speed (10Hz bins, n=21)",
+    "range": {
+     "min": 0.126275902,
+     "max": 2.910574465213684,
+     "n": 21
+    },
+    "unitsAsHeld": "s^-1",
+    "species": "Escherichia coli",
+    "sourceId": "ITO_2021",
+    "doi": "10.1038/s41467-021-23516-y",
+    "epistemics": "MEASURED",
+    "file": "experiments/data/cross-study-motor-evidence.json",
+    "jsonPath": "studies.ito2021.rotationBindingBins[\"10Hz\"][].bindingRatePerSecond"
+   },
+   {
+    "group": "stator-binding",
+    "quantity": "stator binding rate vs rotation speed (20Hz bins, n=11)",
+    "range": {
+     "min": 0.126275902,
+     "max": 2.197224577336219,
+     "n": 11
+    },
+    "unitsAsHeld": "s^-1",
+    "species": "Escherichia coli",
+    "sourceId": "ITO_2021",
+    "doi": "10.1038/s41467-021-23516-y",
+    "epistemics": "MEASURED",
+    "file": "experiments/data/cross-study-motor-evidence.json",
+    "jsonPath": "studies.ito2021.rotationBindingBins[\"20Hz\"][].bindingRatePerSecond"
+   },
+   {
+    "group": "stator-binding",
+    "quantity": "stator binding rate vs rotation speed (5Hz bins, n=41)",
+    "range": {
+     "min": 0,
+     "max": 3.218875824868201,
+     "n": 41
+    },
+    "unitsAsHeld": "s^-1",
+    "species": "Escherichia coli",
+    "sourceId": "ITO_2021",
+    "doi": "10.1038/s41467-021-23516-y",
+    "epistemics": "MEASURED",
+    "file": "experiments/data/cross-study-motor-evidence.json",
+    "jsonPath": "studies.ito2021.rotationBindingBins[\"5Hz\"][].bindingRatePerSecond"
+   },
+   {
+    "group": "rotation",
+    "quantity": "motor rotation (10 cells)",
+    "values": [
+     220,
+     221,
+     220,
+     217,
+     220,
+     226,
+     220,
+     226,
+     208,
+     217
+    ],
+    "unitsAsHeld": "Hz",
+    "species": "Escherichia coli",
+    "sourceId": "LISEVICH_2025",
+    "doi": "10.1038/s41467-025-56980-x",
+    "epistemics": "MEASURED",
+    "file": "experiments/data/cross-study-motor-evidence.json",
+    "jsonPath": "studies.lisevich2025.rotationRates[].motorRotationHz"
+   },
+   {
+    "group": "rotation",
+    "quantity": "filament rotation (10 cells)",
+    "values": [
+     184,
+     195,
+     191,
+     184,
+     185,
+     184,
+     180,
+     184,
+     174,
+     180
+    ],
+    "unitsAsHeld": "Hz",
+    "species": "Escherichia coli",
+    "sourceId": "LISEVICH_2025",
+    "doi": "10.1038/s41467-025-56980-x",
+    "epistemics": "MEASURED",
+    "file": "experiments/data/cross-study-motor-evidence.json",
+    "jsonPath": "studies.lisevich2025.rotationRates[].filamentRotationHz"
+   },
+   {
+    "group": "rotation",
+    "quantity": "cell-body counter-rotation (10 cells)",
+    "values": [
+     36,
+     26,
+     29,
+     33,
+     35,
+     42,
+     40,
+     42,
+     34,
+     37
+    ],
+    "unitsAsHeld": "Hz",
+    "species": "Escherichia coli",
+    "sourceId": "LISEVICH_2025",
+    "doi": "10.1038/s41467-025-56980-x",
+    "epistemics": "MEASURED",
+    "file": "experiments/data/cross-study-motor-evidence.json",
+    "jsonPath": "studies.lisevich2025.rotationRates[].bodyRotationHz"
+   },
+   {
+    "group": "swimming",
+    "quantity": "cell swimming speed (10 cells)",
+    "values": [
+     23.806,
+     20.273,
+     23.244,
+     27.847,
+     25.911,
+     25.911,
+     26.327,
+     22.637,
+     24.896,
+     24.896
+    ],
+    "unitsAsHeld": "um s^-1",
+    "species": "Escherichia coli",
+    "sourceId": "LISEVICH_2025",
+    "doi": "10.1038/s41467-025-56980-x",
+    "epistemics": "MEASURED",
+    "file": "experiments/data/cross-study-motor-evidence.json",
+    "jsonPath": "studies.lisevich2025.experimentalCellSpeeds[].speedUmPerSecond"
+   },
+   {
+    "group": "switching",
+    "quantity": "mean CCW interval vs CW bias (Bai 2010, digitized)",
+    "values": [
+     2.59,
+     1.53,
+     1.18,
+     0.839,
+     0.741,
+     0.884,
+     0.549,
+     0.464,
+     0.304
+    ],
+    "pairedCwBias": [
+     0.1,
+     0.2,
+     0.30000000000000004,
+     0.4,
+     0.5,
+     0.6,
+     0.7,
+     0.8,
+     0.9
+    ],
+    "unitsAsHeld": "s",
+    "species": "Escherichia coli (implied; no organism key on this study)",
+    "sourceId": "MATTINGLY_TU_2026 (digitized from Bai 2010 - Bai 2010 itself has NO DOI, authors or title recorded in this repo)",
+    "doi": "10.1038/s41567-025-03105-2",
+    "epistemics": "DIGITIZED_BY_THIRD_PARTY",
+    "file": "experiments/data/cross-study-motor-evidence.json",
+    "jsonPath": "studies.mattingly2026.bai2010DigitizedIntervals[].meanCcwIntervalSeconds",
+    "caveat": "These are INTERVALS, not rates. No k...PerSecond field exists for Bai in this repo; inverting to rates is an analysis the estate has not performed or sanctioned."
+   },
+   {
+    "group": "switching",
+    "quantity": "mean CW interval vs CW bias (Bai 2010, digitized)",
+    "values": [
+     0.379,
+     0.464,
+     0.558,
+     0.683,
+     0.746,
+     1.61,
+     0.933,
+     1.72,
+     2.16
+    ],
+    "pairedCwBias": [
+     0.1,
+     0.2,
+     0.30000000000000004,
+     0.4,
+     0.5,
+     0.6,
+     0.7,
+     0.8,
+     0.9
+    ],
+    "unitsAsHeld": "s",
+    "species": "Escherichia coli (implied)",
+    "sourceId": "MATTINGLY_TU_2026 (digitized from Bai 2010)",
+    "doi": "10.1038/s41567-025-03105-2",
+    "epistemics": "DIGITIZED_BY_THIRD_PARTY",
+    "file": "experiments/data/cross-study-motor-evidence.json",
+    "jsonPath": "studies.mattingly2026.bai2010DigitizedIntervals[].meanCwIntervalSeconds"
+   },
+   {
+    "group": "switching",
+    "quantity": "k(CCW->CW) vs speed (Yuan 2009, digitized, 15 points)",
+    "values": [
+     0.6315789473684209,
+     0.5745614035087719,
+     0.45614035087719296,
+     0.49561403508771923,
+     0.7587719298245613,
+     0.7412280701754387,
+     0.8333333333333331,
+     0.7543859649122808,
+     0.4605263157894738,
+     0.47807017543859615,
+     0.4868421052631578,
+     0.394736842105263,
+     0.24122807017543862,
+     0.24122807017543862,
+     0.2412280701754385
+    ],
+    "pairedSpeedCcwHz": [
+     3.703703703703689,
+     8.148148148148133,
+     10.370370370370358,
+     22.96296296296297,
+     37.03703703703704,
+     77.03703703703704,
+     120.00000000000001,
+     178.51851851851853,
+     204.44444444444446,
+     257.03703703703707,
+     270.37037037037044,
+     282.962962962963,
+     311.8518518518519,
+     325.925925925926,
+     333.3333333333334
+    ],
+    "unitsAsHeld": "NOT RECORDED IN ARTIFACT (key carries no unit suffix; s^-1 implied by context but not asserted here)",
+    "unitNotRecordedInArtifact": true,
+    "species": "Escherichia coli (implied)",
+    "sourceId": "MATTINGLY_TU_2026 (digitized from Yuan 2009 - Yuan 2009 itself has NO DOI, authors or title recorded in this repo)",
+    "doi": "10.1038/s41567-025-03105-2",
+    "epistemics": "DIGITIZED_BY_THIRD_PARTY",
+    "file": "experiments/data/cross-study-motor-evidence.json",
+    "jsonPath": "studies.mattingly2026.yuan2009DigitizedSwitching[].kCcwToCw"
+   },
+   {
+    "group": "switching",
+    "quantity": "k(CW->CCW) vs speed (Yuan 2009, digitized, 15 points)",
+    "values": [
+     0.8720768955609661,
+     1.0223324832973706,
+     1.3731719418898498,
+     1.743775313570959,
+     2.7960444480343405,
+     3.5769913342487563,
+     4.0070156814326765,
+     3.85516310305436,
+     3.012404370954155,
+     2.5399259199427653,
+     2.3792021970160273,
+     1.8475520118158841,
+     1.5661308747677787,
+     1.3752858774794305,
+     1.1044436495390184
+    ],
+    "unitsAsHeld": "NOT RECORDED IN ARTIFACT",
+    "unitNotRecordedInArtifact": true,
+    "species": "Escherichia coli (implied)",
+    "sourceId": "MATTINGLY_TU_2026 (digitized from Yuan 2009)",
+    "doi": "10.1038/s41567-025-03105-2",
+    "epistemics": "DIGITIZED_BY_THIRD_PARTY",
+    "file": "experiments/data/cross-study-motor-evidence.json",
+    "jsonPath": "studies.mattingly2026.yuan2009DigitizedSwitching[].kCwToCcw"
+   },
+   {
+    "group": "switching",
+    "quantity": "GMC model switching prediction (k both directions vs speed)",
+    "values": [
+     0.37221536380949977,
+     0.43579697131239725,
+     0.6106162418266484,
+     0.7976667058813132,
+     0.9661204141105875,
+     0.9971746717633357,
+     0.4890374113619694,
+     0.12060903403254226,
+     0.11268375904005457
+    ],
+    "valuesCwToCcw": [
+     1.575771997690037,
+     2.0158314990941375,
+     2.2694558559315645,
+     3.628263431670788,
+     4.085187927355092,
+     3.704597056248023,
+     1.4408273901944781,
+     0.560397914179967,
+     0.3354383956205164
+    ],
+    "pairedSpeedHz": [
+     300,
+     267.8049498537428,
+     241.85033738687707,
+     174.2858967562142,
+     121.98816407631321,
+     65.13229511256183,
+     22.739279963368737,
+     6.936801181597073,
+     4.6356997208219815
+    ],
+    "unitsAsHeld": "NOT RECORDED IN ARTIFACT",
+    "unitNotRecordedInArtifact": true,
+    "species": "model output, not an observation",
+    "sourceId": "MATTINGLY_TU_2026 (GMC Gillespie model)",
+    "doi": "10.1038/s41567-025-03105-2",
+    "epistemics": "MODEL_PREDICTION",
+    "file": "experiments/data/cross-study-motor-evidence.json",
+    "jsonPath": "studies.mattingly2026.sourceSwitchingPrediction[].kCcwToCw"
+   },
+   {
+    "group": "switching",
+    "quantity": "Zhu 2024 block",
+    "unitsAsHeld": null,
+    "species": "Escherichia coli (implied)",
+    "sourceId": "ZHU_2024 (via MATTINGLY_TU_2026; NO DOI, authors or title recorded in this repo)",
+    "epistemics": "NOT_HELD",
+    "file": "experiments/data/cross-study-motor-evidence.json",
+    "jsonPath": "studies.mattingly2026.zhu2024PairedCells",
+    "caveat": "EXPLICIT NEGATIVE: the Zhu 2024 block holds cwBias and inferred CheY-P only - no switching rate, no dwell time, no frequency of any kind."
+   },
+   {
+    "group": "load",
+    "quantity": "rotational drag per bead condition",
+    "values": [
+     11.4,
+     1.67,
+     0.77,
+     0.39,
+     0.21
+    ],
+    "pairedBeadNm": [
+     1364,
+     543,
+     543,
+     302,
+     302
+    ],
+    "unitsAsHeld": "pN nm s",
+    "species": "Escherichia coli (implied; no organism key)",
+    "sourceId": "NORD_2017",
+    "doi": "10.1073/pnas.1716007114",
+    "epistemics": "MEASURED",
+    "file": "experiments/data/cross-study-motor-evidence.json",
+    "jsonPath": "studies.nord2017.beadConditions[].dragPnNmS"
+   },
+   {
+    "group": "load",
+    "quantity": "Franco-Onate 2025 block",
+    "unitsAsHeld": null,
+    "species": "-",
+    "sourceId": "FRANCO_ONATE_2025",
+    "doi": "10.1038/s41598-025-14570-3",
+    "epistemics": "NOT_HELD",
+    "file": "experiments/data/cross-study-motor-evidence.json",
+    "jsonPath": "studies.francoOnate2025",
+    "caveat": "EXPLICIT NEGATIVE: no timescale held - only dimensionless relative occupancy and ringSize 13."
+   },
+   {
+    "group": "sampling",
+    "quantity": "sampling interval (all 129 motors, single distinct value)",
+    "values": [
+     0.01999999999998181
+    ],
+    "unitsAsHeld": "s",
+    "species": "Escherichia coli",
+    "sourceId": "WADHWA_2022",
+    "doi": "10.1038/s41467-022-33075-5",
+    "epistemics": "MEASURED",
+    "file": "experiments/data/wadhwa-2022-events.json",
+    "jsonPath": "motors[0].sampleIntervalS"
+   },
+   {
+    "group": "stator-dwell",
+    "quantity": "raw dwell durations (1349 events, 129 motors)",
+    "range": {
+     "min": 0.26,
+     "max": 357.18,
+     "n": 1349
+    },
+    "unitsAsHeld": "s",
+    "species": "Escherichia coli",
+    "sourceId": "WADHWA_2022",
+    "doi": "10.1038/s41467-022-33075-5",
+    "epistemics": "MEASURED",
+    "file": "experiments/data/wadhwa-2022-events.json",
+    "jsonPath": "events[].durationS"
+   },
+   {
+    "group": "stator-kinetics",
+    "quantity": "k_off,loose (D-L-T mechanism)",
+    "values": [
+     0.057
+    ],
+    "unitsAsHeld": "s^-1",
+    "species": "Escherichia coli",
+    "sourceId": "WADHWA_2022",
+    "doi": "10.1038/s41467-022-33075-5",
+    "epistemics": "MEASURED",
+    "file": "experiments/source-parity-reference.json",
+    "jsonPath": "declaredMechanism.reportedDerivedRatesPerSecond.kOffLoose",
+    "fence": "These intervals are changes that increase the authors' loss by 50%; they are not confidence or credible intervals."
+   },
+   {
+    "group": "stator-kinetics",
+    "quantity": "k_tightening",
+    "values": [
+     0.13
+    ],
+    "unitsAsHeld": "s^-1",
+    "species": "Escherichia coli",
+    "sourceId": "WADHWA_2022",
+    "doi": "10.1038/s41467-022-33075-5",
+    "epistemics": "MEASURED",
+    "file": "experiments/source-parity-reference.json",
+    "jsonPath": "declaredMechanism.reportedDerivedRatesPerSecond.kTightening",
+    "fence": "These intervals are changes that increase the authors' loss by 50%; they are not confidence or credible intervals."
+   },
+   {
+    "group": "stator-kinetics",
+    "quantity": "k_loosening (upper bound)",
+    "values": [
+     0.0017
+    ],
+    "unitsAsHeld": "s^-1",
+    "species": "Escherichia coli",
+    "sourceId": "WADHWA_2022",
+    "doi": "10.1038/s41467-022-33075-5",
+    "epistemics": "MEASURED",
+    "file": "experiments/source-parity-reference.json",
+    "jsonPath": "declaredMechanism.reportedDerivedRatesPerSecond.kLoosening",
+    "fence": "These intervals are changes that increase the authors' loss by 50%; they are not confidence or credible intervals."
+   },
+   {
+    "group": "stator-kinetics",
+    "quantity": "k_off,tight (fixed)",
+    "values": [
+     0
+    ],
+    "unitsAsHeld": "s^-1",
+    "species": "Escherichia coli",
+    "sourceId": "WADHWA_2022",
+    "doi": "10.1038/s41467-022-33075-5",
+    "epistemics": "MEASURED",
+    "file": "experiments/source-parity-reference.json",
+    "jsonPath": "declaredMechanism.reportedDerivedRatesPerSecond.kOffTight",
+    "fence": "These intervals are changes that increase the authors' loss by 50%; they are not confidence or credible intervals."
+   },
+   {
+    "group": "stator-kinetics",
+    "quantity": "sigma_plus (stator arrival)",
+    "values": [
+     0.19
+    ],
+    "unitsAsHeld": "s^-1",
+    "species": "Escherichia coli",
+    "sourceId": "WADHWA_2022",
+    "doi": "10.1038/s41467-022-33075-5",
+    "epistemics": "MEASURED",
+    "file": "experiments/source-parity-reference.json",
+    "jsonPath": "declaredMechanism.reportedMomentFit.sigmaPlusPerSecond",
+    "fence": "These intervals are changes that increase the authors' loss by 50%; they are not confidence or credible intervals."
+   },
+   {
+    "group": "stator-kinetics",
+    "quantity": "sigma_minus (upper bound)",
+    "values": [
+     0.0005
+    ],
+    "unitsAsHeld": "s^-1",
+    "species": "Escherichia coli",
+    "sourceId": "WADHWA_2022",
+    "doi": "10.1038/s41467-022-33075-5",
+    "epistemics": "MEASURED",
+    "file": "experiments/source-parity-reference.json",
+    "jsonPath": "declaredMechanism.reportedMomentFit.sigmaMinusPerSecond",
+    "fence": "These intervals are changes that increase the authors' loss by 50%; they are not confidence or credible intervals."
+   },
+   {
+    "group": "stator-kinetics",
+    "quantity": "hidden H state: entry rate, exit rate, mean lifetime",
+    "values": [
+     0.0003,
+     0.24
+    ],
+    "meanLifetimeSeconds": 4.1,
+    "occurrences": 43,
+    "unitsAsHeld": "s^-1 (rates), s (lifetime)",
+    "species": "Escherichia coli",
+    "sourceId": "WADHWA_2022",
+    "doi": "10.1038/s41467-022-33075-5",
+    "epistemics": "REPORTED_SUMMARY",
+    "file": "experiments/source-parity-reference.json",
+    "jsonPath": "declaredMechanism.reportedHiddenState",
+    "caveat": "Status REPORTED_SUMMARY_NOT_REEXTRACTED - the H state was never re-extracted from raw data in this estate (gate G07 SOURCE_ONLY)."
+   },
+   {
+    "group": "stator-dwell",
+    "quantity": "per-state mean dwell, source Figure 3 (experiment, N=0..8)",
+    "values": [
+     24.3290943779072,
+     7.98540080780495,
+     6.80814951410468,
+     15.2978860522839,
+     14.8707575883257,
+     21.1935860541982,
+     22.7665724440247,
+     43.3393099839842,
+     32.0789173116557
+    ],
+    "unitsAsHeld": "s",
+    "species": "Escherichia coli",
+    "sourceId": "WADHWA_2022",
+    "doi": "10.1038/s41467-022-33075-5",
+    "epistemics": "MEASURED",
+    "file": "experiments/source-parity-reference.json",
+    "jsonPath": "sourceDataFigure3.experiment.meanDwellSeconds"
+   },
+   {
+    "group": "stator-dwell",
+    "quantity": "per-state mean dwell, source Figure 3 (theory, N=0..8)",
+    "values": [
+     26.8289508106763,
+     9.23526521653129,
+     9.47492678071222,
+     11.5479099801558,
+     7.2041398408637,
+     21.9434536533074,
+     24.1829748406403,
+     44.339175987902,
+     34.9122325661526
+    ],
+    "unitsAsHeld": "s",
+    "species": "model output",
+    "sourceId": "WADHWA_2022 (their model)",
+    "doi": "10.1038/s41467-022-33075-5",
+    "epistemics": "MODEL_PREDICTION",
+    "file": "experiments/source-parity-reference.json",
+    "jsonPath": "sourceDataFigure3.theory.meanDwellSeconds"
+   },
+   {
+    "group": "stator-dwell",
+    "quantity": "per-state mean dwell, OUR training fit (states 0,1,2,3,4,5,6,7,8)",
+    "values": [
+     10.227200000000003,
+     4.749152542372881,
+     3.482608695652173,
+     6.350886075949369,
+     5.062716049382716,
+     7.948453608247425,
+     14.38991869918699,
+     18.245270270270268,
+     24.520583941605835
+    ],
+    "unitsAsHeld": "s",
+    "species": "Escherichia coli",
+    "sourceId": "this repo, fitted on Wadhwa 2022 TRAIN split only",
+    "doi": "10.1038/s41467-022-33075-5",
+    "epistemics": "MEASURED",
+    "file": "experiments/results/observed-experiment-report.json",
+    "jsonPath": "fittedOnTrainingOnly.stateMeanDurationS"
+   },
+   {
+    "group": "model-fit",
+    "quantity": "UNI two-timescale mixture: fast and slow rates",
+    "values": [
+     5.239865393555934,
+     0.44485855808292624
+    ],
+    "weightFast": 0.6066448974609373,
+    "unitsAsHeld": "per NORMALIZED-time unit (durations divided by per-state training scale) - NOT s^-1",
+    "species": "model fit",
+    "sourceId": "this repo (M3_UNI_TWO_TIMESCALE, train-only fit)",
+    "epistemics": "MODEL_PREDICTION",
+    "file": "experiments/results/observed-experiment-report.json",
+    "jsonPath": "fittedOnTrainingOnly.normalizedDurationModels.mixture"
+   },
+   {
+    "group": "stator-kinetics",
+    "quantity": "OUR refit k_plus by state",
+    "values": [
+     0.14632054606652234,
+     0.21639037395404462,
+     0.1195874820247357,
+     0.1343188903709056,
+     0.07628485393174829,
+     0.03367200029681064,
+     0.02193400464909244,
+     0.012651023175631809
+    ],
+    "unitsAsHeld": "s^-1",
+    "species": "Escherichia coli",
+    "sourceId": "this repo (refit; gate G03 FAIL - refit does NOT reproduce the source figure)",
+    "epistemics": "MEASURED",
+    "file": "experiments/results/science-gates-report.json",
+    "jsonPath": "(first object carrying kPlusByN)",
+    "caveat": "ADVERSE, retained: G03 FAIL - the refit does not reproduce the article's own figure arrays (max relative discrepancy 3.767)."
+   },
+   {
+    "group": "reduced-model",
+    "quantity": "stator remodeling relaxation (recruit/release) - TEACHING MODEL",
+    "values": [],
+    "unitsAsHeld": "s",
+    "species": "none - hand-set constant",
+    "sourceId": "lib/uni-motor.js (NO SOURCE PIN)",
+    "epistemics": "REDUCED_MODEL",
+    "unsourced": true,
+    "file": "lib/uni-motor.js",
+    "jsonPath": "remodelingTauS",
+    "caveat": "UNSOURCED. docs/SCIENCE.md labels the whole block MODELED / TEACHING REDUCTION. Do not read next to measured values."
+   }
+  ]
+ },
+ "fitted": {
+  "stateMeanDurationS": {
+   "0": 10.227200000000003,
+   "1": 4.749152542372881,
+   "2": 3.482608695652173,
+   "3": 6.350886075949369,
+   "4": 5.062716049382716,
+   "5": 7.948453608247425,
+   "6": 14.38991869918699,
+   "7": 18.245270270270268,
+   "8": 24.520583941605835
+  },
+  "normalizedDurationModels": {
+   "exponential": {
+    "id": "M0_MEMORYLESS"
+   },
+   "weibull": {
+    "id": "M1_WEIBULL",
+    "shape": 0.625088844276203,
+    "scale": 0.6996038164387606
+   },
+   "lognormal": {
+    "id": "M2_LOGNORMAL",
+    "sigma": 1.5783076021679734,
+    "mu": -1.245527443530609
+   },
+   "mixture": {
+    "id": "M3_UNI_TWO_TIMESCALE",
+    "weightFast": 0.6066448974609373,
+    "rateFast": 5.239865393555934,
+    "rateSlow": 0.44485855808292624
+   }
+  },
+  "direction": {
+   "globalOnProbability": 0.6857682619647355,
+   "onProbabilityByState": {
+    "1": 0.6916666666666667,
+    "2": 0.75,
+    "3": 0.75625,
+    "4": 0.75,
+    "5": 0.7602040816326531,
+    "6": 0.6814516129032258,
+    "7": 0.6879194630872483,
+    "8": 0.5108695652173914
+   }
+  }
+ },
+ "gates": {
+  "science": {
+   "summary": {
+    "overall": "PARTIAL_PARITY_ONLY",
+    "gateCount": 14,
+    "statusCounts": {
+     "PASS": 4,
+     "FAIL": 3,
+     "SOURCE_ONLY": 1,
+     "BLOCKED_EXTERNAL": 5,
+     "NOT_ESTABLISHED": 1
+    },
+    "computationalGatesPassed": 4,
+    "computationalGatesEvaluated": 7,
+    "fullBiologicalParityAchieved": false,
+    "proofClaim": "No universal, causal, or biological Active-Inference identity was proved."
+   },
+   "gates": [
+    {
+     "id": "G00_SOURCE_IDENTITY",
+     "status": "PASS"
+    },
+    {
+     "id": "G01_OBSERVATION_BOUNDARY",
+     "status": "PASS"
+    },
+    {
+     "id": "G02_FIRST_PASSAGE_MATH",
+     "status": "PASS"
+    },
+    {
+     "id": "G03_PUBLIC_ARTIFACT_PARITY",
+     "status": "FAIL"
+    },
+    {
+     "id": "G04_CENSORED_JOINT_LIKELIHOOD",
+     "status": "PASS"
+    },
+    {
+     "id": "G05_SYNTHETIC_RECOVERY",
+     "status": "FAIL"
+    },
+    {
+     "id": "G06_HELDOUT_MECHANISTIC_PREDICTION",
+     "status": "FAIL"
+    },
+    {
+     "id": "G07_H_STATE_REEXTRACTION",
+     "status": "SOURCE_ONLY"
+    },
+    {
+     "id": "G08_LOAD_TORQUE_TRANSFER",
+     "status": "BLOCKED_EXTERNAL"
+    },
+    {
+     "id": "G09_SWITCH_COOPERATIVITY",
+     "status": "BLOCKED_EXTERNAL"
+    },
+    {
+     "id": "G10_ACTIVE_INFERENCE_CAUSAL_IDENTITY",
+     "status": "NOT_ESTABLISHED"
+    },
+    {
+     "id": "G11_LIVE_INSTRUMENT",
+     "status": "BLOCKED_EXTERNAL"
+    },
+    {
+     "id": "G12_INDEPENDENT_REPLICATION",
+     "status": "BLOCKED_EXTERNAL"
+    },
+    {
+     "id": "G13_PHYSICAL_MODEL_VALIDATION",
+     "status": "BLOCKED_EXTERNAL"
+    }
+   ]
+  },
+  "cross": {
+   "summary": {
+    "attributedStudies": 11,
+    "directIndependentMotorCellLowerBound": 409,
+    "directPrimaryArtifactFamilies": 4,
+    "fullBiologicalParityAchieved": false,
+    "overall": "PARTIAL_PARITY_ONLY",
+    "previousSingleStudyOverall": "PARTIAL_PARITY_ONLY",
+    "statusCounts": {
+     "BLOCKED_EXTERNAL": 3,
+     "FAIL": 3,
+     "NOT_ESTABLISHED": 2,
+     "PASS": 8
+    }
+   },
+   "gates": [
+    {
+     "id": "X01_SOURCE_INTEGRITY",
+     "status": "PASS"
+    },
+    {
+     "id": "X02_CORPUS_BREADTH",
+     "status": "PASS"
+    },
+    {
+     "id": "X03_ROTATION_GATED_ASSEMBLY",
+     "status": "PASS"
+    },
+    {
+     "id": "X04_STATOR_CHEY_COUPLING",
+     "status": "PASS"
+    },
+    {
+     "id": "X05_TORQUE_SWITCHING_RESPONSE",
+     "status": "PASS"
+    },
+    {
+     "id": "X06_FINITE_LATTICE_COOPERATIVITY",
+     "status": "FAIL"
+    },
+    {
+     "id": "X07_GMC_GENERATOR_REPRODUCTION",
+     "status": "PASS"
+    },
+    {
+     "id": "X08_GMC_SWITCHING_OBSERVATIONS",
+     "status": "PASS"
+    },
+    {
+     "id": "X09_WHOLE_CELL_PROPULSION",
+     "status": "PASS"
+    },
+    {
+     "id": "X10_CROSS_STUDY_PARAMETER_TRANSFER",
+     "status": "NOT_ESTABLISHED"
+    },
+    {
+     "id": "X11_STRUCTURAL_CONSISTENCY",
+     "status": "FAIL"
+    },
+    {
+     "id": "X12_ACTIVE_INFERENCE_CAUSAL_IDENTITY",
+     "status": "NOT_ESTABLISHED"
+    },
+    {
+     "id": "X13_LIVE_SIGNAL_CHAIN",
+     "status": "BLOCKED_EXTERNAL"
+    },
+    {
+     "id": "X14_INDEPENDENT_WET_LAB_REPLICATION",
+     "status": "BLOCKED_EXTERNAL"
+    },
+    {
+     "id": "X15_PRINTED_MODEL_VALIDATION",
+     "status": "BLOCKED_EXTERNAL"
+    },
+    {
+     "id": "X16_FULL_BIOLOGICAL_PARITY",
+     "status": "FAIL"
+    }
+   ]
+  }
+ }
+}
