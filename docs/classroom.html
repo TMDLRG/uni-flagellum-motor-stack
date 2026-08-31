@@ -125,7 +125,7 @@ dialog#drawer::backdrop{background:#000a}
 <a href="/" style="font:13px var(--mono);border:1px solid var(--ln);border-radius:9px;padding:7px 14px;text-decoration:none">&larr; dashboard</a>
 <a href="/models" style="font:13px var(--mono);border:1px solid var(--ln);border-radius:9px;padding:7px 14px;text-decoration:none">the models</a>
 <a href="/architecture" style="font:13px var(--mono);border:1px solid var(--ln);border-radius:9px;padding:7px 14px;text-decoration:none">the architecture</a>
-<a href="/api/classroom" style="font:13px var(--mono);border:1px solid var(--ln);border-radius:9px;padding:7px 14px;text-decoration:none">live json</a>
+<a id="livejson" href="/api/classroom" style="font:13px var(--mono);border:1px solid var(--ln);border-radius:9px;padding:7px 14px;text-decoration:none">live json</a>
 <span class="stamp" id="livestamp" style="margin-left:auto">committed values — live overlay loading…</span></nav>
 
 <h1>The Classroom</h1>
@@ -577,13 +577,31 @@ function renderWall(ts){
  }).join('');
 }
 
+// Three states, three sentences, and they are never allowed to blur:
+//   live      — the viewer answered; the artifacts were read at request time.
+//   RECORDED  — the live API is absent (the vendored public copy), but a committed fixture is
+//               served beside the page: the SAME aggregation, captured at a named commit by
+//               viewer/make_classroom_fixtures.cjs. The panels render the recording and the
+//               stamp names the commit. A fixture without its provenance block is refused —
+//               data that cannot say what it is does not get to dress as data that can.
+//   FAILED    — neither answered; the page shows only its committed inline copy and says so.
 function load(){
- fetch('/api/classroom?t='+Date.now()).then(function(r){return r.json();}).then(function(d){
+ fetch('/api/classroom?t='+Date.now()).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(d){
+  if(d.fixture) throw 0; // a fixture served where the live API should be is not a live read
   document.getElementById('livestamp').textContent='live — read from the artifacts at '+new Date().toLocaleTimeString();
   renderBench(d.structures); renderWall(d.timescales);
  }).catch(function(){
-  document.getElementById('livestamp').textContent='LIVE FETCH FAILED — page shows committed copy only';
-  renderBench(null); renderWall(null);
+  fetch('/assets/classroom/api-classroom.fixture.json').then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(d){
+   if(!d.fixture||!d.fixture.recorded) throw 0;
+   document.getElementById('livestamp').textContent='RECORDED — the same artifacts the live viewer reads, captured at '
+    +String(d.fixture.source_commit||'').slice(0,12)+' ('+String(d.fixture.generated_utc||'').slice(0,10)+') — not a live read';
+   var lj=document.getElementById('livejson');
+   if(lj){lj.textContent='recorded json';lj.setAttribute('href','/assets/classroom/api-classroom.fixture.json');}
+   renderBench(d.structures); renderWall(d.timescales);
+  }).catch(function(){
+   document.getElementById('livestamp').textContent='LIVE FETCH FAILED — page shows committed copy only';
+   renderBench(null); renderWall(null);
+  });
  });
 }
 load();

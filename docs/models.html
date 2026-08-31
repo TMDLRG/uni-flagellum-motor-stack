@@ -44,7 +44,7 @@ border:1px solid var(--ln);border-radius:10px;margin:7px 0;background:var(--pan2
 .stat .b{font:25px var(--mono);font-weight:700}
 </style>
 <div class="wrap">
-<p class="links"><a href="/">&larr; dashboard</a><a href="/architecture">the architecture</a><a href="/api/models">raw json</a></p>
+<p class="links"><a href="/">&larr; dashboard</a><a href="/architecture">the architecture</a><a id="rawjson" href="/api/models">raw json</a></p>
 
 <h1>The hierarchical models</h1>
 <p class="lede">The actual layered model fitted to real <i>E. coli</i> motors — every layer, every
@@ -193,18 +193,28 @@ var f=function(x,n){return (x==null||isNaN(x))?"—":Number(x).toFixed(n==null?4
 function esc(s){return String(s==null?"":s).replace(/&/g,"&amp;").replace(/</g,"&lt;");}
 function nice(id){return id.replace(/_/g," ").replace(/^M\d+ /,"").toLowerCase();}
 
-fetch("/api/models?t="+Date.now()).then(function(r){return r.json();}).then(function(d){
+// Rendering is one function so live and RECORDED cannot diverge; only the stamp differs.
+// live = the viewer answered. RECORDED = the committed fixture beside the page (same
+// aggregation, captured at a named commit) — the stamp names that commit and the raw-json
+// link is retargeted at the recording. FAILED = neither answered.
+function renderModels(d){
   var F=d.fside||{}, O=d.observed||{};
   var me=F.motorEqualNLPD||{}, ep=F.eventPooledNLPD||{}, fit=(F.fitted||{}).F_MOTOR_STACK||{};
 
-  // headline
-  document.getElementById("v_f").textContent   = f(me.F_MOTOR_STACK);
-  document.getElementById("v_m1").textContent  = f(me.M1_WEIBULL);
-  document.getElementById("v_gap").textContent = f(Math.abs((me.M1_WEIBULL||0)-(me.F_MOTOR_STACK||0)),6)+" nats";
-  document.getElementById("v_m2").textContent  = f(me.M2_LOGNORMAL);
-  document.getElementById("s_np").textContent  = fit.nFreeParams!=null?fit.nFreeParams:"—";
-  document.getElementById("s_mu").textContent  = f(fit.mu);
-  document.getElementById("s_tau").textContent = f(fit.tau);
+  // headline — GUARDED writes, and the guard is a repair with a date on it. Found 2026-08-31,
+  // the first time the RECORDED fixture path exercised this whole function: v_m1 / v_gap / v_m2
+  // no longer exist in the markup, the first write threw, and EVERYTHING below the headline —
+  // board, scatter, forest, cohort — had been dying silently, on the live viewer too, with the
+  // FAILED text sitting at the page foot where nobody scrolled. A missing label may cost its own
+  // number; it does not get to take the page with it.
+  var set=function(id,txt){var el=document.getElementById(id); if(el) el.textContent=txt;};
+  set("v_f",   f(me.F_MOTOR_STACK));
+  set("v_m1",  f(me.M1_WEIBULL));
+  set("v_gap", f(Math.abs((me.M1_WEIBULL||0)-(me.F_MOTOR_STACK||0)),6)+" nats");
+  set("v_m2",  f(me.M2_LOGNORMAL));
+  set("s_np",  fit.nFreeParams!=null?fit.nFreeParams:"—");
+  set("s_mu",  f(fit.mu));
+  set("s_tau", f(fit.tau));
 
   // ---- board ----
   var DESC={M2_LOGNORMAL:"heavy tail, 2 params, no mechanism",M8_EMPIRICAL_KDE:"the data smoothed — no model at all",
@@ -288,9 +298,26 @@ fetch("/api/models?t="+Date.now()).then(function(r){return r.json();}).then(func
   C.forEach(function(r){ch+='<tr><td>'+r[0]+'</td><td class="v">'+(r[1]==null?"—":r[1])+'</td><td class="say">'+r[2]+'</td></tr>';});
   document.getElementById("cohort").innerHTML=ch;
 
+}
+function loadModels(){
+ fetch("/api/models?t="+Date.now()).then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(d){
+  if(d.fixture) throw 0; // a fixture served where the live API should be is not a live read
+  renderModels(d);
   document.getElementById("stamp").textContent="Read live from F_SIDE_MOTOR_STACK_SCORING_RESULT.json and "
     +"observed-experiment-report.json at "+new Date().toLocaleTimeString()+" — nothing on this page is transcribed.";
-}).catch(function(e){
-  document.getElementById("stamp").textContent="FAILED to read the result files: "+e;
-});
+ }).catch(function(){
+  fetch("/assets/classroom/api-models.fixture.json").then(function(r){if(!r.ok)throw 0;return r.json();}).then(function(d){
+   if(!d.fixture||!d.fixture.recorded) throw 0;
+   renderModels(d);
+   document.getElementById("stamp").textContent="RECORDED — the same result files, captured at "
+     +String(d.fixture.source_commit||"").slice(0,12)+" ("+String(d.fixture.generated_utc||"").slice(0,10)
+     +") — not a live read; nothing on this page is transcribed.";
+   var rj=document.getElementById("rawjson");
+   if(rj){rj.textContent="recorded json";rj.setAttribute("href","/assets/classroom/api-models.fixture.json");}
+  }).catch(function(e){
+   document.getElementById("stamp").textContent="FAILED to read the result files: "+e;
+  });
+ });
+}
+loadModels();
 </script>
