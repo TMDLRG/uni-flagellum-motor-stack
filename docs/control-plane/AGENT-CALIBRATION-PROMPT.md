@@ -20,13 +20,13 @@ instruction, because it reads as satisfied. The key exists now, `verify_plan_con
 restated. Do not trust a next act written in prose anywhere, including here.
 
 <!-- BEGIN GENERATED uni.state.next_act — DO NOT EDIT. node viewer/generate_state_blocks.cjs -->
-**NEXT ACT: CHECKPOINT-E — the operator's.**
+**NEXT ACT: RESUME-THE-LIVE-FRONTS — AGENTS**
 
-CHECKPOINT E -- the operator's. Two images side by side at http://127.0.0.1:8103/lab/l6. He says whether they differ with NO TEXT READ, and if so whether the reason is that the MATERIAL (truth_class) changed. That is the step's falsifier and it is M8, the operator's eye.
+Two live fronts, both agent work, both measured live since 2026-08-19: (1) the whiteboard defect programme -- docs/whiteboard/DEFECTS-AND-REPAIRS.md, every repair proven on the real engine before it ships; (2) the public University assembly -- labs, course, falsification wall and contribution surfaces served from the documentation estate, every page pinned to the commit it was read from. The checkpoint this key used to name was ruled out by the operator; see was.
 
-Declared at `stages[id=4].steps[id=4.6]`. Blocked on: M8 -- the operator's eye. No gate can stand in for it, and none is being asked to. Measured 2026-07-29: both images are real and they differ -- GET /api/lab/shot?swap=0 returns 3371 bytes and ?swap=1 returns 3375 bytes, both valid PNG, sha256 6eed6e94... and 0321be29..., embedded side by side at viewer/lab/l6.html:52-53. The surface is ready; the eye is not a gate.
+Declared at `docs/whiteboard/DEFECTS-AND-REPAIRS.md and the UNI.Public estate (the University routes)`. Blocked on: undefined
 
-Retired: **L6** (Stage 4 step 4.6 -- build L6, THE GAUNTLET THEN THE CO-SIGN, shipped `6234f3d`).
+Retired: **L6** (Stage 4 step 4.6 -- build L6, THE GAUNTLET THEN THE CO-SIGN, shipped `6234f3d`); **CHECKPOINT-E** (undefined, shipped `undefined`).
 <!-- END GENERATED uni.state.next_act -->
 
 *Everything else in this file is hand-written and may be stale. Only what is inside a

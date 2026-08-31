@@ -1,0 +1,192 @@
+{
+  "schema": "uni.flagellum.transfer-prediction-record/1.0.0",
+  "recordId": "P4-TRANSFER-PREDICTION-RECORD-V1",
+  "status": "DOOR PREPARED, NOT PASSED",
+  "whatThisFileIs": "The frozen freeze-on-A / score-B-once declaration for Door P4 TRANSFER: split, baselines, scoring rule, motor-count-target derivation procedure, falsifiers, candidate sources, and an EMPTY lab-B registration. It prepares the door named in docs/EXTERNAL-DOORS-ACQUISITION-CHECKLIST.md:31-88. It is executed by experiments/predictions/p4_transfer_harness.py, which refuses to score anything not registered here.",
+  "whatThisFileDoesNotClaim": [
+    "It relabels no gate. X10_CROSS_STUDY_PARAMETER_TRANSFER remains NOT_ESTABLISHED, H-AIF-G8 remains NOT_LOCATED, G08_LOAD_TORQUE_TRANSFER remains BLOCKED_EXTERNAL. Nothing in this record moves any of them.",
+    "It reads no held-out data. No lab-B cohort exists in the repository, and the lab-A (Wadhwa 2022) holdout is SPENT: the duration channel was prospectively spent by B3 and the mark channel was burned on 2026-07-21 (D5). This record never touches either, and no future execution of it may touch the lab-A holdout.",
+    "It establishes no biological parity level, no mechanism, and no Active Inference identity.",
+    "It contains no lab-B result, no lab-B prediction score, and no motor count N chosen by hand."
+  ],
+  "authoredUtc": "2026-08-30",
+  "authoredAgainstCommit": "42701377519255dd421a36f14780def586cff596",
+  "prospectivity": "PENDING — this record is authored in the working tree and is not yet committed. Per docs/EXTERNAL-DOORS-ACQUISITION-CHECKLIST.md:59-61, prospectivity is decided by the commit graph: the commit that introduces this record (and the committed real-data power-atlas derivation of N) must be a proven strict ancestor of any commit introducing a lab-B registration or a lab-B result. PENDING flips to PROSPECTIVE only in the result commit, and only if that ancestry is proven, exactly as in experiments/predictions/b3-model-competition.prediction.json.",
+  "sources": {
+    "checklist": "docs/EXTERNAL-DOORS-ACQUISITION-CHECKLIST.md:31-88 (Door P4 — TRANSFER)",
+    "preregistration": "experiments/cross-study-preregistration.v1.json:107-109 (X10_CROSS_STUDY_PARAMETER_TRANSFER)",
+    "fsideProtocol": "hierarchical-aif/protocols/F-SIDE-MOTOR-STACK-SCORING-PREDICTION.md (frozen scoring conventions reused verbatim)"
+  },
+  "claim": {
+    "id": "H_TRANSFER_DURATION",
+    "statement": "The mechanistic parameterization frozen entirely on lab A (the artifacts pinned under split.labA below) predicts a second laboratory's commensurate raw single-motor dwell-duration observations with the predeclared advantage over the frozen baselines M1 and M2, under the frozen motor-equal NLPD scoring rule, scored once.",
+    "acceptanceCriterionVerbatim": "At least one mechanistic parameterization frozen on one laboratory/study predicts a second laboratory's commensurate raw observations with a predeclared advantage over baselines. Source-paper predictions or unit-incompatible mappings do not count.",
+    "acceptanceCriterionSource": "experiments/cross-study-preregistration.v1.json:107-109, gate X10_CROSS_STUDY_PARAMETER_TRANSFER",
+    "channel": "DURATION ONLY (durationS / stateN / rightCensored). The mark channel (nextStateN, direction, jump) is under D5/D6 quarantine and is not part of this claim."
+  },
+  "commensurabilityRequirements": {
+    "note": "A candidate lab-B cohort must satisfy ALL six axes before registration. These are REQUIREMENTS quoted/derived from docs/EXTERNAL-DOORS-ACQUISITION-CHECKLIST.md:45-56. A cohort failing any axis is registered as REFUSED-INCOMMENSURATE with the failing axis named (docs/P4-TRANSFER-DATA-ACCESS-PROTOCOL.md), never coerced.",
+    "axes": [
+      {
+        "axis": "strain",
+        "requirement": "Same organism and genotype (E. coli behavioural evidence stays separate from Salmonella/Bacillus structural; a structural dataset does not transfer a behavioural claim).",
+        "source": "docs/EXTERNAL-DOORS-ACQUISITION-CHECKLIST.md:45-46"
+      },
+      {
+        "axis": "load",
+        "requirement": "Matched viscous-load / bead-size regime (G08 needs a full multi-load surface, not one post-electrorotation regime).",
+        "source": "docs/EXTERNAL-DOORS-ACQUISITION-CHECKLIST.md:47-48"
+      },
+      {
+        "axis": "perturbation",
+        "requirement": "Same intervention family; for G08/P5, recorded onset with paired pre/post on the SAME motors.",
+        "source": "docs/EXTERNAL-DOORS-ACQUISITION-CHECKLIST.md:49-50"
+      },
+      {
+        "axis": "calibration",
+        "requirement": "Instrument calibration released with the raw data, so OBSERVED is earned.",
+        "source": "docs/EXTERNAL-DOORS-ACQUISITION-CHECKLIST.md:51"
+      },
+      {
+        "axis": "units",
+        "requirement": "The same observable (dwell duration, state, censor flag), so the frozen scoring rule transfers without a units change. Forcing a common coefficient across incompatible assays is forbidden — this is the exact axis on which the current corpus fails (cross-study-parity-report.json:653).",
+        "source": "docs/EXTERNAL-DOORS-ACQUISITION-CHECKLIST.md:52-55"
+      },
+      {
+        "axis": "observation_operator",
+        "requirement": "Same measurement model mapping latent state to recorded signal.",
+        "source": "docs/EXTERNAL-DOORS-ACQUISITION-CHECKLIST.md:56"
+      }
+    ]
+  },
+  "split": {
+    "protocol": "FREEZE_ON_A__SCORE_B_ONCE",
+    "protocolSource": "docs/EXTERNAL-DOORS-ACQUISITION-CHECKLIST.md:58-64",
+    "labA": {
+      "identity": "The existing in-repo single-motor stator-dwell corpus (Wadhwa/Berg lab) on which every parameter below was frozen. Its OWN holdout is SPENT (duration spent by B3; mark burned, D5) and is not read by any execution of this record.",
+      "frozenArtifacts": [
+        {
+          "path": "audits/phase-b/b3-model-competition-result.json",
+          "sha256": "5d7a0589e94de6b10f425f2d483e1e2a8f899d336aa59c335990209795e6b2bd",
+          "carries": "The frozen B3 competition record: M1/M2/M3 fitted parameters (read verbatim, never refitted), the frozen scale_N seconds-per-state table, holdout motor list, and the published motor-equal NLPD numbers the oracle checks reproduce.",
+          "shaCrossCheck": "Matches outcome.resultSha256 in experiments/predictions/b3-model-competition.prediction.json."
+        },
+        {
+          "path": "hierarchical-aif/results/motor_stack_aif/F_SIDE_MOTOR_STACK_SCORING_RESULT.json",
+          "sha256": "b3b12720f32c0aee3bfa456f52ae0901976e59e3b43c0f2690fa7a17386ab297",
+          "carries": "The frozen F-side motor-stack candidate parameterization (mu, tau), fitted TRAIN-ONLY on 80 lab-A motors, per-motor latents integrated out (33-node Gauss-Hermite). This is the mechanistic parameterization that transfers.",
+          "shaCrossCheck": "Matches the committed companion hierarchical-aif/results/motor_stack_aif/F_SIDE_MOTOR_STACK_SCORING.sha256."
+        },
+        {
+          "path": "audits/phase-b/b3-predictions.v1.json",
+          "sha256": "65a77ad23a8241a95d3f021d64bfb3b45bd9cda34107a17a9874a1bfca78a889",
+          "carries": "The frozen B3 prediction file (byte-identical since the prediction-only commit e5b4969), pinned here so the lab-A provenance chain is complete."
+        }
+      ],
+      "frozenParameterization": {
+        "candidate": {
+          "model": "F_MOTOR_STACK",
+          "mu": -0.41607215987582913,
+          "tau": 0.18372082607308418,
+          "nFreeParams": 2,
+          "authoritativeSource": "fitted.F_MOTOR_STACK in hierarchical-aif/results/motor_stack_aif/F_SIDE_MOTOR_STACK_SCORING_RESULT.json (sha-verified before every read; the numbers quoted here are for the human reader and are NOT the harness's source of truth)"
+        },
+        "controlContext": {
+          "model": "M3_TWO_TIMESCALE",
+          "params": [0.3933559993214189, 0.44485933051063775],
+          "role": "CONTROL_CURRENT context only — M3 is not a P4 baseline of this record; the standing adverse result (M2 out-predicts M3 on lab A) is retained in hierarchical-aif/ledgers/HIERARCHICAL-AIF-NEGATIVES-AND-PARTIALS.md and is not softened by anything here."
+        },
+        "scaleN": {
+          "note": "Frozen seconds-per-state normalisation, read verbatim (sha-verified) from cohorts.derived_eligible_1_to_8.scaleN in the B3 artifact. Applied AS FROZEN to lab B; it is part of the lab-A freeze, not a per-cohort refit.",
+          "values": {"1": 4.749152542372881, "2": 3.4826086956521736, "3": 6.350886075949368, "4": 5.062716049382717, "5": 7.948453608247423, "6": 14.389918699186993, "7": 18.245270270270268, "8": 24.52058394160584}
+        }
+      }
+    },
+    "labB": {
+      "rule": "Scored ONCE, untouched until every field of labBRegistration is established and the motor-count derivation (motorCountTarget) is committed. The harness refuses otherwise; see experiments/predictions/p4_transfer_harness.py.",
+      "singleScoreRule": "One scoring run per registered cohort sha256. A second run of the same cohort is a re-execution for determinism checking only and must produce byte-identical scores; it is never a second chance."
+    }
+  },
+  "baselines": {
+    "note": "Exactly as frozen in the B3 artifact (fitted on lab-A TRAIN only, read verbatim, never refitted on lab B or anywhere else). M2 is an adversarial baseline, never the UNI model.",
+    "M1_WEIBULL": {
+      "params": [0.6250888335850175],
+      "nFreeParams": 1,
+      "why": "The exact tau->0 limit of the F-side candidate: the nesting control. Any candidate advantage over M1 is precisely the value of the population spread."
+    },
+    "M2_LOGNORMAL": {
+      "params": [1.5783076101407152],
+      "nFreeParams": 1,
+      "why": "The strongest simple adversary on lab A (the standing adverse result: it out-predicts the mechanistic M3 mixture). If the frozen candidate cannot beat a one-parameter lognormal on lab B, the transfer claim fails on its own terms."
+    },
+    "authoritativeSource": "cohorts.derived_eligible_1_to_8.fitted in audits/phase-b/b3-model-competition-result.json (sha-verified before every read)"
+  },
+  "scoringRule": {
+    "rule": "Held-out negative log predictive density (NLPD) in nats/event, SECONDS scale, aggregated MOTOR-EQUAL (mean over motors of the per-motor mean per-event NLPD). Exactly the frozen cross-study scoring; no second implementation exists in the harness.",
+    "implementation": [
+      "hierarchical-aif/src/motor_stack_aif/score.py:35 motor_equal_nlpd (motor-equal aggregation; experimental unit is the MOTOR)",
+      "hierarchical-aif/src/motor_stack_aif/score.py:46 per_motor_means",
+      "hierarchical-aif/src/motor_stack_aif/score.py:73 contrast_with_ci (paired motor-cluster bootstrap, percentile 95%, resampling unit MOTOR, N_BOOT=2000, seed=20260717, threshold 0.0)",
+      "hierarchical-aif/src/motor_stack_aif/compare.py:189 to_seconds_scale (the single named Jacobian conversion; every reported number is on the declared SECONDS scale)",
+      "hierarchical-aif/src/motor_stack_aif/compare.py:405 score_fside_marginal_per_event (candidate per-event marginal, latent integrated — the same information set every baseline receives)",
+      "hierarchical-aif/src/motor_stack_aif/baselines.py:27 m1_weibull_logpdf and baselines.py:32 m2_lognormal_logpdf (frozen baseline densities)"
+    ],
+    "contrastConvention": "contrast = S(reference) - S(challenger=F_MOTOR_STACK); interval entirely above 0 => challenger better; entirely below 0 => reference better (ADVERSE, retained and reported); containing 0 => NOT_ESTABLISHED — never 'no difference', never 'equivalent'.",
+    "floorPolicy": "NO_FLOOR — a non-finite log density HALTS (compare.py NonFiniteScore).",
+    "predeclaredAdvantage": "X10's 'predeclared advantage over baselines' is hereby fixed as: the contrast interval S(ref)-S(F_MOTOR_STACK) lies entirely above 0 for BOTH M1_WEIBULL and M2_LOGNORMAL on the lab-B cohort, motor-equal, percentile 95%, seed 20260717. Anything less is not a pass of this door."
+  },
+  "motorCountTarget": {
+    "declaredN": {"not_established": "N is NOT invented here. No hand-chosen motor count appears anywhere in this record."},
+    "derivationProcedure": "N is derived from a REAL-DATA power atlas built on lab-A TRAIN-side data only (the 80 training motors; the spent lab-A holdout is not read): the smallest motor count at which the frozen paired motor-cluster bootstrap (score.py:73) resolves a 0.042-nat motor-equal contrast at >= 80% power, using per-motor NLPD dispersion measured on TRAIN-side arrays. The derivation artifact MUST be committed BEFORE any lab-B field is read; N is never chosen after seeing an interval width (docs/EXTERNAL-DOORS-ACQUISITION-CHECKLIST.md:61-64).",
+    "existingAtlasStatus": "hierarchical-aif/results/motor_stack_aif/power_atlas.json exists but its own truthLabel declares every cell SYNTHETIC (calibrated to recorded constants, simulated draws). It is builder-support and does NOT satisfy the real-data derivation this record requires; the checklist states the real-data number is 'not yet measured on real data' (docs/EXTERNAL-DOORS-ACQUISITION-CHECKLIST.md:62-63).",
+    "underpoweredPolicy": "A registered cohort below the derived N is SCORED ANYWAY and its verdict is reported with powerStatus UNDERPOWERED. The interval is reported at its actual width, never widened, narrowed, or reinterpreted away. Underpowered is not equivalence, and 19 motors is nesting-blind (docs/EXTERNAL-DOORS-ACQUISITION-CHECKLIST.md:61-62)."
+  },
+  "falsifiers": {
+    "preamble": "Verbatim from docs/EXTERNAL-DOORS-ACQUISITION-CHECKLIST.md:66-71. Transfer is refuted / H_PARITY fatally weakened if, on the independent cohort with everything predeclared, any of the following holds. Each is a legitimate reportable negative; none may be tuned away.",
+    "items": [
+      {
+        "id": "FALSIFIER_A_M2_MATERIAL_ADVERSE",
+        "verbatim": "(a) a simple adversary (M2 lognormal) beats the motor-stack candidate by a CI-bound material margin above the 0.042-nat floor",
+        "harnessEvaluation": "FIRES when the percentile 95% interval of S(M2_LOGNORMAL)-S(F_MOTOR_STACK) on lab B lies entirely below -0.042 nats (the CI bound nearer zero exceeds the frozen resolution floor, compare.py RESOLUTION_FLOOR_HALFWIDTH_NATS).",
+        "disposition": "legitimate reportable negative; none may be tuned away"
+      },
+      {
+        "id": "FALSIFIER_B_PARAM_RECOVERY_OOD",
+        "verbatim": "(b) parameter recovery fails on genuine out-of-distribution motors",
+        "harnessEvaluation": "NOT EVALUABLE by the scoring harness alone; it requires the identifiability/recovery machinery (audits/phase-b/b4-identifiability-robustness-runner.py lineage) run against the lab-B cohort. The harness reports this falsifier as NOT_EVALUATED_BY_THIS_HARNESS with that pointer — it is never silently marked survived.",
+        "disposition": "legitimate reportable negative; none may be tuned away"
+      },
+      {
+        "id": "FALSIFIER_C_FAILS_TO_BEAT_BASELINES",
+        "verbatim": "(c) the frozen lab-A parameterization simply fails to beat baselines on lab B's raw observations",
+        "harnessEvaluation": "FIRES when any baseline contrast (M1 or M2) resolves entirely below 0 (a baseline CI-bound beats the frozen candidate). If any baseline contrast merely contains 0, the door outcome is NOT_ESTABLISHED: the predeclared advantage is absent, X10 is not passed, and the falsifier is reported as not fired — inconclusive is neither a pass nor a refutation.",
+        "disposition": "legitimate reportable negative; none may be tuned away"
+      }
+    ]
+  },
+  "candidateSources": {
+    "note": "From docs/EXTERNAL-DOORS-ACQUISITION-CHECKLIST.md:73-78. Published single-motor bead-assay / fluorescent-switch stator-dwell datasets carrying dwell state + duration + transition target WITH motor identities. None is registered; none has been read.",
+    "candidates": [
+      {"source": "Nord 2017", "checklistCaveat": "natural target to make commensurate (load/torque anchor lineage 10.1038/s41467-021-25774-2 / 10.1038/s41467-019-13030-1 already in-repo)"},
+      {"source": "Perez-Carrasco 2022", "checklistCaveat": "natural target to make commensurate (load)"},
+      {"source": "Antani 2021", "checklistCaveat": "natural target to make commensurate (switching)"},
+      {"source": "Ito 2021", "checklistCaveat": "assembly; its 4.09 GB Class-A archive is integrity-verified but is ONE LAB, NOT A TRANSFER PAIR — it cannot by itself satisfy X10"}
+    ],
+    "excluded": [
+      {"source": "Wadhwa 2022", "reason": "HOLDOUT SPENT (D5): the duration holdout was prospectively spent by B3 and the mark channel was burned on 2026-07-21. It is lab A. It can never be lab B, and this record never touches its holdout."}
+    ]
+  },
+  "labBRegistration": {
+    "note": "EMPTY BY CONSTRUCTION. Every field below must be established, and the establishing edit must land in a commit that is a strict descendant of the commit introducing this record and the committed real-data N derivation, BEFORE any lab-B field is read. Intake steps: docs/P4-TRANSFER-DATA-ACCESS-PROTOCOL.md. The harness refuses to score while any marker below remains.",
+    "cohortSha256": {"not_established": "no commensurate lab-B cohort held as of 2026-08-30"},
+    "motorCount": {"not_established": "no commensurate lab-B cohort held as of 2026-08-30"},
+    "licence": {"not_established": "no commensurate lab-B cohort held as of 2026-08-30"},
+    "commensurabilitySignoff": {"not_established": "all six axes must be signed per axis by the operator (agents draft, never sign) — no candidate assessed as of 2026-08-30"}
+  },
+  "gatesTouched": {
+    "X10_CROSS_STUDY_PARAMETER_TRANSFER": "NOT_ESTABLISHED — unchanged by this record",
+    "H-AIF-G8": "NOT_LOCATED — unchanged by this record",
+    "G08_LOAD_TORQUE_TRANSFER": "BLOCKED_EXTERNAL — unchanged by this record"
+  },
+  "harness": "experiments/predictions/p4_transfer_harness.py (refuses unregistered sha256; refuses not_established registration; delegates every scored number to the frozen implementations cited under scoringRule; --self-test proves the refusal paths refuse and the scoring path scores, on in-memory SYNTHETIC data only)"
+}
