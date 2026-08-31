@@ -6,8 +6,8 @@ reel, and it is no longer a frozen snapshot.
 | | |
 |---|---|
 | source branch | `hierarchical-aif/motor-stack` |
-| source commit | `427013775192` |
-| files published | 741 |
+| source commit | `06a4a2a00708` |
+| files published | 744 |
 | client identifiers removed | 5 occurrence(s) across 3 file(s) |
 
 ## How this repository is updated
